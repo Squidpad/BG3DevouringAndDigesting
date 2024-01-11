@@ -13,8 +13,10 @@
 	<content contentuid="h8b5b27b2g75e0g48bcg97f9ga5b20df8cf60" version="1">Swallowed!</content>
 	<content contentuid="h19ee24eega97cg43dagbc9bgb2f1eeec925e" version="1">You are being digested! You take [1] per turn.</content>
 	<content contentuid="h130f3138g2e90g46e7gbe9bg0a073fe46ed8" version="1">Safely Swallowed</content>
-	<content contentuid="h40b0b615g5b4fg4f2ega973g1632b1f6bf88" version="1">I would never digest you!</content>
+	<content contentuid="h40b0b615g5b4fg4f2ega973g1632b1f6bf88" version="1">Safely being carried.</content>
 	<content contentuid="hcdefe4f0g5c06g4078gaaecgc566f24f38a9" version="1">Stuffed!</content>
 	<content contentuid="h4b237c03g75a6g4658gbc72g3f70fe82f658" version="1">The weight of your prey slows you down.</content>
+	<content contentuid="h55ded1e9g6c62g4d40gbcc5g6adadbf42edc" version="1">Regurgitate</content>
+	<content contentuid="h9773e0fcgc7bag4d2cga1b4gffa4ea278c08" version="1">Regurgitate all of your willing prey.</content>
 
 </contentList>
