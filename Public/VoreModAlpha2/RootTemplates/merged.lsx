@@ -5,8 +5,8 @@
 		<node id="Templates">
 			<children>
 				<node id="GameObjects">
-					<attribute id="Description" type="TranslatedString" handle="h4266263cg6fa1g437fg84afg8e7d339031df" version="2" />
-					<attribute id="DisplayName" type="TranslatedString" handle="h1f2c5352g0e6cg4fa6g90ebg9233255c69c1" version="3" />
+					<attribute id="Description" type="TranslatedString" handle="h1f2c5352g0e6cg4fa6g90ebg9233255c69c1" version="2" />
+					<attribute id="DisplayName" type="TranslatedString" handle="hbd6db74ag37feg4288g8a9egf2dbf5e5cb17" version="3" />
 					<attribute id="Icon" type="FixedString" value="Item_LOOT_GEN_Ring_C_Silver_A" />
 					<attribute id="LevelName" type="FixedString" value="" />
 					<attribute id="MapKey" type="FixedString" value="68cb4b45-ae3f-4028-9535-ebcb8381051d" />
