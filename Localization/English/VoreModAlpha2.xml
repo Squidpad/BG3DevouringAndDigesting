@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <contentList>
+<content contentuid="hbe2ba459gfae6g4b2egb8abg734abbbf8f93" version="1">May or may not contain meth.</content>
+	<content contentuid="hf92a001fg38bag4cb0g9d15ga1e654e59105" version="1">Ring of Speedrunning</content>
 	<content contentuid="h1f2c5352g0e6cg4fa6g90ebg9233255c69c1" version="1">Grants you the ability to swallow your foes whole.</content>
 	<content contentuid="hbd6db74ag37feg4288g8a9egf2dbf5e5cb17" version="1">Ring of Gluttony</content>
 	<content contentuid="heb4ad6c5g3aa6g4735g836bg95c0c032b583" version="1">Swallow Whole</content>
-	<content contentuid="ha7878dd9g671ag42a6g9ca8gbbd4522b673f" version="1">Swallow a foe or ally whole.</content>
-	<content contentuid="h0a1782aeg5b0ag4dd7g8c19g54cebae7d3a8" version="1">Foes will take damage each turn while allies will be protected.</content>
+	<content contentuid="ha7878dd9g671ag42a6g9ca8gbbd4522b673f" version="1">Swallow a foe whole.</content>
+	<content contentuid="h0a1782aeg5b0ag4dd7g8c19g54cebae7d3a8" version="1">Foes will take damage each turn.</content>
+	<content contentuid="hf1967968gea50g42d1g9474gdce71387b2d3" version="1">Swallow Whole (Endo)</content>
+	<content contentuid="h60376d5fg24b7g40e4gb8f4g0909a3d9b526" version="1">Swallow an ally whole.</content>
+	<content contentuid="hc4e89fa9g4eb2g4d4ag948dg3393c1a4af77" version="1">Allies will be protected.</content>
+	<content contentuid="h8b5b27b2g75e0g48bcg97f9ga5b20df8cf60" version="1">Swallowed!</content>
+	<content contentuid="h19ee24eega97cg43dagbc9bgb2f1eeec925e" version="1">You are being digested! You take [1] per turn.</content>
+	<content contentuid="h130f3138g2e90g46e7gbe9bg0a073fe46ed8" version="1">Safely Swallowed</content>
+	<content contentuid="h40b0b615g5b4fg4f2ega973g1632b1f6bf88" version="1">I would never digest you!</content>
+	<content contentuid="hcdefe4f0g5c06g4078gaaecgc566f24f38a9" version="1">Stuffed!</content>
+	<content contentuid="h4b237c03g75a6g4658gbc72g3f70fe82f658" version="1">The weight of your prey slows you down.</content>
+
 </contentList>

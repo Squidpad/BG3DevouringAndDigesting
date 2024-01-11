@@ -5,7 +5,7 @@ data "RootTemplate" "68cb4b45-ae3f-4028-9535-ebcb8381051d"
 data "ObjectCategory" "Jewelry"
 data "ValueOverride" "7"
 data "Rarity" "Rare"
-data "Boosts" "UnlockSpell(SP_Target_Vore)"
+data "Boosts" "UnlockSpell(SP_Target_Vore_Lethal);UnlockSpell(SP_Target_Vore_Endo)"
 
 new entry "SP_SpeedrunRing"
 type "Armor"

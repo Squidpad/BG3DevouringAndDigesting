@@ -6,5 +6,5 @@ object category "I_SP_RingOfGluttony",1,0,0,0,0,0,0,0
 new treasuretable "TUT_Chest_Potions"
 CanMerge 1
 new subtable "1,1"
-object category "I_CONS_FOOD_Vegetable_Potato_A",1,0,0,0,0,0,0,0
+object category "I_SP_SpeedrunRing",1,0,0,0,0,0,0,0
 
