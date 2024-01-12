@@ -21,7 +21,7 @@
             
                 "label": "ModLoca",
                 "type": "shell",
-                "command": "python 'C:\\Users\\TJ Calabrese\\Desktop\\bg3 multitool\\BG3ModdingTools-master\\scripts\\convert_loca.py'",
+                "command": "python 'C:\\Users\\TJ' 'Calabrese\\Desktop\\'bg3 multitool'\\BG3ModdingTools-master\\scripts\\convert_loca.py'",
                 "args": [
                     "-f",
                     "C:\\Users\\TJ Calabrese\\Documents\\.Projects\\BG3 Mods\\VoreModAlpha2\\Localization\\English\\VoreModAlpha2.loca.xml",
@@ -68,16 +68,8 @@
                 "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data",
                 "--package-paths",
                 "C:\\Users\\TJ Calabrese\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Mods",
-                "--dependency",
-                "Shared",
-                "--dependency",
-                "SharedDev",
-                "--dependency",
-                "Gustav",
-                "--dependency",
-                "GustavDev",
                 "--mod",
-                "Elemental_Mayhem"
+                "VoreModAlpha2"
             ]
         }
     ]
