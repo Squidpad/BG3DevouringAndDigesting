@@ -1,20 +1,11 @@
 StatPaths={
-    "Public/ModName/Stats/Generated/Data/FileName1.txt",
-    "Public/ModName/Stats/Generated/Data/FileName2.txt",
-    "Public/ModName/Stats/Generated/Data/FileName3.txt",
-    "Public/ModName/Stats/Generated/Data/FileName4.txt",
-    "Public/ModName/Stats/Generated/Data/FileName5.txt",
-    "Public/ModName/Stats/Generated/Data/FileName6.txt",
-    "Public/ModName/Stats/Generated/Data/FileName7.txt",
-    "Public/ModName/Stats/Generated/Data/FileName8.txt",
-    "Public/ModName/Stats/Generated/Data/FileName9.txt",
-    "Public/ModName/Stats/Generated/Data/FileName10.txt",
+    "Public/ModName/Stats/Generated/Data/Armor.txt",
+    "Public/ModName/Stats/Generated/Data/Potions.txt",
+    "Public/ModName/Stats/Generated/Data/Spell_Vore.txt",
 }
-
 
 PersistentVars = {}
 PredPreyTable = {}
-
 
 local function SP_Regurgitate(caster, spell)
     if spell == 'SP_Vore_Regurgitate' then
@@ -23,11 +14,8 @@ local function SP_Regurgitate(caster, spell)
         local predX, predY, predZ = Osi.getPosition(caster)
         local predXRotation, predYRotation, predZRotation = Osi.getRotation(caster)
         predYRotation = predYRotation * math.pi / 180
-        _P("The table, sir:")
-        _D(PredPreyTable)
         for k, v in pairs(PredPreyTable[caster]) do
-            _P(v)
-            Osi.TeleportToPosition(v, predX+2*math.cos(predYRotation), predY, predZ+2*math.sin(predYRotation))
+            Osi.TeleportToPosition(v, predX+1*math.cos(predYRotation), predY, predZ+1*math.sin(predYRotation), "", 0, 0, 0, 0, 0)
             Osi.RemoveStatus(v, 'SP_Vore_Swallowed_Endo')
             PredPreyTable[caster][k] = 'deleteme'
         end
@@ -42,14 +30,12 @@ end
 
 
 local function SP_fillPredPreyTable(caster, target, spell)
+    _D(PredPreyTable)
     if spell == 'SP_Target_Vore_Endo' or spell == 'SP_Target_Vore_Lethal' then
-        _P('step 1')
         if PredPreyTable[caster] == nil then
-            _P('step 2')
             PredPreyTable[caster] = {}
         end
         table.insert(PredPreyTable[caster], target)
-        _P('step 3')
         Osi.AddSpell(caster, 'SP_Vore_Regurgitate', 1, 0)
         PersistentVars['PredPreyTable'] = table.deepcopy(PredPreyTable)
         _D(PredPreyTable)
@@ -69,6 +55,17 @@ local function on_reset_completed()
         Ext.Stats.LoadStatsFile(statPath,1)
     end
     _P('Reloading stats!')
+end
+
+local function SP_UpdatePreyPosCombat(obj)
+    _P(obj)
+end
+
+local function SP_UpdatePreyPos(oldLeader, newLeader, group)
+    _P(oldLeader)
+    _P(newLeader)
+    _P(group)
+
 end
 
 function SP_getAllPreds()
@@ -122,5 +119,7 @@ end
 
 Ext.Osiris.RegisterListener("UsingSpellOnTarget", 6, "after", SP_fillPredPreyTable)
 Ext.Osiris.RegisterListener("CastedSpell", 5, "after", SP_Regurgitate)
+Ext.Osiris.RegisterListener("TurnStarted", 1, "after", SP_UpdatePreyPosCombat)
+Ext.Osiris.RegisterListener("EscortGroupLeaderChanged", 3, "after", SP_UpdatePreyPos)
 Ext.Events.SessionLoaded:Subscribe(OnSessionLoaded)
 Ext.Events.ResetCompleted:Subscribe(on_reset_completed)

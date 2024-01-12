@@ -9,9 +9,11 @@
 	<content contentuid="h1f2c5352g0e6cg4fa6g90ebg9233255c69c1" version="1">Grants you the ability to swallow your foes whole.</content>
 	<content contentuid="h2b052778g03ccg4c83gba5bgf4edbfe83c74" version="1">Potion of Gluttony</content>
 	<content contentuid="ha49295e1gee75g43d1ga0cag1612bc24d50c" version="1">Ring of Gluttony</content>
-	<content contentuid="heb4ad6c5g3aa6g4735g836bg95c0c032b583" version="1">Swallow Whole</content>
-	<content contentuid="ha7878dd9g671ag42a6g9ca8gbbd4522b673f" version="1">Swallow a foe whole.</content>
-	<content contentuid="h0a1782aeg5b0ag4dd7g8c19g54cebae7d3a8" version="1">Foes will take damage each turn.</content>
+	<content contentuid="hha01b4fb5g490bg4b15g9427g2050400752a4" version="1">Swallow Whole</content>
+	<content contentuid="ha7878dd9g671ag42a6g9ca8gbbd4522b673f" version="1">Swallow a creature whole.</content>
+	<content contentuid="heb4ad6c5g3aa6g4735g836bg95c0c032b583" version="1">Swallow Whole (Lethal)</content>
+	<content contentuid="ha7878dd9g671ag42a6g9ca8gbbd4522b673f" version="1">Swallow a creature whole, attempting to digest them.</content>
+	<content contentuid="h0a1782aeg5b0ag4dd7g8c19g54cebae7d3a8" version="1">Foes will take [1] damage each turn.</content>
 	<content contentuid="hf1967968gea50g42d1g9474gdce71387b2d3" version="1">Swallow Whole (Endo)</content>
 	<content contentuid="h60376d5fg24b7g40e4gb8f4g0909a3d9b526" version="1">Swallow an ally whole.</content>
 	<content contentuid="hc4e89fa9g4eb2g4d4ag948dg3393c1a4af77" version="1">Allies will be protected.</content>
