@@ -7,49 +7,47 @@ StatPaths={
 PersistentVars = {}
 PredPreyTable = {}
 
-local function SP_Regurgitate(caster, spell)
-    if string.sub(spell,0,20) == 'SP_Vore_Regurgitate_' then
+function SP_RegurgitatePrey(caster, spell)
+    if string.sub(spell,0,15) == 'SP_Regurgitate_' then
         local predX, predY, predZ = Osi.getPosition(caster)
         local predXRotation, predYRotation, predZRotation = Osi.getRotation(caster)
         predYRotation = predYRotation * math.pi / 180
-        local preyGUID = string.sub(spell, 21)
+        local preyGUID = string.sub(spell, 16)
+        local indexToRemove = 0
         for k, v in pairs(PredPreyTable[caster]) do
-            if spell == "SP_Vore_Regurgitate_All" or v == preyGUID then
-                Osi.TeleportToPosition(v, predX+1*math.cos(predYRotation), predY, predZ+1*math.sin(predYRotation), "", 0, 0, 0, 0, 0)
+            if spell == "SP_Regurgitate_All" or v == preyGUID then
+                Osi.TeleportToPosition(v, predX+1.5*math.cos(predYRotation), predY, predZ+1.5*math.sin(predYRotation), "", 0, 0, 0, 0, 0)
                 Osi.RemoveStatus(v, 'SP_Vore_Swallowed_Endo')
-                PredPreyTable[caster][k] = 'deleteme'
+                if v == preyGUID then
+                    indexToRemove = k
+                end
             end
         end
         if preyGUID ~= "All" then
+            _P('preyGUID')
+            _P(preyGUID)
             SP_RemoveCustomRegurgitate(preyGUID)
-        end
-        
-        PredPreyTable[caster] = ArrayRemove(PredPreyTable[caster])
-        if next(PredPreyTable[caster]) == nil then
+            table.remove(PredPreyTable[caster], indexToRemove)
+        else
+            PredPreyTable[caster] = nil
             Osi.RemoveStatus(caster, 'SP_Vore_Stuffed')
-            Osi.RemoveSpell(caster, 'SP_Vore_Regurgitate', 0)
-            table.remove(PredPreyTable, caster)
+            Osi.RemoveSpell(caster, 'SP_Regurgitate', 1)
         end
         PersistentVars['PredPreyTable'] = table.deepcopy(PredPreyTable)
-        _D(PredPreyTable)
     end
 end
 
-
-local function SP_FillPredPreyTable(caster, target, spell)
-    _D(PredPreyTable)
-    _P(spell)
+function SP_FillPredPreyTable(caster, target, spell)
     if spell == 'SP_Target_Vore_Endo' or spell == 'SP_Target_Vore_Lethal' then
         if PredPreyTable[caster] == nil then
             PredPreyTable[caster] = {}
         end
         table.insert(PredPreyTable[caster], target)
         SP_AddCustomRegurgitate(target)
-        Osi.AddSpell(caster, 'SP_Vore_Regurgitate', 1, 1)
+
+        Osi.AddSpell(caster, 'SP_Regurgitate', 1, 1)
         PersistentVars['PredPreyTable'] = table.deepcopy(PredPreyTable)
         _D(PredPreyTable)
-
-
     end
 end
 
@@ -62,21 +60,21 @@ function OnSessionLoaded()
     end
 end
 
-local function on_reset_completed()
+function On_reset_completed()
     for _, statPath in ipairs(StatPaths) do
         Ext.Stats.LoadStatsFile(statPath,1)
     end
     _P('Reloading stats!')
 end
 
-local function SP_UpdatePreyPosCombat(obj)
+function SP_UpdatePreyPosCombat(obj)
+    _P("Turn Changed")
     _P(obj)
 end
 
-local function SP_UpdatePreyPos(oldLeader, newLeader, group)
-    _P(oldLeader)
-    _P(newLeader)
-    _P(group)
+function SP_UpdatePreyPos(character)
+    _P("character made player")
+    _P(character)
 
 end
 
@@ -89,24 +87,35 @@ function SP_GetAllPreds()
 end
 
 function SP_AddCustomRegurgitate(characterGUID)
-    local newRegurgitate = Ext.Stats.Create("SP_Regurgitate_" .. characterGUID, "SpellData", "SP_Vore_Regurgitate")
-    newRegurgitate.DisplayName = "h339b4a78ga0a6g4b55g93fag7c8fb6725002"
-    newRegurgitate.Description = "hfed57717ga1feg4c72gad20gbaaa9d1adf1b"
-    newRegurgitate.DescriptionParams = Osi.getDisplayName(characterGUID)
+    local newRegurgitate = Ext.Stats.Create("SP_Regurgitate_" .. characterGUID, "SpellData", "SP_Regurgitate_All")
+    --newRegurgitate.DisplayName = "h339b4a78ga0a6g4b55g93fag7c8fb6725002"
+    --newRegurgitate.Description = "hfed57717ga1feg4c72gad20gbaaa9d1adf1b"
+    _P(Osi.getDisplayName(characterGUID))
+    newRegurgitate.DescriptionParams = "Regurgitate " .. Osi.getDisplayName(characterGUID)
     newRegurgitate:Sync()
-    local regurgitateBase = Ext.Stats.Get("SP_Vore_Regurgitate", "SpellData")
-    regurgitateBase.ContainerSpells = regurgitateBase.ContainerSpells .. ";SP_Regurgitate_" .. characterGUID
+
+    local regurgitateBase = Ext.Stats.Get("SP_Regurgitate")
+    local containerList = regurgitateBase.ContainerSpells
+    containerList = containerList .. ";SP_Regurgitate_" .. characterGUID
+    regurgitateBase.ContainerSpells = containerList
     regurgitateBase:Sync()
+    _P(containerList)
 end
 
 function SP_RemoveCustomRegurgitate(characterGUID)
-    local regurgitateBase = Ext.Stats.Get("SP_Vore_Regurgitate", "SpellData")
-    regurgitateBase.ContainerSpells = string.removeSubstring(regurgitateBase.ContainerSpells, "SP_Regurgitate_" .. characterGUID)
+    local regurgitateBase = Ext.Stats.Get("SP_Regurgitate")
+    local containerList = regurgitateBase.ContainerSpells
+    containerList = string.removeSubstring(containerList, ";SP_Regurgitate_" .. characterGUID)
+    regurgitateBase.ContainerSpells = containerList
     regurgitateBase:Sync()
+    _D(regurgitateBase)
 end
 
 function string.removeSubstring(s, substring)
     local x,y = string.find(s, substring)
+    if x == nil or y == nil then
+        return s
+      end
     return string.sub(t,0,x-1) .. string.sub(t,y+1)
 end
 
@@ -152,8 +161,8 @@ end
 
 
 Ext.Osiris.RegisterListener("UsingSpellOnTarget", 6, "after", SP_FillPredPreyTable)
-Ext.Osiris.RegisterListener("CastedSpell", 5, "after", SP_Regurgitate)
+Ext.Osiris.RegisterListener("CastedSpell", 5, "after", SP_RegurgitatePrey)
 Ext.Osiris.RegisterListener("TurnStarted", 1, "after", SP_UpdatePreyPosCombat)
-Ext.Osiris.RegisterListener("EscortGroupLeaderChanged", 3, "after", SP_UpdatePreyPos)
+Ext.Osiris.RegisterListener("CharacterMadePlayer", 1, "after", SP_UpdatePreyPos)
 Ext.Events.SessionLoaded:Subscribe(OnSessionLoaded)
-Ext.Events.ResetCompleted:Subscribe(on_reset_completed)
+Ext.Events.ResetCompleted:Subscribe(On_reset_completed)
