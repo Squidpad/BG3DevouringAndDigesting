@@ -63,6 +63,7 @@ data "Description" "h19ee24eega97cg43dagbc9bgb2f1eeec925e;2"
 data "DescriptionParams" "DealDamage(LevelMapValue(D6Cantrip),Acid);"
 data "TooltipDamage" "DealDamage(LevelMapValue(D6Cantrip),Acid);"
 data "TickFunctors" "DealDamage(LevelMapValue(D6Cantrip),Acid);"
+data "Boosts" "Attribute(Grounded);DetectDisturbancesBlock(true);Detach();DialogueBlock();CanShootThrough(true);SightRangeOverride(0);LeaveTriggers()"
 data "OnApplyFunctors" "BreakConcentration();"
 
 new entry "SP_Vore_Stuffed"
