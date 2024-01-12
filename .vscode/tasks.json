@@ -1,0 +1,84 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "ConvertModFiles",
+            "type": "shell",
+            "command": "",
+            "dependsOn": [
+                "ModLoca",
+                "ModLSX",
+                "CheckStats"
+            ],
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": []
+        },
+        {
+            
+                "label": "ModLoca",
+                "type": "shell",
+                "command": "python 'C:\\Users\\TJ Calabrese\\Desktop\\bg3 multitool\\BG3ModdingTools-master\\scripts\\convert_loca.py'",
+                "args": [
+                    "-f",
+                    "C:\\Users\\TJ Calabrese\\Documents\\.Projects\\BG3 Mods\\VoreModAlpha2\\Localization\\English\\VoreModAlpha2.loca.xml",
+                    "-o",
+                    "C:\\Users\\TJ Calabrese\\Documents\\.Projects\\BG3 Mods\\VoreModAlpha2\\Localization\\English\\VoreModAlpha2.loca"
+                ],
+                "group": "build",
+                "presentation": {
+                    "reveal": "silent"
+                },
+                "problemMatcher": []
+            
+        },
+        {
+            "label": "EMLSX",
+            "type": "shell",
+            "command": "python",
+            "options": {
+                "cwd": "C:\\Users\\TJ Calabrese\\Desktop\\bg3 multitool\\BG3ModdingTools-master\\scripts"
+            },
+            "args": [
+                "C:\\Users\\TJ Calabrese\\Desktop\\bg3 multitool\\BG3ModdingTools-master\\scripts\\convert_lsf.py",
+                "-f",
+                "C:\\Users\\TJ Calabrese\\Documents\\.Projects\\BG3 Mods\\VoreModAlpha2\\",
+                "-b",
+                "--ext",
+                ".lsx",
+                "--outputext",
+                ".lsf"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": []
+        },
+        
+        {
+            "label": "CheckStats",
+            "type": "process",
+            "command": "C:\\Users\\TJ Calabrese\\Documents\\.Projects\\BG3 Mods\\ConverterApp\\Tools\\StatParser.exe",
+            "args": [
+                "--game-data-path",
+                "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data",
+                "--package-paths",
+                "C:\\Users\\TJ Calabrese\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Mods",
+                "--dependency",
+                "Shared",
+                "--dependency",
+                "SharedDev",
+                "--dependency",
+                "Gustav",
+                "--dependency",
+                "GustavDev",
+                "--mod",
+                "Elemental_Mayhem"
+            ]
+        }
+    ]
+}
