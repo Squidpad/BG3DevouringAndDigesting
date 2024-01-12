@@ -1,3 +1,16 @@
+new entry "SP_Target_Vore"
+type "SpellData"
+data "SpellType" "Target"
+data "Level" "1"
+data "SpellSchool" "Illusion"
+data "ContainerSpells" "SP_Target_Vore_Lethal;SP_Target_Vore_Endo"
+data "Icon" "Action_VampireBite"
+data "DisplayName" "hha01b4fb5g490bg4b15g9427g2050400752a4;1"
+data "Description" "ha7878dd9g671ag42a6g9ca8gbbd4522b673f;6"
+data "UseCosts" "ActionPoint:1;"
+data "SpellFlags" "IsAttack;IsMelee;IsHarmful;IsLinkedSpellContainer"
+
+
 new entry "SP_Target_Vore_Endo"
 type "SpellData"
 data "SpellType" "Target"
@@ -29,6 +42,7 @@ data "CastEffect" "3fdf3e73-59a3-4518-9521-35f40374d048"
 data "TargetEffect" "5d8c64e3-f9ff-4ee0-b0b6-2a081c7244a8"
 data "SpellSoundMagnitude" "Small"
 data "Sheathing" "Sheathed"
+data "ContainerSpells" ""
 
 new entry "SP_Target_Vore_Lethal"
 type "SpellData"
@@ -41,6 +55,7 @@ data "SpellSuccess" "ApplyStatus(SP_Vore_Swallowed_Lethal,100,5);ApplyStatus(SEL
 data "DisplayName" "heb4ad6c5g3aa6g4735g836bg95c0c032b583;1"
 data "Description" "ha7878dd9g671ag42a6g9ca8gbbd4522b673f;7"
 data "ExtraDescription" "h0a1782aeg5b0ag4dd7g8c19g54cebae7d3a8;3"
+data "ExtraDescriptionParams" "DealDamage(LevelMapValue(D6Cantrip),Acid);"
 
 
 new entry "SP_Vore_Swallowed_Endo"
