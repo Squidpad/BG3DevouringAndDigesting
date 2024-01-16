@@ -1,4 +1,4 @@
-new entry "SP_Weight_Placeholder"
+new entry "SP_Prey_Weight"
 type "Object"
 using "_BaseItem"
 data "RootTemplate" "f80c2fd2-5222-44aa-a68e-b2faa808171b"
@@ -6,6 +6,7 @@ data "ValueLevel" "1"
 data "MinAmount" "1"
 data "MaxAmount" "1"
 data "Priority" "1"
+data "Weight" "0"
 data "MinLevel" "1"
 data "ValueOverride" "0"
 
