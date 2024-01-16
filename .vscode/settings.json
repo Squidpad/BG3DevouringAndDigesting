@@ -1,0 +1,9 @@
+{
+    "Lua.diagnostics.globals": [
+        "_P",
+        "_D",
+        "Osi",
+        "Ext",
+
+    ]
+}
