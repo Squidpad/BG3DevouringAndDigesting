@@ -27,6 +27,7 @@ function SP_SpellCast(caster, spell)
             end
         end
         if preyGUID ~= "All" then
+            Osi.RemoveSpell(caster, 'SP_Regurgitate_' .. preyGUID, 1)
             SP_RemoveCustomRegurgitate(preyGUID)
             table.remove(PredPreyTable[caster], indexToRemove)
         end
@@ -48,12 +49,19 @@ end
 
 
 function SP_InitialSwallowPass(caster, target, spell)
+    if(PredPreyTable[caster] ~= nil) then
+        _P(SP_GetDisplayName(caster) .. " is already a pred; Nested Vore has not been implemented yet!")
+        return
+    end
     if spell == 'SP_Target_Vore_Endo' then
         _P('Endo Vore')
         if SP_CanFitPrey(caster, target) then
-            SP_DelayCall(600, function() Osi.ApplyStatus(target, "SP_Swallowed_Endo", -1, 1, caster) end)
-            SP_DelayCall(600, function() Osi.ApplyStatus(caster, "SP_Stuffed_Endo", 1, 1, caster) end)
-            SP_DelayCall(600, function() SP_FillPredPreyTable(caster, target, 'SP_Target_Vore_Endo') end)
+            SP_DelayCall(600, function()
+                Osi.ApplyStatus(target, "SP_Swallowed_Endo", -1, 1, caster)
+                Osi.ApplyStatus(caster, "SP_Stuffed_Endo", 1, 1, caster)
+                SP_FillPredPreyTable(caster, target, 'SP_Target_Vore_Endo')
+            end
+        )
         end
     end
     if spell == 'SP_Target_Vore_Lethal' then
@@ -119,8 +127,9 @@ function SP_AddWeight(pred, prey)
     
     _P("adding weight")
     SP_DelayCall(600, 
-    function() 
-        _P("Is potato in inventory: " .. Osi.GetItemByTemplateInUserInventory('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred))
+    function()
+        _P("Is potato in inventory: ")
+        _P(Osi.GetItemByTemplateInUserInventory('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred))
         if Osi.GetItemByTemplateInUserInventory('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred) ~= nil then 
             Osi.TemplateRemoveFrom('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred, 1) 
         end 
@@ -157,9 +166,6 @@ function SP_ReduceWeight(pred, prey)
     if weightPlaceholder.Weight == nil then
         weightPlaceholder.Weight = 0
     end
-
-
-
     local newWeight = weightPlaceholder.Weight - SP_GetTotalCharacterWeight(prey)
 
     if newWeight <= 0.1 then
@@ -173,6 +179,7 @@ function SP_ReduceWeight(pred, prey)
 
     SP_DelayCall(600, 
     function() 
+        _P("Potato in inventory: ")
         _P(Osi.GetItemByTemplateInUserInventory('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred))
         if Osi.GetItemByTemplateInUserInventory('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred) ~= nil then 
             Osi.TemplateRemoveFrom('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred, 1) 
@@ -205,8 +212,8 @@ function SP_OnSessionLoaded()
         _P('init WeightPlaceholderByCategory')
         PersistentVars['WeightPlaceholderByCategory'] = false
     end
-    Ext.RegisterConsoleCommand('VoreConfig', SP_VoreConfig);
-    Ext.RegisterConsoleCommand('VoreConfigOptions', SP_VoreConfigOptions);
+    -- Ext.RegisterConsoleCommand('VoreConfig', SP_VoreConfig);
+    -- Ext.RegisterConsoleCommand('VoreConfigOptions', SP_VoreConfigOptions);
 end
 
 function SP_On_reset_completed()
@@ -243,22 +250,23 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         
     elseif status == 'SP_Item_Bound' then
         _P("Applied " .. status .. " Status to" .. object)
-    elseif status == "LIE_DYING" and Osi.HasActiveStatus(object, 'SP_Swallowed_Lethal') ~= 0 then
+    elseif status == "DOWNED" and Osi.HasActiveStatus(object, 'SP_Swallowed_Lethal') ~= 0 then
         _P(object .. " Digested")
         local pred = SP_GetPredFromPrey(object)
+        _P("pred name: " .. SP_GetDisplayName(pred))
+        _P("prey name: " .. SP_GetDisplayName(object))
         Osi.TransferItemsToCharacter(object, pred)
         _P("Inventory Transferred to " .. pred)
-        Osi.RemoveStatus(object, 'SP_Swallowed_Lethal')
-        _P('Prey Status Removed')
-        _D(PredPreyTable)
-        if PredPreyTable == nil or next(PredPreyTable[pred]) == nil then
-            PredPreyTable[pred] = nil
-            Osi.RemoveStatus(pred, 'SP_Stuffed')
-            Osi.RemoveSpell(pred, 'SP_Regurgitate', 1)
-            Osi.RemoveSpell(pred, "SP_Move_Prey_To_Me")
-        end
         
     end
+end
+
+function SP_OnDeath(character)
+    if Osi.HasActiveStatus('SP_Swallowed_Lethal') then
+        local pred = SP_GetPredFromPrey(character)
+        SP_SpellCast(pred, character)
+    end
+
 end
 
 function SP_TelePreyToPred(pred)
@@ -310,10 +318,6 @@ function SP_AddCustomRegurgitate(caster, characterGUID)
     if Ext.Stats.Get("SP_Regurgitate_" .. characterGUID) == nil then     
         local newRegurgitate = Ext.Stats.Create("SP_Regurgitate_" .. characterGUID, "SpellData", "SP_Regurgitate_One")
         newRegurgitate.DescriptionParams = SP_GetDisplayName(characterGUID)
-        newRegurgitate.SpellType = "Zone"
-        newRegurgitate.Range = 0
-        newRegurgitate.Base = 0
-        newRegurgitate.Shape = "Square"
         newRegurgitate:Sync()
     end
     SP_DelayCall(600, function() SP_AddCustomRegurgitatePart2(caster, characterGUID) end)
@@ -325,7 +329,7 @@ function SP_AddCustomRegurgitatePart2(caster, characterGUID)
         containerList = containerList .. ";SP_Regurgitate_" .. characterGUID
         regurgitateBase.ContainerSpells = containerList
         regurgitateBase:Sync()
-        _P(containerList)
+        _P("containerList: " .. containerList)
         if Osi.HasSpell(caster, 'SP_Regurgitate') ~= 0 then
             Osi.RemoveSpell(caster, 'SP_Regurgitate', 1)
         end
@@ -376,6 +380,9 @@ function SP_VoreConfigOptions()
     _P("WeightPlaceholderByCategory")
     _P(" - Divides Weight objects placed in the inventory by creature type. No gameplay difference, just might be fun.")
     _P("Current status: " .. PersistentVars["WeightPlaceholderByCategory"])
+    _P("NestedVore")
+    _P(" - Allows preds to be eaten by other preds. Very buggy right now, use at your own risk!")
+    _P("Current status: " .. PersistentVars["NestedVore"])
 end
 
 function SP_DelayCall(msDelay, func)
@@ -425,5 +432,6 @@ Ext.Osiris.RegisterListener("TurnStarted", 1, "after", SP_UpdatePreyPosCombat)
 Ext.Osiris.RegisterListener("RollResult", 6, "after", SP_RollResults)
 Ext.Osiris.RegisterListener("LevelGameplayStarted", 2, "before", SP_OnLevelChange)
 Ext.Osiris.RegisterListener("StatusApplied", 4, "after", SP_OnStatusApplied)
+Ext.Osiris.RegisterListener("Died", 1, "after", SP_OnDeath)
 Ext.Events.SessionLoaded:Subscribe(SP_OnSessionLoaded)
 Ext.Events.ResetCompleted:Subscribe(SP_On_reset_completed)
