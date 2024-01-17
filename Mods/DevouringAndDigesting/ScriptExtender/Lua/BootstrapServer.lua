@@ -1,7 +1,7 @@
 StatPaths={
-    "Public/VoreModAlpha2/Stats/Generated/Data/Armor.txt",
-    "Public/VoreModAlpha2/Stats/Generated/Data/Potions.txt",
-    "Public/VoreModAlpha2/Stats/Generated/Data/Spell_Vore.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Armor.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Potions.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Spell_Vore.txt",
 }
 
 PersistentVars = {}
@@ -21,6 +21,7 @@ function SP_SpellCast(caster, spell) -- Triggers on spell cast
             if spell == "SP_Regurgitate_All" or v == preyGUID then
                 Osi.TeleportToPosition(v, predX+RegurDist*math.cos(predYRotation), predY, predZ+RegurDist*math.sin(predYRotation), "", 0, 0, 0, 0, 0)
                 Osi.RemoveStatus(v, 'SP_Swallowed_Endo', caster)
+                Osi.RemoveStatus(v, 'SP_Swallowed_Lethal', caster)
                 SP_ReduceWeight(caster, v)
                 if v == preyGUID then
                     indexToRemove = k
@@ -42,6 +43,7 @@ function SP_SpellCast(caster, spell) -- Triggers on spell cast
             _P("Clearing Table")
             PredPreyTable[caster] = nil
             Osi.RemoveStatus(caster, 'SP_Stuffed_Endo')
+            Osi.RemoveStatus(caster, 'SP_Stuffed_Lethal')
             Osi.RemoveSpell(caster, 'SP_Regurgitate', 1)
             Osi.RemoveSpell(caster, "SP_Move_Prey_To_Me")
         end
