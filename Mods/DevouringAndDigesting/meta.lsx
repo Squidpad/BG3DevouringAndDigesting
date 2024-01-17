@@ -9,13 +9,13 @@
           <attribute id="Author" type="LSString" value="Squidpad" />
           <attribute id="CharacterCreationLevelName" type="FixedString" value="" />
           <attribute id="Description" type="LSString" value="Testing" />
-          <attribute id="Folder" type="LSString" value="VoreModAlpha2" />
+          <attribute id="Folder" type="LSString" value="DevouringAndDigesting" />
           <attribute id="GMTemplate" type="FixedString" value="" />
           <attribute id="LobbyLevelName" type="FixedString" value="" />
           <attribute id="MD5" type="LSString" value="" />
           <attribute id="MainMenuBackgroundVideo" type="FixedString" value="" />
           <attribute id="MenuLevelName" type="FixedString" value="" />
-          <attribute id="Name" type="FixedString" value="VoreModAlpha2" />
+          <attribute id="Name" type="FixedString" value="DevouringAndDigesting" />
           <attribute id="NumPlayers" type="uint8" value="4" />
           <attribute id="PhotoBooth" type="FixedString" value="" />
           <attribute id="StartupLevelName" type="FixedString" value="" />
