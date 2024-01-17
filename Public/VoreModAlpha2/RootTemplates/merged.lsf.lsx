@@ -25,9 +25,9 @@
 					<attribute id="Icon" type="FixedString" value="Item_LOOT_GEN_Ring_C_Silver_A" />
 					<attribute id="LevelName" type="FixedString" value="" />
 					<attribute id="MapKey" type="FixedString" value="91cb93c0-0e07-4b3a-a1e9-a836585146a9" />
-					<attribute id="Name" type="LSString" value="SP_SpeedrunRing" />
+					<attribute id="Name" type="LSString" value="SP_DebugRing" />
 					<attribute id="ParentTemplateId" type="FixedString" value="81d843ad-2343-4964-b5d0-3db44dfee4e1" />
-					<attribute id="Stats" type="FixedString" value="SP_SpeedrunRing" />
+					<attribute id="Stats" type="FixedString" value="SP_DebugRing" />
 					<attribute id="Type" type="FixedString" value="item" />
 					<attribute id="_OriginalFileVersion_" type="int64" value="144115188075855912" />
 					<children>

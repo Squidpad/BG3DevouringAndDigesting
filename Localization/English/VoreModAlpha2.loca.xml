@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <contentList>
-	<content contentuid="hbe2ba459gfae6g4b2egb8abg734abbbf8f93" version="1">May or may not contain meth.</content>
-	<content contentuid="hf92a001fg38bag4cb0g9d15ga1e654e59105" version="1">Ring of Speedrunning</content>
+	<content contentuid="hbe2ba459gfae6g4b2egb8abg734abbbf8f93" version="1">Have fun cheating, I guess</content>
+	<content contentuid="hf92a001fg38bag4cb0g9d15ga1e654e59105" version="1">Ring of Debuging</content>
 	<content contentuid="h86f0551cg30cag4d85g962fgb14dfd2a29b2" version="1">Predator</content>
 	<content contentuid="hdb8de1d1g2aceg4e07g89dag0793dc76a8a4" version="1">You possess the ability to swallow creatures far larger than your body would betray. While not apparent at a glance, in you lies a hunger that frightens you as much as it excites you.</content>
 	<content contentuid="h7e60efadgd577g4416gba59gc4a6ffbe7104" version="1">You can swallow other creatures whole.. but now you're so hungry...</content>
-	<content contentuid="h87505252g0da0g4b0ag9537ga89b6438fee3" version="1">Smells acidic... You're not sure you should drink it.</content>	
+	<content contentuid="h87505252g0da0g4b0ag9537ga89b6438fee3" version="1">Smells acidic... You're not sure you should drink it...</content>	
 	<content contentuid="h1f2c5352g0e6cg4fa6g90ebg9233255c69c1" version="1">Grants you the ability to swallow your foes whole.</content>
 	<content contentuid="h2b052778g03ccg4c83gba5bgf4edbfe83c74" version="1">Potion of Gluttony</content>
 	<content contentuid="ha49295e1gee75g43d1ga0cag1612bc24d50c" version="1">Ring of Gluttony</content>
@@ -36,6 +36,7 @@
 	<content contentuid="h0dc3a529gebffg4618gb118gf0a4f3bc231d" version="1">Weight Placeholder</content>
 	<content contentuid="h87214011g31adg4c68ga2eegd5ed46a04668" version="1">This represents the weight of the prey you're carrying.</content>
 	<content contentuid="h610d50d6gbd94g4a6cgab58g509d8575153d" version="1">This is in your stomach, you can't drop it.</content>
-	<content contentuid="hd984e989ge07dg4eefgb2bdg1a9ef63ba49b" version="1">Tick.</content>
+	<content contentuid="hd984e989ge07dg4eefgb2bdg1a9ef63ba49b" version="1">Digesting</content>
+	<content contentuid="heafac356gd0dcg4f8fg8bf6ge0f4b1c63ba0" version="1">You are digesting your prey</content>
 
 </contentList>
