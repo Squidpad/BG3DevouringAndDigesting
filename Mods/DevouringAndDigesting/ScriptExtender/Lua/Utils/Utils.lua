@@ -9,7 +9,7 @@ function SP_GetTotalCharacterWeight(character) -- returns character weight + the
     return (chardata.InventoryWeight.Weight + chardata.Data.Weight)/1000
 end
 
-function SP_DelayCall(msDelay, func) -- Delays a func call my msDelay milliseconds
+function SP_DelayCall(msDelay, func) -- Delays a func call by msDelay milliseconds. Preferable not to use, as time is not properly synced between server and client
     local startTime = Ext.Utils.MonotonicTime()
     local handlerId;
     handlerId = Ext.Events.Tick:Subscribe(function()
@@ -20,7 +20,7 @@ function SP_DelayCall(msDelay, func) -- Delays a func call my msDelay millisecon
     end) 
 end
 
-function SP_DelayCallTicks(ticks, func)
+function SP_DelayCallTicks(ticks, func) -- Delays a func call by ticks Ticks. Server runs at a target of 30hz, so each tick is ~33ms and 30 ticks is ~1 second. This IS synced between server and client
     if ticks <= 0 then
         func()
     else

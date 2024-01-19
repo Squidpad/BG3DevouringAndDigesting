@@ -52,13 +52,16 @@ function SP_RegurgitatePrey(pred, prey)
     if prey ~= "All" then
         Osi.RemoveSpell(caster, 'SP_Regurgitate_' .. prey, 1)
         --SP_RemoveCustomRegurgitate(prey)
-        if Osi.HasSpell(characterGUID, 'SP_Regurgitate') ~= 0 then
-            Osi.RemoveSpell(characterGUID, 'SP_Regurgitate', 1)
+        if Osi.HasSpell(pred, 'SP_Regurgitate') ~= 0 then
+            Osi.RemoveSpell(pred, 'SP_Regurgitate', 1)
         end
-        Osi.AddSpell(characterGUID, 'SP_Regurgitate', 0, 0)
+        Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
         for _, v in ipairs(markedForRemoval) do -- here's where we remove the prey from the table
             table.remove(PredPreyTable[caster], v)
-            local remainingStatusTurns = Osi.GetStatusTurns(pred, statusID)
+            local remainingStatusTurns = Osi.GetStatusTurns(pred, 'SP_Stuffed')
+            Osi.RemoveStatus(caster, 'SP_Stuffed')
+            Ext.OnNextTick(Osi.ApplyStatus(caster, 'SP_Stuffed', (remainingStatusTurns-1)*6, 1, pred))
+            
         end
         _P("prey removed: " .. prey)
         _D(PredPreyTable[caster])
@@ -68,8 +71,7 @@ function SP_RegurgitatePrey(pred, prey)
     if next(PredPreyTable) == nil or prey == 'All' or next(PredPreyTable[caster]) == nil then -- if there's no prey anywhere, if the prey was 'All', or this pred's table is now empty
         _P("Clearing Table")
         PredPreyTable[caster] = nil
-        Osi.RemoveStatus(caster, 'SP_Stuffed_Endo')
-        Osi.RemoveStatus(caster, 'SP_Stuffed_Lethal')
+        Osi.RemoveStatus(caster, 'SP_Stuffed')
         Osi.RemoveSpell(caster, 'SP_Regurgitate', 1)
         Osi.RemoveSpell(caster, "SP_Move_Prey_To_Me")
     end
@@ -88,6 +90,8 @@ function SP_GetPredFromPrey(prey) -- Given a prey, fetches their pred
     return "Not a prey"
 end
 
+---@param pred GUIDSTRING @guid of pred
+---@param prey GUIDSTRING @guid of prey
 function SP_AddWeight(pred, prey) -- Adds the weight placeholder object to the pred's inventory
     _P("Getting total weight of: " .. SP_GetDisplayNameFromGUID(prey))
 
@@ -113,7 +117,9 @@ function SP_AddWeight(pred, prey) -- Adds the weight placeholder object to the p
 )   
 end
 
-function SP_AddWeightIndiv(pred, prey) -- UNUSED adds a single weight placeholder for each prey. Won't function til SE adds Dynamic Template Modification
+---@param pred GUIDSTRING @guid of pred
+---@param prey GUIDSTRING @guid of prey
+function SP_AddWeightIndiv(pred, prey) -- UNUSED adds a single weight placeholder for each prey. Won't function til SE adds dynamic template modification, or I do something truly gormless like make a rootTemplate and item stats for every creature in the game
     local preyName = SP_GetDisplayNameFromGUID(prey)
     _P("Getting total weight of: " .. preyName)
 
@@ -131,7 +137,8 @@ function SP_AddWeightIndiv(pred, prey) -- UNUSED adds a single weight placeholde
 
 end
 
-
+---@param pred GUIDSTRING @guid of pred
+---@param prey GUIDSTRING @guid of prey
 function SP_ReduceWeight(pred, prey) -- Reduces the weight of the weight placeholder object, or removes it if it's weight is small
 
     _P("Getting total weight of: " .. SP_GetDisplayNameFromGUID(prey))
@@ -166,14 +173,17 @@ function SP_ReduceWeight(pred, prey) -- Reduces the weight of the weight placeho
 
 end
 
-function SP_RemoveWeightIndiv(pred, rootTemplate) -- UNUSED individually removes unique weight placeholder objects from pred's inventory. Won't function til SE adds Dynamic Template Modification
+---@param prey GUIDSTRING @guid of prey
+---@param itemTemplate ITEMROOT @rootTemplate of weight placeholder item
+function SP_RemoveWeightIndiv(pred, itemTemplate) -- UNUSED individually removes unique weight placeholder objects from pred's inventory. Won't function til SE adds dynamic template modification, or I do something truly gormless like make a rootTemplate and item stats for every creature in the game
     _P("removing weight object")
-    if Osi.GetItemByTemplateInUserInventory(rootTemplate, pred) ~= nil then 
-        Osi.TemplateRemoveFrom(rootTemplate, pred, 1) 
+    if Osi.GetItemByTemplateInUserInventory(itemTemplate, pred) ~= nil then 
+        Osi.TemplateRemoveFrom(itemTemplate, pred, 1) 
     end
 
 end
 
+---@param pred GUIDSTRING @guid of pred
 function SP_TelePreyToPred(pred) -- Teleports prey to pred
     _P('Prey moved to Pred Location')
     for _, v in pairs(PredPreyTable[pred]) do
@@ -183,7 +193,8 @@ end
 
 
 
-
+---@param pred GUIDSTRING @guid of pred
+---@param prey GUIDSTRING @guid of prey
 function SP_CanFitPrey(pred, prey) -- checks if eating a character would exceed your carry limit
     local predData = Ext.Entity.Get(pred)
     local predRoom = predData.EncumbranceStats["field_8"] - predData.InventoryWeight.Weight
@@ -197,8 +208,10 @@ function SP_CanFitPrey(pred, prey) -- checks if eating a character would exceed 
     
 end
 
+---@param pred GUIDSTRING @guid of pred
+---@param prey GUIDSTRING @guid of prey
+---@param eventName string @name that RollResult should look for. No predetermined values, can be whatever
 function SP_VoreCheck(pred, prey, eventName) -- Handles rolling checks
-
     if eventName == 'StruggleCheck' then
         _P("Rolling struggle check")
         Osi.RequestPassiveRollVersusSkill(prey, pred, "SkillCheck", "Strength", "Constitution", 0, 1, eventName)
@@ -215,10 +228,12 @@ function SP_VoreCheck(pred, prey, eventName) -- Handles rolling checks
     end
 end
 
-function SP_AddCustomRegurgitate(pred, characterGUID) -- adds spell for regurgitating specific creature, currently bugged and unused
-    if Ext.Stats.Get("SP_Regurgitate_" .. characterGUID) == nil then     
-        local newRegurgitate = Ext.Stats.Create("SP_Regurgitate_" .. characterGUID, "SpellData", "SP_Regurgitate_One")
-        newRegurgitate.DescriptionParams = SP_GetDisplayNameFromGUID(characterGUID)
+---@param pred GUIDSTRING @guid of pred
+---@param prey GUIDSTRING @guid of prey
+function SP_AddCustomRegurgitate(pred, prey) -- adds spell for regurgitating specific creature, currently bugged and unused
+    if Ext.Stats.Get("SP_Regurgitate_" .. prey) == nil then     
+        local newRegurgitate = Ext.Stats.Create("SP_Regurgitate_" .. prey, "SpellData", "SP_Regurgitate_One")
+        newRegurgitate.DescriptionParams = SP_GetDisplayNameFromGUID(prey)
         newRegurgitate:Sync()
     end
 
@@ -226,7 +241,7 @@ function SP_AddCustomRegurgitate(pred, characterGUID) -- adds spell for regurgit
     function() 
         local regurgitateBase = Ext.Stats.Get("SP_Regurgitate")
         local containerList = regurgitateBase.ContainerSpells
-        containerList = containerList .. ";SP_Regurgitate_" .. characterGUID
+        containerList = containerList .. ";SP_Regurgitate_" .. prey
         regurgitateBase.ContainerSpells = containerList
         regurgitateBase:Sync()
         _P("containerList: " .. containerList)
@@ -238,25 +253,27 @@ function SP_AddCustomRegurgitate(pred, characterGUID) -- adds spell for regurgit
     )
 end
 
-function SP_RemoveCustomRegurgitate(characterGUID) -- removes spell for regurgitating specific creature, currently bugged and unused
+---@param pred GUIDSTRING @guid of pred
+---@param prey GUIDSTRING @guid of prey
+function SP_RemoveCustomRegurgitate(pred, prey) -- removes spell for regurgitating specific creature, currently bugged and unused
     local regurgitateBase = Ext.Stats.Get("SP_Regurgitate")
     local containerList = regurgitateBase.ContainerSpells
-    containerList = string.removeSubstring(containerList, ";SP_Regurgitate_" .. characterGUID)
+    containerList = string.removeSubstring(containerList, ";SP_Regurgitate_" .. prey)
     _P("containerlist: " .. containerList)
     regurgitateBase.ContainerSpells = containerList
     regurgitateBase:Sync()
 
     SP_DelayCallTicks(5, 
     function()     
-        if Osi.HasSpell(characterGUID, 'SP_Regurgitate') ~= 0 then
-            Osi.RemoveSpell(characterGUID, 'SP_Regurgitate', 1)
+        if Osi.HasSpell(pred, 'SP_Regurgitate') ~= 0 then
+            Osi.RemoveSpell(pred, 'SP_Regurgitate', 1)
         end
-        Osi.AddSpell(characterGUID, 'SP_Regurgitate', 0, 1) 
+        Osi.AddSpell(pred, 'SP_Regurgitate', 0, 1) 
     end
     )
 end
 
-
+---@param character GUIDSTRING @guid of character
 function SP_MakeWeightBound(character) -- adds the 'Bound' status to the weight object so that players can't drop it
     local itemList = Ext.Entity.Get(character).InventoryOwner.PrimaryInventory:GetAllComponents().InventoryContainer.Items
     for _, v in ipairs(itemList) do
@@ -268,10 +285,19 @@ function SP_MakeWeightBound(character) -- adds the 'Bound' status to the weight 
 end
 
 
-
-function SP_VoreConfig(var, value) -- UNUSED. Console command for changing config variables
-    if type(value) ~= "boolean"  and PersistentVars[var] ~= nil then
-        PersistentVars[var] = value
+---@param var string @name of the variable to change
+---@param value boolean @value to change the variable to. If omitted, the variable will be inverted, if possible
+function SP_VoreConfig(var, value=nil) -- UNUSED. Console command for changing config variables
+    if PersistentVars[var] ~= nil then
+        if type(value) == "boolean" then
+            PersistentVars[var] = value
+        elseif type(value) == nil then
+            if type(PersistentVars[var]) == "boolean" then
+                PersistentVars[var] = not PersistentVars[var]
+            else
+                _P("Not a boolean value")
+            end
+        end
     end
 end
 

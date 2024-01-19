@@ -43,7 +43,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         if SP_CanFitPrey(caster, target) then
             SP_DelayCallTicks(5, function()
                 Osi.ApplyStatus(target, "SP_Swallowed_Endo", -1, 1, caster)
-                Osi.ApplyStatus(caster, "SP_Stuffed", 1, 1, caster)
+                Osi.ApplyStatus(caster, "SP_Stuffed", 1*6, 1, caster)
                 SP_FillPredPreyTable(caster, target, 'SP_Target_Vore_Endo')
             end
         )
@@ -68,7 +68,7 @@ function SP_RollResults(eventName, roller, rollSubject, resultType, isActiveRoll
     if eventName == "SwallowLethalCheck" and resultType ~= 0 then
         _P('Lethal Swallow Success')
         Osi.ApplyStatus(rollSubject, "SP_Swallowed_Lethal", -1, 1, roller)
-        Osi.ApplyStatus(roller, "SP_Stuffed", 1, 1, roller)
+        Osi.ApplyStatus(roller, "SP_Stuffed", 1*6, 1, roller)
         SP_FillPredPreyTable(roller, rollSubject, 'SP_Target_Vore_Lethal')
     end
     if eventName == "StruggleCheck" and resultType ~= 0 then
