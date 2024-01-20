@@ -21,12 +21,12 @@
             
                 "label": "ModLoca",
                 "type": "shell",
-                "command": "python 'C:\\Users\\TJ' 'Calabrese\\Desktop\\'bg3 multitool'\\BG3ModdingTools-master\\scripts\\convert_loca.py'",
+                "command": "python ",
                 "args": [
                     "-f",
-                    "C:\\Users\\TJ Calabrese\\Documents\\.Projects\\BG3 Mods\\DevouringAndDigesting\\Localization\\English\\DevouringAndDigesting.loca.xml",
+                    "",
                     "-o",
-                    "C:\\Users\\TJ Calabrese\\Documents\\.Projects\\BG3 Mods\\DevouringAndDigesting\\Localization\\English\\DevouringAndDigesting.loca"
+                    ""
                 ],
                 "group": "build",
                 "presentation": {
@@ -40,12 +40,12 @@
             "type": "shell",
             "command": "python",
             "options": {
-                "cwd": "C:\\Users\\TJ Calabrese\\Desktop\\bg3 multitool\\BG3ModdingTools-master\\scripts"
+                "cwd": ""
             },
             "args": [
-                "C:\\Users\\TJ Calabrese\\Desktop\\bg3 multitool\\BG3ModdingTools-master\\scripts\\convert_lsf.py",
+                "",
                 "-f",
-                "C:\\Users\\TJ Calabrese\\Documents\\.Projects\\BG3 Mods\\DevouringAndDigesting\\",
+                "",
                 "-b",
                 "--ext",
                 ".lsx",
@@ -62,12 +62,12 @@
         {
             "label": "CheckStats",
             "type": "process",
-            "command": "C:\\Users\\TJ Calabrese\\Documents\\.Projects\\BG3 Mods\\ConverterApp\\Tools\\StatParser.exe",
+            "command": "",
             "args": [
                 "--game-data-path",
                 "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data",
                 "--package-paths",
-                "C:\\Users\\TJ Calabrese\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Mods",
+                "",
                 "--mod",
                 "DevouringAndDigesting"
             ]
