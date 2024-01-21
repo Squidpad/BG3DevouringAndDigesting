@@ -1,0 +1,9 @@
+{
+    "vscode-lua-format.configPath": "lua-format.config",
+    "Lua.diagnostics.disable": [
+        "redundant-parameter"
+    ],
+    "Lua.format.enable": false,
+    "Lua.codeLens.enable": true,
+    "Lua.hover.expandAlias": false
+}

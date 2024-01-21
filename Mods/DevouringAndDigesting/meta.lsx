@@ -8,7 +8,7 @@
         <node id="ModuleInfo">
           <attribute id="Author" type="LSString" value="Squidpad" />
           <attribute id="CharacterCreationLevelName" type="FixedString" value="" />
-          <attribute id="Description" type="LSString" value="Testing" />
+          <attribute id="Description" type="LSString" value="A comprehensive vore mod for Baldur's Gate 3" />
           <attribute id="Folder" type="LSString" value="DevouringAndDigesting" />
           <attribute id="GMTemplate" type="FixedString" value="" />
           <attribute id="LobbyLevelName" type="FixedString" value="" />
