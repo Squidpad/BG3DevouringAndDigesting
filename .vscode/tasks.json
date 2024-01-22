@@ -2,50 +2,50 @@
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
     "version": "2.0.0",
+    "options": {
+        "env": {
+            "BG3_PATH": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3",
+            "LSLIB_PATH": "${workspaceFolder}\\Tools\\ConverterApp",
+            "BG3_EXTRACTED": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Extracted"
+        }
+    },
     "tasks": [
         {
             "label": "ConvertModFiles",
             "type": "shell",
-            "command": "",
+            "command": "echo Done.",
             "dependsOn": [
                 "ModLoca",
-                "ModLSX",
-                "CheckStats"
+                "EMLSX",
+                //"CheckStats"
             ],
+            "problemMatcher": []
+        },
+        {
+            "label": "ModLoca",
+            "type": "shell",
+            "command": "Tools\\PythonVEnvs\\BG3ModdingTools\\Scripts\\python.exe",
+            "args": [
+                "Tools\\BG3ModdingTools\\scripts\\convert_loca.py",
+                "-f",
+                "${workspaceFolder}\\DevouringAndDigesting\\Localization\\English\\DevouringAndDigesting.loca.xml",
+                "-o",
+                "${workspaceFolder}\\DevouringAndDigesting\\Localization\\English\\DevouringAndDigesting.loca"
+            ],
+            "group": "build",
             "presentation": {
                 "reveal": "silent"
             },
             "problemMatcher": []
         },
         {
-            
-                "label": "ModLoca",
-                "type": "shell",
-                "command": "python ",
-                "args": [
-                    "-f",
-                    "",
-                    "-o",
-                    ""
-                ],
-                "group": "build",
-                "presentation": {
-                    "reveal": "silent"
-                },
-                "problemMatcher": []
-            
-        },
-        {
             "label": "EMLSX",
             "type": "shell",
-            "command": "python",
-            "options": {
-                "cwd": ""
-            },
+            "command": "Tools\\PythonVEnvs\\BG3ModdingTools\\Scripts\\python.exe",
             "args": [
-                "",
+                "Tools\\BG3ModdingTools\\scripts\\convert_lsf.py",
                 "-f",
-                "",
+                "${workspaceFolder}\\DevouringAndDigesting",
                 "-b",
                 "--ext",
                 ".lsx",
@@ -58,16 +58,17 @@
             },
             "problemMatcher": []
         },
-        
         {
             "label": "CheckStats",
             "type": "process",
-            "command": "",
+            "command": "Tools\\ConverterApp\\Tools\\StatParser.exe",
             "args": [
                 "--game-data-path",
-                "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data",
+                "$env:BG3_PATH\\Data",
                 "--package-paths",
-                "",
+                "${env:UserProfile}\\AppData\\Local\\Larian Studios\\Baldur''s Gate 3\\Mods",
+                "--sod-path",
+                "", //TODO
                 "--mod",
                 "DevouringAndDigesting"
             ]

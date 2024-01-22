@@ -1,1 +1,5 @@
+/Tools/
+/DevouringAndDigesting/Localization/**/*.loca
+/DevouringAndDigesting/Public/DevouringAndDigesting/**/*.lsf
+/DevouringAndDigesting/Mods/DevouringAndDigesting/**/*.lsf
 /DevouringAndDigesting.zip
