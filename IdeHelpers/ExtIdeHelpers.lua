@@ -43,9 +43,12 @@ function OsiDatabase:Delete(...) end
 --- @field DB_CombatCharacters OsiDatabase|fun(Guid:string, combatID:integer) All characters in combat
 --- @field DB_Dialogs OsiDatabase|fun(Guid:string, dialog:string)|fun(GUID1:string, GUID2:string, dialog:string)|fun(GUID1:string, GUID2:string, GUID3:string, dialog:string)|fun(GUID1:string, GUID2:string, GUID3:string, GUID4:string, dialog:string) All registered dialogs for objects, the most common being the version with a single character
 
---- The Osi table contains databases as well as calls, queries, events, and custom PROC / QRY defintions, as long as they are used in a script.  
+--[[
+--- Commented to prevent this from overriding Osi type hints.
+--- The Osi table contains databases as well as calls, queries, events, and custom PROC / QRY defintions, as long as they are used in a script.
 --- @type OsiCommonDatabases|OsiDynamic
 Osi = {}
+]]--
 
 --- @alias OsirisEventType string|"before"|"after"|"beforeDelete"|"afterDelete"
 --- @alias i16vec2 int16[]
