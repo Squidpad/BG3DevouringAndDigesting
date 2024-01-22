@@ -24,6 +24,7 @@ function SP_DelayCallTicks(ticks, func) -- Delays a func call by ticks Ticks. Se
     if ticks <= 0 then
         func()
     else
+        _P("delay")
         Ext.OnNextTick(function() SP_DelayCallTicks(ticks-1, func) end)
     end
 end

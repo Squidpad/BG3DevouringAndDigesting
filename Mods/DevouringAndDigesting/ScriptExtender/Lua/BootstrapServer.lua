@@ -1,3 +1,5 @@
+---@diagnostic disable: redundant-parameter, missing-parameter
+
 StatPaths={
     "Public/DevouringAndDigesting/Stats/Generated/Data/Armor.txt",
     "Public/DevouringAndDigesting/Stats/Generated/Data/Potions.txt",
