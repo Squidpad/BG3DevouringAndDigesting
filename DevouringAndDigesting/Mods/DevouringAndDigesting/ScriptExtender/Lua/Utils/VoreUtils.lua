@@ -1,4 +1,4 @@
-Ext.Require("Utils/Utils")
+Ext.Require("Utils.lua")
 
 PredPreyTable = {} -- Keeps track of who's in who. Preds are keys, values are a numerically indexed list of their prey
 RegurgDist = 3 -- Determines how far prey spawn when regurgitated
@@ -9,14 +9,14 @@ RegurgDist = 3 -- Determines how far prey spawn when regurgitated
 ---@param spell string
 function SP_FillPredPreyTable(pred, prey, spell)
     _P("Filling Table")
-    if spell == 'SP_prey_Vore_Endo' or spell == 'SP_prey_Vore_Lethal' then
+    if spell == 'SP_Target_Vore_Endo' or spell == 'SP_Target_Vore_Lethal' then
         SP_AddWeight(pred, prey)
         if PredPreyTable[pred] == nil then
             PredPreyTable[pred] = {}
         end
         table.insert(PredPreyTable[pred], prey)
-        -- SP_AddCustomRegurgitate(pred, prey)
-        Osi.AddSpell(pred, 'SP_Regurgitate', 0, 1)
+        SP_AddCustomRegurgitate(pred, prey)
+        Osi.AddSpell(pred, "SP_Regurgitate", 0, 0)
         Osi.AddSpell(pred, "SP_Move_Prey_To_Me")
         PersistentVars['PredPreyTable'] = SP_Deepcopy(PredPreyTable)
         _D(PredPreyTable)

@@ -38,6 +38,7 @@ function SP_DelayCallTicks(ticks, func)
     if ticks <= 0 then
         func()
     else
+        _P("delay")
         Ext.OnNextTick(function()
             SP_DelayCallTicks(ticks - 1, func)
         end)
