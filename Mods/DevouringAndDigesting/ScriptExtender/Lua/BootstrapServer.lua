@@ -2,6 +2,7 @@ StatPaths={
     "Public/DevouringAndDigesting/Stats/Generated/Data/Armor.txt",
     "Public/DevouringAndDigesting/Stats/Generated/Data/Potions.txt",
     "Public/DevouringAndDigesting/Stats/Generated/Data/Spell_Vore.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Items.txt",
 }
 
 Ext.Require("Utils/Utils.lua")
@@ -14,13 +15,13 @@ PersistentVars = {}
 ---@param spell string  @internal name of spell
 ---@param spellType string  @type of spell
 ---@param spellElement string   @element of spell (like fire, lightning, etc I think)
----@param storyActionID integer
+---@param storyActionID integer @no idea
 function SP_SpellCast(caster, spell, spellType, spellElement, storyActionID) -- Triggers on spell cast
     if string.sub(spell,0,15) == 'SP_Regurgitate_' then -- format of Regurgitate spells will always be 'SP_Regurgitate_' (which is 15 characters) followed by either the guid of the prey, or 'All.' Probably possible to add some sort of extra data to the custom spell, but this is way easier
         local prey = string.sub(spell, 16) -- grabs the guid of the prey, or the string 'All' if we're regurgitating everything
         SP_RegurgitatePrey(caster, prey)
 
-        PersistentVars['PredPreyTable'] = table.deepcopy(PredPreyTable)
+        PersistentVars['PredPreyTable'] = SP_Deepcopy(PredPreyTable)
     elseif spell == "SP_Move_Prey_To_Me" then
         SP_TelePreyToPred(caster)
     end
@@ -32,27 +33,29 @@ end
 ---@param spell string  @internal name of spell
 ---@param spellType string  @type of spell
 ---@param spellElement string   @element of spell (like fire, lightning, etc I think)
----@param storyActionID integer
+---@param storyActionID integer @no idea
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID) -- Triggers when a spell is cast with a target
-    if(PredPreyTable[caster] ~= nil) then  
-        _P(SP_GetDisplayNameFromGUID(caster) .. " is already a pred; Nested Vore has not been implemented yet!")
-        return
-    end
-    if spell == 'SP_Target_Vore_Endo' then
-        _P('Endo Vore')
-        if SP_CanFitPrey(caster, target) then
-            SP_DelayCallTicks(5, function()
-                Osi.ApplyStatus(target, "SP_Swallowed_Endo", -1, 1, caster)
-                Osi.ApplyStatus(caster, "SP_Stuffed", 1*6, 1, caster)
-                SP_FillPredPreyTable(caster, target, 'SP_Target_Vore_Endo')
-            end
-        )
+    if string.find(spell, "Vore") ~= nil and Osi.HasActiveStatus(target, "SP_Inedible") == 0 then
+        if PredPreyTable[caster] ~= nil then  
+            _P(SP_GetDisplayNameFromGUID(caster) .. " is already a pred; Nested Vore has not been implemented yet!")
+            return
         end
-    end
-    if spell == 'SP_Target_Vore_Lethal' then
-        _P('Lethal Vore')
-        if SP_CanFitPrey(caster, target) then
-            SP_DelayCallTicks(5, function() SP_VoreCheck(caster, target, "SwallowLethalCheck") end)
+        if spell == 'SP_Target_Vore_Endo' then
+            _P('Endo Vore')
+            if SP_CanFitPrey(caster, target) then
+                SP_DelayCallTicks(5, function()
+                    Osi.ApplyStatus(target, "SP_Swallowed_Endo", -1, 1, caster)
+                    Osi.ApplyStatus(caster, "SP_Stuffed", 1*6, 1, caster)
+                    SP_FillPredPreyTable(caster, target, 'SP_Target_Vore_Endo')
+                end
+            )
+            end
+        end
+        if spell == 'SP_Target_Vore_Lethal' then
+            _P('Lethal Vore')
+            if SP_CanFitPrey(caster, target) then
+                SP_DelayCallTicks(5, function() SP_VoreCheck(caster, target, "SwallowLethalCheck") end)
+            end
         end
     end
 end
@@ -82,13 +85,14 @@ end
 function SP_OnSessionLoaded() -- runs on session load
     -- Persistent variables are only available after SessionLoaded is triggered!
     _D(PersistentVars)
+    _D(PredPreyTable)
     if PersistentVars['PredPreyTable'] ~= nil then
         _P('updated it')
-        PredPreyTable = table.deepcopy(PersistentVars['PredPreyTable'])
+        PredPreyTable = SP_Deepcopy(PersistentVars['PredPreyTable'])
     else
         PersistentVars['PredPreyTable'] = {}
     end
-    if PersistentVars['WeightPlaceholderByCategory'] == nil then
+    if PersistentVars['WeightPlaceholderByCategory'] == nil then -- UNUSED
         _P('init WeightPlaceholderByCategory')
         PersistentVars['WeightPlaceholderByCategory'] = false
     end
@@ -106,7 +110,7 @@ function SP_On_reset_completed() -- runs when reset command is sent to console
 end
 
 ---@param object GUIDSTRING
-function SP_OnTurn(obj) -- runs each turn in combat
+function SP_OnTurn(object) -- runs each turn in combat
     _P("Turn Changed")
     for k, _ in pairs(PredPreyTable) do
         SP_TelePreyToPred(k)
@@ -115,9 +119,11 @@ end
 
 ---@param levelName string @name of new game region
 ---@param isEditorMode integer  @no idea tbh
-function SP_OnLevelChange(level, isEditorMode) -- runs whenever you change game regions
-    for k, v in pairs(PredPreyTable) do
-        SP_SpellCast(k, 'SP_Regurgitate_All')
+function SP_OnLevelChange(levelName, isEditorMode) -- runs whenever you change game regions
+    if PredPreyTable ~= nil then
+        for k, v in pairs(PredPreyTable) do
+            SP_SpellCast(k, 'SP_Regurgitate_All')
+        end
     end
 end
 
@@ -151,7 +157,8 @@ end
 
 ---@param character CHARACTER @guid of character that died
 function SP_OnDeath(character) -- runs when someone dies
-    if Osi.HasActiveStatus('SP_Swallowed_Lethal') then
+    _P(character .. ' died.')
+    if Osi.HasActiveStatus(character, 'SP_Swallowed_Lethal') and character ~= nil then
         local pred = SP_GetPredFromPrey(character)
         SP_SpellCast(pred, character)
     end

@@ -25,17 +25,18 @@ function SP_DelayCallTicks(ticks, func) -- Delays a func call by ticks Ticks. Se
         func()
     else
         Ext.OnNextTick(function() SP_DelayCallTicks(ticks-1, func) end)
+    end
 end
 
-function string.removeSubstring(s, substring) -- returns a string with substring removed
+function SP_RemoveSubstring(s, substring) -- returns a string with substring removed
     local x,y = string.find(s, substring)
     if x == nil or y == nil then
         return s
-      end
+    end
     return string.sub(s,0,x-1) .. string.sub(s,y+1)
 end
 
-function table.deepcopy(orig, copies) -- returns a deepcopy of a table
+function SP_Deepcopy(orig, copies) -- returns a deepcopy of a table
     copies = copies or {}
     local orig_type = type(orig)
     local copy
@@ -46,9 +47,9 @@ function table.deepcopy(orig, copies) -- returns a deepcopy of a table
             copy = {}
             copies[orig] = copy
             for orig_key, orig_value in next, orig, nil do
-                copy[table.deepcopy(orig_key, copies)] = table.deepcopy(orig_value, copies)
+                copy[SP_Deepcopy(orig_key, copies)] = SP_Deepcopy(orig_value, copies)
             end
-            setmetatable(copy, table.deepcopy(getmetatable(orig), copies))
+            setmetatable(copy, SP_Deepcopy(getmetatable(orig), copies))
         end
     else -- number, string, boolean, etc
         copy = orig

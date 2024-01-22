@@ -1,7 +1,6 @@
--- B-Tree implementation by mindreframer on GitHub
--- what a legend, did it in 3 langauges in a single commit
 
---Ext.Require("Utils/")
+
+Ext.Require("Utils/Utils")
 
 PredPreyTable = {} -- Keeps track of who's in who. Preds are keys, values are a numerically indexed list of their prey
 RegurgDist = 3 -- Determines how far prey spawn when regurgitated
@@ -21,7 +20,7 @@ function SP_FillPredPreyTable(pred, prey, spell) -- Populates the PredPreyTable
         Osi.AddSpell(pred, 'SP_Regurgitate', 0, 1)
 
         Osi.AddSpell(pred, "SP_Move_Prey_To_Me")
-        PersistentVars['PredPreyTable'] = table.deepcopy(PredPreyTable)
+        PersistentVars['PredPreyTable'] = SP_Deepcopy(PredPreyTable)
         _D(PredPreyTable)
     end
 end
@@ -197,7 +196,7 @@ end
 ---@param prey GUIDSTRING @guid of prey
 function SP_CanFitPrey(pred, prey) -- checks if eating a character would exceed your carry limit
     local predData = Ext.Entity.Get(pred)
-    local predRoom = predData.EncumbranceStats["field_8"] - predData.InventoryWeight.Weight
+    local predRoom = predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight
     
     if SP_GetTotalCharacterWeight(prey) > predRoom then
         _P("Can't fit " .. SP_GetDisplayNameFromGUID(prey) .. " inside of " .. SP_GetDisplayNameFromGUID(pred) .. "'s stomach!")
@@ -258,7 +257,7 @@ end
 function SP_RemoveCustomRegurgitate(pred, prey) -- removes spell for regurgitating specific creature, currently bugged and unused
     local regurgitateBase = Ext.Stats.Get("SP_Regurgitate")
     local containerList = regurgitateBase.ContainerSpells
-    containerList = string.removeSubstring(containerList, ";SP_Regurgitate_" .. prey)
+    containerList = SP_RemoveSubstring(containerList, ";SP_Regurgitate_" .. prey)
     _P("containerlist: " .. containerList)
     regurgitateBase.ContainerSpells = containerList
     regurgitateBase:Sync()
@@ -287,7 +286,7 @@ end
 
 ---@param var string @name of the variable to change
 ---@param value boolean @value to change the variable to. If omitted, the variable will be inverted, if possible
-function SP_VoreConfig(var, value=nil) -- UNUSED. Console command for changing config variables
+function SP_VoreConfig(var, value) -- UNUSED. Console command for changing config variables
     if PersistentVars[var] ~= nil then
         if type(value) == "boolean" then
             PersistentVars[var] = value
