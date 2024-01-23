@@ -39,8 +39,8 @@ end
 ---@param storyActionID integer?
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
     if string.find(spell, "Vore") ~= nil and Osi.HasActiveStatus(target, "SP_Inedible") == 0 then
-        if (PredPreyTable[caster] ~= nil) then
-            _P(SP_GetDisplayNameFromGUID(caster) .. " is already a pred; Nested Vore has not been implemented yet!")
+        if (PredPreyTable[target] ~= nil) then
+            _P(SP_GetDisplayNameFromGUID(target) .. " is already a pred; Nested Vore has not been implemented yet!")
             return
         end
         if spell == 'SP_Target_Vore_Endo' then
