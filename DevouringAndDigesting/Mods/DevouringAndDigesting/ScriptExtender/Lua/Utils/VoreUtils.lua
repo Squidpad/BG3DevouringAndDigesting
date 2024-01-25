@@ -41,6 +41,7 @@ function SP_FillPredPreyTable(pred, prey)
 	PersistentVars['PreyTablePred'] = SP_Deepcopy(PreyPredPairs)
 	PersistentVars['PredPreyTable'] = SP_Deepcopy(PredPreyTable)
 	_D(PreyPredPairs)
+	_D(PredPreyTable)
 
 end
 
@@ -140,14 +141,23 @@ function SP_RegurgitatePrey(pred, prey, preyState, spell)
 		PreyPredPairs[v] = nil
 		_P("prey removed: " .. v)
 	end
+
+	if PredPreyTable[pred] ~= nil then
+		for i=#PredPreyTable[pred], 1, -1 do
+			if SP_TableContains(markedForRemoval, PredPreyTable[pred][i]) then
+				table.remove(PredPreyTable[pred], i)
+			end
+		end
+	end
 	
 	-- if pred has no more prey inside
     if PredPreyTable[pred] == nil or #PredPreyTable[pred] <= 0 then
         Osi.RemoveStatus(pred, 'SP_Stuffed')
         Osi.RemoveSpell(pred, 'SP_Regurgitate', 1)
     end
-	_P("New table: ")
+	_P("New tables: ")
 	_D(PreyPredPairs)
+	_D(PredPreyTable)
 	-- since SP_RegurgitatePrey is used when a prey is released for any reason (including death), I moved this here to avoid desync
 	PersistentVars['PreyPredPairs'] = SP_Deepcopy(PreyPredPairs)
 	PersistentVars['PredPreyTable'] = SP_Deepcopy(PredPreyTable)
@@ -178,7 +188,7 @@ function SP_UpdateWeight(pred)
 	
 	_P('NEW WEIGHTS ' .. pred)
 	_D(PersistentVars['PreyWeightTable'])
-	SP_DelayCallTicks(5, function() SP_MakeWeightBound(pred) end)
+	--SP_DelayCallTicks(5, function() SP_MakeWeightBound(pred) end)
 end
 
 ---@param pred GUIDSTRING @guid of pred
@@ -222,16 +232,18 @@ function SP_UpdateBelly(pred, weight)
 	elseif weight > 8 then
 		weightStage = 1
 	end
-	
+	_P('weightstage: ' .. weightStage)
+
 	-- clears overrives. might break if you change bodyshape or race or gender
 	for _, v in ipairs(BellyTableFemale[predRace][bodyShape]) do
 		Osi.RemoveCustomVisualOvirride(pred, v)
 	end
 	
 	-- delay is necessary, otherwise will not work
-	SP_DelayCall(100, function() 
+	SP_DelayCallTicks(10, function() 
 		if weightStage > 0 then
 			Osi.AddCustomVisualOverride(pred, BellyTableFemale[predRace][bodyShape][weightStage])
+			_P("belly added")
 		end
 	end)
 end

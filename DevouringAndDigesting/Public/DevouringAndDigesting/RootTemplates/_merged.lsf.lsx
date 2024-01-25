@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <save>
-	<version major="4" minor="0" revision="6" build="5" lslib_meta="v1,bswap_guids" />
+	<version major="4" minor="0" revision="9" build="328" lslib_meta="v1,bswap_guids" />
 	<region id="Templates">
 		<node id="Templates">
 			<children>
@@ -33,7 +33,7 @@
 					<children>
 						<node id="GameMaster" />
 					</children>
-				</node>		
+				</node>
 				<node id="GameObjects">
 					<attribute id="MapKey" type="FixedString" value="f3914e54-2c48-426a-a338-8e1c86ebc7be" />
 					<attribute id="Name" type="LSString" value="SP_PotionOfGluttony" />
