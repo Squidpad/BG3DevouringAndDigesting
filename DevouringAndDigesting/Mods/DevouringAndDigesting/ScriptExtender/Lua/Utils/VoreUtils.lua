@@ -480,18 +480,18 @@ function SP_MakeWeightBound(pred)
 end
 
 
-
 ---Console command for changing config variables.
 ---@param var string Name of the variable to change.
----@param value any Value to change the variable to.
-function VoreConfig(var, value)
+---@param val any Value to change the variable to.
+function VoreConfig(var, val)
     if ConfigVars.var ~= nil then
-        if type(value) == type(ConfigVars.var) then
-            ConfigVars.var = value
+        if type(val) == type(ConfigVars.var) then
+            ConfigVars.var.value = val
 			local json = Ext.Json.Stringify(ConfigVars, {Beautify = true})
 			Ext.IO.SaveFile("DevouringAndDigesting/VoreConfig.json", json)
+			_P(var .. " updated to have value " .. val)
         else
-            _P("Entered value " .. value .. " is of type " .. type(value) .. " while " .. var .. " requires a value of type " .. type(ConfigVars.var))
+            _P("Entered value " .. val .. " is of type " .. type(val) .. " while " .. var .. " requires a value of type " .. type(ConfigVars.var.value))
 		end
     end
 end
