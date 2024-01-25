@@ -1,9 +1,10 @@
 Ext.Require("Utils.lua")
 
-PredPreyTable = {} -- Keeps track of who's in who. Preds are keys, values are a numerically indexed list of their prey
+PredPreyTable = {} -- Keeps track of who's in who. Preds are keys, values are aa numerically indexed table of their prey. Used for top-down searches.
+PreyPredPairs = {} -- Pair dict where keys are prey and values are preds. Way faster to search when going up.
 RegurgDist = 3 -- Determines how far prey spawn when regurgitated
 
----Populates the PredPreyTable.
+---Populates the PredPreyTable and PreyPredPairs.
 ---@param pred CHARACTER
 ---@param prey CHARACTER
 ---@param spell string
@@ -15,11 +16,14 @@ function SP_FillPredPreyTable(pred, prey, spell)
             PredPreyTable[pred] = {}
         end
         table.insert(PredPreyTable[pred], prey)
+        PreyPredPairs[prey] = pred
         SP_AddCustomRegurgitate(pred, prey)
         Osi.AddSpell(pred, "SP_Regurgitate", 0, 0)
         Osi.AddSpell(pred, "SP_Move_Prey_To_Me")
         PersistentVars['PredPreyTable'] = SP_Deepcopy(PredPreyTable)
+        PersistentVars['PreyPredPairs'] = SP_Deepcopy(PreyPredPairs)
         _D(PredPreyTable)
+        _D(PreyPredPairs)
     end
 end
 
@@ -47,7 +51,7 @@ function SP_RegurgitatePrey(pred, prey, spell)
             Osi.RemoveStatus(predsPrey, 'SP_Swallowed_Endo', pred)
             Osi.RemoveStatus(predsPrey, 'SP_Swallowed_Lethal', pred)
             SP_ReduceWeight(pred, predsPrey)
-            if predsPrey == prey then
+            if predsPrey == prey or prey == 'All' then
                 -- mark indexes for delete instead of just deleting them since we're currently iterating through the table, we remove them later
                 table.insert(markedForRemoval, tableIndex)
             end
@@ -60,12 +64,14 @@ function SP_RegurgitatePrey(pred, prey, spell)
             Osi.RemoveSpell(pred, 'SP_Regurgitate', 1)
         end
         Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
-        for _, tableIndex in ipairs(markedForRemoval) do
+        for i=#PredPreyTable[pred], 1, -1 do
             -- here's where we remove the prey from the table
-            table.remove(PredPreyTable[pred], tableIndex)
-            local remainingStatusTurns = Osi.GetStatusTurns(pred, 'SP_Stuffed')
-            Osi.RemoveStatus(pred, 'SP_Stuffed')
-            Ext.OnNextTick(Osi.ApplyStatus(pred, 'SP_Stuffed', (remainingStatusTurns-1) * 6, 1, pred))
+            if(SP_TableContains(markedForRemoval, i)) then
+                table.remove(PredPreyTable[pred], i)
+                local remainingStatusTurns = Osi.GetStatusTurns(pred, 'SP_Stuffed')
+                Osi.RemoveStatus(pred, 'SP_Stuffed')
+                Ext.OnNextTick(Osi.ApplyStatus(pred, 'SP_Stuffed', (remainingStatusTurns-1) * 6, 1, pred))
+            end
         end
         _P("prey removed: " .. prey)
         _D(PredPreyTable[pred])
@@ -82,19 +88,6 @@ function SP_RegurgitatePrey(pred, prey, spell)
     end
 end
 
----Given a prey, fetches their pred.
----@param prey CHARACTER
-function SP_GetPredFromPrey(prey)
-    _P("Getting Pred from Prey")
-    for k, v in pairs(PredPreyTable) do
-        for _, j in pairs(v) do
-            if prey == j then
-                return k
-            end
-        end
-    end
-    return "Not a prey"
-end
 
 ---Adds the weight placeholder object to the pred's inventory.
 ---@param pred CHARACTER
@@ -221,6 +214,16 @@ function SP_CanFitPrey(pred, prey)
         return false
     else
         return true
+    end
+end
+
+---Recursively finds the top-level predator, given a prey
+---@param prey CHARACTER
+function SP_GetApexPred(prey)
+    if PreyPredPairs[prey] == nil then
+        return prey
+    else
+        return SP_GetApexPred(PreyPredPairs[prey])
     end
 end
 

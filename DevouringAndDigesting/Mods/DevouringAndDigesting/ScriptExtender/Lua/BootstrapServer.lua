@@ -96,6 +96,12 @@ function SP_OnSessionLoaded()
     else
         PersistentVars['PredPreyTable'] = {}
     end
+    if PersistentVars['PreyPredPairs'] ~= nil then
+        _P('updated it')
+        PreyPredPairs = SP_Deepcopy(PersistentVars['PreyPredPairs'])
+    else
+        PersistentVars['PreyPredPairs'] = {}
+    end
     if PersistentVars['WeightPlaceholderByCategory'] == nil then -- UNUSED
         _P('init WeightPlaceholderByCategory')
         PersistentVars['WeightPlaceholderByCategory'] = false
@@ -153,7 +159,7 @@ function SP_OnStatusApplied(object, status, cause, storyActionID)
         _P("Applied " .. status .. " Status to" .. object)
     elseif status == "DOWNED" and Osi.HasActiveStatus(object, 'SP_Swallowed_Lethal') ~= 0 then
         _P(object .. " Digested")
-        local pred = SP_GetPredFromPrey(object)
+        local pred = PreyPredPairs[object]
         _P("pred name: " .. SP_GetDisplayNameFromGUID(pred))
         _P("prey name: " .. SP_GetDisplayNameFromGUID(object))
         Osi.TransferItemsToCharacter(object, pred)
@@ -166,7 +172,7 @@ end
 function SP_OnDeath(character)
     _P(character .. ' died.')
     if Osi.HasActiveStatus(character, 'SP_Swallowed_Lethal') and character ~= nil then
-        local pred = SP_GetPredFromPrey(character)
+        local pred = PreyPredPairs[character]
         SP_SpellCast(pred, character)
     end
 
