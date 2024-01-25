@@ -4,8 +4,10 @@
 	<content contentuid="hf92a001fg38bag4cb0g9d15ga1e654e59105" version="1">Ring of Debuging</content>
 	<content contentuid="h86f0551cg30cag4d85g962fgb14dfd2a29b2" version="1">Predator</content>
 	<content contentuid="hdb8de1d1g2aceg4e07g89dag0793dc76a8a4" version="1">You possess the ability to swallow creatures far larger than your body would betray. While not apparent at a glance, in you lies a hunger that frightens you as much as it excites you.</content>
+	<content contentuid="h6402b826gd01bg43c9gb86bgc3e6663ba0b3" version="1">Inedible</content>
+	<content contentuid="hd6077824g8fceg4c66g8f15g3a043ee397f1" version="1">For whatever reason, other creatures find it impossible to eat you.</content>
 	<content contentuid="h7e60efadgd577g4416gba59gc4a6ffbe7104" version="1">You can swallow other creatures whole.. but now you're so hungry...</content>
-	<content contentuid="h87505252g0da0g4b0ag9537ga89b6438fee3" version="1">Smells acidic... You're not sure you should drink it...</content>	
+	<content contentuid="h87505252g0da0g4b0ag9537ga89b6438fee3" version="1">Smells acidic... You're not sure you should drink it...</content>
 	<content contentuid="h1f2c5352g0e6cg4fa6g90ebg9233255c69c1" version="1">Grants you the ability to swallow your foes whole.</content>
 	<content contentuid="h2b052778g03ccg4c83gba5bgf4edbfe83c74" version="1">Potion of Gluttony</content>
 	<content contentuid="ha49295e1gee75g43d1ga0cag1612bc24d50c" version="1">Ring of Gluttony</content>
@@ -32,13 +34,17 @@
 	<content contentuid="hfed57717ga1feg4c72gad20gbaaa9d1adf1b" version="1">Regurgitate [1] from your stomach.</content>
 	<content contentuid="h69f84568gc742g45aeg95a0g7b1862c77378" version="1">Regurgitate</content>
 	<content contentuid="h40bb4719g3098g4d6fg84c3g8c1b877d6b58" version="1">Regurgitate one or all of the creatures in your stomach</content>
-	<content contentuid="h6e2fad4cg2412g4a37g805cg708d26e8ab8a" version="1">Carry</content>
-	<content contentuid="h82284520g089bg4c4eg9192g0c3a028b6584" version="1">Walk while carrying your prey</content>
 	<content contentuid="h6100c187g95dbg47afg9a57ga576269a9d86" version="1">Move Prey</content>
 	<content contentuid="h5835b4c0gf8efg4e1ag920cgb4796cfdb6aa" version="1">Move all of your prey to your position.</content>
-	<content contentuid="h0dc3a529gebffg4618gb118gf0a4f3bc231d" version="1">Weight Placeholder</content>
+	<content contentuid="h0dc3a529gebffg4618gb118gf0a4f3bc231d" version="1">Prey Weight</content>
 	<content contentuid="h87214011g31adg4c68ga2eegd5ed46a04668" version="1">This represents the weight of the prey you're carrying.</content>
 	<content contentuid="h610d50d6gbd94g4a6cgab58g509d8575153d" version="1">This is in your stomach, you can't drop it.</content>
 	<content contentuid="hd984e989ge07dg4eefgb2bdg1a9ef63ba49b" version="1">Digesting</content>
 	<content contentuid="heafac356gd0dcg4f8fg8bf6ge0f4b1c63ba0" version="1">You are digesting your prey</content>
+	<content contentuid="hde5b3914gbda1g436cga5eeg8b3a99a72351" version="1">Disposal</content>
+	<content contentuid="h9e865451g0c75g453cg98b6g51bb45be5445" version="1">Releases all of your fully digested prey.</content>
+	<content contentuid="h9fde97c2gf3b3g4f37g932dg877ecd3f9502" version="1">Absorb</content>
+	<content contentuid="he813d5dbgf297g4cf3g88c5g06913a2b2fb6" version="1">Absorbs all of your fully digested prey, adding their items to your inventory.</content>
+	<content contentuid="hccc6b399ge95eg4bb9gbc9dgf6990086aa7e" version="1">Being Digested</content>
+	<content contentuid="hb7af406bg03edg4952g9838g49a2ecc066f6" version="1">It's already too late for them...</content>
 </contentList>

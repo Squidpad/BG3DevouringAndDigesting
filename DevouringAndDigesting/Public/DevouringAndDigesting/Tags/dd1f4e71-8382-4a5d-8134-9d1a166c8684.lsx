@@ -3,12 +3,12 @@
 	<version major="4" minor="0" revision="6" build="3" lslib_meta="v1,bswap_guids" />
 	<region id="Tags">
 		<node id="Tags">
-			<attribute id="Description" type="LSString" value="Character is a predator" />
-			<attribute id="DisplayDescription" type="TranslatedString" handle="hdb8de1d1g2aceg4e07g89dag0793dc76a8a4" version="1" />
-			<attribute id="DisplayName" type="TranslatedString" handle="h86f0551cg30cag4d85g962fgb14dfd2a29b2" version="3" />
+			<attribute id="Description" type="LSString" value="Unable to be eaten" />
+			<attribute id="DisplayDescription" type="TranslatedString" handle="hd6077824g8fceg4c66g8f15g3a043ee397f1" version="1" />
+			<attribute id="DisplayName" type="TranslatedString" handle="h6402b826gd01bg43c9gb86bgc3e6663ba0b3" version="3" />
 			<attribute id="Icon" type="FixedString" value="" />
-			<attribute id="Name" type="FixedString" value="Predator" />
-			<attribute id="UUID" type="guid" value="f7265d55-e88e-429e-88df-93f8e41c821c" />
+			<attribute id="Name" type="FixedString" value="Inedible" />
+			<attribute id="UUID" type="guid" value="dd1f4e71-8382-4a5d-8134-9d1a166c8684" />
 			<children>
 				<node id="Categories">
 					<children>

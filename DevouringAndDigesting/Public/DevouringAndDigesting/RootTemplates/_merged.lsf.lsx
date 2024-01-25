@@ -160,8 +160,8 @@
 					</children>
 				</node>
 				<node id="GameObjects">
-					<attribute id="MapKey" type="FixedString" value="f80c2fd2-5222-44aa-a68e-b2faa808171b" />
-					<attribute id="Name" type="LSString" value="SP_Prey_Weight" />
+					<attribute id="MapKey" type="FixedString" value="8d3b74d4-0fe6-465f-9e96-36b416f4ea6f" />
+					<attribute id="Name" type="LSString" value="SP_Prey_Weight_Fixer" />
 					<attribute id="LevelName" type="FixedString" value="" />
 					<attribute id="Type" type="FixedString" value="item" />
 					<attribute id="ParentTemplateId" type="FixedString" value="2c341835-8a11-44db-9679-4cd0c9c12594" />
@@ -170,7 +170,7 @@
 					<attribute id="PhysicsTemplate" type="FixedString" value="16db3a9b-1396-4713-8bb9-b45307a83bd5" />
 					<attribute id="DisplayName" type="TranslatedString" handle="h0dc3a529gebffg4618gb118gf0a4f3bc231d" version="1" />
 					<attribute id="Icon" type="FixedString" value="Item_CONS_FOOD_Vegetable_Potato_A" />
-					<attribute id="Stats" type="FixedString" value="SP_Prey_Weight" />
+					<attribute id="Stats" type="FixedString" value="SP_Prey_Weight_Fixer" />
 					<attribute id="Description" type="TranslatedString" handle="h87214011g31adg4c68ga2eegd5ed46a04668" version="3" />
 					<children>
 						<node id="Bounds">
