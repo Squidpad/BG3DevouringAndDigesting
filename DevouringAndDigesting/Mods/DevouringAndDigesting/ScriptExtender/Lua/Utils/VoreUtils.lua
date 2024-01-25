@@ -1,4 +1,4 @@
-Ext.Require("Utils.lua")
+Ext.Require("Utils/Utils.lua")
 Ext.Require("Utils/Config.lua")
 
 PredPreyTable = {} -- Keeps track of who's in who. Preds are keys, values are aa numerically indexed table of their prey. Used for top-down searches.
@@ -21,36 +21,38 @@ BellyTableFemale = {Human = {{
 	}}}
 
 ---Populates the PredPreyTable and PreyPredPairs.
----@param pred CHARACTER
----@param prey CHARACTER
+---@param pred CHARACTER guid of pred
+---@param prey CHARACTER guid of prey
 function SP_FillPredPreyTable(pred, prey)
     _P("Filling Table")
-    SP_AddWeight(pred, prey)
+	
 	if PreyPredPairs[prey] ~= nil then
 		_P("Transferring prey " .. prey .. " from " .. PreyPredPairs[prey] .. " to " .. pred)
 	end
-    table.insert(PredPreyTable[pred], prey)
-    PreyPredPairs[prey] = pred
-    SP_AddCustomRegurgitate(pred, prey)
-    Osi.AddSpell(pred, "SP_Regurgitate", 0, 0)
-    Osi.AddSpell(pred, "SP_Move_Prey_To_Me")
-    PersistentVars['PredPreyTable'] = SP_Deepcopy(PredPreyTable)
-    PersistentVars['PreyPredPairs'] = SP_Deepcopy(PreyPredPairs)
-    _D(PredPreyTable)
-    _D(PreyPredPairs)
+	PreyPredPairs[prey] = pred
+	if(PredPreyTable[pred] == nil) then
+		PredPreyTable[pred] = {}
+	end
+	table.insert(PredPreyTable[pred], prey)
+	
+	_P("ADDING SPELL")
+	Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
+	
+	PersistentVars['PreyTablePred'] = SP_Deepcopy(PreyPredPairs)
+	PersistentVars['PredPreyTable'] = SP_Deepcopy(PredPreyTable)
+	_D(PreyPredPairs)
 
 end
 
 ---should be called in any situation when prey must be released
----@param pred GUIDSTRING 
----@param prey GUIDSTRING 
+---@param pred GUIDSTRING 	guid of pred
+---@param prey GUIDSTRING 	guid of prey
 ---@param swallowType string internal name of Status Effect
----@param notNested bool if prey is not transferred to another stomach
-function SP_SwallowPrey(pred, prey, swallowType, notNested)
+function SP_SwallowPrey(pred, prey, swallowType)
 	Osi.ApplyStatus(prey, swallowType, -1, 1, pred)
 	Osi.ApplyStatus(pred, "SP_Stuffed", 1*6, 1, pred)
 	SP_FillPredPreyTable(pred, prey)
-	if notNested then
+	if PreyPredPairs[prey] then
 		Osi.SetDetached(prey, 1)
 		Osi.SetVisible(prey, 0)
 		PersistentVars['PreyWeightTable'][prey] = math.floor(SP_GetTotalCharacterWeight(prey)) -- instead of addweight
@@ -63,14 +65,15 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested)
 			_D(PersistentVars['DisableDownedPreyTable'])
 		end
 	end
+	SP_DelayCallTicks(5, function() SP_UpdateWeight(pred) end)
 end
 
 ---should be called in any situation when prey must be released, including pred's death
----@param pred CHARACTER
----@param prey CHARACTER
----@param preyType integer what prey to regurgitate 0 == alive, 1 == dead, 2 == all
----@param spell string
-function SP_RegurgitatePrey(pred, prey, preyType, spell)
+---@param pred CHARACTER	guid of pred
+---@param prey CHARACTER	guid of prey
+---@param preyState integer state of prey to regurgitate 0 == alive, 1 == dead, 2 == all
+---@param spell string	internal name of spell
+function SP_RegurgitatePrey(pred, prey, preyState, spell)
     _P('Starting Regurgitation')
 
     _P('Targets: ' .. prey)
@@ -79,7 +82,7 @@ function SP_RegurgitatePrey(pred, prey, preyType, spell)
     for k, v in pairs(PreyPredPairs) do
 		local preyAlive = Osi.IsDead(k)
 		_P("Prey dead: " .. preyAlive .. " " .. k)
-        if v == pred and (prey == "All" or k == prey) and (alive == 2 or (preyAlive == alive and (alive == 0 or (PersistentVars['PreyWeightTable'][k] <= PersistentVars['FakePreyWeightTable'][k] // 5)))) then
+        if v == pred and (prey == "All" or k == prey) and (preyState == 2 or (preyAlive == preyState and (preyState == 0 or (PersistentVars['PreyWeightTable'][k] <= PersistentVars['FakePreyWeightTable'][k] // 5)))) then
 			_P('Pred:' .. v)
 			_P('Prey:' .. k)
 			Osi.RemoveStatus(k, 'SP_Swallowed_Endo', pred)
@@ -88,7 +91,7 @@ function SP_RegurgitatePrey(pred, prey, preyType, spell)
 			-- if pred is a prey of another pred, prey will be transferred to the outer pred. Used when prey struggles out or pred dies, since pred cannot use regurgitate while being swallowed (INCAPACITATED)
 			if PreyPredPairs[pred] ~= nil then
 				PersistentVars['PreyWeightTable'][pred] = PersistentVars['PreyWeightTable'][pred] - PersistentVars['PreyWeightTable'][k]
-				PersistentVars['FakePreyWeightTable'][pred] = PersistentVars['FakePreyWeightTable'][pred] - PersistentVars['PreyWeightTable'][k]
+				PersistentVars['FakePreyWeightTable'][pred] = PersistentVars['FakePreyWeightTable'][pred] - PersistentVars['FakePreyWeightTable'][k]
 				if Osi.HasActiveStatus(pred, 'SP_Swallowed_Lethal') ~= 0 then
 					SP_SwallowPrey(PreyPredPairs[pred], k, 'SP_Swallowed_Lethal', false)
 				elseif Osi.HasActiveStatus(pred, 'SP_Swallowed_Endo') ~= 0 then
@@ -139,7 +142,7 @@ function SP_RegurgitatePrey(pred, prey, preyType, spell)
 	end
 	
 	-- if pred has no more prey inside
-    if #SP_GetAllPrey(pred) <= 0 then
+    if PredPreyTable[pred] == nil or #PredPreyTable[pred] <= 0 then
         Osi.RemoveStatus(pred, 'SP_Stuffed')
         Osi.RemoveSpell(pred, 'SP_Regurgitate', 1)
     end
@@ -147,6 +150,7 @@ function SP_RegurgitatePrey(pred, prey, preyType, spell)
 	_D(PreyPredPairs)
 	-- since SP_RegurgitatePrey is used when a prey is released for any reason (including death), I moved this here to avoid desync
 	PersistentVars['PreyPredPairs'] = SP_Deepcopy(PreyPredPairs)
+	PersistentVars['PredPreyTable'] = SP_Deepcopy(PredPreyTable)
 	
 	-- updates the weight of the pred
 	SP_UpdateWeight(pred)
@@ -156,7 +160,7 @@ end
 ---changes the amount of Weight Placeholders by looking for weights of all prey in pred
 ---@param pred GUIDSTRING @guid of pred
 function SP_UpdateWeight(pred)
-	local allPrey = SP_GetAllPrey(pred)
+	local allPrey = PredPreyTable[pred]
 	_P("ALLPREY")
 	_D(allPrey)
 	local newWeight = 0
@@ -165,6 +169,7 @@ function SP_UpdateWeight(pred)
 	end
 	_P("Changing weight of " .. pred .. " to " .. newWeight)
 	Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
+
 	Osi.TemplateAddTo('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred, newWeight, 0)
 	-- this is very important, it fixes inventory weight not updationg properly when removing items. this is the only solution that worked. 8d3b74d4-0fe6-465f-9e96-36b416f4ea6f is removed immediately after being added (in the main script)
 	Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
@@ -173,6 +178,7 @@ function SP_UpdateWeight(pred)
 	
 	_P('NEW WEIGHTS ' .. pred)
 	_D(PersistentVars['PreyWeightTable'])
+	SP_DelayCallTicks(5, function() SP_MakeWeightBound(pred) end)
 end
 
 ---@param pred GUIDSTRING @guid of pred
@@ -236,9 +242,9 @@ end
 function SP_ReduceWeightRecursive(character, diff)
 	if PersistentVars['PreyWeightTable'][character] ~= nil then
 		PersistentVars['PreyWeightTable'][character] = PersistentVars['PreyWeightTable'][character] - diff
-		if PersistentVars['FakePreyWeightTable'][PreyTablePred[character]] ~= nil then
-			PersistentVars['FakePreyWeightTable'][PreyTablePred[character]] = PersistentVars['FakePreyWeightTable'][PreyTablePred[character]] - diff
-			SP_ReduceWeightRecursive(PreyTablePred[character], diff)
+		if PersistentVars['FakePreyWeightTable'][PreyPredPairs[character]] ~= nil then
+			PersistentVars['FakePreyWeightTable'][PreyPredPairs[character]] = PersistentVars['FakePreyWeightTable'][PreyPredPairs[character]] - diff
+			SP_ReduceWeightRecursive(PreyPredPairs[character], diff)
 		end
 	end
 end
@@ -387,7 +393,7 @@ end
 ---@param eventName string Name that RollResult should look for. No predetermined values, can be whatever.
 function SP_VoreCheck(pred, prey, eventName)
 	local advantage = 0
-	if ConfigVars.VoreSuccessChance.value == "easy" then
+	if ConfigVars.VoreDifficulty.value == "easy" then
 		advantage = 1
 	end
     if eventName == 'StruggleCheck' then
@@ -461,6 +467,8 @@ function SP_MakeWeightBound(pred)
     end
 end
 
+
+
 ---Console command for changing config variables.
 ---@param var string Name of the variable to change.
 ---@param value any Value to change the variable to.
@@ -468,8 +476,11 @@ function VoreConfig(var, value)
     if ConfigVars.var ~= nil then
         if type(value) == type(ConfigVars.var) then
             ConfigVars.var = value
+			local json = Ext.Json.Stringify(ConfigVars, {Beautify = true})
+			Ext.IO.SaveFile("DevouringAndDigesting/VoreConfig.json", json)
         else
             _P("Entered value " .. value .. " is of type " .. type(value) .. " while " .. var .. " requires a value of type " .. type(ConfigVars.var))
+		end
     end
 end
 

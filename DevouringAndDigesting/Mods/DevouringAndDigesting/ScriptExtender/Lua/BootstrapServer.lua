@@ -11,7 +11,7 @@ Ext.Require("Utils/Config.lua")
 
 PersistentVars = {}
 
-calculateRest = true
+CalculateRest = true
 
 ---Triggers on spell cast.
 ---@param caster CHARACTER
@@ -26,7 +26,7 @@ function SP_SpellCast(caster, spell, spellType, spellElement, storyActionID)
     if string.sub(spell, 0, 15) == 'SP_Regurgitate_' then
         -- grabs the GUIDSTRING of the prey, or the string 'All' if we're regurgitating everything
         local prey = string.sub(spell, 16)
-        SP_RegurgitatePrey(caster, prey, spell)
+        SP_RegurgitatePrey(caster, prey, 0, spell)
         PersistentVars['PredPreyTable'] = SP_Deepcopy(PredPreyTable)
         PersistentVars['PreyPredPairs'] = SP_Deepcopy(PreyPredPairs)
     elseif string.sub(spell,0,10) == 'SP_Absorb_' then 
@@ -41,10 +41,10 @@ function SP_SpellCast(caster, spell, spellType, spellElement, storyActionID)
 end
 
 ---Triggers when a spell is cast with a target.
----@param caster CHARACTER
----@param target CHARACTER
----@param spell string
----@param spellType string?
+---@param caster CHARACTER guid of caster
+---@param target CHARACTER guid of target
+---@param spell string internal name of spell
+---@param spellType string? type of spell
 ---@param spellElement string? Like fire, lightning, etc I think.
 ---@param storyActionID integer?
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
@@ -54,7 +54,6 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             if SP_CanFitPrey(caster, target) then
                 SP_DelayCallTicks(5, function() 
                     SP_SwallowPrey(caster, target, 'SP_Swallowed_Endo', true)
-                    SP_DelayCallTicks(5, function() SP_UpdateWeight(caster) end)
                 end)
             end
         end
@@ -75,12 +74,11 @@ end
 ---@param isActiveRoll integer? Whether or not the rolling GUI popped up. 0 == no, 1 == yes.
 ---@param criticality CRITICALITYTYPE? Whether or not it was a crit and what kind. 0 == no crit, 1 == crit success, 2 == crit fail.
 function SP_RollResults(eventName, roller, rollSubject, resultType, isActiveRoll, criticality)
-    if eventName == "SwallowLethalCheck" and (resultType ~= 0 or ConfigVars.VoreSuccessChance.value == "debug") then
+    if eventName == "SwallowLethalCheck" and (resultType ~= 0 or ConfigVars.VoreDifficulty.value == "debug") then
         _P('Lethal Swallow Success by ' .. roller .. ' on ' .. rollSubject)
         SP_SwallowPrey(roller, rollSubject, "SP_Swallowed_Lethal", true)
-        SP_DelayCallTicks(5, function() SP_UpdateWeight(roller) end)
     end
-    if eventName == "StruggleCheck" and (resultType ~= 0 or ConfigVars.VoreSuccessChance.value == "debug") then
+    if eventName == "StruggleCheck" and (resultType ~= 0 or ConfigVars.VoreDifficulty.value == "debug") then
         _P('Struggle Success by ' .. roller .. ' against ' .. rollSubject)
 		SP_RegurgitatePrey(rollSubject, roller, 0, "") -- now only the prey who struggled out will escape
     end
@@ -115,14 +113,15 @@ function SP_OnSessionLoaded()
 		PersistentVars['DisableDownedPreyTable'] = {}
 	end
     -- Lets you config during runtime
-    Ext.RegisterConsoleCommand('VoreConfig', SP_Config);
-    Ext.RegisterConsoleCommand('VoreConfigOptions', SP_ConfigOptions);
+    Ext.RegisterConsoleCommand('VoreConfig', VoreConfig);
+    Ext.RegisterConsoleCommand('VoreConfigOptions', VoreConfigOptions);
 end
 
 --Runs when reset command is sent to console.
 function SP_On_reset_completed()
     for _, statPath in ipairs(StatPaths) do
         _P(statPath)
+---@diagnostic disable-next-line: undefined-field
         Ext.Stats.LoadStatsFile(statPath, 1)
     end
     _P('Reloading stats!')
@@ -138,23 +137,21 @@ function SP_OnTurn(character)
 end
 
 ---Runs whenever you change game regions.
----@param levelName string? Name of new game region.
----@param isEditorMode integer?
-function SP_OnLevelChange(levelName, isEditorMode)
+---@param level string? Name of new game region.
+function SP_OnLevelChange(level)
     -- for some reason this triggers when you load game from main menu, tried changing to what event it's subscribed
 	_P('LEVEL CHANGE')
 	_D(level)
 	_P('Level changed to ' .. level)
 
-    for k, v in pairs(PreyTablePred) do
+    for k, v in pairs(PreyPredPairs) do
         SP_RegurgitatePrey(v, k, 2, "")
     end
-	PreyTablePred = {}
+	PreyPredPairs = {}
 	PersistentVars['PreyTablePred'] = {}
 	PersistentVars['PreyWeightTable'] = {}
 	PersistentVars['FakePreyWeightTable'] = {}
 	PersistentVars['DisableDownedPreyTable'] = {}
-end
 end
 
 ---Runs each time a status is applied.
@@ -164,10 +161,10 @@ end
 ---@param storyActionID integer?
 function SP_OnStatusApplied(object, status, cause, storyActionID)
     if status == 'SP_Digesting' then
-        for _, v in ipairs(SP_GetAllPrey(object)) do
+        for _, v in ipairs(PredPreyTable[object]) do
 			local alive = (Osi.IsDead(v) == 0)
 			if alive then
-                if !ConfigVars.PerformanceMode.value then
+                if not ConfigVars.PerformanceMode.value then
 				    Osi.TeleportTo(v, object, "", 0, 0, 0, 0, 0)
                 end
 				if Osi.HasActiveStatus(v, 'SP_Swallowed_Lethal') == 1 then
@@ -176,10 +173,10 @@ function SP_OnStatusApplied(object, status, cause, storyActionID)
 			end
         end 
     elseif status == 'SP_Inedible' then
-        Osi.RemoveStatus(object, 'SP_Inedible', nil)
+        Osi.RemoveStatus(object, 'SP_Inedible', "")
 
     elseif status == 'SP_PotionOfGluttony_Status' then
-        Osi.RemoveStatus(object, 'SP_PotionOfGluttony_Status', nil)
+        Osi.RemoveStatus(object, 'SP_PotionOfGluttony_Status', "")
 
     elseif status == 'SP_Item_Bound' then
         _P("Applied " .. status .. " Status to " .. object)
@@ -191,8 +188,8 @@ end
 ---@param character CHARACTER
 function SP_OnDeath(character)
 	 -- if character was prey
-     if PreyTablePred[character] ~= nil then
-        local pred = PreyTablePred[character]
+     if PreyPredPairs[character] ~= nil then
+        local pred = PreyPredPairs[character]
 		_P(character .. " was digested by " .. pred .. " and DIED")
 		SP_RegurgitatePrey(character, 'All', 2, "")
 		Osi.RemoveStatus(character, 'SP_Swallowed_Endo', pred)
@@ -231,17 +228,18 @@ end
 ---@param character CHARACTER
 function SP_OnShortRest(character)
 	-- this is necessary to avoid multiple calls of this function (for each party member)
-	if calculateRest == false then
+	if CalculateRest == false then
 		return
 	end
-	calculateRest = false
+	CalculateRest = false
 	
 	_P('SP_OnShortRest')
 	
 	for k, v in pairs(PersistentVars['PreyWeightTable']) do
 		if Osi.IsDead(k) == 1 then
 			-- local preyWeightDiff = PersistentVars['FakePreyWeightTable'][k] // 5
-			local preyWeightDiff = 20
+			local preyWeightDiff = tonumber(ConfigVars.WeightLossRate.value) * 1
+
 			-- prey's weight after digestion should not be smaller then 1/5th of their original (fake) weight
 			if (v - preyWeightDiff) < (PersistentVars['FakePreyWeightTable'][k] // 5) then
 				preyWeightDiff = v - PersistentVars['FakePreyWeightTable'][k] // 5
@@ -250,14 +248,14 @@ function SP_OnShortRest(character)
 		end
     end
 	
-	local preds = SP_GetUniquePreds()
+	local preds = SP_GetKeys(PredPreyTable)
 	for k, v in pairs(preds) do
         SP_UpdateWeight(k)
     end
 	_D(PersistentVars['PreyWeightTable'])
 	_D(PersistentVars['FakePreyWeightTable'])
 	-- this is necessary to avoid multiple calls of this function (for each party member)
-	SP_DelayCall(50, function() calculateRest = true end)
+	SP_DelayCall(50, function() CalculateRest = true end)
 end
 
 ---fires once after long rest
@@ -267,7 +265,8 @@ function SP_OnLongRest()
 	for k, v in pairs(PersistentVars['PreyWeightTable']) do
 		if Osi.IsDead(k) == 1 then
 			-- local preyWeightDiff = PersistentVars['FakePreyWeightTable'][k] // 5
-			local preyWeightDiff = 70
+			local preyWeightDiff = tonumber(ConfigVars.WeightLossRate.value) * 4
+
 			-- prey's weight after digestion should not be smaller then 1/5th of their original (fake) weight
 			if (v - preyWeightDiff) < (PersistentVars['FakePreyWeightTable'][k] // 5) then
 				preyWeightDiff = v - PersistentVars['FakePreyWeightTable'][k] // 5
@@ -276,7 +275,7 @@ function SP_OnLongRest()
 		end
     end
 	
-	local preds = SP_GetUniquePreds()
+	local preds = SP_GetKeys(PredPreyTable)
 	for k, v in pairs(preds) do
         SP_UpdateWeight(k)
     end

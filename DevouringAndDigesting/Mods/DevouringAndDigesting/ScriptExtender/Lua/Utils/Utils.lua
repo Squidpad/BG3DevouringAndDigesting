@@ -7,7 +7,7 @@ end
 
 ---Returns character weight + their inventory weight.
 ---@param character CHARACTER
----@return string
+---@return number
 function SP_GetTotalCharacterWeight(character)
     local charData = Ext.Entity.Get(character)
     _P("Total weight of " .. SP_GetDisplayNameFromGUID(character) .. " is " ..
@@ -46,8 +46,8 @@ function SP_DelayCallTicks(ticks, func)
 end
 
 ---Returns a string with substring removed.
----@param string string
----@param substring string
+---@param string string start string
+---@param substring string substring to remove
 ---@return string
 function SP_RemoveSubstring(string, substring)
     local startPos, endPos = string.find(string, substring)
@@ -58,8 +58,8 @@ function SP_RemoveSubstring(string, substring)
 end
 
 ---Returns a deepcopy of a table.
----@param table table
----@param copies table?
+---@param table table table to copy
+---@param copies table? do not pass anything here
 function SP_Deepcopy(table, copies)
     copies = copies or {}
     local origType = type(table)
@@ -82,9 +82,17 @@ function SP_Deepcopy(table, copies)
     return copy
 end
 
+function SP_GetKeys(table)
+    local keys = {}
+    for k, _ in pairs(table) do
+        table.insert(keys, k)
+    end
+    return keys
+end
+
 ---Checks if an element is in the values of a table
----@param table
----@param element
+---@param table table table to query
+---@param element any element to query with
 function SP_TableContains(table, element)
     for _, value in pairs(table) do
       if value == element then
@@ -94,21 +102,3 @@ function SP_TableContains(table, element)
     return false
 end
 
----Checks to see if a file exists
----@param file
-function file_exists(file)
-    local f = io.open(file, "rb")
-    if f then f:close() end
-    return f ~= nil
-end
-
----get all lines from a file, returns an empty list/table if the file does not exist
----@param file
-function lines_from(file)
-    if not file_exists(file) then return {} end
-    local lines = {}
-    for line in io.lines(file) do 
-      lines[#lines + 1] = line
-    end
-    return lines
-end
