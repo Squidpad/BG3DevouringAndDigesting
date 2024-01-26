@@ -3,19 +3,15 @@ function SP_ResetConfig() --reset config to standard version
     ConfigFailed = 0
    local vrs = [[
     {
-      "PerformanceMode": {
-        "description": "For low-end systems. Currently just makes updating prey location outside of combat manual.",
-        "value": "false"
-      },
       "VoreDifficulty": {
         "description": "Determines how hard it is to swallow non-consenting characters. Possible values: \"default\" = checks rolled normally, \"easy\" = you make checks with advantage, \"debug\" = you always succeed",
         "value": "default"
       },
-      "SlowWeightLoss": {
+      "SlowDigestion": {
         "description": "If true, you will not lose weight until you rest. If false, you lose it immediately upon finishing digestion",
         "value": "true"
       },
-      "WeightLossRate": {
+      "DigestionRate": {
         "description": "Determines how much weight a pred loses after each short rest. You lose quadruple this value after a long rest",
         "value": "20"
       }

@@ -7,7 +7,7 @@
 			<attribute id="DisplayDescription" type="TranslatedString" handle="hdb8de1d1g2aceg4e07g89dag0793dc76a8a4" version="1" />
 			<attribute id="DisplayName" type="TranslatedString" handle="h86f0551cg30cag4d85g962fgb14dfd2a29b2" version="3" />
 			<attribute id="Icon" type="FixedString" value="" />
-			<attribute id="Name" type="FixedString" value="Predator" />
+			<attribute id="Name" type="FixedString" value="PREDATOR" />
 			<attribute id="UUID" type="guid" value="f7265d55-e88e-429e-88df-93f8e41c821c" />
 			<children>
 				<node id="Categories">

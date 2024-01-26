@@ -11,7 +11,7 @@ end
 function SP_GetTotalCharacterWeight(character)
     local charData = Ext.Entity.Get(character)
     _P("Total weight of " .. SP_GetDisplayNameFromGUID(character) .. " is " ..
-           (charData.InventoryWeight.Weight + charData.Data.Weight) / 500 .. " lbs")
+           (charData.InventoryWeight.Weight + charData.Data.Weight) / 1000 .. " kg")
     return (charData.InventoryWeight.Weight + charData.Data.Weight) / 1000
 end
 
@@ -38,7 +38,6 @@ function SP_DelayCallTicks(ticks, func)
     if ticks <= 0 then
         func()
     else
-        _P("delay")
         Ext.OnNextTick(function()
             SP_DelayCallTicks(ticks - 1, func)
         end)
@@ -46,8 +45,8 @@ function SP_DelayCallTicks(ticks, func)
 end
 
 ---Returns a string with substring removed.
----@param string string start string
----@param substring string substring to remove
+---@param string string
+---@param substring string
 ---@return string
 function SP_RemoveSubstring(string, substring)
     local startPos, endPos = string.find(string, substring)
@@ -58,8 +57,8 @@ function SP_RemoveSubstring(string, substring)
 end
 
 ---Returns a deepcopy of a table.
----@param table table table to copy
----@param copies table? do not pass anything here
+---@param table table
+---@param copies table?
 function SP_Deepcopy(table, copies)
     copies = copies or {}
     local origType = type(table)
@@ -82,14 +81,6 @@ function SP_Deepcopy(table, copies)
     return copy
 end
 
-function SP_GetKeys(table)
-    local keys = {}
-    for k, _ in pairs(table) do
-        table.insert(keys, k)
-    end
-    return keys
-end
-
 ---Checks if an element is in the values of a table
 ---@param table table table to query
 ---@param element any element to query with
@@ -101,4 +92,3 @@ function SP_TableContains(table, element)
     end
     return false
 end
-

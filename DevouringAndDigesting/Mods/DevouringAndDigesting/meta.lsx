@@ -6,9 +6,9 @@
       <children>
         <node id="Dependencies" />
         <node id="ModuleInfo">
-          <attribute id="Author" type="LSString" value="Squidpad" />
+          <attribute id="Author" type="LSString" value="Squidpad, vivi344, mrmordurur" />
           <attribute id="CharacterCreationLevelName" type="FixedString" value="" />
-          <attribute id="Description" type="LSString" value="Testing" />
+          <attribute id="Description" type="LSString" value="A comprehensive vore mod for BG3" />
           <attribute id="Folder" type="LSString" value="DevouringAndDigesting" />
           <attribute id="GMTemplate" type="FixedString" value="" />
           <attribute id="LobbyLevelName" type="FixedString" value="" />
@@ -22,10 +22,10 @@
           <attribute id="Tags" type="LSString" value="" />
           <attribute id="Type" type="FixedString" value="Add-on" />
           <attribute id="UUID" type="FixedString" value="c8e61d7e-9871-4548-a861-a8fced3ac4bd" />
-          <attribute id="Version64" type="int64" value="140737488355328" />
+          <attribute id="Version64" type="int64" value="281474976710656" />
           <children>
             <node id="PublishVersion">
-              <attribute id="Version64" type="int64" value="140737488355328" />
+              <attribute id="Version64" type="int64" value="281474976710656" />
             </node>
             <node id="Scripts" />
             <node id="TargetModes">

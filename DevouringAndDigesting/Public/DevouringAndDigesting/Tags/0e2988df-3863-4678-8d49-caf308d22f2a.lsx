@@ -4,8 +4,8 @@
 	<region id="Tags">
 		<node id="Tags">
 			<attribute id="Description" type="LSString" value="The weight of a stomach" />
-			<attribute id="DisplayDescription" type="TranslatedString" handle="h87214011g31adg4c68ga2eegd5ed46a04668" version="1" />
-			<attribute id="DisplayName" type="TranslatedString" handle="h0dc3a529gebffg4618gb118gf0a4f3bc231d" version="3" />
+			<attribute id="DisplayDescription" type="TranslatedString" handle="hdb8de1d1g2aceg4e07g89dag0793dc76a8a4" version="1" />
+			<attribute id="DisplayName" type="TranslatedString" handle="h86f0551cg30cag4d85g962fgb14dfd2a29b2" version="3" />
 			<attribute id="Icon" type="FixedString" value="" />
 			<attribute id="Name" type="FixedString" value="Weight" />
 			<attribute id="UUID" type="guid" value="0e2988df-3863-4678-8d49-caf308d22f2a" />
