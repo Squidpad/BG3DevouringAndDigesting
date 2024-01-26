@@ -21,7 +21,24 @@ PreyTablePred = {}
 RegurgDist = 2
 
 -- CharacterCreationAppearanceVisuals table for women. Goes like this: race -> bodyshape (1 == weak / 2 == strong) -> belly size (1/2/3/4/5)
-BellyTableFemale = {Human = {{"5b04165d-2ec9-47f9-beff-0660640fc602","5660e004-e2af-4f3a-ae76-375408cb78c3", "fafef7ab-087f-4362-9436-3e63ef7bcd95",	"4a404594-e28d-4f47-b1c2-2ef593961e33",	"78fc1e05-ee83-4e6c-b14f-6f116e875b03"}, {"4bfa882a-3bef-49b8-9e8a-21198a2dbee5", "4741a71a-8884-4d3d-929d-708e350953bb", "9950ba83-28ea-4680-9905-a070d6eabfe7", "4e698e03-94b8-4526-9fa5-5feb1f78c3b0", "e250ffe9-a94c-44b4-a225-f8cf61ad430d"}}}
+BellyTableFemale = {Human = {{
+	"5b04165d-2ec9-47f9-beff-0660640fc602",
+	"5660e004-e2af-4f3a-ae76-375408cb78c3",
+	"fafef7ab-087f-4362-9436-3e63ef7bcd95",
+	"4a404594-e28d-4f47-b1c2-2ef593961e33",
+	"78fc1e05-ee83-4e6c-b14f-6f116e875b03",
+	"b10b965b-9620-48c2-9037-0556fd23d472",
+	"14388c37-34ab-4963-b61e-19cea0a90e39"
+}, {
+	"4bfa882a-3bef-49b8-9e8a-21198a2dbee5",
+	"4741a71a-8884-4d3d-929d-708e350953bb",
+	"9950ba83-28ea-4680-9905-a070d6eabfe7",
+	"4e698e03-94b8-4526-9fa5-5feb1f78c3b0", 
+	"e250ffe9-a94c-44b4-a225-f8cf61ad430d",
+	"02c9846c-200d-47cb-b381-1ceeb4280774",
+	"73aae7c2-49ef-4cac-b1b9-b3cfa6a4a31a"
+
+}}}
 
 ---Populates the PredPreyTable and PreyPredPairs.
 ---@param pred CHARACTER guid of pred
@@ -328,7 +345,11 @@ function SP_UpdateBelly(pred, weight)
 	
 	-- determines the belly weight thresholds
 	local weightStage = 0
-	if weight > 235 then
+	if weight > 435 then
+		weightStage = 7
+	elseif weight > 335 then
+		weightStage = 6
+	elseif weight > 235 then
 		weightStage = 5
 	elseif weight > 150 then
 		weightStage = 4
