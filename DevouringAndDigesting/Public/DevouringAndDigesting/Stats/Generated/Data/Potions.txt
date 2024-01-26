@@ -20,7 +20,7 @@ data "Icon" "statIcons_Bloated"
 data "StackId" "SP_PotionOfGluttony_Status"
 data "StackType" "Overwrite"
 data "StatusPropertyFlags" "DisablePortraitIndicator;ApplyToDead;IgnoreResting"
-data "Boosts" "UnlockSpell(SP_Target_Vore);Tag(Predator)"
+data "Boosts" "UnlockSpell(SP_Target_Vore);Tag(PREDATOR)"
 
 new entry "SP_PotionOfInedibility"
 type "Object"

@@ -6,7 +6,7 @@
       <children>
         <node id="Dependencies" />
         <node id="ModuleInfo">
-          <attribute id="Author" type="LSString" value="Squidpad, vivi344, mrmordurur" />
+          <attribute id="Author" type="LSString" value="Squidpad, vivi344, Mr12451" />
           <attribute id="CharacterCreationLevelName" type="FixedString" value="" />
           <attribute id="Description" type="LSString" value="A comprehensive vore mod for BG3" />
           <attribute id="Folder" type="LSString" value="DevouringAndDigesting" />

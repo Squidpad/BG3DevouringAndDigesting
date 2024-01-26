@@ -34,14 +34,28 @@ end
 ---Server runs at a target of 30hz, so each tick is ~33ms and 30 ticks is ~1 second. This IS synced between server and client.
 ---@param ticks integer
 ---@param func function
-function SP_DelayCallTicks(ticks, func)
-    if ticks <= 0 then
-        func()
-    else
-        Ext.OnNextTick(function()
-            SP_DelayCallTicks(ticks - 1, func)
-        end)
-    end
+-- function SP_DelayCallTicks(ticks, func)
+    -- if ticks <= 0 then
+        -- func()
+    -- else
+        -- Ext.OnNextTick(
+		-- function()
+			-- _P('delay')
+            -- SP_DelayCallTicks(ticks - 1, func)
+        -- end)
+    -- end
+-- end
+function SP_DelayCallTicks(ticks, fn)
+    local ticksPassed = 0
+    local eventID
+    eventID = Ext.Events.Tick:Subscribe(function()
+        ticksPassed = ticksPassed + 1
+		_P('delay')
+        if ticksPassed >= ticks then
+            fn()
+            Ext.Events.Tick:Unsubscribe(eventID)
+        end
+    end)
 end
 
 ---Returns a string with substring removed.

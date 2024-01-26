@@ -4,7 +4,7 @@ StatPaths={
     "Public/DevouringAndDigesting/Stats/Generated/Data/Armor.txt",
     "Public/DevouringAndDigesting/Stats/Generated/Data/Potions.txt",
     "Public/DevouringAndDigesting/Stats/Generated/Data/Spell_Vore.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Items.txt",
+	"Public/DevouringAndDigesting/Stats/Generated/Data/Items.txt",
 }
 
 Ext.Require("Utils/Utils.lua")
@@ -52,25 +52,25 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
 		if Osi.GetCanPickUp(target) == 1 then
 			_P("Item")
 			if SP_CanFitItem(caster, target) then
-				SP_DelayCall(400, function() SP_SwallowItem(caster, target) end)
+				SP_DelayCallTicks(12, function() SP_SwallowItem(caster, target) end)
 			else
-				Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
+				ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
 			end
 		else
 			_P("Not Item")
 			if SP_CanFitPrey(caster, target) then
-				SP_DelayCall(400, function() SP_SwallowPrey(caster, target, 'SP_Swallowed_Endo', true) end)
+				SP_DelayCallTicks(12, function() SP_SwallowPrey(caster, target, 'SP_Swallowed_Endo', true) end)
             else
-				Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
+				ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
 			end
 		end
     end
     if spell == 'SP_Target_Vore_Lethal' then
         _P('Lethal Vore')
         if SP_CanFitPrey(caster, target) then
-            SP_DelayCall(250, function() SP_VoreCheck(caster, target, "SwallowLethalCheck") end)
+            SP_DelayCallTicks(7, function() SP_VoreCheck(caster, target, "SwallowLethalCheck") end)
         else
-			Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
+			ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
 		end
     end
 end
@@ -100,6 +100,7 @@ end
 function SP_OnSessionLoaded()
     -- Persistent variables are only available after SessionLoaded is triggered!
     _D(PersistentVars)
+	SP_GetConfigFromFile()
     if PersistentVars['PreyTablePred'] ~= nil then
         _P('loading table')
         PreyTablePred = SP_Deepcopy(PersistentVars['PreyTablePred'])
@@ -161,13 +162,15 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         for _, v in ipairs(SP_GetAllPrey(object)) do
 			local alive = (Osi.IsDead(v) == 0)
 			if alive then
-				Osi.TeleportTo(v, object, "", 0, 0, 0, 0, 0)
+				if ConfigVars.TeleportPrey.value == true then
+					Osi.TeleportTo(v, object, "", 0, 0, 0, 0, 0)
+				end
 				if Osi.HasActiveStatus(v, 'SP_Swallowed_Lethal') == 1 then
 					SP_VoreCheck(object, v, "StruggleCheck")
 				end
 			end
         end
-    elseif status == 'SP_Inedible' then
+	elseif status == 'SP_Inedible' then
         Osi.RemoveStatus(object, 'SP_Inedible', "")
     elseif status == 'SP_PotionOfGluttony_Status' then
         Osi.RemoveStatus(object, 'SP_PotionOfGluttony_Status', "")
@@ -191,10 +194,17 @@ function SP_OnDeath(character)
 		-- temp characters' corpses are not saved is save file, so they might cause issues unless disposed of on death
 		if Ext.Entity.Get(character).ServerCharacter.Temporary == true then
 			_P("Absorbing temp character")
-			SP_DelayCall(200, function() SP_RegurgitatePrey(pred, character, 2, "Absorb") end)
+			SP_DelayCallTicks(10, function() SP_RegurgitatePrey(pred, character, 2, "Absorb") end)
 		else
 			-- digested but not released prey will be stored out of bounds
 			Osi.TeleportToPosition(character, -100000, 0, -100000, "", 0, 0, 0, 1, 0)
+			-- implementation for fast digestion
+			if ConfigVars.SlowDigestion.value == false then
+				SP_DelayCallTicks(10, function() 
+					local preyWeightDiff = PersistentVars['PreyWeightTable'][character] - PersistentVars['FakePreyWeightTable'][character] // 5
+					SP_ReduceWeightRecursive(character, preyWeightDiff, true)
+				end)
+			end
 		end
 		
     end
@@ -237,13 +247,12 @@ function SP_OnShortRest(character)
 	
 	for k, v in pairs(PersistentVars['PreyWeightTable']) do
 		if Osi.IsDead(k) == 1 then
-			-- local preyWeightDiff = PersistentVars['FakePreyWeightTable'][k] // 5
-			local preyWeightDiff = tonumber(ConfigVars.DigestionRate.value) * 1
+			local preyWeightDiff = tonumber(ConfigVars.DigestionRateShort.value)
 			-- prey's weight after digestion should not be smaller then 1/5th of their original (fake) weight
 			if (v - preyWeightDiff) < (PersistentVars['FakePreyWeightTable'][k] // 5) then
 				preyWeightDiff = v - PersistentVars['FakePreyWeightTable'][k] // 5
 			end
-			SP_ReduceWeightRecursive(k, preyWeightDiff)
+			SP_ReduceWeightRecursive(k, preyWeightDiff, false)
 		end
     end
 	
@@ -254,7 +263,7 @@ function SP_OnShortRest(character)
 	_D(PersistentVars['PreyWeightTable'])
 	_D(PersistentVars['FakePreyWeightTable'])
 	-- this is necessary to avoid multiple calls of this function (for each party member)
-	SP_DelayCall(50, function() CalculateRest = true end)
+	SP_DelayCallTicks(5, function() CalculateRest = true end)
 end
 
 ---fires once after long rest
@@ -263,13 +272,12 @@ function SP_OnLongRest()
 	
 	for k, v in pairs(PersistentVars['PreyWeightTable']) do
 		if Osi.IsDead(k) == 1 then
-			-- local preyWeightDiff = PersistentVars['FakePreyWeightTable'][k] // 5
-			local preyWeightDiff = tonumber(ConfigVars.DigestionRate.value) * 4
+			local preyWeightDiff = tonumber(ConfigVars.DigestionRateLong.value)
 			-- prey's weight after digestion should not be smaller then 1/5th of their original (fake) weight
 			if (v - preyWeightDiff) < (PersistentVars['FakePreyWeightTable'][k] // 5) then
 				preyWeightDiff = v - PersistentVars['FakePreyWeightTable'][k] // 5
 			end
-			SP_ReduceWeightRecursive(k, preyWeightDiff)
+			SP_ReduceWeightRecursive(k, preyWeightDiff, false)
 		end
     end
 	
@@ -281,7 +289,7 @@ function SP_OnLongRest()
 	_D(PersistentVars['FakePreyWeightTable'])
 end
 
----resets all data structures
+
 function SP_ResetVore()
 	for k, v in pairs(PreyTablePred) do
         SP_RegurgitatePrey(v, k, 2, "LevelChange")

@@ -288,7 +288,7 @@
 						<node id="Objects">
 							<attribute id="LOD" type="uint8" value="0" />
 							<attribute id="MaterialID" type="FixedString" value="9106a412-4963-2147-914b-838fd337cf43" />
-							<attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_1.HUM_FS_NKD_Body_A_Mesh.0" />
+							<attribute id="ObjectID" type="FixedString" value="SP_HUM_FS_Belly_1.HUM_FS_NKD_Body_A_Mesh.0" />
 						</node>
 					</children>
 				</node>
@@ -324,7 +324,7 @@
 						<node id="Objects">
 							<attribute id="LOD" type="uint8" value="0" />
 							<attribute id="MaterialID" type="FixedString" value="9106a412-4963-2147-914b-838fd337cf43" />
-							<attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_2.HUM_FS_NKD_Body_A_Mesh.0" />
+							<attribute id="ObjectID" type="FixedString" value="SP_HUM_FS_Belly_2.HUM_FS_NKD_Body_A_Mesh.0" />
 						</node>
 					</children>
 				</node>
@@ -360,7 +360,7 @@
 						<node id="Objects">
 							<attribute id="LOD" type="uint8" value="0" />
 							<attribute id="MaterialID" type="FixedString" value="9106a412-4963-2147-914b-838fd337cf43" />
-							<attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_3.HUM_FS_NKD_Body_A_Mesh.0" />
+							<attribute id="ObjectID" type="FixedString" value="SP_HUM_FS_Belly_3.HUM_FS_NKD_Body_A_Mesh.0" />
 						</node>
 					</children>
 				</node>
@@ -396,7 +396,7 @@
 						<node id="Objects">
 							<attribute id="LOD" type="uint8" value="0" />
 							<attribute id="MaterialID" type="FixedString" value="9106a412-4963-2147-914b-838fd337cf43" />
-							<attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_4.HUM_FS_NKD_Body_A_Mesh.0" />
+							<attribute id="ObjectID" type="FixedString" value="SP_HUM_FS_Belly_4.HUM_FS_NKD_Body_A_Mesh.0" />
 						</node>
 					</children>
 				</node>
@@ -432,7 +432,7 @@
 						<node id="Objects">
 							<attribute id="LOD" type="uint8" value="0" />
 							<attribute id="MaterialID" type="FixedString" value="9106a412-4963-2147-914b-838fd337cf43" />
-							<attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_5.HUM_FS_NKD_Body_A_Mesh.0" />
+							<attribute id="ObjectID" type="FixedString" value="SP_HUM_FS_Belly_5.HUM_FS_NKD_Body_A_Mesh.0" />
 						</node>
 					</children>
 				</node>
@@ -468,7 +468,7 @@
 						<node id="Objects">
 							<attribute id="LOD" type="uint8" value="0" />
 							<attribute id="MaterialID" type="FixedString" value="9106a412-4963-2147-914b-838fd337cf43" />
-							<attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_5.HUM_FS_NKD_Body_A_Mesh.0" />
+							<attribute id="ObjectID" type="FixedString" value="SP_HUM_FS_Belly_6.HUM_FS_NKD_Body_A_Mesh.0" />
 						</node>
 					</children>
 				</node>
@@ -504,7 +504,7 @@
 						<node id="Objects">
 							<attribute id="LOD" type="uint8" value="0" />
 							<attribute id="MaterialID" type="FixedString" value="9106a412-4963-2147-914b-838fd337cf43" />
-							<attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_5.HUM_FS_NKD_Body_A_Mesh.0" />
+							<attribute id="ObjectID" type="FixedString" value="SP_HUM_FS_Belly_7.HUM_FS_NKD_Body_A_Mesh.0" />
 						</node>
 					</children>
 				</node>
