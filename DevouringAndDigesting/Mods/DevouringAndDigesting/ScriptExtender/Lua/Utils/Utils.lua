@@ -39,7 +39,7 @@ function SP_DelayCallTicks(ticks, fn)
     local eventID
     eventID = Ext.Events.Tick:Subscribe(function()
         ticksPassed = ticksPassed + 1
-		_P('delay')
+        _P('delay')
         if ticksPassed >= ticks then
             fn()
             Ext.Events.Tick:Unsubscribe(eventID)
@@ -89,9 +89,9 @@ end
 ---@param element any element to query with
 function SP_TableContains(table, element)
     for _, value in pairs(table) do
-      if value == element then
-        return true
-      end
+        if value == element then
+            return true
+        end
     end
     return false
 end

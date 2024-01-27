@@ -1,6 +1,7 @@
 ConfigVars = {}
 
-function SP_ResetConfig() --reset config to standard version
+--Resets config to defaults.
+function SP_ResetConfig()
     ConfigFailed = 0
     local vrs = {
 		VoreDifficulty = {
@@ -34,7 +35,6 @@ function SP_ResetConfig() --reset config to standard version
 end
 
 function SP_GetConfigFromFile()
-
     local jsonFile = Ext.IO.LoadFile("DevouringAndDigesting/VoreConfig.json")
     if (jsonFile == nil) then
         print("Devouring and Digesting - Configuration file not found. Creating one.")
