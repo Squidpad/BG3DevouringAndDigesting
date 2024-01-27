@@ -168,8 +168,8 @@ end
 function SP_OnStatusApplied(object, status, causee, storyActionID)
     if status == 'SP_Digesting' then
         for _, v in ipairs(SP_GetAllPrey(object)) do
-			local alive = (Osi.IsDead(v) == 0)
-			if alive then
+			local alive = Osi.IsDead(v)
+			if alive ~= nil and alive == 0 and Osi.InCombat(object) == 0 then
 				if ConfigVars.TeleportPrey.value == true then
 					Osi.TeleportTo(v, object, "", 0, 0, 0, 0, 0)
 				end
@@ -194,9 +194,7 @@ function SP_BeforeTurnEnds(character)
         for _, v in ipairs(SP_GetAllPrey(character)) do
 			local alive = (Osi.IsDead(v) == 0)
 			if alive then
-				if ConfigVars.TeleportPrey.value == true then
-					Osi.TeleportTo(v, character, "", 0, 0, 0, 0, 0)
-				end
+				Osi.TeleportTo(v, character, "", 0, 0, 0, 0, 0)
 				if Osi.HasActiveStatus(v, 'SP_Swallowed_Lethal') == 1 then
 					SP_VoreCheck(character, v, "StruggleCheck")
 				end

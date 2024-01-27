@@ -148,8 +148,6 @@ function SP_RegurgitatePrey(pred, prey, preyState, spell)
 		if preyAlive == nil then
 			table.insert(markedForRemoval, k)
 		end
-
-		_P('Prey is dead: ' .. preyAlive .. '        ' .. k)
         if preyAlive ~= nil and v == pred and (prey == "All" or k == prey) and (preyState == 2 or (preyAlive == preyState and (preyState == 0 or (PersistentVars['PreyWeightTable'][k] <= PersistentVars['FakePreyWeightTable'][k] // 5)))) then
 			_P('Pred:' .. v)
 			_P('Prey:' .. k)
