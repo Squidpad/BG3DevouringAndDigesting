@@ -33,18 +33,7 @@ end
 ---Delays a function call for a given number of ticks.
 ---Server runs at a target of 30hz, so each tick is ~33ms and 30 ticks is ~1 second. This IS synced between server and client.
 ---@param ticks integer
----@param func function
--- function SP_DelayCallTicks(ticks, func)
-    -- if ticks <= 0 then
-        -- func()
-    -- else
-        -- Ext.OnNextTick(
-		-- function()
-			-- _P('delay')
-            -- SP_DelayCallTicks(ticks - 1, func)
-        -- end)
-    -- end
--- end
+---@param fn function
 function SP_DelayCallTicks(ticks, fn)
     local ticksPassed = 0
     local eventID

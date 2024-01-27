@@ -54,14 +54,14 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
 			if SP_CanFitItem(caster, target) then
 				SP_DelayCallTicks(12, function() SP_SwallowItem(caster, target) end)
 			else
-				ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
+				Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
 			end
 		else
 			_P("Not Item")
 			if SP_CanFitPrey(caster, target) then
 				SP_DelayCallTicks(12, function() SP_SwallowPrey(caster, target, 'SP_Swallowed_Endo', true) end)
             else
-				ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
+				Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
 			end
 		end
     end
@@ -70,7 +70,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         if SP_CanFitPrey(caster, target) then
             SP_DelayCallTicks(7, function() SP_VoreCheck(caster, target, "SwallowLethalCheck") end)
         else
-			ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
+			Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
 		end
     end
 end
@@ -247,11 +247,14 @@ function SP_OnShortRest(character)
 	
 	for k, v in pairs(PersistentVars['PreyWeightTable']) do
 		if Osi.IsDead(k) == 1 then
+
 			local preyWeightDiff = tonumber(ConfigVars.DigestionRateShort.value)
+			assert(type(preyWeightDiff) == 'number')
 			-- prey's weight after digestion should not be smaller then 1/5th of their original (fake) weight
 			if (v - preyWeightDiff) < (PersistentVars['FakePreyWeightTable'][k] // 5) then
 				preyWeightDiff = v - PersistentVars['FakePreyWeightTable'][k] // 5
 			end
+
 			SP_ReduceWeightRecursive(k, preyWeightDiff, false)
 		end
     end
@@ -273,6 +276,7 @@ function SP_OnLongRest()
 	for k, v in pairs(PersistentVars['PreyWeightTable']) do
 		if Osi.IsDead(k) == 1 then
 			local preyWeightDiff = tonumber(ConfigVars.DigestionRateLong.value)
+			assert(type(preyWeightDiff) == 'number')
 			-- prey's weight after digestion should not be smaller then 1/5th of their original (fake) weight
 			if (v - preyWeightDiff) < (PersistentVars['FakePreyWeightTable'][k] // 5) then
 				preyWeightDiff = v - PersistentVars['FakePreyWeightTable'][k] // 5
@@ -311,7 +315,6 @@ Ext.Osiris.RegisterListener("LevelUnloading", 1, "before", SP_OnLevelChange)
 Ext.Osiris.RegisterListener("StatusApplied", 4, "after", SP_OnStatusApplied)
 Ext.Osiris.RegisterListener("TemplateAddedTo", 4, "after", SP_OnItemAdded)
 Ext.Osiris.RegisterListener("Died", 1, "before", SP_OnDeath)
-
 Ext.Osiris.RegisterListener("ShortRested", 1, "after", SP_OnShortRest)
 Ext.Osiris.RegisterListener("LongRestFinished", 0, "after", SP_OnLongRest)
 

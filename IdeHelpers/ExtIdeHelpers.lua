@@ -8496,8 +8496,8 @@ local Ext_IO = {}
 
 
 --- @class Ext_Json
---- @field Parse fun()
---- @field Stringify fun()
+--- @field Parse fun(json)
+--- @field Stringify fun(table, params)
 local Ext_Json = {}
 --- @class JsonStringifyOptions
 --- @field Beautify boolean Sorts the output table, and indents with tabs. Defaults to true.
@@ -11930,13 +11930,13 @@ function Ext.IsClient() end
 function Ext.IsServer() end
 
 --- Console window shortcut for Ext.Dump
-_D = Ext.Dump
+function _D(any) Ext.Dump(any) end
 
 --- Console window shortcut for Ext.DumpShallow
-_DS = Ext.Dump
+function _DS(any) Ext.DumpShallow(any) end
 
 --- Console window shortcut for Ext.Utils.Print
-_P = Ext.Utils.Print
+function _P(s) Ext.Utils.Print(s) end
 
 --- Console window helper to get current player character 
 --- This is the host on the server, or the hotbar character on the client  

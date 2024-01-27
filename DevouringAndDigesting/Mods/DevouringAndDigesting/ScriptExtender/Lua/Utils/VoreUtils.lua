@@ -21,6 +21,9 @@ local CompanionsSet = {
 -- A prey can only exist within one stomach, so it's better to use them as unique keys in a dictionary/table, and it allows easier implementation of multiple prey and voreception (nested vore) without nested tables
 PreyTablePred = {}
 
+-- ApplyStatus applies statuses for a number of seconds instead of turns. Multiply the duration by this
+SecondsPerTurn = 6
+
 -- CharacterCreationAppearanceVisuals table for women. Goes like this: race -> bodyshape (1 == weak / 2 == strong) -> belly size (1/2/3/4/5)
 BellyTableFemale = {Human = {{
 	"5b04165d-2ec9-47f9-beff-0660640fc602",
@@ -63,11 +66,11 @@ end
 ---@param pred GUIDSTRING guid of pred
 ---@param prey GUIDSTRING guid of prey
 ---@param swallowType string internal name of Status Effect
----@param notNested bool if prey is not transferred to another stomach
+---@param notNested boolean if prey is not transferred to another stomach
 function SP_SwallowPrey(pred, prey, swallowType, notNested)
 	_P('Swallowing')
 	Osi.ApplyStatus(prey, swallowType, -1, 1, pred)
-	Osi.ApplyStatus(pred, "SP_Stuffed", 1, 1, pred)
+	Osi.ApplyStatus(pred, "SP_Stuffed", 1*SecondsPerTurn, 1, pred)
 	SP_FillPredPreyTable(pred, prey)
 	if notNested then
 		Osi.SetDetached(prey, 1)
@@ -97,7 +100,7 @@ function SP_SwallowItem(pred, item)
 		local stomach = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
 		Osi.ToInventory(item, stomach, 9999, 0, 0)
 		if Osi.HasActiveStatus(pred, "SP_Stuffed") == 0 then
-			Osi.ApplyStatus(pred, "SP_Stuffed", 1, 1, pred)
+			Osi.ApplyStatus(pred, "SP_Stuffed", 1*SecondsPerTurn, 1, pred)
 		end
 		Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
 		SP_DelayCallTicks(4, function() SP_UpdateWeight(pred, true) end)
@@ -117,7 +120,7 @@ function SP_SwallowAllItems(pred, container)
 		Osi.MoveAllItemsTo(container, stomach, 0, 0, 0, 0)
 		Osi.MoveAllStoryItemsTo(container, stomach, 0, 0)
 		if Osi.HasActiveStatus(pred, "SP_Stuffed") == 0 then
-			Osi.ApplyStatus(pred, "SP_Stuffed", 1, 1, pred)
+			Osi.ApplyStatus(pred, "SP_Stuffed", 1*SecondsPerTurn, 1, pred)
 		end
 		Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
 		SP_DelayCallTicks(4, function() SP_UpdateWeight(pred, true) end)
@@ -262,7 +265,11 @@ function SP_RegurgitatePrey(pred, prey, preyState, spell)
     if #SP_GetAllPrey(pred) <= 0 and (hasStomach and regItems or not hasStomach) then
         Osi.RemoveStatus(pred, 'SP_Stuffed')
         Osi.RemoveSpell(pred, 'SP_Regurgitate', 1)
-    end
+	else
+		Osi.RemoveStatus(pred, 'SP_Stuffed')
+		local numPrey = #SP_GetAllPrey(pred)
+		Osi.ApplyStatus(pred, 'SP_Stuffed', numPrey*SecondsPerTurn, 1)
+	end
 	_P("New table: ")
 	_D(PreyTablePred)
 	-- since SP_RegurgitatePrey is used when a prey is released for any reason (including death), I moved this here to avoid desync
@@ -282,6 +289,18 @@ function SP_GetAllPrey(pred)
 	local allPrey = {}
     for k, v in pairs(PreyTablePred) do
         if v == pred then
+			table.insert(allPrey, k)
+		end
+    end
+    return allPrey
+end
+
+---Given a pred, fetches all their nonlethal prey
+---@param pred GUIDSTRING guid of pred
+function SP_GetAllPreyEndo(pred)
+	local allPrey = {}
+    for k, v in pairs(PreyTablePred) do
+        if v == pred and Osi.HasActiveStatus(k, "SP_Swallowed_Endo") then
 			table.insert(allPrey, k)
 		end
     end
@@ -445,7 +464,7 @@ end
 ---Reduces weight of prey and their preds, do not use this for regurgitation during voreception, since pred's weight would stay the same
 ---@param character GUIDSTRING guid of character
 ---@param diff integer the amount to subtract
----@param updateWeight bool update visual weight / placeholders of characters? this should be false in the OnReset functions, otherwise it might update the weight of a single pred multiple times during one tick and bug out osiris
+---@param updateWeight boolean? update visual weight / placeholders of characters? this should be false in the OnReset functions, otherwise it might update the weight of a single pred multiple times during one tick and bug out osiris
 function SP_ReduceWeightRecursive(character, diff, updateWeight)
 	if PersistentVars['PreyWeightTable'][character] ~= nil then
 		PersistentVars['PreyWeightTable'][character] = PersistentVars['PreyWeightTable'][character] - diff
