@@ -335,8 +335,9 @@ end
 
 
 function SP_ResetVore()
-	for k, v in pairs(PreyTablePred) do
-        SP_RegurgitatePrey(v, k, 2, "LevelChange")
+	local preds = SP_GetUniquePreds()
+	for k, v in pairs(preds) do
+		SP_RegurgitatePrey(k, "All", 2, "ResetVore")
     end
 	PreyTablePred = {}
 	PersistentVars['PreyTablePred'] = {}

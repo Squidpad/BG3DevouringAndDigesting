@@ -144,9 +144,13 @@ function SP_RegurgitatePrey(pred, prey, preyState, spell)
     local markedForRemoval = {}
 	-- find prey to remove, clear their status, mark them for removal
     for k, v in pairs(PreyTablePred) do
-		local preyAlive = (Osi.IsDead(k) or 0)
+		local preyAlive = Osi.IsDead(k)
+		if preyAlive == nil then
+			table.insert(markedForRemoval, k)
+		end
+
 		_P('Prey is dead: ' .. preyAlive .. '        ' .. k)
-        if v == pred and (prey == "All" or k == prey) and (preyState == 2 or (preyAlive == preyState and (preyState == 0 or (PersistentVars['PreyWeightTable'][k] <= PersistentVars['FakePreyWeightTable'][k] // 5)))) then
+        if preyAlive ~= nil and v == pred and (prey == "All" or k == prey) and (preyState == 2 or (preyAlive == preyState and (preyState == 0 or (PersistentVars['PreyWeightTable'][k] <= PersistentVars['FakePreyWeightTable'][k] // 5)))) then
 			_P('Pred:' .. v)
 			_P('Prey:' .. k)
 			Osi.RemoveStatus(k, 'SP_Swallowed_Endo', pred)
