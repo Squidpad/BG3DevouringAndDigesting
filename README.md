@@ -18,8 +18,11 @@ A comprehensive vore mod for Baldur's Gate 3
     ```
 3. Add `"EnableLuaDebugger": true` in the script extender configuration file `ScriptExtenderSettings.json`
 in the `bin` folder of your game.
-4. Launch the game.
-5. Press F5 in VSCode.
+4. Download the BG3 Lua Debugger extension for VSCode: https://bg3se-updates.norbyte.dev/Stuff/bg3-lua-debugger-1.0.0.vsix.
+In VSCode open File -> Preferences -> Extensions and drag the VSIX file to the extension pane to install.
+5. Launch the game.
+6. Press F5 in VSCode.
+7. See also: https://github.com/Norbyte/bg3se/blob/main/Docs/Debugger.md
 
 ### Lua code style
 * Pretty much http://lua-users.org/wiki/LuaStyleGuide, but:
