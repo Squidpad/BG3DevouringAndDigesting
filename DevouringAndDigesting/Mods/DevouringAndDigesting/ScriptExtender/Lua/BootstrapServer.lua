@@ -168,7 +168,7 @@ end
 function SP_OnStatusApplied(object, status, causee, storyActionID)
     if status == 'SP_Digesting' then
         for _, v in ipairs(SP_GetAllPrey(object)) do
-			if Osi.IsDead(v) == 0 and Osi.InCombat(object) == 0 then
+			if Osi.IsDead(v) == 0 and Osi.IsInCombat(object) == 0 then
 				if ConfigVars.TeleportPrey.value == true then
 					Osi.TeleportTo(v, object, "", 0, 0, 0, 0, 0)
 				end

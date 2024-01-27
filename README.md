@@ -10,6 +10,16 @@ A comprehensive vore mod for Baldur's Gate 3
 #### Modding tools
 1. Install [Python](https://www.python.org/downloads/) version 3.10 or newer.
 2. Install tools: run [InstallTools.bat](InstallTools.bat).
+#### Setting up and usage of Lua debugger
+1. Install modding tools.
+2. Create symlink (run CMD as Admin):
+    ```shell
+    mklink /D "<BG3 Install Path>\Data\Mods\DevouringAndDigesting" "<This Repo Path>\Mods\DevouringAndDigesting\Mods\DevouringAndDigesting"
+    ```
+3. Add `"EnableLuaDebugger": true` in the script extender configuration file `ScriptExtenderSettings.json`
+in the `bin` folder of your game.
+4. Launch the game.
+5. Press F5 in VSCode.
 
 ### Lua code style
 * Pretty much http://lua-users.org/wiki/LuaStyleGuide, but:

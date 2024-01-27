@@ -7,8 +7,13 @@ if not exist "Tools\BG3ModdingTools\.git" (
 )
 
 if not exist "Tools\ConverterApp\ConverterApp.exe" (
-    call :downloadAndUnzip "https://github.com/Norbyte/lslib/releases/download/v1.18.7/ExportTool-v1.18.7.zip" "Tools\ConverterApp"
+    call :downloadAndUnzip "https://github.com/Norbyte/lslib/releases/download/v1.18.7/ExportTool-v1.18.7.zip" "Tools\ConverterApp" 1
     if not exist "Tools\ConverterApp\ConverterApp.exe" goto :error
+)
+
+if not exist "Tools\LuaDebugAdapter\LuaDebugger.exe" (
+    call :downloadAndUnzip "https://bg3se-updates.norbyte.dev/Channels/Devel/DebugAdapter.zip" "Tools\LuaDebugAdapter" 0
+    if not exist "Tools\LuaDebugAdapter\LuaDebugger.exe" goto :error
 )
 
 @rem I failed to make lxml 4.6.3 work with Python 3.10+ on Windows. So let's replace its version and hope nothing breaks.
@@ -25,12 +30,13 @@ echo Done.
 goto :eof
 
 
-:downloadAndUnzip <Url> <Output>
+:downloadAndUnzip <Url> <Output> <ExtractFromFolderWithTheSameName>
 set py="%temp%\downloadAndUnzip.py"
 if exist %py% del /f /q %py%
 >%py%  echo import os, zipfile, io, pathlib, urllib.request
->>%py% echo extractFrom = pathlib.Path(%1).stem + '/'
->>%py% echo with urllib.request.urlopen(%1) as response:
+>>%py% echo extractFrom = pathlib.Path(%1).stem + '/' if %3 else ''
+>>%py% echo req = urllib.request.Request(%1, data=None, headers={'User-Agent': 'Mozilla/5.0'})
+>>%py% echo with urllib.request.urlopen(req) as response:
 >>%py% echo     with zipfile.ZipFile(io.BytesIO(response.read())) as z:
 >>%py% echo         for file_info in z.infolist():
 >>%py% echo             if file_info.filename.startswith(extractFrom) and not file_info.is_dir():
