@@ -49,4 +49,6 @@
 	<content contentuid="hb7af406bg03edg4952g9838g49a2ecc066f6" version="1">It's already too late for them...</content>
 	<content contentuid="hc9a79498gebf3g49f9g8da5ge4efd0e68c1d" version="1">Item stomach</content>
 	<content contentuid="h40f63ac7g4bccg44d2gb056g73e93f1c2ef9" version="1">Your swallowed items are stored here</content>
+	<content contentuid="heb677badg9415g4b58g909cgf1e4784ce210" version="1">Indigestion</content>
+	<content contentuid="h1de3d398g8e38g42eegb96cg6288e15a0506" version="1">Your stomach's feeling agitated. If this reaches [1], you'll regurgitate everything that's still moving!</content>
 </contentList>

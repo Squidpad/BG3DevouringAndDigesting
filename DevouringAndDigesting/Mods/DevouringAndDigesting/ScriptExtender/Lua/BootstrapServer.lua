@@ -91,7 +91,11 @@ function SP_RollResults(eventName, roller, rollSubject, resultType, isActiveRoll
     end
     if eventName == "StruggleCheck" and resultType ~= 0 then
         _P('Struggle Success by ' .. roller .. ' against ' .. rollSubject)
-		SP_RegurgitatePrey(rollSubject, roller, 0, "") -- now only the prey who struggled out will escape
+		Osi.ApplyStatus(rollSubject, "SP_Indigestion", 1*SecondsPerTurn)
+		if Osi.GetStatusTurns(rollSubject, "SP_Indigestion") >= 6 then
+			Osi.RemoveStatus(rollSubject, "SP_Indigestion")
+			SP_RegurgitatePrey(rollSubject, "All", 0, "") -- now only the prey who struggled out will escape
+		end
     end
 end
 
@@ -162,7 +166,7 @@ end
 ---@param causee GUIDSTRING? Thing that caused status to be applied.
 ---@param storyActionID integer?
 function SP_OnStatusApplied(object, status, causee, storyActionID)
-    if status == 'SP_Digesting' and not Osi.InCombat(object) then
+    if status == 'SP_Digesting' then
         for _, v in ipairs(SP_GetAllPrey(object)) do
 			local alive = (Osi.IsDead(v) == 0)
 			if alive then
@@ -174,9 +178,9 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
 				end
 			end
         end
-	elseif status == 'SP_Inedible' then
+	elseif status == 'SP_Inedible' and Osi.GetStatusTurns(object, 'SP_Inedible') > 1 then
         Osi.RemoveStatus(object, 'SP_Inedible', "")
-    elseif status == 'SP_PotionOfGluttony_Status' then
+    elseif status == 'SP_PotionOfGluttony_Status' and Osi.GetStatusTurns(object, 'SP_PotionOfGluttony_Status') > 1 then
         Osi.RemoveStatus(object, 'SP_PotionOfGluttony_Status', "")
     elseif status == 'SP_Item_Bound' then
         _P("Applied " .. status .. " Status to " .. object)
@@ -209,7 +213,7 @@ function SP_CombatStarted(combatGuid)
 			for _, v in ipairs(SP_GetAllPrey(pred)) do
 				local alive = (Osi.IsDead(v) == 0)
 				if alive then
-					Osi.EnterCombat(v, pred)
+					Osi.EnterCombat(v, combatGuid)
 				end
 			end
 		end
