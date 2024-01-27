@@ -41,8 +41,10 @@ BellyTableFemale = {Human = {{
 	"e250ffe9-a94c-44b4-a225-f8cf61ad430d",
 	"02c9846c-200d-47cb-b381-1ceeb4280774",
 	"73aae7c2-49ef-4cac-b1b9-b3cfa6a4a31a"
-
 }}}
+
+-- Set to true on load if the subclass addon mod is detected. Seems to me like the best way to properly integrate things without making the addon a requirement
+SubclassAddOn = false
 
 ---Populates the PreyTablePred
 ---@param pred GUIDSTRING @guid of pred
@@ -310,7 +312,7 @@ end
 ---finds all unique Preds
 function SP_GetUniquePreds()
 	local allPreds = {}
-	for k, v in pairs(PreyTablePred) do
+	for _, v in pairs(PreyTablePred) do
         allPreds[v] = (allPreds[v] or 0) + 1
     end
 	return allPreds
@@ -322,8 +324,17 @@ end
 function SP_UpdateWeight(pred, items)
 	local allPrey = SP_GetAllPrey(pred)
 	local newWeight = 0
+	local weightReduction = 0
 	for _, v in pairs(allPrey) do
 		newWeight = newWeight + (PersistentVars['PreyWeightTable'][v] or 0)
+		-- For the "Stomach Sentinel" subclass, which is built around protecting allies by swallowing them, and gets a feature that reduces the weight of swallowed allies
+		if SubclassAddOn and Osi.HasActiveStatus(v, "SP_Swallowed_Endo") then
+			if Osi.HasPassive(pred, "SP_Improved_Stomach_Shelter") then
+				weightReduction = (PersistentVars['PreyWeightTable'][v] or 0)
+			elseif Osi.HasPassive(pred, "SP_Stomach_Shelter") then
+				weightReduction = (PersistentVars['PreyWeightTable'][v] or 0)/2
+			end
+		end
 	end
 	-- for item vore
 	local newWeightVisual = newWeight
@@ -333,16 +344,12 @@ function SP_UpdateWeight(pred, items)
 	end
 	_P("Changing weight of " .. pred .. " to " .. newWeightVisual)
 	Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
-	Osi.TemplateAddTo('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred, newWeight, 0)
+	Osi.TemplateAddTo('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred, newWeight - weightReduction, 0)
 	-- this is very important, it fixes inventory weight not updating properly when removing items. this is the only solution that worked. 8d3b74d4-0fe6-465f-9e96-36b416f4ea6f is removed immediately after being added (in the main script)
 	Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
 	
 	SP_UpdateBelly(pred, newWeightVisual)
-	-- this will break stuff, SP_ReduceWeightRecursive should be used on prey when their weight was changed for a reson other than regurgitation, and the weight of preds should be updated
-	-- if I understand correctly what the !SlowDigestion should do - instantly reduce prey's weight on their death and make them absorbable/disposable - I have impemented it in SP_OnDeath 
-	-- if !ConfigVars.SlowDigestion.value then
-		-- SP_ReduceWeightRecursive(pred, 999999999)
-	-- end
+
 end
 
 ---@param pred GUIDSTRING guid of pred

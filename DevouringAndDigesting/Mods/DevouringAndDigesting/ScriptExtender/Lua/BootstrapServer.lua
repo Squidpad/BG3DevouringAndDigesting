@@ -119,6 +119,10 @@ function SP_OnSessionLoaded()
 	if PersistentVars['DisableDownedPreyTable'] == nil then
 		PersistentVars['DisableDownedPreyTable'] = {}
 	end
+	-- uuid of subclass addon
+	if Ext.Mod.IsModLoaded("8cde9804-68a7-4bd2-a85e-1fb2c7216790") then 
+		SubclassAddOn = true
+	end
 end
 
 
@@ -158,7 +162,7 @@ end
 ---@param causee GUIDSTRING? Thing that caused status to be applied.
 ---@param storyActionID integer?
 function SP_OnStatusApplied(object, status, causee, storyActionID)
-    if status == 'SP_Digesting' then
+    if status == 'SP_Digesting' and not Osi.InCombat(object) then
         for _, v in ipairs(SP_GetAllPrey(object)) do
 			local alive = (Osi.IsDead(v) == 0)
 			if alive then
@@ -179,6 +183,38 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
     end
 end
 
+---runs just before the end of a character's turn in combat
+---@param character GUIDSTRING
+function SP_BeforeTurnEnds(character)
+	if Osi.HasActiveStatus(character, 'SP_Stuffed') then
+        for _, v in ipairs(SP_GetAllPrey(character)) do
+			local alive = (Osi.IsDead(v) == 0)
+			if alive then
+				if ConfigVars.TeleportPrey.value == true then
+					Osi.TeleportTo(v, character, "", 0, 0, 0, 0, 0)
+				end
+				if Osi.HasActiveStatus(v, 'SP_Swallowed_Lethal') == 1 then
+					SP_VoreCheck(character, v, "StruggleCheck")
+				end
+			end
+        end
+	end
+end
+
+--runs just after combat starts
+---@param combatGuid GUIDSTRING
+function SP_CombatStarted(combatGuid)
+	for _, pred in ipairs(SP_GetUniquePreds()) do
+		if Osi.IsInCombat(pred) then
+			for _, v in ipairs(SP_GetAllPrey(pred)) do
+				local alive = (Osi.IsDead(v) == 0)
+				if alive then
+					Osi.EnterCombat(v, pred)
+				end
+			end
+		end
+	end
+end
 
 ---Runs when someone dies.
 ---@param character CHARACTER
@@ -310,6 +346,8 @@ if Ext.Osiris == nil then Ext.Osiris = {} end
 
 Ext.Osiris.RegisterListener("UsingSpellOnTarget", 6, "after", SP_OnSpellCastTarget)
 Ext.Osiris.RegisterListener("CastedSpell", 5, "after", SP_SpellCast)
+Ext.Osiris.RegisterListener("TurnEnded", 1, "before", SP_BeforeTurnEnds)
+Ext.Osiris.RegisterListener("CombatStarted", 1, "after", SP_CombatStarted)
 Ext.Osiris.RegisterListener("RollResult", 6, "after", SP_RollResults)
 Ext.Osiris.RegisterListener("LevelUnloading", 1, "before", SP_OnLevelChange)
 Ext.Osiris.RegisterListener("StatusApplied", 4, "after", SP_OnStatusApplied)
