@@ -81,14 +81,17 @@ function SP_NewVoreDataEntry(character)
     -- it's not reliable to ask osiris if a character has a status,
     -- so we make all non-dead prey count as endoed during migration
     VoreData[character].Digestion = 3
-    VoreData[character].Combat = Osi.IsInCombat(character) == 1
+    -- guid of combat character is in
+    VoreData[character].Combat = Osi.CombatGetGuidFor(character) or ""
     -- This is a set, not an array, for an easier search of a specific prey, so use k instead of v when iterating
     -- use next(VoreData[character].Prey) == nil instead of #VoreData[character].Prey == 0 to check if it's empty 
     VoreData[character].Prey = {}
     VoreData[character].Items = ""
-    -- For wg maybe
+    -- For weigth gain, only visually increases the size of belly
     VoreData[character].Fat = 0
-    -- Belly weight without prey
+    -- Belly weight that does not belong to a specific prey
+    -- The difference between this and fat is that fat does not affect carry capacity and is purely visual
+    -- AddWeight is reduced at the same rate as normal prey digestion, while Fat uses a separate value
     VoreData[character].AddWeight = 0
 end
 
@@ -118,9 +121,8 @@ function SP_AddPrey(pred, prey, swallowType, notNested)
     end
     Osi.ApplyStatus(prey, "SP_Swallowed", -1, 1, pred)
 
-    VoreData[prey].Pred = pred
+    
     VoreData[pred].Prey[prey] = true
-
     local statusStacks = SP_TableLength(VoreData[pred].Prey)
     for k, v in pairs(VoreData[prey].Prey) do
         statusStacks = statusStacks + Osi.GetStatusTurns(k, 'SP_Stuffed') + 1
@@ -139,7 +141,14 @@ function SP_AddPrey(pred, prey, swallowType, notNested)
             Osi.SetTag(prey, '7095912e-fcb9-41dd-aec3-3cf7803e4b22')
             VoreData[prey].DisableDowned = true
         end
+    -- if a character who is inside of stomach swallows someone else who is in the same stomach
+    elseif VoreData[pred].Pred ~= nil and VoreData[pred].Pred == VoreData[prey].Pred then
+        VoreData[pred].Weight = VoreData[pred].Weight +  VoreData[prey].Weight
+        VoreData[pred].FixedWeight = VoreData[pred].FixedWeight +  VoreData[prey].FixedWeight
     end
+
+    VoreData[prey].Pred = pred
+
     return statusStacks
 end
 
@@ -162,6 +171,7 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested)
 
     PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
     SP_UpdateWeight(pred)
+    _D(VoreData)
     _P('Swallowing END')
 end
 
@@ -283,6 +293,7 @@ function SP_RegurgitatePrey(pred, pr, preyState, spell)
             Osi.RemoveStatus(prey, 'SP_Swallowed_Lethal', pred)
             Osi.RemoveStatus(prey, 'SP_Swallowed_Dead', pred)
             Osi.RemoveStatus(prey, 'SP_Swallowed', pred)
+            VoreData[pred].Prey[prey] = nil
             -- Voreception
             if VoreData[pred].Pred ~= nil then
                 -- reduce pred weight in prey weight tables, since they are both prey and pred
@@ -412,7 +423,6 @@ function SP_RegurgitatePrey(pred, pr, preyState, spell)
         Osi.SetDetached(prey, 0)
         Osi.SetVisible(prey, 1)
         VoreData[prey].Pred = nil
-        VoreData[pred].Prey[prey] = nil
         SP_VoreDataEntry(prey, false)
     end
     -- If pred has no more prey inside.
@@ -463,15 +473,15 @@ function SP_UpdateWeight(pred)
         -- reduces the weight of swallowed allies.
         if SubclassAddOn and VoreData[k].Digestion == 0 then
             if Osi.HasPassive(pred, "SP_Improved_Stomach_Shelter") then
-                weightModifier = VoreData[k].Weight
+                weightModifier = -1 * VoreData[k].Weight
             elseif Osi.HasPassive(pred, "SP_Stomach_Shelter") then
-                weightModifier = VoreData[k].Weight / 2
+                weightModifier = -1 * VoreData[k].Weight / 2
             end
         end
 
 
-        newWeight = newWeight + (VoreData[k].Weight + weightModifier) * weightMultiplier // weightDivider
-        newWeightVisual = newWeightVisual + VoreData[k].Weight
+        newWeight = newWeight + (VoreData[k].Weight + VoreData[k].AddWeight + weightModifier) * weightMultiplier // weightDivider
+        newWeightVisual = newWeightVisual + VoreData[k].Weight + VoreData[k].AddWeight
     end
 
     -- add weight that does not belong to a prey
@@ -623,6 +633,9 @@ end
 ---       update the weight of a single pred multiple times during one tick
 ---       and bug out Osiris.
 function SP_ReduceWeightRecursive(character, diff, updateWeight)
+    if character == nil then
+        return
+    end
     if VoreData[character].Pred ~= nil then
         VoreData[character].Weight = VoreData[character].Weight - diff
         if updateWeight then
@@ -643,16 +656,27 @@ end
 function SP_SlowDigestion(weightDiff, fatDiff)
 
     _P("Slow Digestion:" .. weightDiff .. " " .. fatDiff)
+
+    -- reduces fat and addWeight of a pred
     for k, v in pairs(VoreData) do
-        if VoreData[k].Fat > 0 then
+        if v.Fat > 0 and v.Fat - fatDiff > 0 then
             VoreData[k].Fat = VoreData[k].Fat - fatDiff
-        end
-        if VoreData[k].Fat < 0 then
+        else
             VoreData[k].Fat = 0
-            SP_VoreDataEntry(k, false)
         end
+        if v.AddWeight > 0 then
+            local thisAddDiff = weightDiff
+            -- 
+            if (v.AddWeight - weightDiff) < 0 then
+                thisAddDiff = v.AddWeight
+            end
+            VoreData[k].AddWeight =  VoreData[k].AddWeight - thisAddDiff
+            SP_ReduceWeightRecursive(v.Pred, thisAddDiff, false)
+        end
+        SP_VoreDataEntry(k, false)
     end
 
+    -- reduces prey weight
     for k, v in pairs(VoreData) do
         if v.Digestion == 1 then
             local thisDiff = weightDiff
@@ -664,6 +688,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
             SP_ReduceWeightRecursive(k, thisDiff, false)
         end
     end
+
 
     for k, v in pairs(VoreData) do
         if next(v.Prey) ~= nil then
@@ -736,7 +761,7 @@ function SP_FillVoreData(character, pred)
 		VoreData[character].FixedWeight = PersistentVars['FakePreyWeightTable'][character] or 0
 		VoreData[character].DisableDowned = PersistentVars['DisableDownedPreyTable'][character] or false
 		VoreData[character].Digestion = dead
-		VoreData[character].Combat = Osi.IsInCombat(character) == 1 and dead == 0
+		VoreData[character].Combat = Osi.CombatGetGuidFor(character) or ""
 		VoreData[character].Prey = {}
 		VoreData[character].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', character) or ""
         -- weight that does not belong to any prey

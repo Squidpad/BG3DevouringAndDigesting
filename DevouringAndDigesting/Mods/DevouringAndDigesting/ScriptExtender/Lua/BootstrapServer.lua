@@ -113,7 +113,7 @@ end
 function SP_OnStatusApplied(object, status, causee, storyActionID)
     if status == 'SP_Digesting' then
         for k, v in pairs(VoreData[object].Prey) do
-			if VoreData[k].Digestion ~= 1 and (ConfigVars.TeleportPrey.value == true or VoreData[object].Combat) then
+			if VoreData[k].Digestion ~= 1 and (ConfigVars.TeleportPrey.value == true or VoreData[k].Combat ~= "") then
 				Osi.TeleportTo(k, object, "", 0, 0, 0, 0, 0)
             end
         end
@@ -149,8 +149,8 @@ end
 ---@param combatGuid GUIDSTRING
 function SP_OnCombatEnter(object, combatGuid)
     if VoreData[object] ~= nil then
-        VoreData[object].Combat = true
-        PersistentVars['VoreData'][object].Combat = true
+        VoreData[object].Combat = combatGuid
+        PersistentVars['VoreData'][object].Combat = combatGuid
     end
 end
 
@@ -159,8 +159,8 @@ end
 ---@param combatGuid GUIDSTRING
 function SP_OnCombatLeave(object, combatGuid)
     if VoreData[object] ~= nil then
-        VoreData[object].Combat = false
-        PersistentVars['VoreData'][object].Combat = false
+        VoreData[object].Combat = ""
+        PersistentVars['VoreData'][object].Combat = ""
     end
 end
 
@@ -169,6 +169,14 @@ end
 function SP_OnBeforeDeath(character)
     if VoreData[character] ~= nil then
         -- If character was pred.
+        if VoreData[character].Fat > 0 then
+            VoreData[character].Fat = 0
+        end
+        if VoreData[character].AddWeight > 0 then
+            local thisAddDiff = VoreData[character].AddWeight
+            VoreData[character].AddWeight =  0
+            SP_ReduceWeightRecursive(VoreData[character].Pred, thisAddDiff, false)
+        end
         if next(VoreData[character].Prey) ~= nil then
             _P(character .. " was pred and DIED")
             SP_RegurgitatePrey(character, 'All', -1, "")
@@ -337,6 +345,16 @@ function SP_ResetVore()
     end)
 end
 
+-- deletes every vore-related variable and possibly fixed broken saves
+function SP_KillVore()
+    PersistentVars['PreyTablePred'] = nil
+	PersistentVars['PreyWeightTable'] = nil
+	PersistentVars['FakePreyWeightTable'] = nil
+	PersistentVars['DisableDownedPreyTable'] = nil
+    VoreData = nil
+	PersistentVars['VoreData'] = nil
+end
+
 -- If you know where to get type hints for this, please let me know.
 if Ext.Osiris == nil then
     Ext.Osiris = {}
@@ -367,3 +385,4 @@ Ext.RegisterConsoleCommand('VoreConfig', VoreConfig);
 Ext.RegisterConsoleCommand('VoreConfigOptions', VoreConfigOptions);
 
 Ext.RegisterConsoleCommand("ResetVore", SP_ResetVore);
+Ext.RegisterConsoleCommand("KillVore", SP_KillVore);

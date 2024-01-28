@@ -39,7 +39,6 @@ function SP_DelayCallTicks(ticks, fn)
     local eventID
     eventID = Ext.Events.Tick:Subscribe(function()
         ticksPassed = ticksPassed + 1
-        _P('delay')
         if ticksPassed >= ticks then
             fn()
             Ext.Events.Tick:Unsubscribe(eventID)
