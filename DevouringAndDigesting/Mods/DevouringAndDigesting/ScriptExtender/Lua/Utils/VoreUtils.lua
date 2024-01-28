@@ -20,6 +20,14 @@ local CompanionsSet = {
     ["S_GOB_DrowCommander_25721313-0c15-4935-8176-9f134385451b"] = true,
 }
 
+-- Keys and Names of Digestion type statuses, used for VoreData[].Digestion
+DigestionTypes = {
+    [0] = "SP_Swallowed_Endo",
+    [1] = "SP_Swallowed_Dead",
+    [2] = "SP_Swallowed_Lethal",
+    [3] = "None"
+}
+
 -- A new way to store data about every character that is involved in vore
 VoreData = {}
 
@@ -85,6 +93,8 @@ function SP_NewVoreDataEntry(character)
     -- it's not reliable to ask osiris if a character has a status,
     -- so we make all non-dead prey count as endoed during migration
     VoreData[character].Digestion = 3
+    -- if the items are being digested
+    VoreData[character].DigestItems = false
     -- guid of combat character is in
     VoreData[character].Combat = Osi.CombatGetGuidFor(character) or ""
     -- This is a set, not an array, for an easier search of a specific prey, so use k instead of v when iterating
@@ -113,17 +123,15 @@ end
 function SP_AddPrey(pred, prey, swallowType, notNested)
     SP_VoreDataEntry(prey, true)
 
+    if swallowType >= 3 then
+        _P("Swallowng a character with a wrong status, error")
+        return -1
+    end
+
     VoreData[prey].Digestion = swallowType
 
-    if swallowType == 0 then
-        Osi.ApplyStatus(prey, "SP_Swallowed_Endo", -1, 1, pred)
-    elseif swallowType == 1 then
-        Osi.ApplyStatus(prey, "SP_Swallowed_Dead", -1, 1, pred)
-    elseif swallowType == 2 then
-        Osi.ApplyStatus(prey, "SP_Swallowed_Lethal", -1, 1, pred)
-    else
-        _P("Swallow type wrong number, something is broken")
-    end
+    Osi.ApplyStatus(prey, DigestionTypes[swallowType], -1, 1, pred)
+
     Osi.ApplyStatus(prey, "SP_Swallowed", -1, 1, pred)
 
     
@@ -302,9 +310,9 @@ function SP_RegurgitatePrey(pred, pr, preyState, spell)
             (preyState ~= 1 or (VoreData[prey].Weight <= VoreData[prey].FixedWeight // 5)))) then
             _P('Pred:' .. pred)
             _P('Prey:' .. prey)
-            Osi.RemoveStatus(prey, 'SP_Swallowed_Endo', pred)
-            Osi.RemoveStatus(prey, 'SP_Swallowed_Lethal', pred)
-            Osi.RemoveStatus(prey, 'SP_Swallowed_Dead', pred)
+            Osi.RemoveStatus(prey, DigestionTypes[0], pred)
+            Osi.RemoveStatus(prey, DigestionTypes[1], pred)
+            Osi.RemoveStatus(prey, DigestionTypes[2], pred)
             Osi.RemoveStatus(prey, 'SP_Swallowed', pred)
             VoreData[pred].Prey[prey] = nil
             -- Voreception
@@ -383,25 +391,27 @@ function SP_RegurgitatePrey(pred, pr, preyState, spell)
             local itemList = Ext.Entity.Get(VoreData[pred].Items).InventoryOwner.PrimaryInventory:GetAllComponents()
                                  .InventoryContainer.Items
 
-            -- Prevents items from being stuck in each other by placing them in circle around pred.
-            local rotationOffset = 0
-            local rotationOffset1 = 360 // (#itemList)
-            for k, v in pairs(itemList) do
-                local uuid = v.Item:GetAllComponents().Uuid.EntityUuid
-                local predX, predY, predZ = Osi.getPosition(pred)
-                -- Y-rotation == yaw.
-                local predXRotation, predYRotation, predZRotation = Osi.GetRotation(pred)
-                -- Osi.GetRotation() returns degrees for some ungodly reason, let's fix that :)
-                predYRotation = (predYRotation + rotationOffset) * math.pi / 180
-                -- Equation for rotating a vector in the X dimension.
-                local newX = predX + ConfigVars.RegurgDist.value * math.cos(predYRotation)
-                -- Equation for rotating a vector in the Z dimension.
-                local newZ = predZ + ConfigVars.RegurgDist.value * math.sin(predYRotation)
-                -- Places prey at pred's location, vaguely in front of them.
-                Osi.ItemMoveToPosition(uuid, newX, predY, newZ, 100000, 100000)
-                _P("Moved Item " .. uuid)
-                rotationOffset = rotationOffset + rotationOffset1
-            end
+            if #itemList > 0 then
+                -- Prevents items from being stuck in each other by placing them in circle around pred.
+                local rotationOffset = 0
+                local rotationOffset1 = 360 // (#itemList)
+                for k, v in pairs(itemList) do
+                    local uuid = v.Item:GetAllComponents().Uuid.EntityUuid
+                    local predX, predY, predZ = Osi.getPosition(pred)
+                    -- Y-rotation == yaw.
+                    local predXRotation, predYRotation, predZRotation = Osi.GetRotation(pred)
+                    -- Osi.GetRotation() returns degrees for some ungodly reason, let's fix that :)
+                    predYRotation = (predYRotation + rotationOffset) * math.pi / 180
+                    -- Equation for rotating a vector in the X dimension.
+                    local newX = predX + ConfigVars.RegurgDist.value * math.cos(predYRotation)
+                    -- Equation for rotating a vector in the Z dimension.
+                    local newZ = predZ + ConfigVars.RegurgDist.value * math.sin(predYRotation)
+                    -- Places prey at pred's location, vaguely in front of them.
+                    Osi.ItemMoveToPosition(uuid, newX, predY, newZ, 100000, 100000)
+                    _P("Moved Item " .. uuid)
+                    rotationOffset = rotationOffset + rotationOffset1
+                end
+            end 
         end
         -- This delay is important, otherwise items would be deleted.
         VoreData[pred].Items = ""
@@ -420,6 +430,16 @@ function SP_RegurgitatePrey(pred, pr, preyState, spell)
         SP_SwallowPreyMultiple(VoreData[pred].Pred, markedForSwallow, VoreData[pred].Digestion, false)
     end
 
+    -- stops digesting items if nothing is being digested in the stomach of the pred
+    local stopDigestingItems = true
+    for k, v in pairs(VoreData[pred].Prey) do
+        if VoreData[k].Digestion == 2 then
+            stopDigestingItems = false
+        end
+    end
+    if stopDigestingItems and VoreData[pred].Items == "" then
+        VoreData[pred].DigestItems = false
+    end
 
     -- Remove regurgitated prey from the table.
     for _, prey in ipairs(markedForRemoval) do
@@ -625,16 +645,18 @@ function SP_VoreCheck(pred, prey, eventName)
         Osi.RequestPassiveRollVersusSkill(prey, pred, "SkillCheck", "Strength", "Constitution", 0, advantage, eventName)
     elseif eventName == 'SwallowLethalCheck' then
         _P('Rolling to resist swallow')
-
-        if Osi.HasSkill(prey, "Acrobatics") > Osi.HasSkill(prey, "Athletics") then
-            _P('Using Acrobatics')
-            Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", "Athletics", "Acrobatics", advantage, 0,
-                                              eventName)
-        else
-            _P('Using Athletics')
-            Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", "Athletics", "Athletics", advantage, 0,
-                                              eventName)
+        local predStat = 'Athletics'
+        local preyStat = 'Athletics'
+        if Osi.HasSkill(pred, "Acrobatics") > Osi.HasSkill(pred, "Athletics") then
+            predStat = "Acrobatics"
         end
+        if Osi.HasSkill(prey, "Acrobatics") > Osi.HasSkill(prey, "Athletics") then
+            preyStat = "Acrobatics"
+        end
+        Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", predStat, preyStat, advantage, 0, eventName)
+
+    elseif eventName == 'ItemDigestCheck' then
+
     end
 end
 
@@ -714,6 +736,22 @@ function SP_SlowDigestion(weightDiff, fatDiff)
 end
 
 
+
+---switches to a different type of digestion
+---do not forget to copy VoreData after using this
+---@param pred CHARACTER
+---@param prey CHARACTER
+---@param fromDig integer fromDig switch from this digestion type
+---@param toDig integer fromDig switch from this digestion type
+function SP_SwitchToDigestionType(pred, prey, fromDig, toDig)
+    if VoreData[prey].Digestion == fromDig then
+        VoreData[prey].Digestion = toDig
+        Osi.RemoveStatus(prey, DigestionTypes[fromDig], pred)
+        Osi.ApplyStatus(prey, DigestionTypes[toDig], -1, 1, pred)
+    end
+end
+
+
 ---Console command for changing config variables.
 ---@param var string Name of the variable to change.
 ---@param val any Value to change the variable to.
@@ -782,6 +820,7 @@ function SP_FillVoreData(character, pred)
         VoreData[character].Fat = 0
         VoreData[character].AddWeight = 0
         VoreData[character].WeightReduction = 0
+        VoreData[character].DigestItems = false
 		-- fills the prey table
 		for k, v in pairs(PersistentVars['PreyTablePred']) do
 			if v == character then

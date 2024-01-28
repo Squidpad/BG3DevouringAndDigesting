@@ -30,7 +30,7 @@ function SP_ResetConfig()
 		},
 		WeightGain = {
 			description = "TEST. Stores and adds \"fat\" value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.",
-			value = false
+			value = true
 		},
 		WeightLossShort = {
 			description = "TEST. How much fat a character looses on short resting.",
@@ -47,6 +47,14 @@ function SP_ResetConfig()
 		LockStomach = {
 			description = "Whether to lock the stomach object used for storing items during item vore or not. Please do not remove or add items inside the stomach manually.",
 			value = true
+		},
+		SwitchEndoLethal = {
+			description = "When you start digesting prey, you will start digesting endo prey as well.",
+			value = true
+		},
+		DigestItems = {
+			description = "When you start digesting prey, the items in your stomach might be digested. WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH",
+			value = false
 		}
 	}
 	local json = Ext.Json.Stringify(vrs)

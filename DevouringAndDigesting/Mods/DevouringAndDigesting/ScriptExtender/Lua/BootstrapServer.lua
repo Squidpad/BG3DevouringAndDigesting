@@ -92,7 +92,18 @@ end
 function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRoll, criticality)
     if eventName == "SwallowLethalCheck" and (resultType ~= 0 or ConfigVars.VoreDifficulty.value == 'debug') then
         _P('Lethal Swallow Success by ' .. roller)
+
         SP_SwallowPrey(roller, rollSubject, 2, true)
+
+        if ConfigVars.SwitchEndoLethal.value then
+            if ConfigVars.DigestItems.value then
+                VoreData[roller].DigestItems = true
+            end
+            for k, v in pairs(VoreData[roller].Prey) do
+                SP_SwitchToDigestionType(roller, k, 0, 2)
+            end
+            PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
+        end
     end
     if eventName == "StruggleCheck" and resultType ~= 0 then
         _P('Struggle Success by ' .. roller .. ' against ' .. rollSubject)
@@ -102,6 +113,31 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
 			-- Now only the prey who struggled out will escape
             SP_RegurgitatePrey(rollSubject, "All", 0, "")
         end
+    end
+end
+
+
+---digests a random item in pred's inventory
+---@param pred CHARACTER
+function SP_DigestItem(pred)
+    -- the chance of an item being digested is 1/3 per Digestion tick
+    if VoreData[pred].Items == nil and Osi.Random(2) ~= 1 then
+        return
+    end
+    
+    local itemList = Ext.Entity.Get(VoreData[pred].Items).InventoryOwner.PrimaryInventory:GetAllComponents()
+                                 .InventoryContainer.Items
+    for k, v in pairs(itemList) do
+        local uuid = v.Item:GetAllComponents().Uuid.EntityUuid
+        _P("item" .. uuid)
+        if Osi.IsConsumable(uuid) == 1 then
+            Osi.Use(pred, uuid, "")
+        else
+            VoreData[pred].AddWeight = VoreData[pred].AddWeight + Ext.Entity.Get(uuid).Data.Weight // 1000
+            Osi.RequestDelete(uuid)
+            Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', VoreData[pred].Items, 1, 0)
+        end
+        return
     end
 end
 
@@ -116,6 +152,9 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
 			if VoreData[k].Digestion ~= 1 and (ConfigVars.TeleportPrey.value == true or VoreData[k].Combat ~= "") then
 				Osi.TeleportTo(k, object, "", 0, 0, 0, 0, 0)
             end
+        end
+        if VoreData[object].DigestItems and VoreData[object].Items ~= "" then
+            SP_DigestItem(object)
         end
     elseif status == 'SP_Inedible' and Osi.GetStatusTurns(object, 'SP_Inedible') > 1 then
         Osi.RemoveStatus(object, 'SP_Inedible', "")
@@ -193,9 +232,9 @@ function SP_OnBeforeDeath(character)
                     SP_RegurgitatePrey(pred, character, -1, "Absorb")
                 end)
             else
-                Osi.RemoveStatus(character, 'SP_Swallowed_Endo', pred)
-                Osi.RemoveStatus(character, 'SP_Swallowed_Lethal', pred)
-                Osi.ApplyStatus(character, 'SP_Swallowed_Dead', -1, 1, pred)
+                Osi.RemoveStatus(character, DigestionTypes[0], pred)
+                Osi.RemoveStatus(character, DigestionTypes[2], pred)
+                Osi.ApplyStatus(character, DigestionTypes[1], -1, 1, pred)
                 -- Digested but not released prey will be stored out of bounds.
                 -- investigate if teleporting char out of bounds and reloading breaks them
                 Osi.TeleportToPosition(character, -100000, 0, -100000, "", 0, 0, 0, 1, 0)
