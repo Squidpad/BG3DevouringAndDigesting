@@ -728,11 +728,45 @@ function SP_SlowDigestion(weightDiff, fatDiff)
 
     for k, v in pairs(VoreData) do
         if next(v.Prey) ~= nil then
-            SP_UpdateWeight(k, true)
+            SP_UpdateWeight(k)
         end
     end
     PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
     _D(VoreData)
+end
+
+---Recursively generates a list of all nested prey
+---@param pred GUIDSTRING
+---@param queryType integer? Only count prey of this type: 0 == endo, 1 == dead, 2 == lethal, 3 == none
+---@return table
+function SP_GetNestedPrey(pred, queryType)
+    if VoreData[pred] == nil or VoreData[pred].Prey == nil then
+        return {}
+    end
+    _D(VoreData[pred])
+    local allPrey = VoreData[pred].Prey
+    if queryType ~= nil then
+        allPrey = SP_FilterPrey(allPrey, queryType)
+    end
+    for k, _ in pairs(allPrey) do
+        ---@diagnostic disable-next-line: param-type-mismatch
+        allPrey = SP_TableConcat(allPrey, SP_GetNestedPrey(VoreData[k].Prey, queryType))
+    end
+    return allPrey
+end
+
+---Filters out prey with a specific prey type and returns them
+---@param preyTable table
+---@param type integer 0 == endo, 1 == dead, 2 == lethal, 3 == none
+---@return table
+function SP_FilterPrey(preyTable, type)
+    local output = {}
+    for k, v in pairs(preyTable) do
+        if VoreData[k].Digestion == type then
+            output[k] = v
+        end
+    end
+    return output
 end
 
 

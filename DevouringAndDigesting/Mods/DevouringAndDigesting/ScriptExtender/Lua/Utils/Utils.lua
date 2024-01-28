@@ -95,6 +95,16 @@ function SP_TableContains(table, element)
     return false
 end
 
+---returns t2 merged into t1
+---@param t1 table
+---@param t2 table
+function SP_TableConcat(t1,t2)
+    for i=1,#t2 do
+       t1[#t1+1] = t2[i]
+    end
+    return t1
+ end
+
 ---returns length of a table when # does not work (table is not an array)
 ---@param table table table to query
 function SP_TableLength(table)
