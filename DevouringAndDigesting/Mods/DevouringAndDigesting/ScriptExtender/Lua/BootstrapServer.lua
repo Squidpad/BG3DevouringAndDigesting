@@ -30,10 +30,6 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         local prey = string.sub(spell, 13)
         SP_RegurgitatePrey(caster, prey, 1, spell)
     elseif string.sub(spell, 0, 10) == 'SP_Absorb_' then
-        Osi.TemplateAddTo("96a35552-0c05-4df0-9974-2a8f142e4be6", caster, 1, 1)
-        Osi.TemplateAddTo("4f313dde-14bb-43a2-abdd-07b2eb38b33a", caster, 1, 1)
-        Osi.TemplateAddTo("7e81bb6a-f465-4fe9-b1db-7ce6198246ba", caster, 1, 1)
-        Osi.TemplateAddTo("0a64283a-1fc4-45cd-9e5e-f463f6b762ea", caster, 1, 1)
         local prey = string.sub(spell, 11)
         SP_RegurgitatePrey(caster, prey, 1, 'Absorb')
     elseif spell == "SP_SwitchToLethal" then
