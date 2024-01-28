@@ -188,6 +188,7 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested)
     Osi.RemoveStatus(pred, "SP_Stuffed")
     Osi.ApplyStatus(pred, "SP_Stuffed", statusStacks * SecondsPerTurn, 1, pred)
     Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
+    Osi.AddSpell(pred, 'SP_SwitchToLethal', 0, 0)
 
     SP_UpdateWeight(pred)
     PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
@@ -212,6 +213,7 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested)
 
     Osi.ApplyStatus(pred, "SP_Stuffed", statusStacks * SecondsPerTurn, 1, pred)
     Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
+    Osi.AddSpell(pred, 'SP_SwitchToLethal', 0, 0)
 
 
     SP_UpdateWeight(pred)
@@ -232,6 +234,7 @@ function SP_SwallowItem(pred, item)
         if next(VoreData[pred].Prey) == nil and VoreData[pred].Items == "" then
             Osi.ApplyStatus(pred, "SP_Stuffed", 1 * SecondsPerTurn, 1, pred)
             Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
+            Osi.AddSpell(pred, 'SP_SwitchToLethal', 0, 0)
         end
         VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
         Osi.ToInventory(item, VoreData[pred].Items, 9999, 0, 0)
@@ -261,6 +264,7 @@ function SP_SwallowAllItems(pred, container)
         if next(VoreData[pred].Prey) == nil and VoreData[pred].Items == "" then
             Osi.ApplyStatus(pred, "SP_Stuffed", 1 * SecondsPerTurn, 1, pred)
             Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
+            Osi.AddSpell(pred, 'SP_SwitchToLethal', 0, 0)
         end
         VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
         Osi.MoveAllItemsTo(container, VoreData[pred].Items, 0, 0, 0, 0)
@@ -461,16 +465,21 @@ function SP_RegurgitatePrey(pred, pr, preyState, spell)
     -- If pred has no more prey inside.
     if next(VoreData[pred].Prey) == nil and VoreData[pred].Items == "" then
         Osi.RemoveSpell(pred, 'SP_Regurgitate', 1)
+        Osi.RemoveSpell(pred, 'SP_SwitchToLethal', 1)
         Osi.RemoveStatus(pred, 'SP_Stuffed')
-    elseif VoreData[pred].Pred == nil then
-
+    else
         Osi.RemoveStatus(pred, 'SP_Stuffed')
         local statusStacks = 0
         for k, v in pairs(VoreData[pred].Prey) do
             _P(k)
             statusStacks = statusStacks + Osi.GetStatusTurns(k, 'SP_Stuffed') + 1
         end
-        Osi.ApplyStatus(pred, 'SP_Stuffed', statusStacks * SecondsPerTurn, 1)
+
+        if VoreData[pred].Items ~= "" and statusStacks == 0 then
+            Osi.ApplyStatus(pred, 'SP_Stuffed', 1 * SecondsPerTurn, 1)
+        elseif statusStacks > 0 then
+            Osi.ApplyStatus(pred, 'SP_Stuffed', statusStacks * SecondsPerTurn, 1)
+        end   
     end
 
     for _, prey in ipairs(markedForErase) do
@@ -654,9 +663,6 @@ function SP_VoreCheck(pred, prey, eventName)
             preyStat = "Acrobatics"
         end
         Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", predStat, preyStat, advantage, 0, eventName)
-
-    elseif eventName == 'ItemDigestCheck' then
-
     end
 end
 

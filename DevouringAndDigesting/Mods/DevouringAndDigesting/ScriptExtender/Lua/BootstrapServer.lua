@@ -30,8 +30,22 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         local prey = string.sub(spell, 13)
         SP_RegurgitatePrey(caster, prey, 1, spell)
     elseif string.sub(spell, 0, 10) == 'SP_Absorb_' then
+        Osi.TemplateAddTo("96a35552-0c05-4df0-9974-2a8f142e4be6", caster, 1, 1)
+        Osi.TemplateAddTo("4f313dde-14bb-43a2-abdd-07b2eb38b33a", caster, 1, 1)
+        Osi.TemplateAddTo("7e81bb6a-f465-4fe9-b1db-7ce6198246ba", caster, 1, 1)
+        Osi.TemplateAddTo("0a64283a-1fc4-45cd-9e5e-f463f6b762ea", caster, 1, 1)
         local prey = string.sub(spell, 11)
         SP_RegurgitatePrey(caster, prey, 1, 'Absorb')
+    elseif spell == "SP_SwitchToLethal" then
+        if VoreData[caster] ~= nil then
+            if ConfigVars.DigestItems.value then
+                VoreData[caster].DigestItems = true
+            end
+            for k, v in pairs(VoreData[caster].Prey) do
+                SP_SwitchToDigestionType(caster, k, 0, 2)
+            end
+            PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
+        end
     end
 end
 
@@ -129,15 +143,19 @@ function SP_DigestItem(pred)
                                  .InventoryContainer.Items
     for k, v in pairs(itemList) do
         local uuid = v.Item:GetAllComponents().Uuid.EntityUuid
-        _P("item" .. uuid)
-        if Osi.IsConsumable(uuid) == 1 then
-            Osi.Use(pred, uuid, "")
-        else
-            VoreData[pred].AddWeight = VoreData[pred].AddWeight + Ext.Entity.Get(uuid).Data.Weight // 1000
-            Osi.RequestDelete(uuid)
-            Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', VoreData[pred].Items, 1, 0)
+        _D(v.Item:GetAllComponents())
+        if Osi.IsStoryItem(uuid) == 0 and Osi.IsTagged(uuid, '983087c8-c9d3-4a87-bc69-65f9329666c8') == 0 and
+         Osi.IsTagged(uuid, '7b96246c-54ba-43ea-b01d-4e0b20ad35f1') == 0 then
+            _P("item" .. uuid)
+            if Osi.IsConsumable(uuid) == 1 then
+                Osi.Use(pred, uuid, "")
+            else
+                VoreData[pred].AddWeight = VoreData[pred].AddWeight + Ext.Entity.Get(uuid).Data.Weight // 1000
+                Osi.RequestDelete(uuid)
+                Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', VoreData[pred].Items, 1, 0)
+            end
+            return
         end
-        return
     end
 end
 
