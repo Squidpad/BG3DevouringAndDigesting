@@ -18,7 +18,7 @@ function SP_ResetConfig()
 		},
 		DigestionRateLong = {
 			description = "Determines by how much the weight of a prey who is being digested is reduced after a long rest",
-			value = 70
+			value = 60
 		},
 		TeleportPrey = {
 			description = "Determines if a living prey is teleported to their predator at the end of each turn (or every 6 seconds outside of turn-based mode). By default is on, should be only turned off in case of performance issues",
@@ -27,6 +27,26 @@ function SP_ResetConfig()
 		RegurgDist = {
 			description = "Determines how far prey spawn when regurgitated. Default is 2",
 			value = 2
+		},
+		WeightGain = {
+			description = "TEST. Stores and adds \"fat\" value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.",
+			value = false
+		},
+		WeightLossShort = {
+			description = "TEST. How much fat a character looses on short resting.",
+			value = 2
+		},
+		WeightLossLong = {
+			description = "TEST. How much fat a character looses on long resting.",
+			value = 6
+		},
+		WeightGainRate = {
+			description = "TEST. By how much DigestionRate is divided for fat gain rate.",
+			value = 5
+		},
+		LockStomach = {
+			description = "Whether to lock the stomach object used for storing items during item vore or not. Please do not remove or add items inside the stomach manually.",
+			value = true
 		}
 	}
 	local json = Ext.Json.Stringify(vrs)

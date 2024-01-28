@@ -95,3 +95,13 @@ function SP_TableContains(table, element)
     end
     return false
 end
+
+---returns length of a table when # does not work (table is not an array)
+---@param table table table to query
+function SP_TableLength(table)
+    local l = 0
+    for k, v in pairs(table) do
+        l = l + 1
+    end
+    return l
+end

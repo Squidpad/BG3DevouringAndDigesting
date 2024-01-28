@@ -20,10 +20,8 @@ local CompanionsSet = {
     ["S_GOB_DrowCommander_25721313-0c15-4935-8176-9f134385451b"] = true,
 }
 
--- A prey can only exist within one stomach, so it's better to use them as
--- unique keys in a dictionary/table, and it allows easier implementation
--- of multiple prey and voreception (nested vore) without nested tables.
-PreyTablePred = {}
+-- A new way to store data about every character that is involved in vore
+VoreData = {}
 
 -- ApplyStatus applies statuses for a number of seconds instead of turns.
 -- Multiply the duration by this.
@@ -52,67 +50,164 @@ BellyTableFemale = {
 -- the addon a requirement.
 SubclassAddOn = false
 
----Populates the PreyTablePred.
----@param pred CHARACTER
----@param prey CHARACTER
-function SP_FillPredPreyTable(pred, prey)
-    _P("Filling Table")
-
-    if PreyTablePred[prey] ~= nil then
-        _P("Transferring prey " .. prey .. " from " .. PreyTablePred[prey] .. " to " .. pred)
+---Adds or deletes VoreData of a character
+---@param character CHARACTER
+---@param create boolean? will not delete entry if true
+function SP_VoreDataEntry(character, create)
+    if VoreData[character] == nil and create then
+        _P("Adding character " .. character)
+        SP_NewVoreDataEntry(character)
+    elseif VoreData[character].Pred == nil and next(VoreData[character].Prey) == nil and VoreData[character].Items == ""
+    and VoreData[character].Fat == 0 and VoreData[character].AddWeight == 0 and not create then
+        _P("Removing character " .. character)
+        VoreData[character] = nil
+    else
+        _P("Skipping character " .. character)
     end
-    PreyTablePred[prey] = pred
-
-    _P("ADDING SPELL")
-    Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
-
-    PersistentVars['PreyTablePred'] = SP_Deepcopy(PreyTablePred)
-    _D(PreyTablePred)
 end
 
----Should be called in any situation when prey must be released.
+---@param character CHARACTER
+function SP_NewVoreDataEntry(character)
+    VoreData[character] = {}
+    -- pred of this character
+    VoreData[character].Pred = nil
+    -- weight of this character, only for prey, 0 for preds. This is dynamically changed
+    VoreData[character].Weight = 0
+    -- weight of this character, only for prey, 0 for preds. This is stored to keep the track of digestion process
+    VoreData[character].FixedWeight = 0
+    -- if a tag that disables downed state was appled on swallow. Should be false for non-prey
+    VoreData[character].DisableDowned = false
+    -- 0 == endo, 1 == dead, 2 == lethal, 3 == none. Since the statuses might be changed in the future, 
+    -- it's not reliable to ask osiris if a character has a status,
+    -- so we make all non-dead prey count as endoed during migration
+    VoreData[character].Digestion = 3
+    VoreData[character].Combat = Osi.IsInCombat(character) == 1
+    -- This is a set, not an array, for an easier search of a specific prey, so use k instead of v when iterating
+    -- use next(VoreData[character].Prey) == nil instead of #VoreData[character].Prey == 0 to check if it's empty 
+    VoreData[character].Prey = {}
+    VoreData[character].Items = ""
+    -- For wg maybe
+    VoreData[character].Fat = 0
+    -- Belly weight without prey
+    VoreData[character].AddWeight = 0
+end
+
+
+---This adds a prey to pred without updating pred's weight or saving table
+---Separated this from SP_SwallowPrey to create SP_SwallowPreyMultiple
+---Otherwise the UpdateWeight will be called multiple times on the same tick, which will break osiris
+---Also SP_Stuffed should not be applied and removed multiple times on the same tick
 ---@param pred CHARACTER
 ---@param prey CHARACTER
----@param swallowType string Internal name of Status Effect.
+---@param swallowType integer Internal name of Status Effect.
 ---@param notNested boolean If prey is not transferred to another stomach.
-function SP_SwallowPrey(pred, prey, swallowType, notNested)
-    _P('Swallowing')
-    Osi.ApplyStatus(prey, swallowType, -1, 1, pred)
-    Osi.ApplyStatus(pred, "SP_Stuffed", 1 * SecondsPerTurn, 1, pred)
-    SP_FillPredPreyTable(pred, prey)
+---@return integer statusStacks
+function SP_AddPrey(pred, prey, swallowType, notNested)
+    SP_VoreDataEntry(prey, true)
+
+    VoreData[prey].Digestion = swallowType
+
+    if swallowType == 0 then
+        Osi.ApplyStatus(prey, "SP_Swallowed_Endo", -1, 1, pred)
+    elseif swallowType == 1 then
+        Osi.ApplyStatus(prey, "SP_Swallowed_Dead", -1, 1, pred)
+    elseif swallowType == 2 then
+        Osi.ApplyStatus(prey, "SP_Swallowed_Lethal", -1, 1, pred)
+    else
+        _P("Swallow type wrong number, something is broken")
+    end
+    Osi.ApplyStatus(prey, "SP_Swallowed", -1, 1, pred)
+
+    VoreData[prey].Pred = pred
+    VoreData[pred].Prey[prey] = true
+
+    local statusStacks = SP_TableLength(VoreData[pred].Prey)
+    for k, v in pairs(VoreData[prey].Prey) do
+        statusStacks = statusStacks + Osi.GetStatusTurns(k, 'SP_Stuffed') + 1
+    end
+    
     if notNested then
         Osi.SetDetached(prey, 1)
         Osi.SetVisible(prey, 0)
         -- Removes downed status if prey is already downed.
         Osi.ApplyStatus(prey, "SP_Being_Swallowed", 0, 1, pred)
         -- Instead of add weight.
-        PersistentVars['PreyWeightTable'][prey] = math.floor(SP_GetTotalCharacterWeight(prey))
-        PersistentVars['FakePreyWeightTable'][prey] = math.floor(SP_GetTotalCharacterWeight(prey))
+        VoreData[prey].Weight = math.floor(SP_GetTotalCharacterWeight(prey))
+        VoreData[prey].FixedWeight = math.floor(SP_GetTotalCharacterWeight(prey))
         -- Tag that disables downed state.
         if Osi.IsTagged(prey, '7095912e-fcb9-41dd-aec3-3cf7803e4b22') ~= 1 then
             Osi.SetTag(prey, '7095912e-fcb9-41dd-aec3-3cf7803e4b22')
-            PersistentVars['DisableDownedPreyTable'][prey] = true
-            _P('DisableDownedPreyTable')
-            _D(PersistentVars['DisableDownedPreyTable'])
+            VoreData[prey].DisableDowned = true
         end
-        SP_UpdateWeight(pred, true)
     end
+    return statusStacks
+end
+
+
+---Should be called in any situation when prey must be swallowed.
+---@param pred CHARACTER
+---@param prey CHARACTER
+---@param swallowType integer Internal name of Status Effect.
+---@param notNested boolean If prey is not transferred to another stomach.
+function SP_SwallowPrey(pred, prey, swallowType, notNested)
+    _P('Swallowing')
+
+    SP_VoreDataEntry(pred, true)
+
+    local statusStacks = SP_AddPrey(pred, prey, swallowType, notNested)
+
+    Osi.RemoveStatus(pred, "SP_Stuffed")
+    Osi.ApplyStatus(pred, "SP_Stuffed", statusStacks * SecondsPerTurn, 1, pred)
+    Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
+
+    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
+    SP_UpdateWeight(pred)
     _P('Swallowing END')
 end
+
+---Should be called in any situation when multiple prey must be swallowed.
+---@param pred CHARACTER
+---@param preys table
+---@param swallowType integer Internal name of Status Effect.
+---@param notNested boolean If prey is not transferred to another stomach.
+function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested)
+    _P('Swallowing multiple')
+
+    SP_VoreDataEntry(pred, true)
+
+    local statusStacks = 0
+    for _, v in ipairs(preys) do
+        statusStacks = statusStacks + SP_AddPrey(pred, v, swallowType, notNested)
+    end
+
+    Osi.ApplyStatus(pred, "SP_Stuffed", statusStacks * SecondsPerTurn, 1, pred)
+    Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
+
+    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
+    SP_UpdateWeight(pred)
+    _P('Swallowing END')
+end
+
+
 
 ---Swallow an item.
 ---@param pred CHARACTER
 ---@param item GUIDSTRING
 function SP_SwallowItem(pred, item)
-    if Osi.TemplateIsInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred) == 1 then
-        local stomach = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
-        Osi.ToInventory(item, stomach, 9999, 0, 0)
-        if Osi.HasActiveStatus(pred, "SP_Stuffed") == 0 then
+
+    SP_VoreDataEntry(pred, true)
+
+    if  Osi.TemplateIsInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred) == 1 then
+        if next(VoreData[pred].Prey) == nil and VoreData[pred].Items == "" then
             Osi.ApplyStatus(pred, "SP_Stuffed", 1 * SecondsPerTurn, 1, pred)
+            Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
         end
-        Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
+        VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
+        Osi.ToInventory(item, VoreData[pred].Items, 9999, 0, 0)
+
+        PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
         SP_DelayCallTicks(4, function()
-            SP_UpdateWeight(pred, true)
+            SP_UpdateWeight(pred)
         end)
     else
         Osi.TemplateAddTo('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred, 1, 0)
@@ -128,16 +223,21 @@ end
 ---@param pred CHARACTER
 ---@param container GUIDSTRING
 function SP_SwallowAllItems(pred, container)
+
+    SP_VoreDataEntry(pred, true)
+
     if Osi.TemplateIsInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred) == 1 then
-        local stomach = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
-        Osi.MoveAllItemsTo(container, stomach, 0, 0, 0, 0)
-        Osi.MoveAllStoryItemsTo(container, stomach, 0, 0)
-        if Osi.HasActiveStatus(pred, "SP_Stuffed") == 0 then
+        if next(VoreData[pred].Prey) == nil and VoreData[pred].Items == "" then
             Osi.ApplyStatus(pred, "SP_Stuffed", 1 * SecondsPerTurn, 1, pred)
+            Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
         end
-        Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
+        VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
+        Osi.MoveAllItemsTo(container, VoreData[pred].Items, 0, 0, 0, 0)
+        Osi.MoveAllStoryItemsTo(container, VoreData[pred].Items, 0, 0)
+        
+        PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
         SP_DelayCallTicks(4, function()
-            SP_UpdateWeight(pred, true)
+            SP_UpdateWeight(pred)
         end)
     else
         Osi.TemplateAddTo('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred, 1, 0)
@@ -149,68 +249,58 @@ end
 
 ---Should be called in any situation when prey must be released, including pred's death.
 ---@param pred CHARACTER
----@param prey CHARACTER
+---@param pr string
 ---@param preyState integer State of prey to regurgitate: 0 == alive, 1 == dead, 2 == all.
 ---@param spell string Internal name of spell (this does not reflect the in-game spell used).
-function SP_RegurgitatePrey(pred, prey, preyState, spell)
+function SP_RegurgitatePrey(pred, pr, preyState, spell)
     _P('Starting Regurgitation')
 
-    _P('Targets: ' .. prey)
+    SP_VoreDataEntry(pred, true)
+
+    _P('Targets: ' .. pr)
     local markedForRemoval = {}
+    local markedForSwallow = {}
+    local markedForErase = {}
+
     -- Find prey to remove, clear their status, mark them for removal.
-    for k, v in pairs(PreyTablePred) do
-        local isDead = Osi.IsDead(k)
-        if isDead == nil then
-            table.insert(markedForRemoval, k)
+    for prey, v in pairs(VoreData[pred].Prey) do
+        local isReal = Osi.IsCharacter(prey)
+        if isReal ~= 1 then
+            table.insert(markedForErase, prey)
         end
 
-        if isDead ~= nil and v == pred and (prey == "All" or k == prey) and (preyState == 2 or (isDead == preyState and
-            (preyState == 0 or (PersistentVars['PreyWeightTable'][k] <= PersistentVars['FakePreyWeightTable'][k] // 5)))) then
-            _P('Pred:' .. v)
-            _P('Prey:' .. k)
-            Osi.RemoveStatus(k, 'SP_Swallowed_Endo', pred)
-            Osi.RemoveStatus(k, 'SP_Swallowed_Lethal', pred)
-            Osi.RemoveStatus(k, 'SP_Swallowed_Dead', pred)
-            -- Voreception. If pred is a prey of another pred, prey will be transferred
-            -- to the outer pred. Used when prey struggles out or pred dies, since pred
-            -- cannot use regurgitate while being swallowed (INCAPACITATED).
-            if PreyTablePred[pred] ~= nil then
+        -- this is needed to regurgitate lethal vore characters when using regurgitation spell
+        local stateCheck = VoreData[prey].Digestion
+        if stateCheck == 2 then
+            stateCheck = 0
+        end
+
+        if isReal == 1 and (pr == "All" or prey == pr) and (preyState == -1 or (stateCheck == preyState and
+            (preyState ~= 1 or (VoreData[prey].Weight <= VoreData[prey].FixedWeight // 5)))) then
+            _P('Pred:' .. pred)
+            _P('Prey:' .. prey)
+            Osi.RemoveStatus(prey, 'SP_Swallowed_Endo', pred)
+            Osi.RemoveStatus(prey, 'SP_Swallowed_Lethal', pred)
+            Osi.RemoveStatus(prey, 'SP_Swallowed_Dead', pred)
+            Osi.RemoveStatus(prey, 'SP_Swallowed', pred)
+            -- Voreception
+            if VoreData[pred].Pred ~= nil then
                 -- reduce pred weight in prey weight tables, since they are both prey and pred
-                PersistentVars['PreyWeightTable'][pred] = PersistentVars['PreyWeightTable'][pred] -
-                                                              PersistentVars['PreyWeightTable'][k]
-                PersistentVars['FakePreyWeightTable'][pred] =
-                    PersistentVars['FakePreyWeightTable'][pred] - PersistentVars['PreyWeightTable'][k]
-                if Osi.HasActiveStatus(pred, 'SP_Swallowed_Lethal') ~= 0 then
-                    SP_SwallowPrey(PreyTablePred[pred], k, 'SP_Swallowed_Lethal', false)
-                elseif Osi.HasActiveStatus(pred, 'SP_Swallowed_Endo') ~= 0 then
-                    SP_SwallowPrey(PreyTablePred[pred], k, 'SP_Swallowed_Endo', false)
-                else
-                    SP_SwallowPrey(PreyTablePred[pred], k, 'SP_Swallowed_Dead', false)
-                end
+                VoreData[pred].Weight = VoreData[pred].Weight - VoreData[prey].Weight
+                VoreData[pred].FixedWeight = VoreData[pred].FixedWeight - VoreData[prey].Weight
+                table.insert(markedForSwallow, prey)
                 -- If no voreception, free prey.
             else
-                -- Instead of remove weight.
-                PersistentVars['PreyWeightTable'][k] = nil
-                PersistentVars['FakePreyWeightTable'][k] = nil
-                -- Tag that disables downed state.
-                if PersistentVars['DisableDownedPreyTable'][k] ~= nil then
-                    Osi.ClearTag(k, '7095912e-fcb9-41dd-aec3-3cf7803e4b22')
-                    PersistentVars['DisableDownedPreyTable'][k] = nil
-                    _P('DisableDownedPreyTable')
-                    _D(PersistentVars['DisableDownedPreyTable'])
-                end
-                Osi.SetDetached(k, 0)
-                Osi.SetVisible(k, 1)
-                table.insert(markedForRemoval, k)
+                table.insert(markedForRemoval, prey)
                 if spell == 'Absorb' then
                     local predData = Ext.Entity.Get(pred)
                     local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] -
                                          predData.InventoryWeight.Weight - 100)
                     _P("Predroom: " .. predRoom)
-                    local itemList = Ext.Entity.Get(k).InventoryOwner.Inventories
+                    local itemList = Ext.Entity.Get(prey).InventoryOwner.Inventories
 
                     local rotationOffset = 0
-                    local rotationOffset1 = 360 // (#itemList)
+                    local rotationOffset1 = 360 // 30
 
                     for _, t in pairs(itemList) do
                         local nextInventory = t:GetAllComponents().InventoryContainer.Items
@@ -238,7 +328,7 @@ function SP_RegurgitatePrey(pred, prey, preyState, spell)
                             end
                         end
                     end
-                    Osi.TeleportToPosition(k, 100000, 0, 100000, "", 0, 0, 0, 1, 0)
+                    Osi.TeleportToPosition(prey, 100000, 0, 100000, "", 0, 0, 0, 1, 0)
                 else
                     local predX, predY, predZ = Osi.getPosition(pred)
                     -- Y-rotation == yaw.
@@ -250,27 +340,23 @@ function SP_RegurgitatePrey(pred, prey, preyState, spell)
                     -- Equation for rotating a vector in the Z dimension.
                     local newZ = predZ + ConfigVars.RegurgDist.value * math.sin(predYRotation)
                     -- Places prey at pred's location, vaguely in front of them.
-                    Osi.TeleportToPosition(k, newX, predY, newZ, "", 0, 0, 0, 0, 0)
+                    Osi.TeleportToPosition(prey, newX, predY, newZ, "", 0, 0, 0, 0, 0)
                 end
             end
-
         end
     end
 
     local regItems = false
-    local hasStomach = Osi.TemplateIsInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred) == 1
-    if hasStomach and preyState ~= 1 and spell ~= "LevelChange" and prey == 'All' then
-        -- Since (item) stomach is removed after a delay, this is necessary to
-        -- tell the weight update function that it is empty.
+    if VoreData[pred].Items ~= "" and preyState ~= 1 and spell ~= "LevelChange" and pr == 'All' then
+
         regItems = true
-        local stomach = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
-        if PreyTablePred[pred] ~= nil then
-            local weightDiff = Ext.Entity.Get(stomach).InventoryWeight.Weight // 1000
-            PersistentVars['PreyWeightTable'][pred] = PersistentVars['PreyWeightTable'][pred] - weightDiff
-            PersistentVars['FakePreyWeightTable'][pred] = PersistentVars['FakePreyWeightTable'][pred] - weightDiff
-            SP_SwallowAllItems(PreyTablePred[pred], stomach)
+        if VoreData[pred].Pred ~= nil then
+            local weightDiff = Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // 1000
+            VoreData[pred].Weight = VoreData[pred].Weight - weightDiff
+            VoreData[pred].FixedWeight = VoreData[pred].FixedWeight - weightDiff
+            SP_SwallowAllItems(VoreData[pred].Pred, VoreData[pred].Items)
         else
-            local itemList = Ext.Entity.Get(stomach).InventoryOwner.PrimaryInventory:GetAllComponents()
+            local itemList = Ext.Entity.Get(VoreData[pred].Items).InventoryOwner.PrimaryInventory:GetAllComponents()
                                  .InventoryContainer.Items
 
             -- Prevents items from being stuck in each other by placing them in circle around pred.
@@ -294,108 +380,112 @@ function SP_RegurgitatePrey(pred, prey, preyState, spell)
             end
         end
         -- This delay is important, otherwise items would be deleted.
+        VoreData[pred].Items = ""
         SP_DelayCallTicks(4, function()
             Osi.TemplateRemoveFrom('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred, 1)
         end)
     end
-    -- Check if no one was regurgitated - shouldn't happen.
+
+    -- Check if no one was regurgitated, just for debug
     if #markedForRemoval == 0 then
-        _P("WARNING, no prey was regurgitated by " .. pred)
-    end
-    -- Remove regurgitated prey from the table.
-    for _, v in ipairs(markedForRemoval) do
-        PreyTablePred[v] = nil
+        _P("WARNING, no character was regurgitated by " .. pred)
     end
 
+    -- transfers prey to pred's pred for nested vore
+    if #markedForSwallow > 0 then
+        SP_SwallowPreyMultiple(VoreData[pred].Pred, markedForSwallow, VoreData[pred].Digestion, false)
+    end
+
+
+    -- Remove regurgitated prey from the table.
+    for _, prey in ipairs(markedForRemoval) do
+        -- moved this whole section here, so all changes to prey in VoreData are located in one place
+        -- remove weight.
+        VoreData[prey].Weight = 0
+        VoreData[prey].FixedWeight = 0
+        -- Tag that disables downed state.
+        if VoreData[prey].DisableDowned then
+            Osi.ClearTag(prey, '7095912e-fcb9-41dd-aec3-3cf7803e4b22')
+            VoreData[prey].DisableDowned = false
+        end
+        VoreData[prey].Digestion = 3
+        Osi.SetDetached(prey, 0)
+        Osi.SetVisible(prey, 1)
+        VoreData[prey].Pred = nil
+        VoreData[pred].Prey[prey] = nil
+        SP_VoreDataEntry(prey, false)
+    end
     -- If pred has no more prey inside.
-    if #SP_GetAllPrey(pred) <= 0 and (hasStomach and regItems or not hasStomach) then
-        Osi.RemoveStatus(pred, 'SP_Stuffed')
+    if next(VoreData[pred].Prey) == nil and VoreData[pred].Items == "" then
         Osi.RemoveSpell(pred, 'SP_Regurgitate', 1)
-    else
         Osi.RemoveStatus(pred, 'SP_Stuffed')
-        local numPrey = #SP_GetAllPrey(pred)
-        Osi.ApplyStatus(pred, 'SP_Stuffed', numPrey * SecondsPerTurn, 1)
+    elseif VoreData[pred].Pred == nil then
+
+        Osi.RemoveStatus(pred, 'SP_Stuffed')
+        local statusStacks = 0
+        for k, v in pairs(VoreData[pred].Prey) do
+            _P(k)
+            statusStacks = statusStacks + Osi.GetStatusTurns(k, 'SP_Stuffed') + 1
+        end
+        Osi.ApplyStatus(pred, 'SP_Stuffed', statusStacks * SecondsPerTurn, 1)
+    end
+
+    for _, prey in ipairs(markedForErase) do
+        VoreData[prey] = nil
     end
 
     _P("New table: ")
-    _D(PreyTablePred)
-    -- Since SP_RegurgitatePrey is used when a prey is released for any reason (including death),
-    -- it is here to avoid desync.
-    PersistentVars['PreyTablePred'] = SP_Deepcopy(PreyTablePred)
+    _D(VoreData)
 
     -- Updates the weight of the pred if the items or prey were regurgitated.
-    if regItems or (#markedForRemoval > 0) then
-        SP_UpdateWeight(pred, not regItems)
+    if #markedForRemoval > 0 or regItems then
+        SP_UpdateWeight(pred)
     end
-
+    SP_VoreDataEntry(pred, false)
+    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
     _P('Ending Regurgitation')
 end
 
----Given a pred, fetches all their prey.
----@param pred CHARACTER
-function SP_GetAllPrey(pred)
-    local allPrey = {}
-    for k, v in pairs(PreyTablePred) do
-        if v == pred then
-            table.insert(allPrey, k)
-        end
-    end
-    return allPrey
-end
-
----Given a pred, fetches all their non-lethal prey.
----@param pred CHARACTER
-function SP_GetAllPreyEndo(pred)
-    local allPrey = {}
-    for k, v in pairs(PreyTablePred) do
-        if v == pred and Osi.HasActiveStatus(k, "SP_Swallowed_Endo") then
-            table.insert(allPrey, k)
-        end
-    end
-    return allPrey
-end
-
----Finds all unique preds.
-function SP_GetUniquePreds()
-    local allPreds = {}
-    for _, v in pairs(PreyTablePred) do
-        allPreds[v] = (allPreds[v] or 0) + 1
-    end
-    return allPreds
-end
-
 ---Changes the amount of Weight Placeholders by looking for weights of all prey in pred.
+---DOES NOT CHANGE STORED WEIGHT
 ---@param pred CHARACTER
----@param items boolean Look for stomach items in pred.
-function SP_UpdateWeight(pred, items)
+function SP_UpdateWeight(pred)
     local newWeight = 0
-    local weightReduction = 0
+    local newWeightVisual = 0
+    -- these will be modified by perks in the future
+    local weightMultiplier = 1
+    local weightDivider = 1
+    local weightModifier = 0
 
-    local allPrey = SP_GetAllPrey(pred)
-    for _, v in pairs(allPrey) do
-        newWeight = newWeight + (PersistentVars['PreyWeightTable'][v] or 0)
+    for k, v in pairs(VoreData[pred].Prey) do
         -- For the "Stomach Sentinel" subclass, which is built around
         -- protecting allies by swallowing them, and gets a feature that
         -- reduces the weight of swallowed allies.
-        if SubclassAddOn and Osi.HasActiveStatus(v, "SP_Swallowed_Endo") then
+        if SubclassAddOn and VoreData[k].Digestion == 0 then
             if Osi.HasPassive(pred, "SP_Improved_Stomach_Shelter") then
-                weightReduction = (PersistentVars['PreyWeightTable'][v] or 0)
+                weightModifier = VoreData[k].Weight
             elseif Osi.HasPassive(pred, "SP_Stomach_Shelter") then
-                weightReduction = (PersistentVars['PreyWeightTable'][v] or 0) / 2
+                weightModifier = VoreData[k].Weight / 2
             end
         end
+
+
+        newWeight = newWeight + (VoreData[k].Weight + weightModifier) * weightMultiplier // weightDivider
+        newWeightVisual = newWeightVisual + VoreData[k].Weight
     end
 
-    -- For item vore.
-    local newWeightVisual = newWeight
-    if items and Osi.TemplateIsInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred) == 1 then
-        local stomach = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
-        newWeightVisual = newWeightVisual + Ext.Entity.Get(stomach).InventoryWeight.Weight // 1000
+    -- add weight that does not belong to a prey
+    newWeight = newWeight + VoreData[pred].AddWeight
+    -- add weight that does not belong to a prey
+    newWeightVisual = newWeightVisual + VoreData[pred].Fat + VoreData[pred].AddWeight
+
+    if VoreData[pred].Items ~= "" then
+        newWeightVisual = newWeightVisual + Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // 1000
     end
 
     _P("Changing weight of " .. pred .. " to " .. newWeightVisual)
     Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
-    Osi.TemplateAddTo('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred, newWeight - weightReduction, 0)
+    Osi.TemplateAddTo('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred, newWeight, 0)
     -- This is very important, it fixes inventory weight not updating properly when removing items.
     -- This is the only solution that worked. 8d3b74d4-0fe6-465f-9e96-36b416f4ea6f is removed
     -- immediately after being added (in the main script).
@@ -404,6 +494,7 @@ function SP_UpdateWeight(pred, items)
     SP_UpdateBelly(pred, newWeightVisual)
 end
 
+--- purely visual updating
 ---@param pred CHARACTER
 ---@param weight integer How many weight placeholders in inventory.
 function SP_UpdateBelly(pred, weight)
@@ -448,7 +539,7 @@ function SP_UpdateBelly(pred, weight)
         weightStage = 4
     elseif weight > 69 then
         weightStage = 3
-    elseif weight > 39 then
+    elseif weight > 35 then
         weightStage = 2
     elseif weight > 8 then
         weightStage = 1
@@ -532,20 +623,57 @@ end
 ---       update the weight of a single pred multiple times during one tick
 ---       and bug out Osiris.
 function SP_ReduceWeightRecursive(character, diff, updateWeight)
-    if PersistentVars['PreyWeightTable'][character] ~= nil then
-        PersistentVars['PreyWeightTable'][character] = PersistentVars['PreyWeightTable'][character] - diff
+    if VoreData[character].Pred ~= nil then
+        VoreData[character].Weight = VoreData[character].Weight - diff
         if updateWeight then
-            SP_UpdateWeight(character, true)
+            SP_UpdateWeight(character)
         end
-        if PersistentVars['FakePreyWeightTable'][PreyTablePred[character]] ~= nil then
-            PersistentVars['FakePreyWeightTable'][PreyTablePred[character]] =
-                PersistentVars['FakePreyWeightTable'][PreyTablePred[character]] - diff
-            SP_ReduceWeightRecursive(PreyTablePred[character], diff)
-        elseif updateWeight and PreyTablePred[character] ~= nil then
-            SP_UpdateWeight(PreyTablePred[character], true)
+        if VoreData[VoreData[character].Pred].Pred ~= nil then
+            VoreData[VoreData[character].Pred].FixedWeight = VoreData[VoreData[character].Pred].FixedWeight - diff
+            SP_ReduceWeightRecursive(VoreData[character].Pred, diff)
+        elseif updateWeight then
+            SP_UpdateWeight(VoreData[character].Pred)
         end
     end
 end
+
+
+---one function for slow digestion
+---@param weightDiff integer
+function SP_SlowDigestion(weightDiff, fatDiff)
+
+    _P("Slow Digestion:" .. weightDiff .. " " .. fatDiff)
+    for k, v in pairs(VoreData) do
+        if VoreData[k].Fat > 0 then
+            VoreData[k].Fat = VoreData[k].Fat - fatDiff
+        end
+        if VoreData[k].Fat < 0 then
+            VoreData[k].Fat = 0
+            SP_VoreDataEntry(k, false)
+        end
+    end
+
+    for k, v in pairs(VoreData) do
+        if v.Digestion == 1 then
+            local thisDiff = weightDiff
+            -- Prey's weight after digestion should not be smaller then 1/5th of their original (fake) weight.
+            if (v.Weight - weightDiff) < (v.FixedWeight // 5) then
+                thisDiff = v.Weight - v.FixedWeight // 5
+            end
+            VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + thisDiff // ConfigVars.WeightGainRate.value
+            SP_ReduceWeightRecursive(k, thisDiff, false)
+        end
+    end
+
+    for k, v in pairs(VoreData) do
+        if next(v.Prey) ~= nil then
+            SP_UpdateWeight(k, true)
+        end
+    end
+    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
+    _D(VoreData)
+end
+
 
 ---Console command for changing config variables.
 ---@param var string Name of the variable to change.
@@ -567,9 +695,77 @@ end
 ---Console command for printing config options and states.
 function VoreConfigOptions()
     _P("Vore Mod Configuration Options: ")
-    _D(ConfigVars)
     for k, v in pairs(ConfigVars) do
         _P(k .. ": " .. v.description)
         _P("Currently set to " .. tostring(v.value))
+    end
+end
+
+
+
+function SP_MigrateTables()
+	_P("Migrating between PreyTablePred and VoreData")
+	-- adds all prey to the table
+	for k, v in pairs(PersistentVars['PreyTablePred']) do
+		SP_FillVoreData(k, v)
+    end
+	local allPreds = {}
+	for _, v in pairs(PersistentVars['PreyTablePred']) do
+        allPreds[v] = (allPreds[v] or 0) + 1
+    end
+	for k, v in pairs(allPreds) do
+        SP_FillVoreData(k, nil)
+    end
+	PersistentVars['PreyTablePred'] = nil
+	PersistentVars['PreyWeightTable'] = nil
+	PersistentVars['FakePreyWeightTable'] = nil
+	PersistentVars['DisableDownedPreyTable'] = nil
+	PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
+    _P("Migration Finished, new table:")
+    _D(VoreData)
+end
+
+
+function SP_FillVoreData(character, pred)
+	local dead = Osi.IsDead(character)
+	if dead ~= nil and Osi.IsCharacter(character) == 1 then
+		_P(character)
+		VoreData[character] = {}
+		VoreData[character].Pred = pred
+		VoreData[character].Weight = PersistentVars['PreyWeightTable'][character] or 0
+		VoreData[character].FixedWeight = PersistentVars['FakePreyWeightTable'][character] or 0
+		VoreData[character].DisableDowned = PersistentVars['DisableDownedPreyTable'][character] or false
+		VoreData[character].Digestion = dead
+		VoreData[character].Combat = Osi.IsInCombat(character) == 1 and dead == 0
+		VoreData[character].Prey = {}
+		VoreData[character].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', character) or ""
+        -- weight that does not belong to any prey
+        VoreData[character].Fat = 0
+        VoreData[character].AddWeight = 0
+		-- fills the prey table
+		for k, v in pairs(PersistentVars['PreyTablePred']) do
+			if v == character then
+				VoreData[character].Prey[k] = true
+			end
+		end
+    end
+end
+
+
+function SP_CheckVoreData()
+	for k, v in pairs(PersistentVars['VoreData']) do
+        local dead = Osi.IsDead(k)
+        local character = Osi.IsCharacter(k)
+		if dead == nil or character == 0 then
+			_P(k .. " WAS ERASED FROM EXISTENSE")
+			if next(v.Prey) ~= nil then
+				_P(k .. " WAS A PRED")
+			end
+            if v.Pred ~= nil then
+                local pred = v.Pred
+                PersistentVars['VoreData'][pred].AddWeight = PersistentVars['VoreData'][pred].AddWeight + v.Weight
+                PersistentVars['VoreData'][k] = nil
+            end
+		end
     end
 end
