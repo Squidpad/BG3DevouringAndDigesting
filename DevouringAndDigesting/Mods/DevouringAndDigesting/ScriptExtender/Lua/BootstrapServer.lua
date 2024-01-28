@@ -115,7 +115,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         for k, v in pairs(VoreData[object].Prey) do
 			if VoreData[k].Digestion ~= 1 and (ConfigVars.TeleportPrey.value == true or VoreData[object].Combat) then
 				Osi.TeleportTo(k, object, "", 0, 0, 0, 0, 0)
-			end
+            end
         end
     elseif status == 'SP_Inedible' and Osi.GetStatusTurns(object, 'SP_Inedible') > 1 then
         Osi.RemoveStatus(object, 'SP_Inedible', "")
