@@ -33,11 +33,13 @@ BellyTableFemale = {
     Human = {
         {
             "5b04165d-2ec9-47f9-beff-0660640fc602", "5660e004-e2af-4f3a-ae76-375408cb78c3",
+            "65a6eeac-9a14-4937-92b8-5e50bb960074",
             "fafef7ab-087f-4362-9436-3e63ef7bcd95", "4a404594-e28d-4f47-b1c2-2ef593961e33",
             "78fc1e05-ee83-4e6c-b14f-6f116e875b03", "b10b965b-9620-48c2-9037-0556fd23d472",
             "14388c37-34ab-4963-b61e-19cea0a90e39",
         }, {
             "4bfa882a-3bef-49b8-9e8a-21198a2dbee5", "4741a71a-8884-4d3d-929d-708e350953bb",
+            "c2042e11-0626-440b-bee0-bb1d631fd979",
             "9950ba83-28ea-4680-9905-a070d6eabfe7", "4e698e03-94b8-4526-9fa5-5feb1f78c3b0",
             "e250ffe9-a94c-44b4-a225-f8cf61ad430d", "02c9846c-200d-47cb-b381-1ceeb4280774",
             "73aae7c2-49ef-4cac-b1b9-b3cfa6a4a31a",
@@ -540,18 +542,20 @@ function SP_UpdateBelly(pred, weight)
     -- Determines the belly weight thresholds.
     local weightStage = 0
     if weight > 420 then
-        weightStage = 7
+        weightStage = 8
     elseif weight > 300 then
-        weightStage = 6
+        weightStage = 7
     elseif weight > 220 then
-        weightStage = 5
+        weightStage = 6
     elseif weight > 135 then
+        weightStage = 5
+    elseif weight > 75 then
         weightStage = 4
-    elseif weight > 69 then
+    elseif weight > 45 then
         weightStage = 3
-    elseif weight > 35 then
+    elseif weight > 25 then
         weightStage = 2
-    elseif weight > 8 then
+    elseif weight > 10 then
         weightStage = 1
     end
     -- Clears overrives. Might break if you change bodyshape or race or gender.

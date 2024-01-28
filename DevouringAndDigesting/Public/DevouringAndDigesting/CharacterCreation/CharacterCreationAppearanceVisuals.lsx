@@ -48,6 +48,20 @@
                         </node>
                     </children>
                 </node>
+                <!-- 23 -->
+                <node id="CharacterCreationAppearanceVisual"> 
+                    <attribute id="BodyShape" type="uint8" value="0" />
+                    <attribute id="BodyType" type="uint8" value="1" />
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="RaceUUID" type="guid" value="899d275e-9893-490a-9cd5-be856794929f" />
+                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                    <attribute id="UUID" type="guid" value="65a6eeac-9a14-4937-92b8-5e50bb960074" />
+                    <attribute id="VisualResource" type="guid" value="6df50ccf-068d-472f-8d5e-d9ee8336b610" />
+					<children>
+                        <node id="Tags">
+                        </node>
+                    </children>
+                </node>
 				<!-- 3 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="0" />
@@ -142,6 +156,20 @@
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
                     <attribute id="UUID" type="guid" value="4741a71a-8884-4d3d-929d-708e350953bb" />
                     <attribute id="VisualResource" type="guid" value="f753ef18-2365-4e54-803f-56b76c10af62" />
+					<children>
+                        <node id="Tags">
+                        </node>
+                    </children>
+                </node>
+                <!-- 23 -->
+                <node id="CharacterCreationAppearanceVisual"> 
+                    <attribute id="BodyShape" type="uint8" value="1" />
+                    <attribute id="BodyType" type="uint8" value="1" />
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="RaceUUID" type="guid" value="899d275e-9893-490a-9cd5-be856794929f" />
+                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                    <attribute id="UUID" type="guid" value="c2042e11-0626-440b-bee0-bb1d631fd979" />
+                    <attribute id="VisualResource" type="guid" value="a90695de-5a11-4b3f-9782-bff831884392" />
 					<children>
                         <node id="Tags">
                         </node>
