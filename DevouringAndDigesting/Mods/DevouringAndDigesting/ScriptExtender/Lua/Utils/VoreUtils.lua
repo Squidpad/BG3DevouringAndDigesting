@@ -364,7 +364,7 @@ function SP_RegurgitatePrey(pred, pr, preyState, spell)
                             end
                         end
                     end
-                    Osi.TeleportToPosition(prey, 100000, 0, 100000, "", 0, 0, 0, 1, 0)
+                    Osi.TeleportToPosition(prey, 100000, 0, 100000, "", 0, 0, 0, 1, 1)
                 else
                     local predX, predY, predZ = Osi.getPosition(pred)
                     -- Y-rotation == yaw.
@@ -376,7 +376,8 @@ function SP_RegurgitatePrey(pred, pr, preyState, spell)
                     -- Equation for rotating a vector in the Z dimension.
                     local newZ = predZ + ConfigVars.RegurgDist.value * math.sin(predYRotation)
                     -- Places prey at pred's location, vaguely in front of them.
-                    Osi.TeleportToPosition(prey, newX, predY, newZ, "", 0, 0, 0, 0, 0)
+                    Osi.TeleportToPosition(prey, newX, predY, newZ, "", 0, 0, 0, 0, 1)
+                    Osi.ApplyStatus(prey, "PRONE", 1 * SecondsPerTurn, 1, pred)
                 end
             end
         end
@@ -485,6 +486,12 @@ function SP_RegurgitatePrey(pred, pr, preyState, spell)
     for _, prey in ipairs(markedForErase) do
         VoreData[prey] = nil
     end
+
+    -- add swallow cooldown after regurgitation
+    if preyState == 0 and ConfigVars.RegurgitationCooldown.value > 0 then
+        Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown', ConfigVars.RegurgitationCooldown.value * SecondsPerTurn, 1)
+    end
+
 
     _P("New table: ")
     _D(VoreData)

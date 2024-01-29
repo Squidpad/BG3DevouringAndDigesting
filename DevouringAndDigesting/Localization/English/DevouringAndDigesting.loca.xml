@@ -53,4 +53,6 @@
 	<content contentuid="h1de3d398g8e38g42eegb96cg6288e15a0506" version="1">Your stomach's feeling agitated. If this reaches [1], you'll regurgitate everything that's still moving!</content>
 	<content contentuid="h033e9e7ag25eeg487dg8fbege45b644127e4" version="1">Switch to Lethal</content>
 	<content contentuid="h14e840a3ga7d0g46fcg85b0g8e107ea5efc6" version="1">Fill your stomach with acid. You will start digesting all your living prey, including items!</content>
+	<content contentuid="h5a9e44b8g8d89g4291ga046ge4eb60b93ee2" version="1">Exhausted</content>
+	<content contentuid="hf96739d9gb734g4090gbaa6g58ea3fbf27f6" version="1">You feel sick after regurgitating the contents of your stomach. Wait a bit before swallowing new prey.</content>
 </contentList>

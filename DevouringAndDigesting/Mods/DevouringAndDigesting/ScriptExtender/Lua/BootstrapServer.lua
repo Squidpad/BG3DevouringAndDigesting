@@ -53,41 +53,46 @@ end
 ---@param spellElement string? Like fire, lightning, etc I think.
 ---@param storyActionID integer?
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
-    if Osi.HasActiveStatus(target, "SP_Inedible") ~= 0 then
-        return
-    end
-    if spell == 'SP_Target_Vore_Endo' then
-        _P('Endo Vore attempt')
-        if Osi.IsItem(target) == 1 then
-            if Osi.GetCanPickUp(target) == 1 then
-                _P("Item")
-                if SP_CanFitItem(caster, target) then
+    if Osi.HasActiveStatus(target, "SP_Inedible") == 0 then
+        if spell == 'SP_Target_Vore_Endo' then
+            if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown") ~= 0 then
+                return
+            end
+            _P('Endo Vore attempt')
+            if Osi.IsItem(target) == 1 then
+                if Osi.GetCanPickUp(target) == 1 then
+                    _P("Item")
+                    if SP_CanFitItem(caster, target) then
+                        SP_DelayCallTicks(12, function()
+                            SP_SwallowItem(caster, target)
+                        end)
+                    else
+                        Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
+                    end
+                end
+            else
+                _P("Not Item")
+                if SP_CanFitPrey(caster, target) then
                     SP_DelayCallTicks(12, function()
-                        SP_SwallowItem(caster, target)
+                        SP_SwallowPrey(caster, target, 0, true)
                     end)
                 else
                     Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
                 end
             end
-        else
-            _P("Not Item")
+        end
+        if spell == 'SP_Target_Vore_Lethal' then
+            if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown") ~= 0 then
+                return
+            end
+            _P('Lethal Vore')
             if SP_CanFitPrey(caster, target) then
-                SP_DelayCallTicks(12, function()
-                    SP_SwallowPrey(caster, target, 0, true)
+                SP_DelayCallTicks(7, function()
+                    SP_VoreCheck(caster, target, "SwallowLethalCheck")
                 end)
             else
                 Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
             end
-        end
-    end
-    if spell == 'SP_Target_Vore_Lethal' then
-        _P('Lethal Vore')
-        if SP_CanFitPrey(caster, target) then
-            SP_DelayCallTicks(7, function()
-                SP_VoreCheck(caster, target, "SwallowLethalCheck")
-            end)
-        else
-            Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
         end
     end
 end
@@ -131,7 +136,7 @@ end
 ---@param pred CHARACTER
 function SP_DigestItem(pred)
     -- the chance of an item being digested is 1/3 per Digestion tick
-    if VoreData[pred].Items == nil and Osi.Random(2) ~= 1 then
+    if VoreData[pred].Items == nil and Osi.Random(3) ~= 1 then
         return
     end
     
@@ -139,7 +144,6 @@ function SP_DigestItem(pred)
                                  .InventoryContainer.Items
     for k, v in pairs(itemList) do
         local uuid = v.Item:GetAllComponents().Uuid.EntityUuid
-        _D(v.Item:GetAllComponents())
         if Osi.IsStoryItem(uuid) == 0 and Osi.IsTagged(uuid, '983087c8-c9d3-4a87-bc69-65f9329666c8') == 0 and
          Osi.IsTagged(uuid, '7b96246c-54ba-43ea-b01d-4e0b20ad35f1') == 0 then
             _P("item" .. uuid)
@@ -164,7 +168,8 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
     if status == 'SP_Digesting' then
         for k, v in pairs(VoreData[object].Prey) do
 			if VoreData[k].Digestion ~= 1 and (ConfigVars.TeleportPrey.value == true or VoreData[k].Combat ~= "") then
-				Osi.TeleportTo(k, object, "", 0, 0, 0, 0, 0)
+                local predX, predY, predZ = Osi.getPosition(object)
+				Osi.TeleportToPosition(k, predX, predY, predZ, "", 0, 0, 0, 0, 0)
             end
         end
         if VoreData[object].DigestItems and VoreData[object].Items ~= "" then
