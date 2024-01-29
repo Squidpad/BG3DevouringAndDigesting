@@ -384,18 +384,22 @@ function SP_OnBeforeLevelUnloaded(level)
 end
 
 function SP_ResetVore()
-    for k, v in pairs(VoreData) do
-        if next(v.Prey) ~= nil or v.Items ~= "" then
-            SP_RegurgitatePrey(k, "All", -1, "ResetVore")
-        end
-    end
+	if VoreData ~= nil then
+		for k, v in pairs(VoreData) do
+			if next(v.Prey) ~= nil or v.Items ~= "" then
+				SP_RegurgitatePrey(k, "All", -1, "ResetVore")
+			end
+		end
+	end
     SP_DelayCallTicks(15, function()
-        for k, v in pairs(VoreData) do
-            v.AddWeight = 0
-            v.Fat = 0
-            SP_UpdateWeight(k)
-        end
-        SP_DelayCallTicks(10, function() 
+		if VoreData ~= nil then
+			for k, v in pairs(VoreData) do
+				v.AddWeight = 0
+				v.Fat = 0
+				SP_UpdateWeight(k)
+			end
+		end
+        SP_DelayCallTicks(10, function()
             VoreData = {}
             PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
             _P("Vore reset complete")
