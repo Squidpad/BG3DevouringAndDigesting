@@ -39,7 +39,7 @@ local vrs = {
 	},
 	WeightGainRate = {
 		description = "TEST. By how much DigestionRate is divided for fat gain rate.",
-		value = 5
+		value = 4
 	},
 	LockStomach = {
 		description = "Whether to lock the stomach object used for storing items during item vore or not. Please do not remove or add items inside the stomach manually.",
@@ -51,11 +51,47 @@ local vrs = {
 	},
 	DigestItems = {
 		description = "When you start digesting prey, the items in your stomach might be digested. WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH",
-		value = false
+		value = true
 	},
 	RegurgitationCooldown = {
 		description = "Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable",
-		value = 10
+		value = 2
+	},
+	SwallowDown = {
+		description = "Preds will need to use a 'Contine Swallowing' spell to fully swallow a prey.",
+		value = true
+	},
+	Hunger = {
+		description = "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will recieve debuffs and have a chance of switch to digestion during endo vore. Setting this to false disables hunger completely.",
+		value = true
+	},
+	HungerShort = {
+		description = "Hunger stacks gained on short rest.",
+		value = 1
+	},
+	HungerLong = {
+		description = "Hunger stacks gained on long rest.",
+		value = 3
+	},
+	HungerSatiation = {
+		description = "Satiation stacks needed to remove one hunger stack.",
+		value = 2
+	},
+	HungerSatiationRate = {
+		description = "By how much digestion rate is divided for satiation gain.",
+		value = 3
+	},
+	HungerBreakpoint1 = {
+		description = "Stacks of hunger at which a debuff is appled",
+		value = 8
+	},
+	HungerBreakpoint2 = {
+		description = "Stacks of hunger at which a debuff is appled",
+		value = 12
+	},
+	HungerBreakpoint3 = {
+		description = "Stacks of hunger at which a debuff is appled",
+		value = 16
 	}
 }
 

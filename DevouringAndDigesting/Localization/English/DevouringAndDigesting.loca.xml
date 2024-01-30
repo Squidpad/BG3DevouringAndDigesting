@@ -8,6 +8,9 @@
 	<content contentuid="h87505252g0da0g4b0ag9537ga89b6438fee3" version="1">Smells acidic... You're not sure you should drink it...</content>	
 	<content contentuid="h1f2c5352g0e6cg4fa6g90ebg9233255c69c1" version="1">Grants you the ability to swallow your foes whole.</content>
 	<content contentuid="h2b052778g03ccg4c83gba5bgf4edbfe83c74" version="1">Potion of Gluttony</content>
+	<content contentuid="hff26e008g7261g45e4ga1ebg846209f2fb5d" version="1">Smells sweet.</content>
+	<content contentuid="he8c74ebcga5a0g47fegad4eg9a7318e59502" version="1">Grants you the ability to shove yourself down someone's throat.</content>
+	<content contentuid="h97a762ceg4e2cg45f4g8b5ag513fffca58b8" version="1">Potion of Prey</content>
 	<content contentuid="ha49295e1gee75g43d1ga0cag1612bc24d50c" version="1">Ring of Gluttony</content>
 	<content contentuid="h69d8d005gecc9g4f76g9a44g6bc3c09a44b0" version="1">One swig and you're good to go.</content>
 	<content contentuid="ha2dde9a2g161fg4bdfg863fg02bd8cccb804" version="1">Renders you unable to be eaten by others.</content>
@@ -55,4 +58,43 @@
 	<content contentuid="h14e840a3ga7d0g46fcg85b0g8e107ea5efc6" version="1">Fill your stomach with acid. You will start digesting all your living prey, including items!</content>
 	<content contentuid="h5a9e44b8g8d89g4291ga046ge4eb60b93ee2" version="1">Exhausted</content>
 	<content contentuid="hf96739d9gb734g4090gbaa6g58ea3fbf27f6" version="1">You feel sick after regurgitating the contents of your stomach. Wait a bit before swallowing new prey.</content>
+	<content contentuid="hdbcd95d4g1c00g4809g9a18g2217d5fb0dcd" version="1">Continue swallowing</content>
+	<content contentuid="h88caf937g86ccg4125ga9e7gde32a7d0353c" version="1">Continue swallow your prey down your throat. If you don't swallow them in time, they will escape!</content>
+	<content contentuid="h40b866b2g6abdg4ed3g80f6gf0ace9e1bc50" version="1">Being Swallowed!</content>
+	<content contentuid="hbfda4247g1115g43a6g91aeg39418c9a494c" version="1">You are being swallowed by the pred!</content>
+	<content contentuid="ha1bbbf43g48f2g4a14ga251gde36ebbb3389" version="1">Peckish</content>
+	<content contentuid="hb59a20b1g0791g4c26gbef0g231a70a33377" version="1">You are feeling slightly hungry. Your wisdom and constitution are reduced by [1]. There is a low chance you will randomly start digesting your prey.</content>
+	<content contentuid="h9f188535g52b4g446ag922dg10fe5b2d7a8e" version="1">Hungry</content>
+	<content contentuid="h2dfdb9e9ge9ddg490egb5eeg0d7e4ca4185e" version="1">You feel hungry. Your wisdom, constitution, strength are reduced by [1]. There is a medium chance you will randomly start digesting your endo prey.</content>
+	<content contentuid="hfbe41265gd387g4f0fg8a20g5108107a06f3" version="1">Starving</content>
+	<content contentuid="h5df1346dg35d3g491fg986bg1908d7721936" version="1">You are starving. Your wisdom, constitution, strength, intelligence are reduced by [1]. You can no longer keep your stomach acids at bay, all endo attemts will result in lethal vore.</content>
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Eat Me!</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Shove yourself down a character's throat. It's up to them whether to digest you or net.</content>
+	<!-- pred feats (none are implemented rn) -->
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Bottomless Stomach</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Doubles your stomach capacity.</content>
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Boiling Insides</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Increase digestion damage by Proficiency Bonus. You are satiated by digesting non-organic creatures</content>
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Lead Belly</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">You have resistance to all bludgeoning, piercing, and slashing damage dealt to you by creatures in your stomach. You gain advantage against the struggles of your prey.</content>
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Musclegut</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">When you have prey in your stomach, your armor and dex are reduced by 1, regardless of prey amount. You gain an intimidation advantage when you have 2 or more prey inside.</content>
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Muscle control</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Endoed prey are not blinded and can use spells. You do not break concentration of willing prey when you swallow them.</content>
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Stretchy maw</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">You gain advantage for swallowing prey.</content>
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Soothing Stomach</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Your hunger is satisfied by resting with a prey inside your stomach. You will never start digesting endoed prey against your will.</content>
+	<!-- prey feats (none are implemented rn) -->
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Escape Artist</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">You gain advantage when struggling and you are not knocked Prone when regurgitated. Gain resistance to damage dealt by acid.</content>
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Gastronaut</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">You gain the ability to heal your predator pred once per short rest. You are not blinded or restrained while endoed, and you can target characters with spells outside on the pred.</content>
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Dense</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Your take twice as much space inside a pred. On struggling success, you knock predator Prone for 1 round.</content>
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Belly Fanatic</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Once per long rest you can massage the belly of a pred, and all the lethal vored prey inside the pred will immediately take digestion damage and pred's indigestion will be reduced to zero.</content>
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Belly Diver</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">You are not restrained or blinded when swallowed by any pred. Gain the advantage against your pred.</content>
+</content>
 </contentList>
