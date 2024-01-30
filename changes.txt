@@ -1,0 +1,11 @@
+added asserts on the type of VoreData to appease the linter
+added different vore loci; "O" == Oral, "A" == Anal, and "U" == Unbirth; this is stored in VoreData as the value of VoreData[character].Prey, which was previously unused.
+	VoreData[character].Digestion is now a table with keys "O", "A", and "U", and the value of each is the digestion state of each locus.
+	The word "Locus/Loci" is used since it it not likely to be used elsewhere, and captures the intent of the feature. Single letters are used to make parsing data easier
+changed 'swallowType' to 'digestionType', and added 'voreType' in swallow functions to account for this change
+moved SP_FullySwallow to VoreUtils and made moved its calls to be inside of SP_SwallowPrey - this should be much neater, and allows us to more concisely pass down params
+Changed "SP_Target_Vore" (and its children) to "SP_Target_Swallow"
+Vore spells now have a strict naming convention. The convention is "SP_" + SpellType + "_" + the effect of the spell (Swallow_Endo, Swallow_Lethal, Bellyport, etc) + "_" + the first letter of the voreType.
+	An example would be "SP_Target_Swallow_Lethal_O". This change was made to allow us to pattern match the spells, which is way cleaner then grabbing substrings
+started splitting up the stat sheets as they've gotten bloated- any core swallowing spells are now in Vore_Core_Spell, any core regurgitation spells are in Vore_Core_Regurgitate,
+	any core fundamental statuses (unless tied to a potion) are in Vore_Core_Status

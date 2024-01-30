@@ -62,8 +62,12 @@ local vrs = {
 		value = true
 	},
 	Hunger = {
-		description = "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will recieve debuffs and have a chance of switch to digestion during endo vore. Setting this to false disables hunger completely.",
+		description = "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will recieve debuffs. Setting this to false disables hunger completely.",
 		value = true
+	},
+	LethalRandomSwitch = {
+		description = "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidently start digesting your non-lethally swallowed prey.",
+		value = false
 	},
 	HungerShort = {
 		description = "Hunger stacks gained on short rest.",
