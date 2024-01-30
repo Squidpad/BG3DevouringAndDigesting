@@ -1,12 +1,3 @@
-new entry "SP_RingOfGluttony"
-type "Armor"
-using "_Ring"
-data "RootTemplate" "68cb4b45-ae3f-4028-9535-ebcb8381051d"
-data "ObjectCategory" "Jewelry"
-data "ValueOverride" "7"
-data "Rarity" "Rare"
-data "Boosts" "UnlockSpell(SP_Target_Vore);Tag(PREDATOR)"
-
 new entry "SP_DebugRing"
 type "Armor"
 using "_Ring"

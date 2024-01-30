@@ -25,22 +25,34 @@
 	<content contentuid="hf1967968gea50g42d1g9474gdce71387b2d3" version="1">Swallow Whole (Endo)</content>
 	<content contentuid="h60376d5fg24b7g40e4gb8f4g0909a3d9b526" version="1">Swallow an ally whole.</content>
 	<content contentuid="hc4e89fa9g4eb2g4d4ag948dg3393c1a4af77" version="1">Allies will be protected.</content>
-	<content contentuid="h8b5b27b2g75e0g48bcg97f9ga5b20df8cf60" version="1">Swallowed!</content>
+	<content contentuid="h6dec3910g0fa9g48a1g804egfd347d331721" version="1">Oral Vore (Endo)</content>
+	<content contentuid="h1be016ccg759cg421bgbcffg9071f38f4e69" version="1">Oral Vore (Lethal)</content>
+	<content contentuid="haca659degc658g42aeg9c29g7224fad5cd5b" version="1">Anal Vore (Endo)</content>
+	<content contentuid="hc9f9a759g7e35g4a08g9c98g97054bef151d" version="1">Anal Vore (Lethal)</content>
+	<content contentuid="h396089f1g8da8g4222ga9acg394ed951c92c" version="1">Unbirth (Endo)</content>
+	<content contentuid="hcb09b7f2gb855g4533gb19fg738c57af8525" version="1">Unbirth (Lethal)</content>
+	<content contentuid="h9786f9f6g394fg4fd0gbbf6gca1630d72f0b" version="1">Devour an [1], storing them in your [2]</content>
+	<content contentuid="h8b5b27b2g75e0g48bcg97f9ga5b20df8cf60" version="1">Devoured!</content>
 	<content contentuid="h19ee24eega97cg43dagbc9bgb2f1eeec925e" version="1">You are being digested! You take [1] per turn.</content>
-	<content contentuid="h130f3138g2e90g46e7gbe9bg0a073fe46ed8" version="1">Safely Swallowed</content>
+	<content contentuid="h130f3138g2e90g46e7gbe9bg0a073fe46ed8" version="1">Safely Devoured</content>
 	<content contentuid="h40b0b615g5b4fg4f2ega973g1632b1f6bf88" version="1">Safely being carried.</content>
 	<content contentuid="hcdefe4f0g5c06g4078gaaecgc566f24f38a9" version="1">Stuffed!</content>
 	<content contentuid="h4b237c03g75a6g4658gbc72g3f70fe82f658" version="1">The weight of your prey slows you down.</content>
 	<content contentuid="h55ded1e9g6c62g4d40gbcc5g6adadbf42edc" version="1">Regurgitate Everything</content>
-	<content contentuid="h9773e0fcgc7bag4d2cga1b4gffa4ea278c08" version="1">Regurgitate all of your living prey.</content>
+	<content contentuid="h66806f2ag3d2bg4776g99dcg8ad08d92edfb" version="1">Regurgitate Everything (Oral)</content>
+	<content contentuid="hd1863dfeg8d61g4c26g96ebg64784213ec5c" version="1">Regurgitate Everything (Anal)</content>
+	<content contentuid="h590a37a5geec2g4a64g89dagfaf4168c2e4c" version="1">Regurgitate Everything (Unbirth)</content>
+	<content contentuid="h9773e0fcgc7bag4d2cga1b4gffa4ea278c08" version="1">Expel all of your living prey from [1].</content>
 	<content contentuid="h339b4a78ga0a6g4b55g93fag7c8fb6725002" version="1">Regurgitate One</content>
 	<content contentuid="hfed57717ga1feg4c72gad20gbaaa9d1adf1b" version="1">Regurgitate [1] from your stomach.</content>
 	<content contentuid="h69f84568gc742g45aeg95a0g7b1862c77378" version="1">Regurgitate</content>
 	<content contentuid="h40bb4719g3098g4d6fg84c3g8c1b877d6b58" version="1">Regurgitate one or all of the creatures in your stomach</content>
-	<content contentuid="h6e2fad4cg2412g4a37g805cg708d26e8ab8a" version="1">Carry</content>
-	<content contentuid="h82284520g089bg4c4eg9192g0c3a028b6584" version="1">Walk while carrying your prey</content>
-	<content contentuid="h6100c187g95dbg47afg9a57ga576269a9d86" version="1">Move Prey</content>
-	<content contentuid="h5835b4c0gf8efg4e1ag920cgb4796cfdb6aa" version="1">Move all of your prey to your position.</content>
+	<content contentuid="hed0193e5geef5g45d4g880age75088cfffb9" version="1">Bellyport</content>
+	<content contentuid="h121d9c41gd0d2g4119g9f80gf0735fbd14a8" version="1">Teleport a target directly into you, and start digesting them</content>
+	<content contentuid="hf716ee26ge14ag4b2bgadc7g87786aac1de5" version="1">Bellyport (Oral)</content>
+	<content contentuid="h9b2c2f2cg65a4g4f48ga15dg2bf1d41b7419" version="1">Bellyport (Anal)</content>
+	<content contentuid="h6c494293g74d1g415cg8d80gd783fe5f75fe" version="1">Bellyport (Unbirth)</content>
+	<content contentuid="h823a6d5cg5a51g42d5g89a2ge730525e7d78" version="1">Teleport a target directly into your [1], and start digesting them.</content>
 	<content contentuid="h0dc3a529gebffg4618gb118gf0a4f3bc231d" version="1">Weight Placeholder</content>
 	<content contentuid="h87214011g31adg4c68ga2eegd5ed46a04668" version="1">This represents the weight of the prey you're carrying.</content>
 	<content contentuid="h610d50d6gbd94g4a6cgab58g509d8575153d" version="1">This is in your stomach, you can't drop it.</content>
@@ -72,6 +84,17 @@
 	<content contentuid="h5df1346dg35d3g491fg986bg1908d7721936" version="1">You are starving. Your wisdom, constitution, strength, intelligence are reduced by [1]. You can no longer keep your stomach acids at bay, all endo attemts will result in lethal vore.</content>
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Eat Me!</content>
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Shove yourself down a character's throat. It's up to them whether to digest you or net.</content>
+	<!-- pred subclass features-->
+	<content contentuid="h9082f1a2g5c36g446egb3ceg32b71e80729a" version="1">Stomach Sentinel</content>
+	<content contentuid="h76e18109gbc38g449dga82bgb7950d911b00" version="1">Protect your allies safe inside of you.</content>
+	<content contentuid="h86a825dagb852g4f68g847cg41fcba245fa6" version="1">Stomach Shelter</content>
+	<content contentuid="hcd48bb13g269ag4acbgb58dgdc55a5c6e49c" version="1">Allies inside of you have their effective weight halved.</content>
+	<content contentuid="h2ac2f83cg7cbdg47begab1agfa358bcd52f1" version="1">Gastric Bulwark</content>
+	<content contentuid="h6920aa90gdbb4g48efgb13cgb29bc42ba332" version="1">Gain +2 AC and +2 to all saves, as well as temporary hit points equal to your proficiency bonus at the start of each turn, for each ally you have swallowed.</content>
+	<content contentuid="hd197ba08g0dffg4c99gad4bgb1e4d6660b6c" version="1">Improved Stomach Shelter</content>
+	<content contentuid="h1ddddec9g2043g4b06gb997g2970d3a1cdab" version="1">Allies inside of you are effectively weightless.</content>
+	<content contentuid="h2091a042g700eg49b4ga508g4449d010ac0b" version="1">Strength From Many</content>
+	<content contentuid="h7d411dcfg2d65g403cg9d34ga633f1fd265e" version="1">Gain a +2 to Strength and Constitution for each ally you have swallowed.</content>
 	<!-- pred feats (none are implemented rn) -->
 	<!-- <content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Bottomless Stomach</content>
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Doubles your stomach capacity.</content>
@@ -98,5 +121,4 @@
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Once per long rest you can massage the belly of a pred, and all the lethal vored prey inside the pred will immediately take digestion damage and pred's indigestion will be reduced to zero.</content>
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Belly Diver</content>
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">You are not restrained or blinded when swallowed by any pred. Gain the advantage against your pred.</content> -->
-</content>
 </contentList>

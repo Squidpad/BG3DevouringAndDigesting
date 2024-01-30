@@ -1,13 +1,20 @@
 StatPaths = {
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Armor.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Potions.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Spell_Vore.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Items.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Items/Armor.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Items/Potions.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Items/Items.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Spells_Projectile.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Spells_Target.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Vore_Core_Spell.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Vore_Core_Regurgitate.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Status/Vore_Core_Status.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Experiments.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Status.txt",
 }
 
 Ext.Require("Utils/Utils.lua")
 Ext.Require("Utils/VoreUtils.lua")
 Ext.Require("Utils/Config.lua")
+Ext.Require("Subclasses/StomachSentinel.lua")
 
 Ext.Vars.RegisterModVariable(ModuleUUID, "VoreData", {});
 
@@ -160,10 +167,10 @@ end
 ---@param isActiveRoll integer? Whether or not the rolling GUI popped up. 0 == no, 1 == yes.
 ---@param criticality CRITICALITYTYPE? Whether or not it was a crit and what kind. 0 == no crit, 1 == crit success, 2 == crit fail.
 function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRoll, criticality)
-
-    if string.sub(eventName, 1, #eventName-2) == "SwallowLethalCheck" and (resultType ~= 0 or ConfigVars.VoreDifficulty.value == 'debug') then
+    _P("Event: " .. eventName .. " involving " .. roller .. " and " .. rollSubject .. ", and the result was " .. resultType)
+    if (string.sub(eventName, 1, #eventName-2) == "SwallowLethalCheck" or string.sub(eventName, 1, #eventName-2) == "BellyportSave" ) and (resultType ~= 0 or ConfigVars.VoreDifficulty.value == 'debug') then
         local voreLocus = string.sub(eventName, #eventName)
-        _P('Lethal Swallow Success by ' .. roller .. " using locus " .. voreLocus)
+        _P('Lethal Swallow Success by ' .. roller .. " into locus " .. voreLocus .. " after " .. rollSubject .. " failed their " ..string.sub(eventName, 1, #eventName-2))
         SP_SwallowPrey(roller, rollSubject, 2, voreLocus, true)
         if ConfigVars.SwitchEndoLethal.value then
             VoreData[roller].DigestItems = true
@@ -276,10 +283,20 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         if VoreData[object].DigestItems and VoreData[object].Items ~= "" then
             SP_DigestItem(object)
         end
+    elseif status == "SP_Pacifist_Applicator" then
+        _P("Applied " .. status .. " Status to " .. object .. " and the causee was " .. causee)
+        SP_DelayCallTicks(10, function()
+            if VoreData[causee] ~= nil and next(VoreData[causee].Prey) ~= nil then
+                for prey, _ in pairs(VoreData[causee].Prey) do
+                    Osi.ApplyStatus(prey, "SP_Pacifist", -1, 1, object)
+                end
+            end
+        end
+        )
     elseif status == 'SP_Inedible' and Osi.GetStatusTurns(object, 'SP_Inedible') > 1 then
         Osi.RemoveStatus(object, 'SP_Inedible', "")
     elseif status == 'SP_PotionOfGluttony_Status' and Osi.GetStatusTurns(object, 'SP_PotionOfGluttony_Status') > 1 then
-        Osi.RemoveStatus(object, 'SP_PotionOfGluttony_Status', "")
+            Osi.RemoveStatus(object, 'SP_PotionOfGluttony_Status', "")
     elseif status == "SP_PotionOfPrey_Status" and Osi.GetStatusTurns(object, "SP_PotionOfPrey_Status") > 1 then
         Osi.RemoveStatus(object, "SP_PotionOfPrey_Status", "")
     elseif status == "SP_PotionOfDebugSpells_Status" and Osi.GetStatusTurns(object, "SP_PotionOfDebugSpells_Status") > 1 then
@@ -550,9 +567,20 @@ function SP_OnLevelLoaded(level)
     if PersistentVars['PreyTablePred'] ~= nil then
         SP_MigrateTables()
     end
+    VoreData = SP_Deepcopy(PersistentVars['VoreData'])
+    local update = false
+    for k, _ in pairs(VoreData) do
+        if type(VoreData[k].Digestion) == 'number' then
+            SP_UpdateVoreDataToLoci(k)
+            update = true
+        end
+    end
+    if update then 
+        PersistentVars['VoreData'] = SP_Deepcopy(VoreData) 
+    end
     SP_CheckVoreData()
     
-    VoreData = SP_Deepcopy(PersistentVars['VoreData'])
+
     if Ext.Debug.IsDeveloperMode then
         local modvars = GetVoreData()
         modvars.VoreData = SP_Deepcopy(VoreData)
@@ -562,14 +590,14 @@ end
 ---Runs when reset command is sent to console.
 function SP_OnResetCompleted()
     for _, statPath in ipairs(StatPaths) do
-        if Ext.Debug.IsDeveloperMode then
-            local modvars = GetVoreData()
-            VoreData = modvars.VoreData
-            PersistentVars['VoreData'] = VoreData
-        end
         _P(statPath)
         ---@diagnostic disable-next-line: undefined-field
         Ext.Stats.LoadStatsFile(statPath, 1)
+    end
+    if Ext.Debug.IsDeveloperMode then
+        local modvars = GetVoreData()
+        VoreData = modvars.VoreData
+        PersistentVars['VoreData'] = VoreData
     end
     _P('Reloading stats!')
 end
@@ -647,7 +675,6 @@ function SP_KillVore()
     VoreData = nil
 	PersistentVars['VoreData'] = nil
     if Ext.Debug.IsDeveloperMode then
-        assert(type(VoreData) == 'table')
         local modvars = GetVoreData()
         modvars.VoreData = nil
     end

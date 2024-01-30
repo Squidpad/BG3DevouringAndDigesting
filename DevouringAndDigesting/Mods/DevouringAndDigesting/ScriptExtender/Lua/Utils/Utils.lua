@@ -5,6 +5,18 @@ function SP_GetDisplayNameFromGUID(target)
     return Osi.ResolveTranslatedString(Osi.GetDisplayName(target))
 end
 
+---@param character CHARACTER guid of character
+---@param stat number stat to get save DC of 1 == Str, 2 == Dex, 3 == Con, 4 == Wis, 5 == Int, 6 == Cha
+function SP_GetSaveDC(character, stat)
+    local entity = Ext.Entity.Get(character)
+    local total_boosts  = 0;
+    for _, boost in pairs(entity.BoostsContainer.Boosts.SpellSaveDC) do
+        total_boosts = total_boosts + boost.SpellSaveDCBoost.DC;
+    end
+    local DC = 8 + total_boosts + entity.Stats.ProficiencyBonus + entity.Stats.AbilityModifiers[stat];
+    return DC;
+end
+
 ---Returns character weight + their inventory weight.
 ---@param character CHARACTER
 ---@return number
