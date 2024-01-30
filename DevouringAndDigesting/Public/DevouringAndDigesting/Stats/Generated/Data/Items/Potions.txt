@@ -43,7 +43,7 @@ data "Description" "h7e60efadgd577g4416gba59gc4a6ffbe7104;1"
 data "StackId" "SP_PotionOfPrey_Status"
 data "StackType" "Additive"
 data "StatusPropertyFlags" "DisablePortraitIndicator;ApplyToDead;IgnoreResting;FreezeDuration"
-data "Boosts" "UnlockSpell(SP_SwallowMe)"
+data "Boosts" "UnlockSpell(SP_Target_Swallow_Me)"
 
 new entry "SP_PotionOfInedibility"
 type "Object"

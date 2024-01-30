@@ -14,14 +14,26 @@
 	<content contentuid="h7313a572g20c6g40a5ga9a3g273c2261843c" version="1">Smells like testing... You're not sure you should drink it...</content>	
 	<content contentuid="hca63feceg7175g4a4cg82a1g80f6054366d2" version="1">Grants you free casts of all the spells.</content>
 	<content contentuid="h3a20121ag8aeag43bfgbb36g30b4d0ba885e" version="1">Potion of Spell Debugging</content>
+	<content contentuid="h7313a572g20c6g40a5ga9a3g273c2261843c" version="1">Smells like testing... You're not sure you should drink it...</content>	
+	<content contentuid="hca63feceg7175g4a4cg82a1g80f6054366d2" version="1">Grants you free casts of all the spells.</content>
+	<content contentuid="h3a20121ag8aeag43bfgbb36g30b4d0ba885e" version="1">Potion of Spell Debugging</content>
 	<content contentuid="h69d8d005gecc9g4f76g9a44g6bc3c09a44b0" version="1">One swig and you're good to go.</content>
 	<content contentuid="ha2dde9a2g161fg4bdfg863fg02bd8cccb804" version="1">Renders you unable to be eaten by others.</content>
 	<content contentuid="haa3e796cg6a8ag4717g87e6g05ae98388598" version="1">Potion of Inedibility</content>
 	<content contentuid="ha01b4fb5g490bg4b15g9427g2050400752a4" version="1">Swallow Whole</content>
 	<content contentuid="ha7878dd9g671ag42a6g9ca8gbbd4522b673f" version="1">Swallow a creature whole.</content>
+
+	<content contentuid="h76edd30dg9f29g477egbc43gf76243c360a9" version="1">Potion of Gluttony (Oral vore only)</content>
+
 	<content contentuid="heb4ad6c5g3aa6g4735g836bg95c0c032b583" version="1">Swallow Whole (Lethal)</content>
 	<content contentuid="ha7878dd9g671ag42a6g9ca8gbbd4522b673f" version="1">Swallow a creature whole, attempting to digest them.</content>
 	<content contentuid="h0a1782aeg5b0ag4dd7g8c19g54cebae7d3a8" version="1">Foes will take [1] each turn.</content>
+
+	<content contentuid="h67fcb4a8gb352g42bfg9059g0503b19b0383" version="1">Swallow Whole Anal (Lethal)</content>
+	<content contentuid="h6c4e6d72g7faeg4516ga30fg1fc5f9987abc" version="1">Swallow Whole Oral (Lethal)</content>
+	<content contentuid="h1fef2941g3e55g4c04gad3ag6063d68d8b2f" version="1">Swallow Whole Unbirth (Lethal)</content>
+	<content contentuid="h913cc88eg41a8g4360gb9d8g93f6e500a477" version="1">Swallow Whole Cock (Lethal)</content>
+
 	<content contentuid="hf1967968gea50g42d1g9474gdce71387b2d3" version="1">Swallow Whole (Endo)</content>
 	<content contentuid="h60376d5fg24b7g40e4gb8f4g0909a3d9b526" version="1">Swallow an ally whole.</content>
 	<content contentuid="hc4e89fa9g4eb2g4d4ag948dg3393c1a4af77" version="1">Allies will be protected.</content>
@@ -31,6 +43,8 @@
 	<content contentuid="hc9f9a759g7e35g4a08g9c98g97054bef151d" version="1">Anal Vore (Lethal)</content>
 	<content contentuid="h396089f1g8da8g4222ga9acg394ed951c92c" version="1">Unbirth (Endo)</content>
 	<content contentuid="hcb09b7f2gb855g4533gb19fg738c57af8525" version="1">Unbirth (Lethal)</content>
+	<content contentuid="hf1bade39ge56eg4c31g82aag9dade201779c" version="1">Cock Vore (Endo)</content>
+	<content contentuid="hb5147271ge34ag4d48gb7c8g59005d458e26" version="1">Cock Vore (Lethal)</content>
 	<content contentuid="h9786f9f6g394fg4fd0gbbf6gca1630d72f0b" version="1">Devour an [1], storing them in your [2]</content>
 	<content contentuid="h8b5b27b2g75e0g48bcg97f9ga5b20df8cf60" version="1">Devoured!</content>
 	<content contentuid="h19ee24eega97cg43dagbc9bgb2f1eeec925e" version="1">You are being digested! You take [1] per turn.</content>
@@ -83,6 +97,10 @@
 	<content contentuid="hfbe41265gd387g4f0fg8a20g5108107a06f3" version="1">Starving</content>
 	<content contentuid="h5df1346dg35d3g491fg986bg1908d7721936" version="1">You are starving. Your wisdom, constitution, strength, intelligence are reduced by [1]. You can no longer keep your stomach acids at bay, all endo attemts will result in lethal vore.</content>
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Eat Me!</content>
+	<content contentuid="he0c7df65gf5deg44b6g9763g3e4ebf1b3295" version="1">Eat Me! (Oral)</content>
+	<content contentuid="h738f1a2cg1c9fg4f34g9828g71beb077b9d1" version="1">Eat Me! (Anal)</content>
+	<content contentuid="h793bdcefg70a5g4026g99eag34dfd61107c5" version="1">Eat Me! (Unbirth)</content>
+	<content contentuid="h8f30f6c5g11d1g4a6dgaab6geed24ad0cba1" version="1">Eat Me! (Cock)</content>
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Shove yourself down a character's throat. It's up to them whether to digest you or net.</content>
 	<!-- pred subclass features-->
 	<content contentuid="h9082f1a2g5c36g446egb3ceg32b71e80729a" version="1">Stomach Sentinel</content>
