@@ -15,20 +15,27 @@ function SP_GetTotalCharacterWeight(character)
     return (charData.InventoryWeight.Weight + charData.Data.Weight) / 1000
 end
 
----Delays a function call by given milliseconds.
----Preferable not to use, as time is not properly synced between server and client.
----@param ms integer
----@param func function
-function SP_DelayCall(ms, func)
-    local startTime = Ext.Utils.MonotonicTime()
-    local handlerId
-    handlerId = Ext.Events.Tick:Subscribe(function()
-        if (Ext.Utils.MonotonicTime() - startTime > ms) then
-            Ext.Events.Tick:Unsubscribe(handlerId)
-            func()
-        end
-    end)
+---@param spell string name of the spell we're extracting data from
+---@return string, string spellParams the type of spell and type of vore
+function SP_GetSpellParams(spell)
+    local pattern = "^SP_Target_S?w?a?l?l?o?w?_?([%a_]+)_([OAUC])$"
+    return string.match(spell, pattern)
 end
+
+--Delays a function call by given milliseconds.
+--Preferable not to use, as time is not properly synced between server and client.
+--@param ms integer
+--@param func function
+-- function SP_DelayCall(ms, func)
+--     local startTime = Ext.Utils.MonotonicTime()
+--     local handlerId
+--     handlerId = Ext.Events.Tick:Subscribe(function()
+--         if (Ext.Utils.MonotonicTime() - startTime > ms) then
+--             Ext.Events.Tick:Unsubscribe(handlerId)
+--             func()
+--         end
+--     end)
+-- end
 
 ---Delays a function call for a given number of ticks.
 ---Server runs at a target of 30hz, so each tick is ~33ms and 30 ticks is ~1 second. This IS synced between server and client.
@@ -114,3 +121,26 @@ function SP_TableLength(table)
     end
     return l
 end
+
+---Checks if an element is in the keys of a table
+---@param table table table to query
+---@param element any element to query with
+function SP_TableContainsKey(table, element)
+    for key, _ in pairs(table) do
+        if key == element then
+            return true
+        end
+    end
+    return false
+end
+
+---Swaps the keys and values of a table. Will get funky if the values are not strictly unique
+---@param t table table with strictly unique keys
+function SP_TableInvert(t)
+    local newTable = {}
+     for k,v in pairs(t) do
+       newTable[v] = k
+     end
+     return newTable
+ end
+

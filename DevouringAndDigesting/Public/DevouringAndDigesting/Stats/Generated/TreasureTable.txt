@@ -1,11 +1,6 @@
 new treasuretable "TUT_Chest_Potions"
 CanMerge 1
 new subtable "1,1"
-object category "I_SP_RingOfGluttony",1,0,0,0,0,0,0,0
-
-new treasuretable "TUT_Chest_Potions"
-CanMerge 1
-new subtable "1,1"
 object category "I_SP_PotionOfGluttony",1,0,0,0,0,0,0,0
 
 new treasuretable "TUT_Chest_Potions"
@@ -22,4 +17,14 @@ new treasuretable "TUT_Chest_Potions"
 CanMerge 1
 new subtable "1,1"
 object category "I_SP_DebugRing",1,0,0,0,0,0,0,0
+
+new treasuretable "TUT_Chest_Potions"
+CanMerge 1
+new subtable "1,1"
+object category "I_SP_PotionOfDebugSpells",1,0,0,0,0,0,0,0
+
+new treasuretable "TUT_Chest_Potions"
+CanMerge 1
+new subtable "1,1"
+object category "I_SP_PotionOfGluttony_O",1,0,0,0,0,0,0,0
 

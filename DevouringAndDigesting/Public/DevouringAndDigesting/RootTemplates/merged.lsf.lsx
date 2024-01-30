@@ -5,21 +5,6 @@
 		<node id="Templates">
 			<children>
 				<node id="GameObjects">
-					<attribute id="Description" type="TranslatedString" handle="h1f2c5352g0e6cg4fa6g90ebg9233255c69c1" version="2" />
-					<attribute id="DisplayName" type="TranslatedString" handle="ha49295e1gee75g43d1ga0cag1612bc24d50c" version="3" />
-					<attribute id="Icon" type="FixedString" value="Item_LOOT_GEN_Ring_C_Silver_A" />
-					<attribute id="LevelName" type="FixedString" value="" />
-					<attribute id="MapKey" type="FixedString" value="68cb4b45-ae3f-4028-9535-ebcb8381051d" />
-					<attribute id="Name" type="LSString" value="SP_RingOfGluttony" />
-					<attribute id="ParentTemplateId" type="FixedString" value="81d843ad-2343-4964-b5d0-3db44dfee4e1" />
-					<attribute id="Stats" type="FixedString" value="SP_RingOfGluttony" />
-					<attribute id="Type" type="FixedString" value="item" />
-					<attribute id="_OriginalFileVersion_" type="int64" value="144115188075855912" />
-					<children>
-						<node id="GameMaster" />
-					</children>
-				</node>
-				<node id="GameObjects">
 					<attribute id="Description" type="TranslatedString" handle="hbe2ba459gfae6g4b2egb8abg734abbbf8f93" version="2" />
 					<attribute id="DisplayName" type="TranslatedString" handle="hf92a001fg38bag4cb0g9d15ga1e654e59105" version="3" />
 					<attribute id="Icon" type="FixedString" value="Item_LOOT_GEN_Ring_C_Silver_A" />
@@ -88,6 +73,132 @@
 											<attribute id="Animation" type="FixedString" value="" />
 											<attribute id="Conditions" type="LSString" value="" />
 											<attribute id="StatsId" type="FixedString" value="SP_PotionOfGluttony_Status" />
+											<attribute id="StatusDuration" type="int32" value="1" />
+											<attribute id="Consume" type="bool" value="False" />
+										</node>
+									</children>
+								</node>
+							</children>
+						</node>
+					</children>
+				</node>
+				<node id="GameObjects">
+					<attribute id="MapKey" type="FixedString" value="d2d6a43b-3413-4efd-928f-d15e2ad9e38d" />
+					<attribute id="Name" type="LSString" value="SP_PotionOfGluttony_O" />
+					<attribute id="LevelName" type="FixedString" value="" />
+					<attribute id="Type" type="FixedString" value="item" />
+					<attribute id="ParentTemplateId" type="FixedString" value="8e660fd9-489d-42ff-a762-e4392e826666" />
+					<attribute id="Flag" type="int32" value="0" />
+					<attribute id="VisualTemplate" type="FixedString" value="2b0c8a27-5a17-615c-f4cf-f35b4c7b8a1b" />
+					<attribute id="PhysicsTemplate" type="FixedString" value="1cc30e85-1eb4-06ec-c556-be94d24ab7ac" />
+					<attribute id="DisplayName" type="TranslatedString" handle="h76edd30dg9f29g477egbc43gf76243c360a9" version="1" />
+					<attribute id="Icon" type="FixedString" value="Item_CONS_Potion_Tribal_A_Small" />
+					<attribute id="Stats" type="FixedString" value="SP_PotionOfGluttony_O" />
+					<attribute id="TreasureOnDestroy" type="bool" value="True" />
+					<attribute id="OnUseDescription" type="TranslatedString" handle="h27ec76a4gaa45g4324ga77bg5435d62bbf09" version="1" />
+					<attribute id="Description" type="TranslatedString" handle="h87505252g0da0g4b0ag9537ga89b6438fee3" version="3" />
+					<attribute id="TechnicalDescription" type="TranslatedString" handle="h1f2c5352g0e6cg4fa6g90ebg9233255c69c1" version="1" />
+					<children>
+						<node id="Bounds">
+							<children>
+								<node id="Bound">
+									<attribute id="Type" type="uint8" value="1" />
+									<attribute id="Shape" type="uint8" value="1" />
+									<attribute id="Min" type="fvec3" value="-0.1643604 0 -0.1643604" />
+									<attribute id="Max" type="fvec3" value="0.1643604 0.7414519 0.1643604" />
+									<attribute id="Radius" type="float" value="0.114147" />
+									<attribute id="Height" type="float" value="0.418184" />
+								</node>
+								<node id="Bound">
+									<attribute id="Type" type="uint8" value="2" />
+									<attribute id="Shape" type="uint8" value="1" />
+									<attribute id="Min" type="fvec3" value="-0.1643604 0 -0.1643604" />
+									<attribute id="Max" type="fvec3" value="0.1643604 0.7414519 0.1643604" />
+									<attribute id="Radius" type="float" value="0.114147" />
+									<attribute id="Height" type="float" value="0.418184" />
+								</node>
+								<node id="Bound">
+									<attribute id="Type" type="uint8" value="0" />
+									<attribute id="Shape" type="uint8" value="1" />
+									<attribute id="Min" type="fvec3" value="-0.1643604 0 -0.1643604" />
+									<attribute id="Max" type="fvec3" value="0.1643604 0.7414519 0.1643604" />
+									<attribute id="Radius" type="float" value="0.2187844" />
+									<attribute id="Height" type="float" value="0.7414519" />
+								</node>
+							</children>
+						</node>
+						<node id="OnUsePeaceActions">
+							<children>
+								<node id="Action">
+									<attribute id="ActionType" type="int32" value="7" />
+									<children>
+										<node id="Attributes">
+											<attribute id="Animation" type="FixedString" value="" />
+											<attribute id="Conditions" type="LSString" value="" />
+											<attribute id="StatsId" type="FixedString" value="SP_PotionOfGluttony_Status_O" />
+											<attribute id="StatusDuration" type="int32" value="1" />
+											<attribute id="Consume" type="bool" value="False" />
+										</node>
+									</children>
+								</node>
+							</children>
+						</node>
+					</children>
+				</node>
+				<node id="GameObjects">
+					<attribute id="MapKey" type="FixedString" value="69d2df14-6d8a-4f94-92b5-cc48bc60f132" />
+					<attribute id="Name" type="LSString" value="SP_PotionOfDebugSpells" />
+					<attribute id="LevelName" type="FixedString" value="" />
+					<attribute id="Type" type="FixedString" value="item" />
+					<attribute id="ParentTemplateId" type="FixedString" value="8e660fd9-489d-42ff-a762-e4392e826666" />
+					<attribute id="Flag" type="int32" value="0" />
+					<attribute id="VisualTemplate" type="FixedString" value="2b0c8a27-5a17-615c-f4cf-f35b4c7b8a1b" />
+					<attribute id="PhysicsTemplate" type="FixedString" value="1cc30e85-1eb4-06ec-c556-be94d24ab7ac" />
+					<attribute id="DisplayName" type="TranslatedString" handle="h3a20121ag8aeag43bfgbb36g30b4d0ba885e" version="1" />
+					<attribute id="Icon" type="FixedString" value="Item_CONS_Potion_Tribal_A_Small" />
+					<attribute id="Stats" type="FixedString" value="SP_PotionOfDebugSpells" />
+					<attribute id="TreasureOnDestroy" type="bool" value="True" />
+					<attribute id="OnUseDescription" type="TranslatedString" handle="h27ec76a4gaa45g4324ga77bg5435d62bbf09" version="1" />
+					<attribute id="Description" type="TranslatedString" handle="h7313a572g20c6g40a5ga9a3g273c2261843c" version="3" />
+					<attribute id="TechnicalDescription" type="TranslatedString" handle="hca63feceg7175g4a4cg82a1g80f6054366d2" version="1" />
+					<children>
+						<node id="Bounds">
+							<children>
+								<node id="Bound">
+									<attribute id="Type" type="uint8" value="1" />
+									<attribute id="Shape" type="uint8" value="1" />
+									<attribute id="Min" type="fvec3" value="-0.1643604 0 -0.1643604" />
+									<attribute id="Max" type="fvec3" value="0.1643604 0.7414519 0.1643604" />
+									<attribute id="Radius" type="float" value="0.114147" />
+									<attribute id="Height" type="float" value="0.418184" />
+								</node>
+								<node id="Bound">
+									<attribute id="Type" type="uint8" value="2" />
+									<attribute id="Shape" type="uint8" value="1" />
+									<attribute id="Min" type="fvec3" value="-0.1643604 0 -0.1643604" />
+									<attribute id="Max" type="fvec3" value="0.1643604 0.7414519 0.1643604" />
+									<attribute id="Radius" type="float" value="0.114147" />
+									<attribute id="Height" type="float" value="0.418184" />
+								</node>
+								<node id="Bound">
+									<attribute id="Type" type="uint8" value="0" />
+									<attribute id="Shape" type="uint8" value="1" />
+									<attribute id="Min" type="fvec3" value="-0.1643604 0 -0.1643604" />
+									<attribute id="Max" type="fvec3" value="0.1643604 0.7414519 0.1643604" />
+									<attribute id="Radius" type="float" value="0.2187844" />
+									<attribute id="Height" type="float" value="0.7414519" />
+								</node>
+							</children>
+						</node>
+						<node id="OnUsePeaceActions">
+							<children>
+								<node id="Action">
+									<attribute id="ActionType" type="int32" value="7" />
+									<children>
+										<node id="Attributes">
+											<attribute id="Animation" type="FixedString" value="" />
+											<attribute id="Conditions" type="LSString" value="" />
+											<attribute id="StatsId" type="FixedString" value="SP_PotionOfDebugSpells_Status" />
 											<attribute id="StatusDuration" type="int32" value="1" />
 											<attribute id="Consume" type="bool" value="False" />
 										</node>
