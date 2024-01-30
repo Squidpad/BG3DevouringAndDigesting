@@ -51,7 +51,7 @@ local vrs = {
 	},
 	DigestItems = {
 		description = "When you start digesting prey, the items in your stomach might be digested. WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH",
-		value = true
+		value = false
 	},
 	RegurgitationCooldown = {
 		description = "Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable",

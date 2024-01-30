@@ -71,7 +71,7 @@
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Eat Me!</content>
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Shove yourself down a character's throat. It's up to them whether to digest you or net.</content>
 	<!-- pred feats (none are implemented rn) -->
-	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Bottomless Stomach</content>
+	<!-- <content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Bottomless Stomach</content>
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Doubles your stomach capacity.</content>
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Boiling Insides</content>
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Increase digestion damage by Proficiency Bonus. You are satiated by digesting non-organic creatures</content>
@@ -84,9 +84,9 @@
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Stretchy maw</content>
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">You gain advantage for swallowing prey.</content>
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Soothing Stomach</content>
-	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Your hunger is satisfied by resting with a prey inside your stomach. You will never start digesting endoed prey against your will.</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Your hunger is satisfied by resting with a prey inside your stomach. You will never start digesting endoed prey against your will.</content> -->
 	<!-- prey feats (none are implemented rn) -->
-	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Escape Artist</content>
+	<!-- <content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Escape Artist</content>
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">You gain advantage when struggling and you are not knocked Prone when regurgitated. Gain resistance to damage dealt by acid.</content>
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Gastronaut</content>
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">You gain the ability to heal your predator pred once per short rest. You are not blinded or restrained while endoed, and you can target characters with spells outside on the pred.</content>
@@ -95,6 +95,6 @@
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Belly Fanatic</content>
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Once per long rest you can massage the belly of a pred, and all the lethal vored prey inside the pred will immediately take digestion damage and pred's indigestion will be reduced to zero.</content>
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Belly Diver</content>
-	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">You are not restrained or blinded when swallowed by any pred. Gain the advantage against your pred.</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">You are not restrained or blinded when swallowed by any pred. Gain the advantage against your pred.</content> -->
 </content>
 </contentList>
