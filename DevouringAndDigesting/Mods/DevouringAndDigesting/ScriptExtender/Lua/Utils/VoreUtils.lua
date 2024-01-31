@@ -242,6 +242,7 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested, swallowStages, locus
     end
 
     Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
+    Osi.AddSpell(pred, 'SP_SpeedUpDigestion', 0, 0)
     Osi.AddSpell(pred, 'SP_SwitchToLethal', 0, 0)
 
     SP_UpdateWeight(pred)
@@ -288,6 +289,7 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested, swallowStag
 
     Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
     Osi.AddSpell(pred, 'SP_SwitchToLethal', 0, 0)
+    Osi.AddSpell(pred, 'SP_SpeedUpDigestion', 0, 0)
 
 
     SP_UpdateWeight(pred)
@@ -404,7 +406,7 @@ end
 ---Should be called in any situation when prey must be released, including pred's death.
 ---@param pred CHARACTER
 ---@param preyString GUIDSTRING | string either guid of prey, or "All" to regurigitate all prey in given locus
----@param preyState integer State of prey to regurgitate: 0 == alive, 1 == dead, -1 == all.
+---@param preyState integer State of prey to regurgitate: 0 == alive, 1 == dead, -1 == all, 10 == alive and digested.
 ---@param spell? string Internal name of spell (this does not reflect the in-game spell used).
 ---@param locus? string 
 function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
@@ -432,10 +434,15 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
             end
             if locus == "" then
                 locus = nil
+            elseif locus == "UC" then
+                if v == "C" or v == "U" then
+                    v = "UC"
+                end
             end
 
             if isReal == 1 and (locus == nil or v == locus) and (preyString == "All" or prey == preyString) and (preyState == -1 or
-            (stateCheck == preyState and (preyState ~= 1 or (VoreData[prey].Weight <= VoreData[prey].FixedWeight // 5)))) then
+            ((stateCheck == preyState or preyState == 10) and 
+            (stateCheck ~= 1 or (VoreData[prey].Weight <= VoreData[prey].FixedWeight // 5)))) then
                 _P('Pred:' .. pred)
                 _P('Prey:' .. prey)
                 VoreData[pred].Prey[prey] = nil
@@ -508,7 +515,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     -- stops digesting items if nothing is being digested in the stomach of the pred
     local stopDigestingItems = true
     for k, v in pairs(VoreData[pred].Prey) do
-        if VoreData[k].Digestion == 2 then
+        if VoreData[k].Digestion == 2 and VoreData[k].Locus == 'O' then
             stopDigestingItems = false
         end
     end
@@ -587,6 +594,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         Osi.RemoveSpell(pred, 'SP_Regurgitate', 1)
         Osi.RemoveSpell(pred, 'SP_SwallowDown')
         Osi.RemoveSpell(pred, 'SP_SwitchToLethal', 1)
+        Osi.RemoveSpell(pred, 'SP_SpeedUpDigestion', 1)
         Osi.RemoveStatus(pred, VoreData[pred].Stuffed)
         VoreData[pred].Stuffed = ""
         VoreData[pred].StuffedStacks = 0

@@ -36,10 +36,13 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
     if VoreData[caster] ~= nil then
         if string.sub(spell, 0, 15) == 'SP_Regurgitate_' then
             local prey = string.sub(spell, 16)
-            SP_RegurgitatePrey(caster, prey, 0)
+            SP_RegurgitatePrey(caster, prey, 10, '', 'O')
         elseif string.sub(spell, 0, 12) == 'SP_Disposal_' then
             local prey = string.sub(spell, 13)
-            SP_RegurgitatePrey(caster, prey, 1)
+            SP_RegurgitatePrey(caster, prey, 10, '', 'A')
+        elseif string.sub(spell, 0, 12) == 'SP_Come_' then
+            local prey = string.sub(spell, 10)
+            SP_RegurgitatePrey(caster, prey, 10, '', 'UC')
         elseif string.sub(spell, 0, 10) == 'SP_Absorb_' then
             local prey = string.sub(spell, 11)
             SP_RegurgitatePrey(caster, prey, 1, "Absorb")
@@ -67,6 +70,14 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                         if VoreData[k].SwallowProcess == 0 then
                             SP_FullySwallow(caster, k)
                         end
+                    end
+                end
+            end
+        elseif spell == 'SP_SpeedUpDigestion' then
+            if VoreData[caster] ~= nil then
+                for k, v in pairs(VoreData[caster].Prey) do
+                    if VoreData[k].Digestion == 2 then
+                        Osi.ApplyStatus(k, 'SP_SpeedUpDigestion_Status', 0, 1, caster)
                     end
                 end
             end
@@ -404,7 +415,7 @@ function SP_OnBeforeDeath(character)
             SP_RegurgitatePrey(character, 'All', -1)
         end
         -- If character was prey (both can be true at the same time)
-        if VoreData[character].Pred ~= nil then
+        if VoreData[character] ~- nil and VoreData[character].Pred ~= nil then
             local pred = VoreData[character].Pred
             VoreData[character].Digestion = 1
             if VoreData[character].Locus == 'O' then
@@ -415,7 +426,7 @@ function SP_OnBeforeDeath(character)
             if Ext.Entity.Get(character).ServerCharacter.Temporary == true then
                 _P("Absorbing temp character")
                 SP_DelayCallTicks(15, function()
-                    SP_RegurgitatePrey(pred, character, -1, VoreData[character].Locus, "Absorb")
+                    SP_RegurgitatePrey(pred, character, -1, "Absorb", VoreData[character].Locus)
                 end)
             else
                 SP_SwitchToDigestionType(pred, character, 1, 1)
