@@ -209,8 +209,8 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
     end
 
     VoreData[prey].Pred = pred
-
-    return statusStacks
+    -- Now accounts for the size of each prey when determining how many stacks of Stuffed you should get
+    return math.floor(statusStacks * SP_GetCharacterSize(prey)/2)
 end
 
 
@@ -233,8 +233,8 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested, swallowStages, locus
         -- if the status used to stuff pred changed for some reason (picked feat)
         if stuffedStatus ~= VoreData[pred].Stuffed and VoreData[pred].Stuffed ~= "" then
             Osi.RemoveStatus(pred, VoreData[pred].Stuffed)
-            statusStacks = statusStacks + VoreData[pred].StufStacks
-            VoreData[pred].StufStacks = 0
+            statusStacks = statusStacks + VoreData[pred].StuffedStacks
+            VoreData[pred].StuffedStacks = 0
         end
         Osi.ApplyStatus(pred, stuffedStatus, statusStacks * SecondsPerTurn, 1, pred)
         VoreData[pred].StuffedStacks = VoreData[pred].StuffedStacks + statusStacks
@@ -278,8 +278,8 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested, swallowStag
         -- if the status used to stuff pred changed for some reason (picked feat)
         if stuffedStatus ~= VoreData[pred].Stuffed and VoreData[pred].Stuffed ~= "" then
             Osi.RemoveStatus(pred, VoreData[pred].Stuffed)
-            statusStacks = statusStacks + VoreData[pred].StufStacks
-            VoreData[pred].StufStacks = 0
+            statusStacks = statusStacks + VoreData[pred].StuffedStacks
+            VoreData[pred].StuffedStacks = 0
         end
         Osi.ApplyStatus(pred, stuffedStatus, statusStacks * SecondsPerTurn, 1, pred)
         VoreData[pred].StuffedStacks = VoreData[pred].StuffedStacks + statusStacks

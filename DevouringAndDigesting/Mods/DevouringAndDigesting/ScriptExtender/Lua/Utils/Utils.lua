@@ -27,6 +27,11 @@ function SP_GetTotalCharacterWeight(character)
     return (charData.InventoryWeight.Weight + charData.Data.Weight) / 1000
 end
 
+function SP_GetCharacterSize(character)
+    local charData = Ext.Entity.Get(character)
+    return charData.ObjectSize.Size
+end
+
 ---@param spell string name of the spell we're extracting data from
 ---@return string, string spellParams the type of spell and type of vore
 function SP_GetSpellParams(spell)

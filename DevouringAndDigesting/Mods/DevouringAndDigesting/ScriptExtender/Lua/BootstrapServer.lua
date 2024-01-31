@@ -322,6 +322,28 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
 end
 
 ---@param character CHARACTER
+---@param spell string
+function SP_OnLearnedSpell(character, spell)
+    if spell == "SP_Target_Swallow_Endo" then
+        
+    end
+end
+
+---@param defender GUIDSTRING
+---@param attackerOwner GUIDSTRING
+---@param attacker2 GUIDSTRING
+---@param damageType string
+---@param damageAmount integer
+---@param damageCause string
+---@param storyActionID integer
+function SP_BeforeAttacked(defender, attackerOwner, attacker2, damageType, damageAmount, damageCause, storyActionID)
+    _P(SP_GetDisplayNameFromGUID(defender) .. " was attacked by " .. SP_GetDisplayNameFromGUID(attackerOwner) .. " for " .. tostring(damageAmount) .. " " .. damageType .. " damage")
+    if Osi.HasPassive(defender, "SP_LeadBelly") and VoreData[attackerOwner].Pred == defender then
+        Osi.ApplyDamage(defender, damageAmount//2, damageType, attackerOwner)
+    end
+end
+
+---@param character CHARACTER
 ---@param item ITEM
 ---@param sucess integer
 function SP_ItemUsed(character, item, sucess)
@@ -745,6 +767,8 @@ Ext.Osiris.RegisterListener("TemplateAddedTo", 4, "after", SP_OnItemAdded)
 Ext.Osiris.RegisterListener("Died", 1, "before", SP_OnBeforeDeath)
 Ext.Osiris.RegisterListener("ShortRested", 1, "after", SP_OnShortRest)
 Ext.Osiris.RegisterListener("LongRestFinished", 0, "after", SP_OnLongRest)
+Ext.Osiris.RegisterListener("LearnedSpell", 2, "after", SP_OnLearnedSpell)
+Ext.Osiris.RegisterListener("AttackedBy", 7, "before", SP_BeforeAttacked)
 --Ext.Osiris.RegisterListener("UsingSpellAtPosition", 8, "after", SP_SpellCastAtPosition)
 
 Ext.Osiris.RegisterListener("UseFinished", 3, "after", SP_ItemUsed)
