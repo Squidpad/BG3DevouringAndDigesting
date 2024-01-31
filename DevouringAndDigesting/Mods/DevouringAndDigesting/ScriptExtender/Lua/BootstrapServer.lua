@@ -420,7 +420,10 @@ function SP_OnBeforeDeath(character)
                     end
 
                     if ConfigVars.Hunger.value and Osi.IsPartyMember(pred, 0) == 1  and
-                    (Osi.IsTagged(character, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 or Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
+                    (Osi.IsTagged(character, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 and
+                    Osi.IsTagged(character, "196351e2-ff25-4e2b-8560-222ac6b94a54") == 0 and
+                    Osi.IsTagged(character, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
+                     Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
                         VoreData[pred].Satiation = VoreData[pred].Satiation + preyWeightDiff // ConfigVars.HungerSatiationRate.value
                     end
                     

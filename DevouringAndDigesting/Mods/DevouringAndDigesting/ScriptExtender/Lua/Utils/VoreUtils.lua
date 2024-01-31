@@ -925,9 +925,12 @@ function SP_SlowDigestion(weightDiff, fatDiff)
             if ConfigVars.WeightGain.value then
                 VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + thisDiff // ConfigVars.WeightGainRate.value
             end
-            -- if prey is not aberration or pred has boilinginsides, add satiation
+            -- if prey is not aberration or elemental or pred has boilinginsides, add satiation
             if ConfigVars.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and
-            (Osi.IsTagged(k, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 or Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1) then
+            (Osi.IsTagged(k, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 and
+             Osi.IsTagged(k, "196351e2-ff25-4e2b-8560-222ac6b94a54") == 0 and
+             Osi.IsTagged(k, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
+              Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1) then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation + thisDiff // ConfigVars.HungerSatiationRate.value
             end
             SP_ReduceWeightRecursive(k, thisDiff, false)
