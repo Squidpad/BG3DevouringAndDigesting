@@ -31,14 +31,14 @@ local vrs = {
 	},
 	WeightLossShort = {
 		description = "TEST. How much fat a character looses on short resting.",
-		value = 2
+		value = 3
 	},
 	WeightLossLong = {
 		description = "TEST. How much fat a character looses on long resting.",
-		value = 6
+		value = 10
 	},
 	WeightGainRate = {
-		description = "TEST. By how much DigestionRate is divided for fat gain rate.",
+		description = "TEST. By how much DigestionRate is divided for fat gain rate. DO NOT SET THIS TO 0",
 		value = 4
 	},
 	LockStomach = {
@@ -82,8 +82,8 @@ local vrs = {
 		value = 2
 	},
 	HungerSatiationRate = {
-		description = "By how much digestion rate is divided for satiation gain.",
-		value = 3
+		description = "By how much digestion rate is divided for satiation gain. DO NOT SET THIS TO 0",
+		value = 4
 	},
 	HungerBreakpoint1 = {
 		description = "Stacks of hunger at which a debuff is appled",
@@ -103,7 +103,7 @@ local vrs = {
 	},
 	StatusBonusStomach = {
 		description = "Only prey who are in your stomach (oral vore) recieve benefits from feats.",
-		value = false
+		value = true
 	}
 }
 

@@ -40,7 +40,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         elseif string.sub(spell, 0, 12) == 'SP_Disposal_' then
             local prey = string.sub(spell, 13)
             SP_RegurgitatePrey(caster, prey, 10, '', 'A')
-        elseif string.sub(spell, 0, 12) == 'SP_Come_' then
+        elseif string.sub(spell, 0, 8) == 'SP_Come_' then
             local prey = string.sub(spell, 10)
             SP_RegurgitatePrey(caster, prey, 10, '', 'UC')
         elseif string.sub(spell, 0, 10) == 'SP_Absorb_' then
