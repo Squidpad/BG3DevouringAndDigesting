@@ -96,6 +96,14 @@ local vrs = {
 	HungerBreakpoint3 = {
 		description = "Stacks of hunger at which a debuff is appled",
 		value = 16
+	},
+	BoilingInsidesFast = {
+		description = "Dead prey are digested twice as fast if you have 'Boiling insides' feat.",
+		value = false
+	},
+	StatusBonusStomach = {
+		description = "Only prey who are in your stomach (oral vore) recieve benefits from feats.",
+		value = false
 	}
 }
 

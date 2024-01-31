@@ -156,26 +156,3 @@ function SP_TableLength(table)
     end
     return l
 end
-
----Checks if an element is in the keys of a table
----@param table table table to query
----@param element any element to query with
-function SP_TableContainsKey(table, element)
-    for key, _ in pairs(table) do
-        if key == element then
-            return true
-        end
-    end
-    return false
-end
-
----Swaps the keys and values of a table. Will get funky if the values are not strictly unique
----@param t table table with strictly unique keys
-function SP_TableInvert(t)
-    local newTable = {}
-     for k,v in pairs(t) do
-       newTable[v] = k
-     end
-     return newTable
- end
-

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<save>
+  <version major="4" minor="0" revision="9" build="322"/>
+  <region id="Feats">
+    <node id="root">
+      <children>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Bottomless Stomach"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_BottomlessStomach"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="13130d6d-9137-4b2c-aef2-deaa69076186"/>
+        </node>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Boiling Insides"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_BoilingInsides"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="4e897d4d-1545-456b-988d-b7486c570267"/>
+        </node>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Lead Belly"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_LeadBelly"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="b5a87c0a-b639-4f1e-86bd-4758ac89d972"/>
+        </node>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Musclegut"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_Musclegut"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="05e24a1c-c9bc-495f-b3e5-b884ab9867b4"/>
+        </node>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Muscle control"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_MuscleControl"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="e257ea5c-acf2-4fc3-86c8-4af1a3d69af1"/>
+        </node>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Stretchy maw"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_StretchyMaw"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="084a4aa3-6e2e-494c-8bb0-ca131cd0aca8"/>
+        </node>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Soothing Stomach"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_SoothingStomach"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="64e9346b-ca09-4821-8b6d-523ee0e36485"/>
+        </node>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Escape Artist"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_EscapeArtist"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="4cc32cf4-f628-447c-aa81-015114ba13d4"/>
+        </node>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Gastronaut"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_Gastronaut"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="c3de5ec3-5f12-4741-8a9f-fa6fa1afccf9"/>
+        </node>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Dense"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_Dense"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="523d9b19-8c72-4888-a856-2db5e68c69d5"/>
+        </node>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Belly Fanatic"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_BellyFanatic"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="bc7df8f7-9348-460b-aae0-222fc595b352"/>
+        </node>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Belly Diver"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_BellyDiver"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="6e5634f6-4d45-402d-bbec-144e17992174"/>
+        </node>
+      </children>
+    </node>
+  </region>
+</save>

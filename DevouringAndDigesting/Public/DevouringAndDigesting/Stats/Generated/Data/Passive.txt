@@ -1,0 +1,42 @@
+new entry "SP_BottomlessStomach"
+type "PassiveData"
+data "Boosts" "UnlockSpell(SP_Target_Swallow_A)"
+
+new entry "SP_BoilingInsides"
+type "PassiveData"
+data "Boosts" "IgnoreResistance(Acid, Resistant);UnlockSpell(SP_Target_Swallow_C)"
+
+new entry "SP_LeadBelly"
+type "PassiveData"
+
+new entry "SP_Musclegut"
+type "PassiveData"
+
+new entry "SP_MuscleControl"
+type "PassiveData"
+
+new entry "SP_StretchyMaw"
+type "PassiveData"
+
+new entry "SP_SoothingStomach"
+type "PassiveData"
+data "Boosts" "UnlockSpell(SP_Target_Swallow_U)"
+
+new entry "SP_EscapeArtist"
+type "PassiveData"
+data "Boosts" "Resistance(Acid, Resistant)"
+
+new entry "SP_Gastronaut"
+type "PassiveData"
+data "Boosts" "UnlockSpell(SP_Target_Heal_Pred)"
+
+new entry "SP_Dense"
+type "PassiveData"
+
+new entry "SP_BellyFanatic"
+type "PassiveData"
+data "Boosts" "UnlockSpell(SP_Target_Massage_Pred)"
+
+new entry "SP_BellyDiver"
+type "PassiveData"
+data "Boosts" "UnlockSpell(SP_Target_Swallow_Me)"
