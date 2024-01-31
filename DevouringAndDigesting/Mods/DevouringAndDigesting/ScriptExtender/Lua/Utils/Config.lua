@@ -35,7 +35,7 @@ local vrs = {
 	},
 	WeightLossLong = {
 		description = "TEST. How much fat a character looses on long resting.",
-		value = 10
+		value = 11
 	},
 	WeightGainRate = {
 		description = "TEST. By how much DigestionRate is divided for fat gain rate. DO NOT SET THIS TO 0",
@@ -67,7 +67,7 @@ local vrs = {
 	},
 	LethalRandomSwitch = {
 		description = "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidently start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
-		value = false
+		value = true
 	},
 	HungerShort = {
 		description = "Hunger stacks gained on short rest.",
@@ -75,11 +75,11 @@ local vrs = {
 	},
 	HungerLong = {
 		description = "Hunger stacks gained on long rest.",
-		value = 3
+		value = 4
 	},
 	HungerSatiation = {
 		description = "Satiation stacks needed to remove one hunger stack.",
-		value = 2
+		value = 3
 	},
 	HungerSatiationRate = {
 		description = "By how much digestion rate is divided for satiation gain. DO NOT SET THIS TO 0",

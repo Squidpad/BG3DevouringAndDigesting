@@ -415,7 +415,7 @@ function SP_OnBeforeDeath(character)
             SP_RegurgitatePrey(character, 'All', -1)
         end
         -- If character was prey (both can be true at the same time)
-        if VoreData[character] ~- nil and VoreData[character].Pred ~= nil then
+        if VoreData[character] ~= nil and VoreData[character].Pred ~= nil then
             local pred = VoreData[character].Pred
             VoreData[character].Digestion = 1
             if VoreData[character].Locus == 'O' then
