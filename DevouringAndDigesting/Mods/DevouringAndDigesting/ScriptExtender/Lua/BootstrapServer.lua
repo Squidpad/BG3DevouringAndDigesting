@@ -576,18 +576,20 @@ function SP_HungerSystem(stacks, isLong)
                 end
 
                 --Randomly start digesting prey because of hunger
-                for i, j in pairs(VoreData[pred].Prey) do
-                    if lethalRandomSwitch and ConfigVars.LethalRandomSwitch.value then
-                        _P("Random lethal switch")
-                        SP_SwitchToDigestionType(pred, i, 0, 2)
-                        -- prey is digested if the switch happens during long rest
-                        if isLong then
-                            Osi.ApplyDamage(i, 100, "Acid", pred)
+                if VoreData[pred] ~= nil and lethalRandomSwitch then
+                    for i, j in pairs(VoreData[pred].Prey) do
+                        if ConfigVars.LethalRandomSwitch.value then
+                            _P("Random lethal switch")
+                            SP_SwitchToDigestionType(pred, i, 0, 2)
+                            -- prey is digested if the switch happens during long rest
+                            if isLong then
+                                Osi.ApplyDamage(i, 100, "Acid", pred)
+                            end
                         end
                     end
-                end
-                if lethalRandomSwitch and ConfigVars.LethalRandomSwitch.value then
-                    VoreData[pred].DigestItems = true
+                    if ConfigVars.LethalRandomSwitch.value then
+                        VoreData[pred].DigestItems = true
+                    end
                 end
             end
         end
