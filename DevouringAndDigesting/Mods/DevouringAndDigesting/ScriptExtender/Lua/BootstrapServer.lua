@@ -300,16 +300,6 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
     --         end
     --     end
     --     )
-    elseif status == 'SP_Inedible' and Osi.GetStatusTurns(object, 'SP_Inedible') > 1 then
-        Osi.RemoveStatus(object, 'SP_Inedible', "")
-    elseif status == 'SP_PotionOfGluttony_Status' and Osi.GetStatusTurns(object, 'SP_PotionOfGluttony_Status') > 1 then
-            Osi.RemoveStatus(object, 'SP_PotionOfGluttony_Status', "")
-    elseif status == "SP_PotionOfPrey_Status" and Osi.GetStatusTurns(object, "SP_PotionOfPrey_Status") > 1 then
-        Osi.RemoveStatus(object, "SP_PotionOfPrey_Status", "")
-    elseif status == "SP_PotionOfGluttony_Status_O" and Osi.GetStatusTurns(object, "SP_PotionOfGluttony_Status_O") > 1 then
-        Osi.RemoveStatus(object, "SP_PotionOfGluttony_Status_O", "")
-    elseif status == "SP_PotionOfDebugSpells_Status" and Osi.GetStatusTurns(object, "SP_PotionOfDebugSpells_Status") > 1 then
-        Osi.RemoveStatus(object, "SP_PotionOfDebugSpells_Status", "")
     elseif status == 'SP_Item_Bound' then
         _P("Applied " .. status .. " Status to " .. object)
     elseif status == 'SP_Struggle' then
@@ -321,11 +311,32 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
     end
 end
 
+
+---to avoid checking every status and improve performance
 ---@param character CHARACTER
 ---@param item ITEM
 ---@param sucess integer
 function SP_ItemUsed(character, item, sucess)
-    _P(item)
+    if string.sub(item, 1, 3) == 'SP_' then
+        local template = Osi.GetTemplate(item)
+        -- item name + map key
+        if template == 'SP_PotionOfGluttony_O_d2d6a43b-3413-4efd-928f-d15e2ad9e38d' and
+        Osi.GetStatusTurns(character, "SP_PotionOfGluttony_Status_O") > 1 then
+            Osi.RemoveStatus(character, "SP_PotionOfGluttony_Status_O", "")
+
+        elseif template == 'SP_PotionOfGluttony_f3914e54-2c48-426a-a338-8e1c86ebc7be' and
+        Osi.GetStatusTurns(character, "SP_PotionOfGluttony_Status") > 1 then
+            Osi.RemoveStatus(character, "SP_PotionOfGluttony_Status", "")
+
+        elseif template == 'SP_PotionOfPrey_02ee5321-7bcd-4712-ba06-89eb1850c2e4' and
+        Osi.GetStatusTurns(character, "SP_PotionOfPrey_Status") > 1 then
+            Osi.RemoveStatus(character, "SP_PotionOfPrey_Status", "")
+
+        elseif template == 'SP_PotionOfInedibility_319379c2-3627-4c26-b14d-3ce8abb676c3' and
+        Osi.GetStatusTurns(character, "SP_Inedible") > 1 then
+            Osi.RemoveStatus(character, "SP_Inedible", "")
+        end
+    end
 end
 
 
