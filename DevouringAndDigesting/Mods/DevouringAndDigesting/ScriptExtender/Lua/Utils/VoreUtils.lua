@@ -624,6 +624,9 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     if (preyState ~= 1) and ConfigVars.RegurgitationCooldown.value > 0 then
         Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown', ConfigVars.RegurgitationCooldown.value * SecondsPerTurn, 1)
     end
+    if (preyState ~= 1) and ConfigVars.RegurgitationCooldown2.value > 0 then
+        Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown2', ConfigVars.RegurgitationCooldown2.value * SecondsPerTurn, 1)
+    end
 
 
     _P("New table: ")

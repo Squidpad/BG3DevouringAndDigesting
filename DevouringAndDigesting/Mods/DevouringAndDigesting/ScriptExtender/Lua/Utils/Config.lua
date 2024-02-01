@@ -57,6 +57,10 @@ local vrs = {
 		description = "Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable",
 		value = 2
 	},
+	RegurgitationCooldown2 = {
+		description = "Preds are unable to regurgitate prey for a number of turn after regurgitation. Set to 0 to disable",
+		value = 0
+	},
 	SwallowDown = {
 		description = "Preds will need to use a 'Contine Swallowing' spell to fully swallow a prey.",
 		value = true

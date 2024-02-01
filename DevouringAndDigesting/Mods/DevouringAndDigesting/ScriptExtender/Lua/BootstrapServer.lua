@@ -35,6 +35,9 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
 	-- data to the custom spell, but this is way easier.
     if VoreData[caster] ~= nil then
         if string.sub(spell, 0, 15) == 'SP_Regurgitate_' then
+            if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown2") ~= 0 then
+                return
+            end
             local prey = string.sub(spell, 16)
             SP_RegurgitatePrey(caster, prey, 10, '', 'O')
         elseif string.sub(spell, 0, 12) == 'SP_Disposal_' then
