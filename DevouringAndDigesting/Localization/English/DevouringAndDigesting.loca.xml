@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <contentList>
+	<content contentuid="h086643dege15eg42acga7c3gc0f596312163" version="1">Devouring and Digesting</content>
+
+	<content contentuid="haff912c3gf2afg4723ga736gf534cb4f5352" version="1">Old version config detected.</content>
+	<content contentuid="h35ebd26bg84c7g4efag8be1gefde311b9f2e" version="1">Newer config version detected.</content>
+	<content contentuid="h035645a0g5808g4618ga1b6g0e23a8ecb0ab" version="1">Invalid config version detected.</content>
+	<content contentuid="hfdb0ed11gd3abg47eag9e99g0140813ddb06" version="1">Sorry, your config isn't compatible&#x3C;br&#x3E;with the current mod version installed.</content>
+	<content contentuid="h1c89714ag5f55g44f0g9a4fg6beac7723a20" version="1">Sorry, your config isn't compatible&#x3C;br&#x3E;with the current mod version installed&#x3C;br&#x3E;and can't be upgraded.</content>
+	<content contentuid="h31c7c480g72c9g44ebg9b2eg80f5f0f9e78d" version="1">Default config has been loaded.</content>
+	<content contentuid="h86742a8fga59cg4597g8b7dg30e4788a1ed0" version="1">Your config has been reset.</content>
+	<content contentuid="h79032db6g7469g4f1cgaca2g743d89c7b335" version="1">Type !VoreConfigReset in the console or&#x3C;br&#x3E;delete your config manually to reset your config&#x3C;br&#x3E;and stop this popup from appearing.</content>
+
 	<content contentuid="hbe2ba459gfae6g4b2egb8abg734abbbf8f93" version="1">Have fun cheating, I guess</content>
 	<content contentuid="hf92a001fg38bag4cb0g9d15ga1e654e59105" version="1">Ring of Debuging</content>
 	<content contentuid="h86f0551cg30cag4d85g962fgb14dfd2a29b2" version="1">Predator</content>

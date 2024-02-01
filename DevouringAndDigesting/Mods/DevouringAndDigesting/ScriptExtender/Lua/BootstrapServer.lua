@@ -11,9 +11,13 @@ StatPaths = {
     "Public/DevouringAndDigesting/Stats/Generated/Data/Status.txt",
 }
 
+Ext.Require("Utils/Output.lua")
 Ext.Require("Utils/Utils.lua")
+Ext.Require("Utils/EventUtils.lua")
 Ext.Require("Utils/VoreUtils.lua")
 Ext.Require("Utils/Config.lua")
+Ext.Require("Utils/Migrations/ConfigMigrations.lua")
+Ext.Require("Utils/Migrations/PersistentVarsMigrations.lua")
 --Ext.Require("Subclasses/StomachSentinel.lua")
 
 Ext.Vars.RegisterModVariable(ModuleUUID, "VoreData", {});
@@ -467,7 +471,7 @@ function SP_OnBeforeDeath(character)
                      Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
                         VoreData[pred].Satiation = VoreData[pred].Satiation + preyWeightDiff // ConfigVars.HungerSatiationRate.value
                     end
-                    
+
                     SP_DelayCallTicks(10, function()
                         SP_ReduceWeightRecursive(character, preyWeightDiff, true)
                     end)
@@ -631,7 +635,8 @@ end
 function SP_OnSessionLoaded()
     -- Persistent variables are only available after SessionLoaded is triggered!
     _D(PersistentVars)
-	SP_GetConfigFromFile()
+    SP_ResetConfig()
+    SP_LoadConfigFromFile()
     if PersistentVars['VoreData'] == nil then	
         PersistentVars['VoreData'] = {}
         if Ext.Debug.IsDeveloperMode then
@@ -688,6 +693,10 @@ function GetVoreData()
     return modvars
 end
 
+function SP_MigratePersistentVars()
+    --TODO
+end
+
 ---Runs whenever you change game regions.
 ---@param level string? Name of new game region.
 function SP_OnBeforeLevelUnloaded(level)
@@ -717,13 +726,13 @@ function SP_OnBeforeLevelUnloaded(level)
 end
 
 function SP_ResetVore()
-    for k, v in pairs(VoreData) do
+    for k, v in pairs(VoreData or {}) do
         if next(v.Prey) ~= nil or v.Items ~= "" then
             SP_RegurgitatePrey(k, "All", -1, "ResetVore")
         end
     end
     SP_DelayCallTicks(15, function()
-        for k, v in pairs(VoreData) do
+        for k, v in pairs(VoreData or {}) do
             v.AddWeight = 0
             v.Fat = 0
             v.Satiation = 0
@@ -784,6 +793,7 @@ Ext.Osiris.RegisterListener("EnteredCombat", 2, "after", SP_OnCombatEnter)
 Ext.Osiris.RegisterListener("LeftCombat", 2, "after", SP_OnCombatLeave)
 
 Ext.Osiris.RegisterListener("RollResult", 6, "after", SP_OnRollResults)
+Ext.Osiris.RegisterListener("LevelLoaded", 1, "after", SP_OnLevelLoaded)
 Ext.Osiris.RegisterListener("LevelUnloading", 1, "before", SP_OnBeforeLevelUnloaded)
 Ext.Osiris.RegisterListener("StatusApplied", 4, "after", SP_OnStatusApplied)
 Ext.Osiris.RegisterListener("StatusRemoved", 4, "after", SP_OnStatusRemoved)
@@ -792,10 +802,7 @@ Ext.Osiris.RegisterListener("Died", 1, "before", SP_OnBeforeDeath)
 Ext.Osiris.RegisterListener("ShortRested", 1, "after", SP_OnShortRest)
 Ext.Osiris.RegisterListener("LongRestFinished", 0, "after", SP_OnLongRest)
 --Ext.Osiris.RegisterListener("UsingSpellAtPosition", 8, "after", SP_SpellCastAtPosition)
-
 Ext.Osiris.RegisterListener("UseFinished", 3, "after", SP_ItemUsed)
-
-Ext.Osiris.RegisterListener("LevelLoaded", 1, "after", SP_OnLevelLoaded)
 
 Ext.Events.SessionLoaded:Subscribe(SP_OnSessionLoaded)
 Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
@@ -803,6 +810,8 @@ Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
 -- Lets you config during runtime.
 Ext.RegisterConsoleCommand('VoreConfig', VoreConfig);
 Ext.RegisterConsoleCommand('VoreConfigOptions', VoreConfigOptions);
+Ext.RegisterConsoleCommand('VoreConfigReload', SP_LoadConfigFromFile)
+Ext.RegisterConsoleCommand('VoreConfigReset', SP_ResetConfig)
 
 Ext.RegisterConsoleCommand("ResetVore", SP_ResetVore);
 Ext.RegisterConsoleCommand("KillVore", SP_KillVore);

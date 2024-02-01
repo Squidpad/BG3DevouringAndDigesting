@@ -34,20 +34,20 @@ function SP_GetSpellParams(spell)
     return string.match(spell, pattern)
 end
 
---Delays a function call by given milliseconds.
---Preferable not to use, as time is not properly synced between server and client.
---@param ms integer
---@param func function
--- function SP_DelayCall(ms, func)
---     local startTime = Ext.Utils.MonotonicTime()
---     local handlerId
---     handlerId = Ext.Events.Tick:Subscribe(function()
---         if (Ext.Utils.MonotonicTime() - startTime > ms) then
---             Ext.Events.Tick:Unsubscribe(handlerId)
---             func()
---         end
---     end)
--- end
+---Delays a function call by given milliseconds.
+---Preferable not to use, as time is not properly synced between server and client.
+---@param ms integer
+---@param func function
+function SP_DelayCall(ms, func)
+    local startTime = Ext.Utils.MonotonicTime()
+    local handlerId
+    handlerId = Ext.Events.Tick:Subscribe(function ()
+        if (Ext.Utils.MonotonicTime() - startTime >= ms) then
+            Ext.Events.Tick:Unsubscribe(handlerId)
+            func()
+        end
+    end)
+end
 
 ---Delays a function call for a given number of ticks.
 ---Server runs at a target of 30hz, so each tick is ~33ms and 30 ticks is ~1 second. This IS synced between server and client.
@@ -77,6 +77,13 @@ function SP_RemoveSubstring(string, substring)
     return string.sub(string, 0, startPos - 1) .. string.sub(string, endPos + 1)
 end
 
+---Checks if value is an integer.
+---@param value any
+---@return boolean
+function SP_IsInt(value)
+    return type(value) == "number" and math.floor(value) == value
+end
+
 ---Returns a deepcopy of a table.
 ---@param table table
 ---@param copies table?
@@ -101,7 +108,6 @@ function SP_Deepcopy(table, copies)
     end
     return copy
 end
-
 
 ---Checks if an element is in the values of a table
 ---@param table table table to query
