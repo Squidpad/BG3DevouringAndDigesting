@@ -321,6 +321,22 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         if Osi.HasPassive(VoreData[object].Pred, 'SP_BoilingInsides') == 1 then
             Osi.ApplyStatus(object, "SP_BoilingInsidesAcid", 0, 1, VoreData[object].Pred)
         end
+        if ConfigVars.SwitchEndoLethal.value and Osi.HasPassive(VoreData[object].Pred, 'SP_SoothingStomach') == 0 then
+            local pred = VoreData[object].Pred
+            if VoreData[object].Locus == 'O' then
+                VoreData[pred].DigestItems = true
+            end
+            for k, v in pairs(VoreData[pred].Prey) do
+                if VoreData[object].Locus == v then
+                    SP_SwitchToDigestionType(pred, k, 0, 2)
+                end
+            end
+            PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
+            if Ext.Debug.IsDeveloperMode then
+                local modvars = GetVoreData()
+                modvars.VoreData = SP_Deepcopy(VoreData)
+            end
+        end
         SP_VoreCheck(VoreData[object].Pred, object, "StruggleCheck")
     end
 end

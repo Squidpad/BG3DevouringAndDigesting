@@ -621,10 +621,10 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     end
 
     -- add swallow cooldown after regurgitation
-    if (preyState ~= 1) and ConfigVars.RegurgitationCooldown.value > 0 then
+    if (locus ~= "A") and ConfigVars.RegurgitationCooldown.value > 0 then
         Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown', ConfigVars.RegurgitationCooldown.value * SecondsPerTurn, 1)
     end
-    if (preyState ~= 1) and ConfigVars.RegurgitationCooldown2.value > 0 then
+    if (locus ~= "A") and ConfigVars.RegurgitationCooldown2.value > 0 then
         Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown2', ConfigVars.RegurgitationCooldown2.value * SecondsPerTurn, 1)
     end
 
@@ -751,9 +751,9 @@ function SP_UpdateBelly(pred, weight)
         weightStage = 4
     elseif weight > 45 then
         weightStage = 3
-    elseif weight > 25 then
+    elseif weight > 30 then
         weightStage = 2
-    elseif weight > 10 then
+    elseif weight > 15 then
         weightStage = 1
     end
     -- Clears overrives. Might break if you change bodyshape or race or gender.
