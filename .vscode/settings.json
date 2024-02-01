@@ -5,5 +5,24 @@
     ],
     "Lua.format.enable": false,
     "Lua.codeLens.enable": true,
-    "Lua.hover.expandAlias": false
+    "Lua.hover.expandAlias": false,
+    "emmylua.name.config": {
+        "local_name_style": ["camel_case", "upper_snake_case"],
+        "function_param_name_style": "camel_case",
+        "function_name_style": {
+            "type": "pattern",
+            "param": "^(?:SP_)?(\\w+)$",
+            "$1": "pascal_case"
+        },
+        "local_function_name_style": {
+            "type": "pattern",
+            "param": "^(?:SP_)?(\\w+)$",
+            "$1": "pascal_case"
+        },
+        //"table_field_name_style": "",
+        "global_variable_name_style": "pascal_case",
+        //"module_name_style": "",
+        //"require_module_name_style": "",
+        //"class_name_style": "",
+    },
 }
