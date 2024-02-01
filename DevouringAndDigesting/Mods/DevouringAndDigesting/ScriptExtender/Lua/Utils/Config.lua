@@ -31,14 +31,14 @@ local vrs = {
 	},
 	WeightLossShort = {
 		description = "TEST. How much fat a character looses on short resting.",
-		value = 2
+		value = 3
 	},
 	WeightLossLong = {
 		description = "TEST. How much fat a character looses on long resting.",
-		value = 6
+		value = 11
 	},
 	WeightGainRate = {
-		description = "TEST. By how much DigestionRate is divided for fat gain rate.",
+		description = "TEST. By how much DigestionRate is divided for fat gain rate. DO NOT SET THIS TO 0",
 		value = 4
 	},
 	LockStomach = {
@@ -67,7 +67,7 @@ local vrs = {
 	},
 	LethalRandomSwitch = {
 		description = "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidently start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
-		value = false
+		value = true
 	},
 	HungerShort = {
 		description = "Hunger stacks gained on short rest.",
@@ -75,15 +75,15 @@ local vrs = {
 	},
 	HungerLong = {
 		description = "Hunger stacks gained on long rest.",
-		value = 3
+		value = 4
 	},
 	HungerSatiation = {
 		description = "Satiation stacks needed to remove one hunger stack.",
-		value = 2
+		value = 3
 	},
 	HungerSatiationRate = {
-		description = "By how much digestion rate is divided for satiation gain.",
-		value = 3
+		description = "By how much digestion rate is divided for satiation gain. DO NOT SET THIS TO 0",
+		value = 4
 	},
 	HungerBreakpoint1 = {
 		description = "Stacks of hunger at which a debuff is appled",
@@ -103,7 +103,7 @@ local vrs = {
 	},
 	StatusBonusStomach = {
 		description = "Only prey who are in your stomach (oral vore) recieve benefits from feats.",
-		value = false
+		value = true
 	}
 }
 

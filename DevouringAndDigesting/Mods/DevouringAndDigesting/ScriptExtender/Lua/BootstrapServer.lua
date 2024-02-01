@@ -36,10 +36,13 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
     if VoreData[caster] ~= nil then
         if string.sub(spell, 0, 15) == 'SP_Regurgitate_' then
             local prey = string.sub(spell, 16)
-            SP_RegurgitatePrey(caster, prey, 0)
+            SP_RegurgitatePrey(caster, prey, 10, '', 'O')
         elseif string.sub(spell, 0, 12) == 'SP_Disposal_' then
             local prey = string.sub(spell, 13)
-            SP_RegurgitatePrey(caster, prey, 1)
+            SP_RegurgitatePrey(caster, prey, 10, '', 'A')
+        elseif string.sub(spell, 0, 8) == 'SP_Come_' then
+            local prey = string.sub(spell, 10)
+            SP_RegurgitatePrey(caster, prey, 10, '', 'UC')
         elseif string.sub(spell, 0, 10) == 'SP_Absorb_' then
             local prey = string.sub(spell, 11)
             SP_RegurgitatePrey(caster, prey, 1, "Absorb")
@@ -67,6 +70,14 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                         if VoreData[k].SwallowProcess == 0 then
                             SP_FullySwallow(caster, k)
                         end
+                    end
+                end
+            end
+        elseif spell == 'SP_SpeedUpDigestion' then
+            if VoreData[caster] ~= nil then
+                for k, v in pairs(VoreData[caster].Prey) do
+                    if VoreData[k].Digestion == 2 then
+                        Osi.ApplyStatus(k, 'SP_SpeedUpDigestion_Status', 0, 1, caster)
                     end
                 end
             end
@@ -300,16 +311,6 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
     --         end
     --     end
     --     )
-    elseif status == 'SP_Inedible' and Osi.GetStatusTurns(object, 'SP_Inedible') > 1 then
-        Osi.RemoveStatus(object, 'SP_Inedible', "")
-    elseif status == 'SP_PotionOfGluttony_Status' and Osi.GetStatusTurns(object, 'SP_PotionOfGluttony_Status') > 1 then
-            Osi.RemoveStatus(object, 'SP_PotionOfGluttony_Status', "")
-    elseif status == "SP_PotionOfPrey_Status" and Osi.GetStatusTurns(object, "SP_PotionOfPrey_Status") > 1 then
-        Osi.RemoveStatus(object, "SP_PotionOfPrey_Status", "")
-    elseif status == "SP_PotionOfGluttony_Status_O" and Osi.GetStatusTurns(object, "SP_PotionOfGluttony_Status_O") > 1 then
-        Osi.RemoveStatus(object, "SP_PotionOfGluttony_Status_O", "")
-    elseif status == "SP_PotionOfDebugSpells_Status" and Osi.GetStatusTurns(object, "SP_PotionOfDebugSpells_Status") > 1 then
-        Osi.RemoveStatus(object, "SP_PotionOfDebugSpells_Status", "")
     elseif status == 'SP_Item_Bound' then
         _P("Applied " .. status .. " Status to " .. object)
     elseif status == 'SP_Struggle' then
@@ -321,6 +322,8 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
     end
 end
 
+
+---to avoid checking every status and improve performance
 ---@param character CHARACTER
 ---@param spell string
 function SP_OnLearnedSpell(character, spell)
@@ -347,7 +350,26 @@ end
 ---@param item ITEM
 ---@param sucess integer
 function SP_ItemUsed(character, item, sucess)
-    _P(item)
+    if string.sub(item, 1, 3) == 'SP_' then
+        local template = Osi.GetTemplate(item)
+        -- item name + map key
+        if template == 'SP_PotionOfGluttony_O_d2d6a43b-3413-4efd-928f-d15e2ad9e38d' and
+        Osi.GetStatusTurns(character, "SP_PotionOfGluttony_Status_O") > 1 then
+            Osi.RemoveStatus(character, "SP_PotionOfGluttony_Status_O", "")
+
+        elseif template == 'SP_PotionOfGluttony_f3914e54-2c48-426a-a338-8e1c86ebc7be' and
+        Osi.GetStatusTurns(character, "SP_PotionOfGluttony_Status") > 1 then
+            Osi.RemoveStatus(character, "SP_PotionOfGluttony_Status", "")
+
+        elseif template == 'SP_PotionOfPrey_02ee5321-7bcd-4712-ba06-89eb1850c2e4' and
+        Osi.GetStatusTurns(character, "SP_PotionOfPrey_Status") > 1 then
+            Osi.RemoveStatus(character, "SP_PotionOfPrey_Status", "")
+
+        elseif template == 'SP_PotionOfInedibility_319379c2-3627-4c26-b14d-3ce8abb676c3' and
+        Osi.GetStatusTurns(character, "SP_Inedible") > 1 then
+            Osi.RemoveStatus(character, "SP_Inedible", "")
+        end
+    end
 end
 
 
@@ -415,7 +437,7 @@ function SP_OnBeforeDeath(character)
             SP_RegurgitatePrey(character, 'All', -1)
         end
         -- If character was prey (both can be true at the same time)
-        if VoreData[character].Pred ~= nil then
+        if VoreData[character] ~= nil and VoreData[character].Pred ~= nil then
             local pred = VoreData[character].Pred
             VoreData[character].Digestion = 1
             if VoreData[character].Locus == 'O' then
@@ -426,7 +448,7 @@ function SP_OnBeforeDeath(character)
             if Ext.Entity.Get(character).ServerCharacter.Temporary == true then
                 _P("Absorbing temp character")
                 SP_DelayCallTicks(15, function()
-                    SP_RegurgitatePrey(pred, character, -1, VoreData[character].Locus, "Absorb")
+                    SP_RegurgitatePrey(pred, character, -1, "Absorb", VoreData[character].Locus)
                 end)
             else
                 SP_SwitchToDigestionType(pred, character, 1, 1)
@@ -442,7 +464,10 @@ function SP_OnBeforeDeath(character)
                     end
 
                     if ConfigVars.Hunger.value and Osi.IsPartyMember(pred, 0) == 1  and
-                    (Osi.IsTagged(character, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 or Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
+                    (Osi.IsTagged(character, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 and
+                    Osi.IsTagged(character, "196351e2-ff25-4e2b-8560-222ac6b94a54") == 0 and
+                    Osi.IsTagged(character, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
+                     Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
                         VoreData[pred].Satiation = VoreData[pred].Satiation + preyWeightDiff // ConfigVars.HungerSatiationRate.value
                     end
                     
@@ -584,18 +609,20 @@ function SP_HungerSystem(stacks, isLong)
                 end
 
                 --Randomly start digesting prey because of hunger
-                for i, j in pairs(VoreData[pred].Prey) do
-                    if lethalRandomSwitch and ConfigVars.LethalRandomSwitch.value then
-                        _P("Random lethal switch")
-                        SP_SwitchToDigestionType(pred, i, 0, 2)
-                        -- prey is digested if the switch happens during long rest
-                        if isLong then
-                            Osi.ApplyDamage(i, 100, "Acid", pred)
+                if VoreData[pred] ~= nil and lethalRandomSwitch then
+                    for i, j in pairs(VoreData[pred].Prey) do
+                        if ConfigVars.LethalRandomSwitch.value then
+                            _P("Random lethal switch")
+                            SP_SwitchToDigestionType(pred, i, 0, 2)
+                            -- prey is digested if the switch happens during long rest
+                            if isLong then
+                                Osi.ApplyDamage(i, 100, "Acid", pred)
+                            end
                         end
                     end
-                end
-                if lethalRandomSwitch and ConfigVars.LethalRandomSwitch.value then
-                    VoreData[pred].DigestItems = true
+                    if ConfigVars.LethalRandomSwitch.value then
+                        VoreData[pred].DigestItems = true
+                    end
                 end
             end
         end
