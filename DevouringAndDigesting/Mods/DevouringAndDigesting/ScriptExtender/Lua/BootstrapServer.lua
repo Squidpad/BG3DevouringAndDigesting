@@ -104,7 +104,6 @@ end
 ---@param spellElement? string Like fire, lightning, etc I think.
 ---@param storyActionID? integer
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
-    _P(caster .. " cast " .. " spell " .. " on " .. " target")
     local voreSpellType, voreLocus = SP_GetSpellParams(spell)
     if voreSpellType ~= nil then
         _P(voreSpellType .. voreLocus)
@@ -272,7 +271,6 @@ end
 ---@param causee? GUIDSTRING Thing that caused status to be applied.
 ---@param storyActionID? integer
 function SP_OnStatusApplied(object, status, causee, storyActionID)
-    _P(status .. " was applied to " .. object)
     if status == 'SP_Digesting' then
         --Randomly start digesting prey because of hunger
         local lethalRandomSwitch = false
@@ -370,24 +368,22 @@ function SP_ItemUsed(character, item, sucess)
     if string.sub(item, 1, 3) == 'SP_' then
         local template = Osi.GetTemplate(item)
         -- item name + map key
-        if template == 'SP_PotionOfAnalVore_d2d6a43b-3413-4efd-928f-d15e2ad9e38d' and
+        if template == 'SP_PotionOfAnalVore_04987160-cb88-4d3e-b219-1843e5253d51' and
             Osi.GetStatusTurns(character, "SP_CanAnalVore") > 1 then
             Osi.RemoveStatus(character, "SP_CanAnalVore", "")
         elseif template == 'SP_PotionOfUnbirth_92067c3c-547e-4451-9377-632391702de9' and
-            (Osi.GetStatusTurns(character, "SP_CanUnbirth") > 1 or (Osi.GetBodyType(character, 1) == "Male" and ConfigVars.RequireProperAnatomy.value)) then
+        -- futas are treated as having both by default
+            (Osi.GetStatusTurns(character, "SP_CanUnbirth") > 1 or (Osi.IsTagged(character, 'a0738fdf-ca0c-446f-a11d-6211ecac3291') == 0 and
+            Osi.GetBodyType(character, 1) == "Male" and ConfigVars.RequireProperAnatomy.value)) then
             Osi.RemoveStatus(character, "SP_CanUnbirth", "")
         elseif template == 'SP_PotionOfCockVore_04cbdeb4-a98e-44cd-b032-972df0ba3ca1' and
-            (Osi.GetStatusTurns(character, "SP_CanCockVore") > 1 or (Osi.GetBodyType(character, 1) == "Female" and ConfigVars.RequireProperAnatomy.value)) then
+        -- replaced check for female body type with penis tag, because futas are treated as females
+            (Osi.GetStatusTurns(character, "SP_CanCockVore") > 1 or (Osi.IsTagged(character, 'd27831df-2891-42e4-b615-ae555404918b') == 0 and
+             ConfigVars.RequireProperAnatomy.value)) then
             Osi.RemoveStatus(character, "SP_CanCockVore", "")
-        elseif template == 'SP_PotionOfGluttony_f3914e54-2c48-426a-a338-8e1c86ebc7be' then
-            if Osi.GetStatusTurns(character, "SP_PotionOfGluttony_Status") > 1 then
-                Osi.RemoveStatus(character, "SP_PotionOfGluttony_Status", "")
-                Osi.RemoveSpell(character, "SP_Target_Swallow_A", 0)
-                Osi.RemoveSpell(character, "SP_Target_Swallow_U", 0)
-                Osi.RemoveSpell(character, "SP_Target_Swallow_C", 0)
-            else
-                SP_AddLocusVore(character)
-            end
+        elseif template == 'SP_PotionOfGluttony_f3914e54-2c48-426a-a338-8e1c86ebc7be' and 
+            Osi.GetStatusTurns(character, "SP_PotionOfGluttony_Status") > 1 then
+            Osi.RemoveStatus(character, "SP_PotionOfGluttony_Status", "")
         elseif template == 'SP_PotionOfPrey_02ee5321-7bcd-4712-ba06-89eb1850c2e4' and
             Osi.GetStatusTurns(character, "SP_PotionOfPrey_Status") > 1 then
             Osi.RemoveStatus(character, "SP_PotionOfPrey_Status", "")
@@ -405,7 +401,6 @@ end
 ---@param storyActionID? integer
 function SP_OnStatusRemoved(object, status, causee, storyActionID)
     -- regurgitates prey it they are not fully swallowed
-    _P(status .. " was removed from " .. object)
     if status == 'SP_PartiallySwallowed' or status == 'SP_PartiallySwallowedGentle' then
         if VoreData[object] ~= nil then
             if VoreData[object].Pred ~= nil and VoreData[object].SwallowProcess > 0 then
@@ -490,6 +485,7 @@ function SP_OnBeforeDeath(character)
                     if ConfigVars.Hunger.value and Osi.IsPartyMember(pred, 0) == 1 and
                         (Osi.IsTagged(character, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 and
                             Osi.IsTagged(character, "196351e2-ff25-4e2b-8560-222ac6b94a54") == 0 and
+                            Osi.IsTagged(character, "22e5209c-eaeb-40dc-b6ef-a371794110c2") == 0 and
                             Osi.IsTagged(character, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                             Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
                         VoreData[pred].Satiation = VoreData[pred].Satiation +
@@ -782,12 +778,22 @@ function SP_KillVore()
     end
 end
 
--- deletes every vore-related variable and possibly fixed broken saves
+-- gives player all usable items from mod (to avoid using SummonTutorialChest)
 function SP_GiveMeVore()
+    -- local party = Ext.Entity.Get(Osi.GetHostCharacter()).PartyMember.Party.PartyView.Characters
+    -- for k, v in pairs(party) do
+    --     local predData = v:GetAllComponents()
+    --     local pred = predData.ServerCharacter.Template.Name .. "_" .. predData.Uuid.EntityUuid
+    --     Osi.RemoveStatus(pred, "SP_PotionOfGluttony_Status_O")
+    --     Osi.TemplateRemoveFrom('d2d6a43b-3413-4efd-928f-d15e2ad9e38d', pred, 1000)
+    -- end
     local player = Osi.GetHostCharacter()
-    Osi.TemplateAddTo('d2d6a43b-3413-4efd-928f-d15e2ad9e38d', player, 1)
     Osi.TemplateAddTo('91cb93c0-0e07-4b3a-a1e9-a836585146a9', player, 1)
+    Osi.TemplateAddTo('04987160-cb88-4d3e-b219-1843e5253d51', player, 1)
     Osi.TemplateAddTo('f3914e54-2c48-426a-a338-8e1c86ebc7be', player, 1)
+    Osi.TemplateAddTo('92067c3c-547e-4451-9377-632391702de9', player, 1)
+    Osi.TemplateAddTo('04cbdeb4-a98e-44cd-b032-972df0ba3ca1', player, 1)
+    Osi.TemplateAddTo('69d2df14-6d8a-4f94-92b5-cc48bc60f132', player, 1)
     Osi.TemplateAddTo('02ee5321-7bcd-4712-ba06-89eb1850c2e4', player, 1)
     Osi.TemplateAddTo('319379c2-3627-4c26-b14d-3ce8abb676c3', player, 1)
 end

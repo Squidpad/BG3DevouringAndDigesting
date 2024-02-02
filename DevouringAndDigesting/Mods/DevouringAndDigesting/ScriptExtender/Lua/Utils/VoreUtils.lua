@@ -55,12 +55,12 @@ BellyTableFemale = {
             "78fc1e05-ee83-4e6c-b14f-6f116e875b03", "b10b965b-9620-48c2-9037-0556fd23d472",
             "14388c37-34ab-4963-b61e-19cea0a90e39",
         }, {
-        "4bfa882a-3bef-49b8-9e8a-21198a2dbee5", "4741a71a-8884-4d3d-929d-708e350953bb",
-        "c2042e11-0626-440b-bee0-bb1d631fd979",
-        "9950ba83-28ea-4680-9905-a070d6eabfe7", "4e698e03-94b8-4526-9fa5-5feb1f78c3b0",
-        "e250ffe9-a94c-44b4-a225-f8cf61ad430d", "02c9846c-200d-47cb-b381-1ceeb4280774",
-        "73aae7c2-49ef-4cac-b1b9-b3cfa6a4a31a",
-    },
+            "4bfa882a-3bef-49b8-9e8a-21198a2dbee5", "4741a71a-8884-4d3d-929d-708e350953bb",
+            "c2042e11-0626-440b-bee0-bb1d631fd979",
+            "9950ba83-28ea-4680-9905-a070d6eabfe7", "4e698e03-94b8-4526-9fa5-5feb1f78c3b0",
+            "e250ffe9-a94c-44b4-a225-f8cf61ad430d", "02c9846c-200d-47cb-b381-1ceeb4280774",
+            "73aae7c2-49ef-4cac-b1b9-b3cfa6a4a31a",
+        },
     },
 }
 
@@ -799,20 +799,6 @@ function SP_CanFitItem(pred, item)
     end
 end
 
----Adds locus vore spells to character
----@param character CHARACTER character to add spells to
-function SP_AddLocusVore(character)
-    if Osi.HasActiveStatus(character, "SP_CanAnalVore") then
-        Osi.AddSpell(character, "SP_Target_Swallow_A")
-    end
-    if Osi.HasActiveStatus(character, "SP_CanUnbirth") then
-        Osi.AddSpell(character, "SP_Target_Swallow_U")
-    end
-    if Osi.HasActiveStatus(character, "SP_CanCockVore") then
-        Osi.AddSpell(character, "SP_Target_Swallow_C")
-    end
-end
-
 ---Handles rolling checks.
 ---@param pred CHARACTER
 ---@param prey CHARACTER
@@ -945,6 +931,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
             if ConfigVars.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and
                 (Osi.IsTagged(k, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 and
                     Osi.IsTagged(k, "196351e2-ff25-4e2b-8560-222ac6b94a54") == 0 and
+                    Osi.IsTagged(k, "22e5209c-eaeb-40dc-b6ef-a371794110c2") == 0 and
                     Osi.IsTagged(k, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                     Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1) then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
