@@ -68,8 +68,6 @@ data "OnApplyFunctors" "IF(IsDowned()):RegainHitPoints(1)"
 data "StatusEffect" "ba55a11f-a411-4856-ad0f-731522c9f7f1"
 data "StatusGroups" ""
 
-
-
 new entry "SP_SwallowedDiver"
 type "StatusData"
 data "StatusType" "BOOST"

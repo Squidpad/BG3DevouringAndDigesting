@@ -34,7 +34,7 @@ data "ContainerSpells" ""
 data "DisplayName" "h55ded1e9g6c62g4d40gbcc5g6adadbf42edc;2"
 data "Description" "h9773e0fcgc7bag4d2cga1b4gffa4ea278c08;4"
 data "SpellFlags" "Temporary"
-a
+
 
 
 new entry "SP_Disposal_All"

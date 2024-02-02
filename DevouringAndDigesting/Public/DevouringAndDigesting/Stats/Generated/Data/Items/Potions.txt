@@ -20,7 +20,7 @@ data "Icon" "statIcons_Bloated"
 data "StackId" "SP_PotionOfGluttony_Status"
 data "StackType" "Additive"
 data "StatusPropertyFlags" "DisablePortraitIndicator;ApplyToDead;IgnoreResting;FreezeDuration"
-data "Boosts" "Tag(PREDATOR);UnlockSpell(SP_Target_Swallow_O);IF(HasStatus("SP_CanAnalVore")):UnlockSpell(SP_Target_Swallow_A);IF(HasStatus("SP_CanUnbirth")):UnlockSpell(SP_Target_Swallow_U);IF(HasStatus("SP_CanCockVore")):UnlockSpell(SP_Target_Swallow_C);"
+data "Boosts" "Tag(PREDATOR);UnlockSpell(SP_Target_Swallow_O)"
 
 
 new entry "SP_PotionOfAnalVore"

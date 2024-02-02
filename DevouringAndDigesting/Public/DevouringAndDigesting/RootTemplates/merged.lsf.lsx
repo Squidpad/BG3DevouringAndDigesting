@@ -136,7 +136,7 @@
 											<attribute id="Animation" type="FixedString" value="" />
 											<attribute id="Conditions" type="LSString" value="" />
 											<attribute id="StatsId" type="FixedString" value="SP_CanAnalVore" />
-											<attribute id="StatusDuration" type="int32" value="1" />
+											<attribute id="StatusDuration" type="int32" value="-1" />
 											<attribute id="Consume" type="bool" value="False" />
 										</node>
 									</children>
@@ -199,7 +199,7 @@
 											<attribute id="Animation" type="FixedString" value="" />
 											<attribute id="Conditions" type="LSString" value="" />
 											<attribute id="StatsId" type="FixedString" value="SP_CanUnbirth" />
-											<attribute id="StatusDuration" type="int32" value="1" />
+											<attribute id="StatusDuration" type="int32" value="-1" />
 											<attribute id="Consume" type="bool" value="False" />
 										</node>
 									</children>
@@ -262,7 +262,7 @@
 											<attribute id="Animation" type="FixedString" value="" />
 											<attribute id="Conditions" type="LSString" value="" />
 											<attribute id="StatsId" type="FixedString" value="SP_CanCockVore" />
-											<attribute id="StatusDuration" type="int32" value="1" />
+											<attribute id="StatusDuration" type="int32" value="-1" />
 											<attribute id="Consume" type="bool" value="False" />
 										</node>
 									</children>

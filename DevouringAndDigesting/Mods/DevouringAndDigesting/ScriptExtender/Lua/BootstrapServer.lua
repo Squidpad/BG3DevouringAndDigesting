@@ -4,13 +4,16 @@ StatPaths = {
     "Public/DevouringAndDigesting/Stats/Generated/Data/Items/Items.txt",
     "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Spells_Projectile.txt",
     "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Spells_Target.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Spell_Vore_Core.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Regurgitate_Vore_Core.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Status/Status_Vore_Core.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Status/Passive_Status_Vore_Core.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/VoreCore/Spell_Vore_Core.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/VoreCore/Regurgitate_Vore_Core.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/VoreCore/Status_Vore_Core.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/VoreCore/Passive_Status_Vore_Core.txt",
     "Public/DevouringAndDigesting/Stats/Generated/Data/Experiments.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Status.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Passive.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/TreasureTable.txt",
 }
+
+
 
 Ext.Require("Utils/Output.lua")
 Ext.Require("Utils/Utils.lua")
@@ -19,9 +22,9 @@ Ext.Require("Utils/VoreUtils.lua")
 Ext.Require("Utils/Config.lua")
 Ext.Require("Utils/Migrations/ConfigMigrations.lua")
 Ext.Require("Utils/Migrations/PersistentVarsMigrations.lua")
---Ext.Require("Subclasses/StomachSentinel.lua")
 
 Ext.Vars.RegisterModVariable(ModuleUUID, "VoreData", {})
+
 
 
 PersistentVars = {}
@@ -269,6 +272,7 @@ end
 ---@param causee? GUIDSTRING Thing that caused status to be applied.
 ---@param storyActionID? integer
 function SP_OnStatusApplied(object, status, causee, storyActionID)
+    _P(status .. " was applied to " .. object)
     if status == 'SP_Digesting' then
         --Randomly start digesting prey because of hunger
         local lethalRandomSwitch = false
@@ -375,9 +379,15 @@ function SP_ItemUsed(character, item, sucess)
         elseif template == 'SP_PotionOfCockVore_04cbdeb4-a98e-44cd-b032-972df0ba3ca1' and
             (Osi.GetStatusTurns(character, "SP_CanCockVore") > 1 or (Osi.GetBodyType(character, 1) == "Female" and ConfigVars.RequireProperAnatomy.value)) then
             Osi.RemoveStatus(character, "SP_CanCockVore", "")
-        elseif template == 'SP_PotionOfGluttony_f3914e54-2c48-426a-a338-8e1c86ebc7be' and
-            Osi.GetStatusTurns(character, "SP_PotionOfGluttony_Status") > 1 then
-            Osi.RemoveStatus(character, "SP_PotionOfGluttony_Status", "")
+        elseif template == 'SP_PotionOfGluttony_f3914e54-2c48-426a-a338-8e1c86ebc7be' then
+            if Osi.GetStatusTurns(character, "SP_PotionOfGluttony_Status") > 1 then
+                Osi.RemoveStatus(character, "SP_PotionOfGluttony_Status", "")
+                Osi.RemoveSpell(character, "SP_Target_Swallow_A", 0)
+                Osi.RemoveSpell(character, "SP_Target_Swallow_U", 0)
+                Osi.RemoveSpell(character, "SP_Target_Swallow_C", 0)
+            else
+                SP_AddLocusVore(character)
+            end
         elseif template == 'SP_PotionOfPrey_02ee5321-7bcd-4712-ba06-89eb1850c2e4' and
             Osi.GetStatusTurns(character, "SP_PotionOfPrey_Status") > 1 then
             Osi.RemoveStatus(character, "SP_PotionOfPrey_Status", "")
@@ -395,6 +405,7 @@ end
 ---@param storyActionID? integer
 function SP_OnStatusRemoved(object, status, causee, storyActionID)
     -- regurgitates prey it they are not fully swallowed
+    _P(status .. " was removed from " .. object)
     if status == 'SP_PartiallySwallowed' or status == 'SP_PartiallySwallowedGentle' then
         if VoreData[object] ~= nil then
             if VoreData[object].Pred ~= nil and VoreData[object].SwallowProcess > 0 then
@@ -660,10 +671,7 @@ function SP_OnSessionLoaded()
             modvars.VoreData = SP_Deepcopy(VoreData)
         end
     end
-    -- uuid of subclass addon
-    if Ext.Mod.IsModLoaded("8cde9804-68a7-4bd2-a85e-1fb2c7216790") then
-        SubclassAddOn = true
-    end
+
 end
 
 function SP_OnLevelLoaded(level)
@@ -684,7 +692,7 @@ end
 function SP_OnResetCompleted()
     for _, statPath in ipairs(StatPaths) do
         _P(statPath)
-        ---@diagnostic disable-next-line: undefined-field
+
         Ext.Stats.LoadStatsFile(statPath, 1)
     end
     if Ext.Debug.IsDeveloperMode then
@@ -814,8 +822,10 @@ Ext.Osiris.RegisterListener("AttackedBy", 7, "before", SP_BeforeAttacked)
 --Ext.Osiris.RegisterListener("UsingSpellAtPosition", 8, "after", SP_SpellCastAtPosition)
 Ext.Osiris.RegisterListener("UseFinished", 3, "after", SP_ItemUsed)
 
+
 Ext.Events.SessionLoaded:Subscribe(SP_OnSessionLoaded)
 Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
+
 
 -- Lets you config during runtime.
 Ext.RegisterConsoleCommand('VoreConfig', VoreConfig)
