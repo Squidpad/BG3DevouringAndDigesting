@@ -690,11 +690,11 @@ end
 
 ---Runs when reset command is sent to console.
 function SP_OnResetCompleted()
-    for _, statPath in ipairs(StatPaths) do
-        _P(statPath)
+    -- for _, statPath in ipairs(StatPaths) do
+    --     _P(statPath)
 
-        Ext.Stats.LoadStatsFile(statPath, 1)
-    end
+    --     Ext.Stats.LoadStatsFile(statPath, 1)
+    -- end
     if Ext.Debug.IsDeveloperMode then
         local modvars = GetVoreData()
         VoreData = modvars.VoreData
@@ -828,7 +828,6 @@ Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
 
 
 -- Lets you config during runtime.
-Ext.RegisterConsoleCommand('VoreConfig', VoreConfig)
 Ext.RegisterConsoleCommand('VoreConfigOptions', VoreConfigOptions)
 Ext.RegisterConsoleCommand('VoreConfigReload', SP_LoadConfigFromFile)
 Ext.RegisterConsoleCommand('VoreConfigReset', SP_ResetConfig)

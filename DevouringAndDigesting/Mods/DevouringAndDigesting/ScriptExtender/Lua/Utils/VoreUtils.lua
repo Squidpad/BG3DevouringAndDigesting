@@ -1032,23 +1032,6 @@ function SP_SwitchToLocus(pred, prey, toLoc)
     Osi.ApplyStatus(prey, VoreLoci[toLoc], 1 * SecondsPerTurn, 1, pred)
 end
 
----Console command for changing config variables.
----@param var string Name of the variable to change.
----@param val any Value to change the variable to.
-function VoreConfig(var, val)
-    if ConfigVars.var ~= nil then
-        if type(val) == type(ConfigVars.var) then
-            ConfigVars.var.value = val
-            local json = Ext.Json.Stringify(ConfigVars, {Beautify = true})
-            Ext.IO.SaveFile("DevouringAndDigesting/VoreConfig.json", json)
-            _P(var .. " updated to have value " .. val)
-        else
-            _P("Entered value " .. val .. " is of type " .. type(val) .. " while " .. var ..
-                " requires a value of type " .. type(ConfigVars.var.value))
-        end
-    end
-end
-
 ---returns what swallowed status should be appled to a prey
 ---@param pred CHARACTER
 ---@param prey CHARACTER
