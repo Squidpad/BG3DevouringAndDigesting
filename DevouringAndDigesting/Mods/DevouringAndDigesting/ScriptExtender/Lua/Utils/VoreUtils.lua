@@ -908,6 +908,9 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                 thisAddDiff = v.AddWeight
             end
             VoreData[k].AddWeight = VoreData[k].AddWeight - thisAddDiff
+            if ConfigVars.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 then
+                VoreData[k].Satiation = VoreData[k].Satiation + thisAddDiff // ConfigVars.HungerSatiationRate.value
+            end
             SP_ReduceWeightRecursive(v.Pred, thisAddDiff, false)
         end
         SP_VoreDataEntry(k, false)
