@@ -7,14 +7,14 @@
         <node id="Feat">
           <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
           <attribute id="Name" type="FixedString" value="Bottomless Stomach"/>
-          <attribute id="PassivesAdded" type="LSString" value="SP_BottomlessStomach;SP_CanAnalVore"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_BottomlessStomach"/>
           <attribute id="PassivesRemoved" type="LSString" value=""/>
           <attribute id="Requirements" type="LSString" value=""/>
           <attribute id="UUID" type="guid" value="13130d6d-9137-4b2c-aef2-deaa69076186"/>
         </node>
         <node id="Feat">
           <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
-          <attribute id="Name" type="FixedString" value="Boiling Insides:SP_CanCockVore"/>
+          <attribute id="Name" type="FixedString" value="Boiling Insides"/>
           <attribute id="PassivesAdded" type="LSString" value="SP_BoilingInsides"/>
           <attribute id="PassivesRemoved" type="LSString" value=""/>
           <attribute id="Requirements" type="LSString" value=""/>
@@ -55,7 +55,7 @@
         <node id="Feat">
           <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
           <attribute id="Name" type="FixedString" value="Soothing Stomach"/>
-          <attribute id="PassivesAdded" type="LSString" value="SP_SoothingStomach;SP_CanUnbirth"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_SoothingStomach"/>
           <attribute id="PassivesRemoved" type="LSString" value=""/>
           <attribute id="Requirements" type="LSString" value=""/>
           <attribute id="UUID" type="guid" value="64e9346b-ca09-4821-8b6d-523ee0e36485"/>

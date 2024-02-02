@@ -107,7 +107,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
     local voreSpellType, voreLocus = SP_GetSpellParams(spell)
     if voreSpellType ~= nil then
         _P(voreSpellType .. voreLocus)
-        if Osi.HasActiveStatus(target, "SP_Inedible") == 0 then
+        if Osi.HasPassive(target, "SP_Inedible") == 0 then
             if voreSpellType == 'Endo' then
                 if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown") ~= 0 then
                     return
@@ -345,22 +345,6 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
     end
 end
 
----@param defender GUIDSTRING
----@param attackerOwner GUIDSTRING
----@param attacker2 GUIDSTRING
----@param damageType string
----@param damageAmount integer
----@param damageCause string
----@param storyActionID integer
-function SP_BeforeAttacked(defender, attackerOwner, attacker2, damageType, damageAmount, damageCause, storyActionID)
-    _P(SP_GetDisplayNameFromGUID(defender) ..
-        " was attacked by " ..
-        SP_GetDisplayNameFromGUID(attackerOwner) .. " for " .. tostring(damageAmount) .. " " .. damageType .. " damage")
-    if Osi.HasPassive(defender, "SP_LeadBelly") and VoreData[attackerOwner].Pred == defender then
-        Osi.ApplyDamage(defender, damageAmount // 2, damageType, attackerOwner)
-    end
-end
-
 ---@param character CHARACTER
 ---@param item ITEM
 ---@param sucess integer
@@ -368,31 +352,76 @@ function SP_ItemUsed(character, item, sucess)
     if string.sub(item, 1, 3) == 'SP_' then
         local template = Osi.GetTemplate(item)
         -- item name + map key
-        if template == 'SP_PotionOfAnalVore_04987160-cb88-4d3e-b219-1843e5253d51' and
-            Osi.GetStatusTurns(character, "SP_CanAnalVore") > 1 then
-            Osi.RemoveStatus(character, "SP_CanAnalVore", "")
-        elseif template == 'SP_PotionOfUnbirth_92067c3c-547e-4451-9377-632391702de9' and
-        -- futas are treated as having both by default
-            (Osi.GetStatusTurns(character, "SP_CanUnbirth") > 1 or (Osi.IsTagged(character, 'a0738fdf-ca0c-446f-a11d-6211ecac3291') == 0 and
-            Osi.GetBodyType(character, 1) == "Male" and ConfigVars.RequireProperAnatomy.value)) then
-            Osi.RemoveStatus(character, "SP_CanUnbirth", "")
-        elseif template == 'SP_PotionOfCockVore_04cbdeb4-a98e-44cd-b032-972df0ba3ca1' and
-        -- replaced check for female body type with penis tag, because futas are treated as females
-            (Osi.GetStatusTurns(character, "SP_CanCockVore") > 1 or (Osi.IsTagged(character, 'd27831df-2891-42e4-b615-ae555404918b') == 0 and
-             ConfigVars.RequireProperAnatomy.value)) then
-            Osi.RemoveStatus(character, "SP_CanCockVore", "")
-        elseif template == 'SP_PotionOfGluttony_f3914e54-2c48-426a-a338-8e1c86ebc7be' and 
-            Osi.GetStatusTurns(character, "SP_PotionOfGluttony_Status") > 1 then
-            Osi.RemoveStatus(character, "SP_PotionOfGluttony_Status", "")
-        elseif template == 'SP_PotionOfPrey_02ee5321-7bcd-4712-ba06-89eb1850c2e4' and
-            Osi.GetStatusTurns(character, "SP_PotionOfPrey_Status") > 1 then
-            Osi.RemoveStatus(character, "SP_PotionOfPrey_Status", "")
-        elseif template == 'SP_PotionOfInedibility_319379c2-3627-4c26-b14d-3ce8abb676c3' and
-            Osi.GetStatusTurns(character, "SP_Inedible") > 1 then
-            Osi.RemoveStatus(character, "SP_Inedible", "")
+        if template == 'SP_PotionOfAnalVore_04987160-cb88-4d3e-b219-1843e5253d51' then
+            if Osi.HasPassive(character, "SP_CanAnalVore") == 0 then
+                Osi.AddPassive(character, "SP_CanAnalVore")
+            else
+                Osi.RemovePassive(character, "SP_CanAnalVore")
+            end
+        elseif template == 'SP_PotionOfUnbirth_92067c3c-547e-4451-9377-632391702de9' then
+            if Osi.HasPassive(character, "SP_CanUnbirth") == 0 and (Osi.IsTagged(character, 'a0738fdf-ca0c-446f-a11d-6211ecac3291') == 1 or not
+            ConfigVars.RequireProperAnatomy.value or Osi.GetBodyType(character, 1) == "Female") then
+                Osi.AddPassive(character, "SP_CanUnbirth")
+            else
+                Osi.RemovePassive(character, "SP_CanUnbirth")
+            end
+        elseif template == 'SP_PotionOfCockVore_04cbdeb4-a98e-44cd-b032-972df0ba3ca1' then
+            if Osi.HasPassive(character, "SP_CanCockVore") == 0 and (Osi.IsTagged(character, 'd27831df-2891-42e4-b615-ae555404918b') == 1 or not
+            ConfigVars.RequireProperAnatomy.value) then
+                Osi.AddPassive(character, "SP_CanCockVore")
+            else
+                Osi.RemovePassive(character, "SP_CanCockVore")
+            end
+        elseif template == 'SP_PotionOfGluttony_f3914e54-2c48-426a-a338-8e1c86ebc7be' then
+            if Osi.HasPassive(character, "SP_Gluttony") == 0 then
+                Osi.AddPassive(character, "SP_Gluttony")
+            else
+                Osi.RemovePassive(character, "SP_Gluttony")
+            end
+        elseif template == 'SP_PotionOfPrey_02ee5321-7bcd-4712-ba06-89eb1850c2e4' then
+            if Osi.HasPassive(character, "SP_IsPrey") == 0 then
+                Osi.AddPassive(character, "SP_IsPrey")
+            else
+                Osi.RemovePassive(character, "SP_IsPrey")
+            end
+        elseif template == 'SP_PotionOfInedibility_319379c2-3627-4c26-b14d-3ce8abb676c3' then
+            if Osi.HasPassive(character, "SP_Inedible") == 0 then
+                Osi.AddPassive(character, "SP_Inedible")
+            else
+                Osi.RemovePassive(character, "SP_Inedible")
+            end
+        elseif template == 'SP_PotionOfDebugSpells_69d2df14-6d8a-4f94-92b5-cc48bc60f132' then
+            if Osi.HasPassive(character, "SP_PotionOfDebugSpells") == 0 then
+                Osi.AddPassive(character, "SP_PotionOfDebugSpells")
+            else
+                Osi.RemovePassive(character, "SP_PotionOfDebugSpells")
+            end
         end
     end
 end
+
+---@param character CHARACTER
+function SP_OnLevelUp(character)
+    SP_DelayCallTicks(10, function ()
+        if Osi.HasPassive(character, 'SP_BottomlessStomach') == 1 then
+            if Osi.HasPassive(character, "SP_CanAnalVore") == 0 then
+                Osi.AddPassive(character, "SP_CanAnalVore")
+            end
+        elseif Osi.HasPassive(character, 'SP_BoilingInsides') == 1 then
+            if Osi.HasPassive(character, "SP_CanCockVore") == 0 and (Osi.IsTagged(character, 'd27831df-2891-42e4-b615-ae555404918b') == 1 or not
+            ConfigVars.RequireProperAnatomy.value) then
+                Osi.AddPassive(character, "SP_CanCockVore")
+            end
+        elseif Osi.HasPassive(character, 'SP_SoothingStomach') == 1 then
+            if Osi.HasPassive(character, "SP_CanUnbirth") == 0 and (Osi.IsTagged(character, 'a0738fdf-ca0c-446f-a11d-6211ecac3291') == 1 or not
+            ConfigVars.RequireProperAnatomy.value or Osi.GetBodyType(character, 1) == "Female") then
+                Osi.AddPassive(character, "SP_CanUnbirth")
+            end
+        end
+    end)
+end
+
+
 
 ---Runs each time a status is removed.
 ---@param object CHARACTER Recipient of status.
@@ -780,13 +809,7 @@ end
 
 -- gives player all usable items from mod (to avoid using SummonTutorialChest)
 function SP_GiveMeVore()
-    -- local party = Ext.Entity.Get(Osi.GetHostCharacter()).PartyMember.Party.PartyView.Characters
-    -- for k, v in pairs(party) do
-    --     local predData = v:GetAllComponents()
-    --     local pred = predData.ServerCharacter.Template.Name .. "_" .. predData.Uuid.EntityUuid
-    --     Osi.RemoveStatus(pred, "SP_PotionOfGluttony_Status_O")
-    --     Osi.TemplateRemoveFrom('d2d6a43b-3413-4efd-928f-d15e2ad9e38d', pred, 1000)
-    -- end
+
     local player = Osi.GetHostCharacter()
     Osi.TemplateAddTo('91cb93c0-0e07-4b3a-a1e9-a836585146a9', player, 1)
     Osi.TemplateAddTo('04987160-cb88-4d3e-b219-1843e5253d51', player, 1)
@@ -799,8 +822,12 @@ function SP_GiveMeVore()
 end
 
 function SP_DebugVore()
-    local player = Osi.GetHostCharacter()
-    Osi.SetLevel(player, 4)
+    local party = Ext.Entity.Get(Osi.GetHostCharacter()).PartyMember.Party.PartyView.Characters
+    for k, v in pairs(party) do
+        local predData = v:GetAllComponents()
+        local pred = predData.ServerCharacter.Template.Name .. "_" .. predData.Uuid.EntityUuid
+        Osi.SetLevel(pred, 4)
+    end
 end
 
 -- If you know where to get type hints for this, please let me know.
@@ -811,6 +838,7 @@ end
 Ext.Osiris.RegisterListener("UsingSpellOnTarget", 6, "after", SP_OnSpellCastTarget)
 Ext.Osiris.RegisterListener("CastedSpell", 5, "after", SP_OnSpellCast)
 -- Ext.Osiris.RegisterListener("TurnEnded", 1, "before", SP_OnBeforeTurnEnds)
+Ext.Osiris.RegisterListener("LeveledUp", 1, "after", SP_OnLevelUp)
 
 Ext.Osiris.RegisterListener("EnteredCombat", 2, "after", SP_OnCombatEnter)
 Ext.Osiris.RegisterListener("LeftCombat", 2, "after", SP_OnCombatLeave)
@@ -824,7 +852,6 @@ Ext.Osiris.RegisterListener("TemplateAddedTo", 4, "after", SP_OnItemAdded)
 Ext.Osiris.RegisterListener("Died", 1, "before", SP_OnBeforeDeath)
 Ext.Osiris.RegisterListener("ShortRested", 1, "after", SP_OnShortRest)
 Ext.Osiris.RegisterListener("LongRestFinished", 0, "after", SP_OnLongRest)
-Ext.Osiris.RegisterListener("AttackedBy", 7, "before", SP_BeforeAttacked)
 --Ext.Osiris.RegisterListener("UsingSpellAtPosition", 8, "after", SP_SpellCastAtPosition)
 Ext.Osiris.RegisterListener("UseFinished", 3, "after", SP_ItemUsed)
 

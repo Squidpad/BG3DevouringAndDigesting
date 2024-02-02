@@ -72,8 +72,7 @@
 										<node id="Attributes">
 											<attribute id="Animation" type="FixedString" value="" />
 											<attribute id="Conditions" type="LSString" value="" />
-											<attribute id="StatsId" type="FixedString" value="SP_PotionOfGluttony_Status" />
-											<attribute id="StatusDuration" type="int32" value="1" />
+											<attribute id="PassivesAdded" type="LSString" value="" />
 											<attribute id="Consume" type="bool" value="False" />
 										</node>
 									</children>
@@ -182,7 +181,7 @@
 										<node id="Attributes">
 											<attribute id="Animation" type="FixedString" value="" />
 											<attribute id="Conditions" type="LSString" value="" />
-											<attribute id="StatsId" type="FixedString" value="SP_CanAnalVore" />
+											<attribute id="StatsId" type="FixedString" value="" />
 											<attribute id="StatusDuration" type="int32" value="1" />
 											<attribute id="Consume" type="bool" value="False" />
 										</node>
@@ -245,7 +244,7 @@
 										<node id="Attributes">
 											<attribute id="Animation" type="FixedString" value="" />
 											<attribute id="Conditions" type="LSString" value="" />
-											<attribute id="StatsId" type="FixedString" value="SP_CanUnbirth" />
+											<attribute id="StatsId" type="FixedString" value="" />
 											<attribute id="StatusDuration" type="int32" value="1" />
 											<attribute id="Consume" type="bool" value="False" />
 										</node>
@@ -308,7 +307,7 @@
 										<node id="Attributes">
 											<attribute id="Animation" type="FixedString" value="" />
 											<attribute id="Conditions" type="LSString" value="" />
-											<attribute id="StatsId" type="FixedString" value="SP_CanCockVore" />
+											<attribute id="StatsId" type="FixedString" value="" />
 											<attribute id="StatusDuration" type="int32" value="1" />
 											<attribute id="Consume" type="bool" value="False" />
 										</node>
@@ -371,7 +370,7 @@
 										<node id="Attributes">
 											<attribute id="Animation" type="FixedString" value="" />
 											<attribute id="Conditions" type="LSString" value="" />
-											<attribute id="StatsId" type="FixedString" value="SP_PotionOfDebugSpells_Status" />
+											<attribute id="StatsId" type="FixedString" value="" />
 											<attribute id="StatusDuration" type="int32" value="1" />
 											<attribute id="Consume" type="bool" value="False" />
 										</node>
@@ -434,7 +433,7 @@
 										<node id="Attributes">
 											<attribute id="Animation" type="FixedString" value="" />
 											<attribute id="Conditions" type="LSString" value="" />
-											<attribute id="StatsId" type="FixedString" value="SP_PotionOfPrey_Status" />
+											<attribute id="StatsId" type="FixedString" value="" />
 											<attribute id="StatusDuration" type="int32" value="1" />
 											<attribute id="Consume" type="bool" value="False" />
 										</node>
@@ -496,7 +495,7 @@
 										<node id="Attributes">
 											<attribute id="Animation" type="FixedString" value="" />
 											<attribute id="Conditions" type="LSString" value="" />
-											<attribute id="StatsId" type="FixedString" value="SP_Inedible" />
+											<attribute id="StatsId" type="FixedString" value="" />
 											<attribute id="StatusDuration" type="int32" value="1" />
 											<attribute id="Consume" type="bool" value="False" />
 										</node>
