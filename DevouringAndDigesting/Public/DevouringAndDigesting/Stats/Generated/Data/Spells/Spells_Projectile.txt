@@ -30,7 +30,7 @@ data "MemoryCost" "0"
 data "PrepareEffect" "fdbf8e88-c3a5-4151-a81d-429985de422c"
 data "CastEffect" "69aaec35-fb5f-489e-a4cc-47310f4377e9"
 data "HitEffect" "41de42e1-56d0-4336-8b44-99fc38281525"
-data "ContainerSpells" "SP_Projectile_Mass_Bellyport_Oral;SP_Projectile_Mass_Bellyport_Anal;SP_Projectile_Mass_Bellyport_Endo"
+data "ContainerSpells" "SP_Projectile_Mass_Bellyport_O;SP_Projectile_Mass_Bellyport_A;SP_Projectile_Mass_Bellyport_U;SP_Projectile_Mass_Bellyport_C"
 
 new entry "SP_Projectile_Mass_Bellyport_O"
 type "SpellData"

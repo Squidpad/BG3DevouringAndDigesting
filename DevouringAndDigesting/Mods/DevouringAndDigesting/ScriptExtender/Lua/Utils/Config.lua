@@ -5,6 +5,10 @@ local vrs = {
 		description = "Determines how hard it is to swallow non-consenting characters. Possible values: \"default\" = checks rolled normally, \"easy\" = you make checks with advantage, \"debug\" = you always succeed",
 		value = "default"
 	},
+	RequireProperAnatomy = {
+		description = "If true, special types of vore will require you to have a body part that would enable that type of vore.",
+		value = true
+	},
 	SlowDigestion = {
 		description = "If true, you will not lose weight until you rest. If false, you lose it immediately upon finishing digestion and you will be immidiately able to absorb / dispose of prey",
 		value = true
@@ -27,7 +31,7 @@ local vrs = {
 	},
 	WeightGain = {
 		description = "TEST. Stores and adds \"fat\" value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.",
-		value = true
+		value = false
 	},
 	WeightLossShort = {
 		description = "TEST. How much fat a character looses on short resting.",
@@ -38,11 +42,11 @@ local vrs = {
 		value = 11
 	},
 	WeightGainRate = {
-		description = "TEST. By how much DigestionRate is divided for fat gain rate. DO NOT SET THIS TO 0",
+		description = "TEST. By how much DigestionRate is divided for fat gain rate. If this is set to 0, it will become 1 instead.",
 		value = 4
 	},
 	LockStomach = {
-		description = "Whether to lock the stomach object used for storing items during item vore or not. Please do not remove or add items inside the stomach manually.",
+		description = "Whether to lock the stomach object used for storing items during item vore or not. This is for you to be able to LOOK inside, actually removing the items will lead to unintended consequences.",
 		value = true
 	},
 	SwitchEndoLethal = {
@@ -50,8 +54,8 @@ local vrs = {
 		value = true
 	},
 	DigestItems = {
-		description = "When you start digesting prey, the items in your stomach might be digested. WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH",
-		value = true
+		description = "When you start digesting prey, the items in your stomach might be digested. WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE",
+		value = false
 	},
 	RegurgitationCooldown = {
 		description = "Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable",
@@ -63,11 +67,11 @@ local vrs = {
 	},
 	Hunger = {
 		description = "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will recieve debuffs. Setting this to false disables hunger completely.",
-		value = true
+		value = false
 	},
 	LethalRandomSwitch = {
 		description = "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidently start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
-		value = true
+		value = false
 	},
 	HungerShort = {
 		description = "Hunger stacks gained on short rest.",
@@ -90,11 +94,11 @@ local vrs = {
 		value = 8
 	},
 	HungerBreakpoint2 = {
-		description = "Stacks of hunger at which a debuff is appled",
+		description = "Stacks of hunger at which a second debuff is appled",
 		value = 12
 	},
 	HungerBreakpoint3 = {
-		description = "Stacks of hunger at which a debuff is appled",
+		description = "Stacks of hunger at which a third debuff is appled",
 		value = 16
 	},
 	BoilingInsidesFast = {
@@ -103,8 +107,13 @@ local vrs = {
 	},
 	StatusBonusStomach = {
 		description = "Only prey who are in your stomach (oral vore) recieve benefits from feats.",
-		value = true
-	}
+		value = false
+	},
+	Version =
+    {
+        description = "Do not change this manually. Helps maintain your config file when upgrading the mod version.",
+        value = 1
+    },
 }
 
 --Resets config to defaults.
@@ -127,12 +136,14 @@ function SP_GetConfigFromFile()
 
 	local configDesync = false
 	for k, v in pairs(ConfigVars) do
+		-- checking if there are deprecated values in ConfigVars
 		if vrs[k] == nil then
 			ConfigVars[k] = nil
 			configDesync = true
 		end
 	end
 	for k, v in pairs(vrs) do
+		-- adding new values to ConfigVars
 		if ConfigVars[k] == nil then
 			ConfigVars[k] = v
 			configDesync = true

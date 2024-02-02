@@ -4,9 +4,10 @@ StatPaths = {
     "Public/DevouringAndDigesting/Stats/Generated/Data/Items/Items.txt",
     "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Spells_Projectile.txt",
     "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Spells_Target.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Vore_Core_Spell.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Vore_Core_Regurgitate.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Status/Vore_Core_Status.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Spell_Vore_Core.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Regurgitate_Vore_Core.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Status/Status_Vore_Core.txt",
+    "Public/DevouringAndDigesting/Stats/Generated/Data/Status/Passive_Status_Vore_Core.txt",
     "Public/DevouringAndDigesting/Stats/Generated/Data/Experiments.txt",
     "Public/DevouringAndDigesting/Stats/Generated/Data/Status.txt",
 }
@@ -40,7 +41,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         elseif string.sub(spell, 0, 12) == 'SP_Disposal_' then
             local prey = string.sub(spell, 13)
             SP_RegurgitatePrey(caster, prey, 10, '', 'A')
-        elseif string.sub(spell, 0, 8) == 'SP_Come_' then
+        elseif string.sub(spell, 0, 8) == 'SP_Release_' then
             local prey = string.sub(spell, 10)
             SP_RegurgitatePrey(caster, prey, 10, '', 'UC')
         elseif string.sub(spell, 0, 10) == 'SP_Absorb_' then
@@ -93,6 +94,7 @@ end
 ---@param spellElement string? Like fire, lightning, etc I think.
 ---@param storyActionID integer?
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
+    _P(caster .. " cast " .. " spell " .. " on " .. " target")
     local voreSpellType, voreLocus = SP_GetSpellParams(spell)
     if voreSpellType ~= nil then
         _P(voreSpellType .. voreLocus)
@@ -323,14 +325,6 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
 end
 
 
----to avoid checking every status and improve performance
----@param character CHARACTER
----@param spell string
-function SP_OnLearnedSpell(character, spell)
-    if spell == "SP_Target_Swallow_Endo" then
-        
-    end
-end
 
 ---@param defender GUIDSTRING
 ---@param attackerOwner GUIDSTRING
@@ -353,9 +347,17 @@ function SP_ItemUsed(character, item, sucess)
     if string.sub(item, 1, 3) == 'SP_' then
         local template = Osi.GetTemplate(item)
         -- item name + map key
-        if template == 'SP_PotionOfGluttony_O_d2d6a43b-3413-4efd-928f-d15e2ad9e38d' and
-        Osi.GetStatusTurns(character, "SP_PotionOfGluttony_Status_O") > 1 then
-            Osi.RemoveStatus(character, "SP_PotionOfGluttony_Status_O", "")
+        if template == 'SP_PotionOfAnalVore_d2d6a43b-3413-4efd-928f-d15e2ad9e38d' and
+        Osi.GetStatusTurns(character, "SP_CanAnalVore") > 1 then
+            Osi.RemoveStatus(character, "SP_CanAnalVore", "")
+
+        elseif template == 'SP_PotionOfUnbirth_92067c3c-547e-4451-9377-632391702de9' and
+        (Osi.GetStatusTurns(character, "SP_CanUnbirth") > 1 or (Osi.GetBodyType(character, 1) == "Male" and ConfigVars.RequireProperAnatomy.value)) then
+            Osi.RemoveStatus(character, "SP_CanUnbirth", "")
+
+        elseif template == 'SP_PotionOfCockVore_04cbdeb4-a98e-44cd-b032-972df0ba3ca1' and
+        (Osi.GetStatusTurns(character, "SP_CanCockVore") > 1  or (Osi.GetBodyType(character, 1) == "Female" and ConfigVars.RequireProperAnatomy.value)) then
+            Osi.RemoveStatus(character, "SP_CanCockVore", "")
 
         elseif template == 'SP_PotionOfGluttony_f3914e54-2c48-426a-a338-8e1c86ebc7be' and
         Osi.GetStatusTurns(character, "SP_PotionOfGluttony_Status") > 1 then

@@ -69,6 +69,10 @@ BellyTableFemale = {
 -- the addon a requirement.
 SubclassAddOn = false
 
+-- Instead of hacking together half-solutions to spell modification, we can just make new copies of spells with what we want!
+-- Will this create a huge bloat of files? Maybe. It'd be funny, though
+ComplexCustomSpells = true
+
 ---Adds or deletes VoreData of a character
 ---@param character CHARACTER
 ---@param create boolean? will not delete entry if true

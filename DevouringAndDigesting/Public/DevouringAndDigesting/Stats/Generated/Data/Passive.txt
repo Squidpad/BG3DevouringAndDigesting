@@ -1,10 +1,10 @@
 new entry "SP_BottomlessStomach"
 type "PassiveData"
-data "Boosts" "UnlockSpell(SP_Target_Swallow_A)"
+data "Boosts" ""
 
 new entry "SP_BoilingInsides"
 type "PassiveData"
-data "Boosts" "IgnoreResistance(Acid, Resistant);UnlockSpell(SP_Target_Swallow_C)"
+data "Boosts" "IgnoreResistance(Acid, Resistant)"
 
 new entry "SP_LeadBelly"
 type "PassiveData"
@@ -20,7 +20,7 @@ type "PassiveData"
 
 new entry "SP_SoothingStomach"
 type "PassiveData"
-data "Boosts" "UnlockSpell(SP_Target_Swallow_U)"
+data "Boosts" ""
 
 new entry "SP_EscapeArtist"
 type "PassiveData"
@@ -40,3 +40,5 @@ data "Boosts" "UnlockSpell(SP_Target_Massage_Pred)"
 new entry "SP_BellyDiver"
 type "PassiveData"
 data "Boosts" "UnlockSpell(SP_Target_Swallow_Me)"
+
+

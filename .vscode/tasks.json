@@ -64,11 +64,17 @@
             "command": "Tools\\ConverterApp\\Tools\\StatParser.exe",
             "args": [
                 "--game-data-path",
-                "$env:BG3_PATH\\Data",
+                "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data",
                 "--package-paths",
-                "${env:UserProfile}\\AppData\\Local\\Larian Studios\\Baldur''s Gate 3\\Mods",
-                "--sod-path",
-                "", //TODO
+                "${env:UserProfile}\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Mods",
+                "--dependency",
+                "Shared",
+                "--dependency",
+                "SharedDev",
+                "--dependency",
+                "Gustav",
+                "--dependency",
+                "GustavDev",
                 "--mod",
                 "DevouringAndDigesting"
             ]

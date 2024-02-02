@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <contentList>
+	<content contentuid="IAmLazy" version="1">[1]</content>
 	<content contentuid="hbe2ba459gfae6g4b2egb8abg734abbbf8f93" version="1">Have fun cheating, I guess</content>
 	<content contentuid="hf92a001fg38bag4cb0g9d15ga1e654e59105" version="1">Ring of Debuging</content>
 	<content contentuid="h86f0551cg30cag4d85g962fgb14dfd2a29b2" version="1">Predator</content>
@@ -23,7 +24,12 @@
 	<content contentuid="ha01b4fb5g490bg4b15g9427g2050400752a4" version="1">Swallow Whole</content>
 	<content contentuid="ha7878dd9g671ag42a6g9ca8gbbd4522b673f" version="1">Swallow a creature whole.</content>
 
-	<content contentuid="h76edd30dg9f29g477egbc43gf76243c360a9" version="1">Potion of Gluttony (Oral vore only)</content>
+	<content contentuid="h6dcda87bg5b2fg4c4egb4e9g8ad2562b07ec" version="1">Potion of Anal Elasticity</content>
+	<content contentuid="hd86b20e9g19f5g4c81ga9c5g4d85291f8bd3" version="1">Marks you as able to Anally vore other creatures.</content>
+	<content contentuid="h76edd30dg9f29g477egbc43gf76243c360a9" version="1">Potion of Vaginal Elasticity</content>
+	<content contentuid="hd05f8b4fgd1beg44fdg9925g454a977390c4" version="1">Marks you as able to Unbirth other creatures.</content>
+	<content contentuid="h471840efgc689g4aa4ga1cdg86fbd8fef8c4" version="1">Potion of Penile Elasticity</content>
+	<content contentuid="h979f2edagba02g4b92gace3g087f584d01ee" version="1">Marks you as able to Cock vore other creatures.</content>
 
 	<content contentuid="heb4ad6c5g3aa6g4735g836bg95c0c032b583" version="1">Swallow Whole (Lethal)</content>
 	<content contentuid="ha7878dd9g671ag42a6g9ca8gbbd4522b673f" version="1">Swallow a creature whole, attempting to digest them.</content>
@@ -40,8 +46,8 @@
 	<content contentuid="hde5b3914gbda1g436cga5eeg8b3a99a72351" version="1">Disposal</content>
 	<content contentuid="h9e865451g0c75g453cg98b6g51bb45be5445" version="1">Releases all of your fully digested or anally swallowed prey.</content>
 
-	<content contentuid="haf0400e7g9be5g4192g98e3g18fa6434450b" version="1">Climax</content>
-	<content contentuid="h1583c62fg51b3g4d72gb80dgbe158b37875d" version="1">You climax, releasing living or fully digested prey stored inside your private parts.</content>
+	<content contentuid="haf0400e7g9be5g4192g98e3g18fa6434450b" version="1">Release</content>
+	<content contentuid="h1583c62fg51b3g4d72gb80dgbe158b37875d" version="1">You release prey from your [1], releasing living or fully digested prey stored there.</content>
 
 
 	<content contentuid="h40bb4719g3098g4d6fg84c3g8c1b877d6b58" version="1">Regurgitate all of the creatures in your stomach</content>
