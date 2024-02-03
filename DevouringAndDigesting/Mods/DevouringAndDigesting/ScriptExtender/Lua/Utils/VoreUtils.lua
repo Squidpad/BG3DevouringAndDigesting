@@ -49,21 +49,27 @@ SecondsPerTurn = 6
 BellyTableFemale = {
     Human = {
         {
-            "5b04165d-2ec9-47f9-beff-0660640fc602", "5660e004-e2af-4f3a-ae76-375408cb78c3",
+            "5b04165d-2ec9-47f9-beff-0660640fc602", 
+            "5660e004-e2af-4f3a-ae76-375408cb78c3",
             "65a6eeac-9a14-4937-92b8-5e50bb960074",
-            "fafef7ab-087f-4362-9436-3e63ef7bcd95", "4a404594-e28d-4f47-b1c2-2ef593961e33",
-            "78fc1e05-ee83-4e6c-b14f-6f116e875b03", "b10b965b-9620-48c2-9037-0556fd23d472",
+            "fafef7ab-087f-4362-9436-3e63ef7bcd95", 
+            "4a404594-e28d-4f47-b1c2-2ef593961e33",
+            "78fc1e05-ee83-4e6c-b14f-6f116e875b03", 
+            "b10b965b-9620-48c2-9037-0556fd23d472",
             "14388c37-34ab-4963-b61e-19cea0a90e39",
-        }, {
-            "4bfa882a-3bef-49b8-9e8a-21198a2dbee5", "4741a71a-8884-4d3d-929d-708e350953bb",
+        }, 
+        {
+            "4bfa882a-3bef-49b8-9e8a-21198a2dbee5", 
+            "4741a71a-8884-4d3d-929d-708e350953bb",
             "c2042e11-0626-440b-bee0-bb1d631fd979",
-            "9950ba83-28ea-4680-9905-a070d6eabfe7", "4e698e03-94b8-4526-9fa5-5feb1f78c3b0",
-            "e250ffe9-a94c-44b4-a225-f8cf61ad430d", "02c9846c-200d-47cb-b381-1ceeb4280774",
+            "9950ba83-28ea-4680-9905-a070d6eabfe7", 
+            "4e698e03-94b8-4526-9fa5-5feb1f78c3b0",
+            "e250ffe9-a94c-44b4-a225-f8cf61ad430d", 
+            "02c9846c-200d-47cb-b381-1ceeb4280774",
             "73aae7c2-49ef-4cac-b1b9-b3cfa6a4a31a",
         },
     },
 }
-
 
 -- Instead of hacking together half-solutions to spell modification, we can just make new copies of spells with what we want!
 -- Will this create a huge bloat of files? Maybe. It'd be funny, though
@@ -836,9 +842,8 @@ function SP_VoreCheck(pred, prey, eventName)
         Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", predStat, preyStat, advantage, 0, eventName)
     elseif string.sub(eventName, 1, #eventName - 2) == "Bellyport" then
         _P("Rolling Dex Save to resist Bellyport")
-        --always uses wisdom as stat until I get around to fixing it
-        Osi.RequestPassiveRoll(prey, pred, "SavingThrow", "Dexterity", SP_GetSaveDC(pred, 5), 0,
-                               "BellyportSave_" .. string.sub(eventName, #eventName))
+        --always uses Con as stat until I get around to fixing it
+        Osi.RequestPassiveRoll(prey, pred, "SavingThrow", "Dexterity", SP_GetSaveDC(pred, 3), advantage, "BellyportSave_" .. string.sub(eventName, #eventName))
     elseif eventName == 'SwallowDownCheck' then
         _P('Rolling to resist secondary swallow')
         if Osi.HasPassive(pred, 'SP_StretchyMaw') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Charmed') == 1 or

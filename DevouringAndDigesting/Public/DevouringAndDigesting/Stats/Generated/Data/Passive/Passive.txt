@@ -80,7 +80,7 @@ data "Description" "h7e60efadgd577g4416gba59gc4a6ffbe7104;1"
 data "Icon" "statIcons_Bloated"
 data "Boosts" "Tag(Inedible)"
 
-new entry "SP_PotionOfDebugSpells"
+new entry "SP_HasDebugSpells"
 type "PassiveData"
 data "DisplayName" "h86f0551cg30cag4d85g962fgb14dfd2a29b2;1"
 data "Description" "h7e60efadgd577g4416gba59gc4a6ffbe7104;1"

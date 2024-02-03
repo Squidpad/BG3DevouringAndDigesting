@@ -275,6 +275,14 @@ function SP_LoadConfigFromFile()
             saveRequired = true
         end
     end
+    -- Looking for invalid value types.
+    for k, _ in pairs(DEFAULT_VARS) do
+        if type(loadedConfig[k]["value"]) ~= type((DEFAULT_VARS[k]["value"])) then
+            _P("Invalid value set for \"" .. loadedConfig[k] .. "\", resetting to default value of \"" .. tostring(DEFAULT_VARS[k]["value"]) .. "\"")
+            loadedConfig[k]["value"] = DEFAULT_VARS[k]["value"]
+            saveRequired = true
+        end
+    end
 
     ConfigVars = loadedConfig
 

@@ -1,17 +1,19 @@
-StatPaths = {
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Items/Armor.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Items/Potions.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Items/Items.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Spells_Projectile.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Spells/Spells_Target.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/VoreCore/Spell_Vore_Core.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/VoreCore/Regurgitate_Vore_Core.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/VoreCore/Status_Vore_Core.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/VoreCore/Passive_Status_Vore_Core.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Experiments.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/Data/Passive.txt",
-    "Public/DevouringAndDigesting/Stats/Generated/TreasureTable.txt",
+local statFiles = {
+    "Armor.txt",
+    "Potions.txt",
+    "Items.txt",
+    "Spells_Projectile.txt",
+    "Spells_Target.txt",
+    "Spell_Vore_Core.txt",
+    "Regurgitate_Vore_Core.txt",
+    "Status_Vore_Core.txt",
+    "Passive_Status_Vore_Core.txt",
+    "Experiments.txt",
+    "Status_Spells.txt",
+    "Passive.txt",
 }
+
+local modPath = "Public/DevouringAndDigesting/Stats/Generated/Data/"
 
 
 
@@ -104,6 +106,7 @@ end
 ---@param spellElement? string Like fire, lightning, etc I think.
 ---@param storyActionID? integer
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
+    _P(SP_GetDisplayNameFromGUID(caster) .. " cast " .. spell .. " on " .. SP_GetDisplayNameFromGUID(target))
     local voreSpellType, voreLocus = SP_GetSpellParams(spell)
     if voreSpellType ~= nil then
         _P(voreSpellType .. voreLocus)
@@ -182,6 +185,17 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
     end
 end
 
+---Triggers when a spell is cast with a target.
+---@param caster CHARACTER
+---@param target CHARACTER
+---@param spell string
+---@param spellType? string
+---@param spellElement? string Like fire, lightning, etc I think.
+---@param storyActionID? integer
+function SP_OnSpellCastZoneTarget(caster, target, spell, spellType, spellElement, storyActionID)
+    _P(SP_GetDisplayNameFromGUID(caster) .. " cast " .. spell .. " on " .. SP_GetDisplayNameFromGUID(target))
+end
+
 ---Triggers whenever there's a skill check.
 ---@param eventName string Name of event passed from the func that called the roll.
 ---@param roller CHARACTER Roller.
@@ -192,7 +206,10 @@ end
 function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRoll, criticality)
     local eventVoreName = string.sub(eventName, 1, #eventName - 2)
     local voreLocus = string.sub(eventName, #eventName)
-    if (string.sub(eventVoreName, 1, #eventName - 2) == "SwallowLethalCheck" or string.sub(eventName, 1, #eventName - 2) == "BellyportSave") and (resultType ~= 0 or ConfigVars.VoreDifficulty.value == 'debug') then
+    if (eventVoreName == "SwallowLethalCheck" and (resultType ~= 0 or ConfigVars.VoreDifficulty.value == 'debug')) or (eventVoreName == "BellyportSave" and (resultType ~= 1 or ConfigVars.VoreDifficulty.value == 'debug')) then
+        if eventVoreName == "BellyportSave" then
+            roller, rollSubject = rollSubject, roller
+        end
         _P('Lethal Swallow Success by ' .. roller)
 
         SP_SwallowPrey(roller, rollSubject, 2, true, true, voreLocus)
@@ -347,10 +364,11 @@ end
 
 ---@param character CHARACTER
 ---@param item ITEM
----@param sucess integer
-function SP_ItemUsed(character, item, sucess)
+---@param success integer
+function SP_ItemUsed(character, item, success)
     if string.sub(item, 1, 3) == 'SP_' then
         local template = Osi.GetTemplate(item)
+        
         -- item name + map key
         if template == 'SP_PotionOfAnalVore_04987160-cb88-4d3e-b219-1843e5253d51' then
             if Osi.HasPassive(character, "SP_CanAnalVore") == 0 then
@@ -360,14 +378,14 @@ function SP_ItemUsed(character, item, sucess)
             end
         elseif template == 'SP_PotionOfUnbirth_92067c3c-547e-4451-9377-632391702de9' then
             if Osi.HasPassive(character, "SP_CanUnbirth") == 0 and (Osi.IsTagged(character, 'a0738fdf-ca0c-446f-a11d-6211ecac3291') == 1 or not
-            ConfigVars.RequireProperAnatomy.value or Osi.GetBodyType(character, 1) == "Female") then
+                    ConfigVars.RequireProperAnatomy.value or Osi.GetBodyType(character, 1) == "Female") then
                 Osi.AddPassive(character, "SP_CanUnbirth")
             else
                 Osi.RemovePassive(character, "SP_CanUnbirth")
             end
         elseif template == 'SP_PotionOfCockVore_04cbdeb4-a98e-44cd-b032-972df0ba3ca1' then
             if Osi.HasPassive(character, "SP_CanCockVore") == 0 and (Osi.IsTagged(character, 'd27831df-2891-42e4-b615-ae555404918b') == 1 or not
-            ConfigVars.RequireProperAnatomy.value) then
+                    ConfigVars.RequireProperAnatomy.value) then
                 Osi.AddPassive(character, "SP_CanCockVore")
             else
                 Osi.RemovePassive(character, "SP_CanCockVore")
@@ -391,10 +409,10 @@ function SP_ItemUsed(character, item, sucess)
                 Osi.RemovePassive(character, "SP_Inedible")
             end
         elseif template == 'SP_PotionOfDebugSpells_69d2df14-6d8a-4f94-92b5-cc48bc60f132' then
-            if Osi.HasPassive(character, "SP_PotionOfDebugSpells") == 0 then
-                Osi.AddPassive(character, "SP_PotionOfDebugSpells")
+            if Osi.HasPassive(character, "SP_HasDebugSpells") == 0 then
+                Osi.AddPassive(character, "SP_HasDebugSpells")
             else
-                Osi.RemovePassive(character, "SP_PotionOfDebugSpells")
+                Osi.RemovePassive(character, "SP_HasDebugSpells")
             end
         end
     end
@@ -409,19 +427,17 @@ function SP_OnLevelUp(character)
             end
         elseif Osi.HasPassive(character, 'SP_BoilingInsides') == 1 then
             if Osi.HasPassive(character, "SP_CanCockVore") == 0 and (Osi.IsTagged(character, 'd27831df-2891-42e4-b615-ae555404918b') == 1 or not
-            ConfigVars.RequireProperAnatomy.value) then
+                    ConfigVars.RequireProperAnatomy.value) then
                 Osi.AddPassive(character, "SP_CanCockVore")
             end
         elseif Osi.HasPassive(character, 'SP_SoothingStomach') == 1 then
             if Osi.HasPassive(character, "SP_CanUnbirth") == 0 and (Osi.IsTagged(character, 'a0738fdf-ca0c-446f-a11d-6211ecac3291') == 1 or not
-            ConfigVars.RequireProperAnatomy.value or Osi.GetBodyType(character, 1) == "Female") then
+                    ConfigVars.RequireProperAnatomy.value or Osi.GetBodyType(character, 1) == "Female") then
                 Osi.AddPassive(character, "SP_CanUnbirth")
             end
         end
     end)
 end
-
-
 
 ---Runs each time a status is removed.
 ---@param object CHARACTER Recipient of status.
@@ -467,6 +483,7 @@ function SP_OnCombatLeave(object, combatGuid)
         end
     end
 end
+
 
 ---Runs when someone dies.
 ---@param character CHARACTER
@@ -696,7 +713,6 @@ function SP_OnSessionLoaded()
             modvars.VoreData = SP_Deepcopy(VoreData)
         end
     end
-
 end
 
 function SP_OnLevelLoaded(level)
@@ -715,11 +731,20 @@ end
 
 ---Runs when reset command is sent to console.
 function SP_OnResetCompleted()
-    -- for _, statPath in ipairs(StatPaths) do
-    --     _P(statPath)
-
-    --     Ext.Stats.LoadStatsFile(statPath, 1)
-    -- end
+    if statFiles and #statFiles then
+        for _, filename in pairs(statFiles) do
+            if filename then
+                local filePath = string.format('%s%s', modPath, filename)
+                if string.len(filename) > 0 then
+                    _P(string.format('RELOADING %s', filePath))
+                    ---@diagnostic disable-next-line: undefined-field
+                    Ext.Stats.LoadStatsFile(filePath, false)
+                else
+                    _P(string.format('Invalid file: %s', filePath))
+                end
+            end
+        end
+    end
     if Ext.Debug.IsDeveloperMode then
         local modvars = GetVoreData()
         VoreData = modvars.VoreData
@@ -809,7 +834,6 @@ end
 
 -- gives player all usable items from mod (to avoid using SummonTutorialChest)
 function SP_GiveMeVore()
-
     local player = Osi.GetHostCharacter()
     Osi.TemplateAddTo('91cb93c0-0e07-4b3a-a1e9-a836585146a9', player, 1)
     Osi.TemplateAddTo('04987160-cb88-4d3e-b219-1843e5253d51', player, 1)
@@ -836,6 +860,7 @@ if Ext.Osiris == nil then
 end
 
 Ext.Osiris.RegisterListener("UsingSpellOnTarget", 6, "after", SP_OnSpellCastTarget)
+Ext.Osiris.RegisterListener("UsingSpellOnZoneWithTarget", 6, "after", SP_OnSpellCastZoneTarget)
 Ext.Osiris.RegisterListener("CastedSpell", 5, "after", SP_OnSpellCast)
 -- Ext.Osiris.RegisterListener("TurnEnded", 1, "before", SP_OnBeforeTurnEnds)
 Ext.Osiris.RegisterListener("LeveledUp", 1, "after", SP_OnLevelUp)

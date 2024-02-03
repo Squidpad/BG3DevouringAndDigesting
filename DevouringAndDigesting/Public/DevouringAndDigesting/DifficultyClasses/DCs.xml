@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<save>
+    <version major="1" minor="0" revision="0" build="1"/>
+    <region id="DifficultyClasses">
+        <node id="root">
+            <children>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="1"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_1"/>
+                        <attribute id="UUID" type="guid" value="7a2b8d93-5a05-4412-9b7f-243059d869af"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="2"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_2"/>
+                        <attribute id="UUID" type="guid" value="20b369e5-a720-4bad-87bd-ad1f3b8573f9"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="3"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_3"/>
+                        <attribute id="UUID" type="guid" value="5270c902-8f6b-4b7b-b573-6e8bd0ce6963"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="4"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_4"/>
+                        <attribute id="UUID" type="guid" value="005b2ba9-2d83-4405-a672-5a36b58bf4b2"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="5"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_5"/>
+                        <attribute id="UUID" type="guid" value="c8d51860-377e-4e83-84ce-e36ee96b0024"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="6"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_6"/>
+                        <attribute id="UUID" type="guid" value="847928c1-3972-4a58-a900-a2b2e67d460e"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="7"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_7"/>
+                        <attribute id="UUID" type="guid" value="6f3315ce-9944-42fa-98f7-d0ab74f100e3"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="8"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_8"/>
+                        <attribute id="UUID" type="guid" value="699c7948-be05-4227-b9d0-76ddb0d3f312"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="9"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_9"/>
+                        <attribute id="UUID" type="guid" value="c33bda93-62af-45b7-89d9-08bc33352361"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="10"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_10"/>
+                        <attribute id="UUID" type="guid" value="b0021fba-e047-43c7-8693-f601f719ccd7"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="11"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_11"/>
+                        <attribute id="UUID" type="guid" value="1f043f99-290e-4ade-99c2-f44d422a8fde"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="12"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_12"/>
+                        <attribute id="UUID" type="guid" value="d0f7d201-2985-4d3e-9cd8-b22d650376d7"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="13"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_13"/>
+                        <attribute id="UUID" type="guid" value="bf977486-86cc-42a9-a89c-a9772b1bbe03"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="14"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_14"/>
+                        <attribute id="UUID" type="guid" value="b70ee996-1fa4-4dce-a731-d267ecfd6942"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="15"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_15"/>
+                        <attribute id="UUID" type="guid" value="98575c4a-dc51-4b0f-9041-ae5b7cdffc94"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="16"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_16"/>
+                        <attribute id="UUID" type="guid" value="158246e9-2f17-45b1-b35c-4a9682ff597c"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="17"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_17"/>
+                        <attribute id="UUID" type="guid" value="3ad785ed-bd39-4910-859a-3e9b7fc64cfd"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="18"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_18"/>
+                        <attribute id="UUID" type="guid" value="a35cf3f8-9c2b-497f-9971-eed6411a28c3"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="19"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_19"/>
+                        <attribute id="UUID" type="guid" value="2a0746b4-a036-4aff-b8f8-2d5d6a0e4b32"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="20"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_20"/>
+                        <attribute id="UUID" type="guid" value="dc81451e-86d9-4020-a140-e9916c31d109"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="21"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_21"/>
+                        <attribute id="UUID" type="guid" value="b6da7df8-becd-44b2-b005-06783604afd9"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="22"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_22"/>
+                        <attribute id="UUID" type="guid" value="47a3c1f3-f49e-4f0c-ae70-798b02c084ef"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="23"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_23"/>
+                        <attribute id="UUID" type="guid" value="2fcca74c-74b3-4c49-b024-1348ae062b9b"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="24"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_24"/>
+                        <attribute id="UUID" type="guid" value="d6fecb99-2cae-48ca-87e4-d2989aeae329"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="25"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_25"/>
+                        <attribute id="UUID" type="guid" value="0db636d2-f542-4ac3-bce3-8c9fb29673a3"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="26"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_26"/>
+                        <attribute id="UUID" type="guid" value="ed69769c-d8cd-4733-97a6-7ed086153234"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="27"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_27"/>
+                        <attribute id="UUID" type="guid" value="580ae0ed-cb44-44d7-8d94-b753f8eacd0e"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="28"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_28"/>
+                        <attribute id="UUID" type="guid" value="d1b6c726-a37d-4b07-ad39-28afc4091535"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="29"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_29"/>
+                        <attribute id="UUID" type="guid" value="42a1bb33-f120-4cc8-af22-caa8926db3a4"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="30"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_30"/>
+                        <attribute id="UUID" type="guid" value="896db6b4-d97b-4385-b944-cb41bcdf44bb"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="31"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_31"/>
+                        <attribute id="UUID" type="guid" value="5a9d762e-c85b-4d2e-bdc0-ad7325a39d9b"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="32"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_32"/>
+                        <attribute id="UUID" type="guid" value="884be855-e9ae-452a-9fe6-c1b8a92ddc4a"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="33"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_33"/>
+                        <attribute id="UUID" type="guid" value="e184cb04-92c0-447e-90d0-e848380e0f61"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="34"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_34"/>
+                        <attribute id="UUID" type="guid" value="02995276-941a-47d7-864d-27c200a4132f"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="35"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_35"/>
+                        <attribute id="UUID" type="guid" value="8d540df6-ca38-42c8-a091-56a22d0fb471"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="36"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_36"/>
+                        <attribute id="UUID" type="guid" value="9dbc6198-4d97-44f5-b00c-c04da23a7a7a"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="37"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_37"/>
+                        <attribute id="UUID" type="guid" value="a1b40ad4-5f57-45ee-a985-518992f3113b"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="38"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_38"/>
+                        <attribute id="UUID" type="guid" value="c0abd137-86eb-4874-8ded-6dd95e2f835b"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="39"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_39"/>
+                        <attribute id="UUID" type="guid" value="62f1c764-b650-4bc5-8cec-6509a601b379"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="40"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_40"/>
+                        <attribute id="UUID" type="guid" value="f4e975a5-1b05-4523-b107-93b9106edb84"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="41"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_41"/>
+                        <attribute id="UUID" type="guid" value="16f11a2c-7eaa-40a0-b5ce-d489cfa8fb65"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="42"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_42"/>
+                        <attribute id="UUID" type="guid" value="7bd6a66d-dc62-47ad-a4a0-bf72b9066529"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="43"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_43"/>
+                        <attribute id="UUID" type="guid" value="b6e7504e-6a89-4625-a932-29cd904f9182"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="44"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_44"/>
+                        <attribute id="UUID" type="guid" value="a048a562-9032-4e99-b2ab-ec00284d96b8"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="45"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_45"/>
+                        <attribute id="UUID" type="guid" value="231d3f58-e1f8-406c-a823-414a54839d8d"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="46"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_46"/>
+                        <attribute id="UUID" type="guid" value="ad3ac116-f3ab-4cd4-b1e1-d16351a84ebc"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="47"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_47"/>
+                        <attribute id="UUID" type="guid" value="10115824-fb0f-4a21-9709-d19dd7b84e98"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="48"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_48"/>
+                        <attribute id="UUID" type="guid" value="034df2de-9a6a-43bd-828b-a83cefddeeed"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="49"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_49"/>
+                        <attribute id="UUID" type="guid" value="1f5b809b-8f82-4dd5-b579-e422322e2b7a"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="50"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_50"/>
+                        <attribute id="UUID" type="guid" value="27b10924-abfc-446f-818a-61844b10b554"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="51"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_51"/>
+                        <attribute id="UUID" type="guid" value="972c0dbe-5235-4d80-8969-42f3e5e475a8"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="52"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_52"/>
+                        <attribute id="UUID" type="guid" value="c25fbce2-2ce3-4c79-8c1e-931350654325"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="53"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_53"/>
+                        <attribute id="UUID" type="guid" value="f8e33e67-74bf-4e24-a7b4-c28db1a17373"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="54"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_54"/>
+                        <attribute id="UUID" type="guid" value="bc9a3d57-846b-44ca-8037-7c290c8515e8"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="55"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_55"/>
+                        <attribute id="UUID" type="guid" value="01426c37-1ff7-43e3-88d0-e24684186d96"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="56"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_56"/>
+                        <attribute id="UUID" type="guid" value="6e9dd098-e5d7-49a9-851f-cfd0f6cd039a"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="57"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_57"/>
+                        <attribute id="UUID" type="guid" value="8007d93b-0497-49d1-81c0-e8d53fdc78a3"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="58"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_58"/>
+                        <attribute id="UUID" type="guid" value="8ab4e2e0-e911-4ebc-9400-a01f6641cf8d"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="59"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_59"/>
+                        <attribute id="UUID" type="guid" value="d80472d5-1e6a-4260-9fa1-63bb67a352cb"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="60"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_60"/>
+                        <attribute id="UUID" type="guid" value="508a3420-11d6-4ab5-a316-eaf7958a639b"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="61"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_61"/>
+                        <attribute id="UUID" type="guid" value="6af3ec63-90bb-40eb-8edc-e8947c1b0755"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="62"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_62"/>
+                        <attribute id="UUID" type="guid" value="93f0eaf7-a212-4180-964d-98f8ab76bce5"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="63"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_63"/>
+                        <attribute id="UUID" type="guid" value="c8f5d547-8d03-4c75-b7bf-22540769cb58"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="64"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_64"/>
+                        <attribute id="UUID" type="guid" value="dda26278-2360-4ff5-b286-02962c006273"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="65"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_65"/>
+                        <attribute id="UUID" type="guid" value="fae9990d-d103-4ce5-bbb7-9c8b3c2c3c0c"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="66"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_66"/>
+                        <attribute id="UUID" type="guid" value="e8951797-f87f-4f22-a11a-ea8f7f17d34e"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="67"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_67"/>
+                        <attribute id="UUID" type="guid" value="e70e12d5-cd7c-4992-b661-bda2de83d977"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="68"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_68"/>
+                        <attribute id="UUID" type="guid" value="6ce9dee4-895d-4fde-9f65-0160a5166344"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="69"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_69"/>
+                        <attribute id="UUID" type="guid" value="565f058c-3f5a-4d06-bdfc-b3e86e844a76"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="70"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_70"/>
+                        <attribute id="UUID" type="guid" value="056963e7-3dc9-4482-afc3-7482f35edad5"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="71"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_71"/>
+                        <attribute id="UUID" type="guid" value="2b4db13d-521d-4188-9b8e-ae652111a334"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="72"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_72"/>
+                        <attribute id="UUID" type="guid" value="703f09ab-ffa4-4d7e-bf79-1b4d84ee6a60"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="73"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_73"/>
+                        <attribute id="UUID" type="guid" value="c2606eff-84a4-4081-bdca-12fc29e8a5c5"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="74"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_74"/>
+                        <attribute id="UUID" type="guid" value="91069bda-8712-44fb-b66e-ad95158cbedf"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="75"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_75"/>
+                        <attribute id="UUID" type="guid" value="7fa2c3a0-7b8b-4c31-ba82-163b6bb82959"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="76"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_76"/>
+                        <attribute id="UUID" type="guid" value="b16e36be-dafe-49d1-9d08-91e2e5648116"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="77"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_77"/>
+                        <attribute id="UUID" type="guid" value="8e1ffe57-8dfa-4228-9a7e-91dc7b55da88"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="78"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_78"/>
+                        <attribute id="UUID" type="guid" value="a6178b46-9901-4c8b-ae37-c8a17b2d4ee9"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="79"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_79"/>
+                        <attribute id="UUID" type="guid" value="07821147-c1d9-4985-bf40-70e607f17baa"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="80"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_80"/>
+                        <attribute id="UUID" type="guid" value="fc49101e-f9ae-4437-83b0-674b12a48fdd"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="81"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_81"/>
+                        <attribute id="UUID" type="guid" value="a282a48d-f8b6-4881-b622-45f1d944546b"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="82"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_82"/>
+                        <attribute id="UUID" type="guid" value="6e9a70a1-fcbb-4ed4-9472-a31257f55e83"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="83"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_83"/>
+                        <attribute id="UUID" type="guid" value="3899fb02-c9d1-4b84-b97a-8991a4396552"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="84"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_84"/>
+                        <attribute id="UUID" type="guid" value="169d323a-bc93-4099-8fd4-27ea841a1b58"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="85"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_85"/>
+                        <attribute id="UUID" type="guid" value="97cc4f67-b7e0-4262-abf5-c2a7d5637a64"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="86"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_86"/>
+                        <attribute id="UUID" type="guid" value="1c72d616-581b-4f79-97eb-8115cc47e97b"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="87"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_87"/>
+                        <attribute id="UUID" type="guid" value="8e0bf343-a5e3-4000-8e5d-69b466c4f6e6"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="88"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_88"/>
+                        <attribute id="UUID" type="guid" value="5fd18682-cf0d-49b6-8569-418d750f89f6"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="89"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_89"/>
+                        <attribute id="UUID" type="guid" value="c1eb685a-6c98-47ce-a3b1-69f7be66f3c9"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="90"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_90"/>
+                        <attribute id="UUID" type="guid" value="3c506d21-a05a-49ea-9560-f99075652f16"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="91"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_91"/>
+                        <attribute id="UUID" type="guid" value="a60d3e3d-15d5-4181-99c5-4a613b51a62c"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="92"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_92"/>
+                        <attribute id="UUID" type="guid" value="578fc6e9-ab7f-4906-ad73-2e8bcaf5df33"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="93"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_93"/>
+                        <attribute id="UUID" type="guid" value="e799a8f6-eb5a-4154-84bc-7725406aec35"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="94"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_94"/>
+                        <attribute id="UUID" type="guid" value="4865b38e-3a31-4a95-9c0c-fbf6a4ee8b11"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="95"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_95"/>
+                        <attribute id="UUID" type="guid" value="f90fbce6-b824-4645-a4b2-b441abd3e218"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="96"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_96"/>
+                        <attribute id="UUID" type="guid" value="9729fd48-7537-4c1b-a4ee-c1192b5f4763"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="97"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_97"/>
+                        <attribute id="UUID" type="guid" value="fd2bf9a0-1cd7-4e2a-95a7-f11f90d6676a"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="98"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_98"/>
+                        <attribute id="UUID" type="guid" value="87241909-2268-4a73-8cc6-ad0eec30f739"/>
+                    </node>
+                    <node id="DifficultyClass">
+                        <attribute id="Difficulties" type="LSString" value="99"/>
+                        <attribute id="Name" type="LSString" value="CustomDC_99"/>
+                        <attribute id="UUID" type="guid" value="d26cd48a-00ca-4be6-8ac7-e9962d7c0806"/>
+                    </node>
+            </children>
+        </node>
+    </region>
+</save>

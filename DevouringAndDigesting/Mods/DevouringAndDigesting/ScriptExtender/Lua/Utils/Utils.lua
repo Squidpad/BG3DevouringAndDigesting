@@ -1,3 +1,5 @@
+Ext.Require("Utils/DCTable.lua")
+
 ---Fetches display name of a thing given its GUIDSTRING.
 ---@param target GUIDSTRING
 ---@return string
@@ -7,14 +9,17 @@ end
 
 ---@param character CHARACTER guid of character
 ---@param stat number stat to get save DC of 1 == Str, 2 == Dex, 3 == Con, 4 == Wis, 5 == Int, 6 == Cha
+---@return DIFFICULTYCLASS guid that corresponds to that DC
 function SP_GetSaveDC(character, stat)
     local entity = Ext.Entity.Get(character)
     local total_boosts = 0
-    for _, boost in pairs(entity.BoostsContainer.Boosts.SpellSaveDC) do
-        total_boosts = total_boosts + boost.SpellSaveDCBoost.DC
+    if entity.BoostsContainer.Boosts.SpellSaveDC ~= nil then
+        for _, boost in pairs(entity.BoostsContainer.Boosts.SpellSaveDC) do
+            total_boosts = total_boosts + boost.SpellSaveDCBoost.DC
+        end
     end
     local DC = 8 + total_boosts + entity.Stats.ProficiencyBonus + entity.Stats.AbilityModifiers[stat]
-    return DC
+    return DCTable[DC]
 end
 
 ---Returns character weight + their inventory weight.
@@ -167,3 +172,4 @@ function SP_TableLength(table)
     end
     return l
 end
+
