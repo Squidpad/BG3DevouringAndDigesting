@@ -1,0 +1,147 @@
+new entry "SP_Target_Lick"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_FlavorDisgust"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_Flavor"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_Disgust"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_Compress"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_Tongue"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_Ravenous"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_Rescue"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_Acidify"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_Heave"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_StillPrey"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_PowerWordSwallow"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_Rebirth"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_Churn"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_LeechingAcid"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Target_HealingAcid"
+type "SpellData"
+data "SpellType" "Target"
+
+new entry "SP_Shout_SuperBelch"
+type "SpellData"
+data "SpellType" "Shout"
+
+new entry "SP_Shout_ResistAcid"
+type "SpellData"
+data "SpellType" "Shout"
+
+new entry "SP_Shout_Burping"
+type "SpellData"
+data "SpellType" "Shout"
+
+
+
+
+new entry "SP_SoundTestContainer"
+type "SpellData"
+data "SpellType" "Shout"
+data "Icon" "Action_VampireBite"
+data "PrepareSound" "Generic_GeneralAction_Start"
+data "PrepareLoopSound" "Generic_GeneralAction_Loop"
+data "CastSound" "Action_Cast_Shove"
+data "SpellAnimation" "f13da615-33ae-412e-8314-4ac4fc560dbf,,;0b0775f0-96b0-4f8e-994d-5bfbae3ec0f0,,;01fe9641-f630-4ed2-8035-1186dc7a5803,c5dd4205-ab94-4dcc-85a8-837c5a2fd523,8a23f655-cf77-484e-a1e8-e764e5674e88;e6643712-8521-4c83-b518-1a10d61da4ef,9b8c3396-5a7f-4472-9fda-cab6565b497b,643a9702-c775-48db-98e6-74af401f2f5a;f28943e2-f5e6-4133-80ef-8c7c4f628920,,;1c693368-c595-46bd-b8c5-e406f9486ef8,,;a6ff21b9-291e-44c8-bf87-8de3703c5e97,,;,,;,,"
+data "CastTextEvent" "Cast"
+data "UseCosts" "BonusActionPoint:1"
+data "DisplayName" "hdbcd95d4g1c00g4809g9a18g2217d5fb0dcd;2"
+data "Description" "h88caf937g86ccg4125ga9e7gde32a7d0353c;4"
+data "SpellFlags" "IsLinkedSpellContainer"
+data "ContainerSpells" "SP_SoundTest1;SP_SoundTest2;SP_SoundTest3;SP_SoundTest4;SP_SoundTest5;SP_SoundTest6"
+
+new entry "SP_SoundTest1"
+type "SpellData"
+data "SpellType" "Shout"
+using "SP_SoundTestContainer"
+data "PrepareSound" "Phase_Spider_Skill_UTIL_Eat"
+data "PrepareLoopSound" "Generic_GeneralAction_Loop"
+data "CastSound" "SHA_SpiderMeatHunk_MeatLick"
+data "SpellContainerID" "SP_SoundTestContainer"
+
+new entry "SP_SoundTest2"
+type "SpellData"
+data "SpellType" "Shout"
+using "SP_SoundTestContainer"
+data "PrepareSound" "SHA_SpiderMeatHunk_MunchSweetener"
+data "PrepareLoopSound" "Generic_GeneralAction_Loop"
+data "CastSound" "SHA_SpiderMeatHunk_MeatDevour"
+data "SpellContainerID" "SP_SoundTestContainer"
+
+new entry "SP_SoundTest3"
+type "SpellData"
+data "SpellType" "Shout"
+using "SP_SoundTestContainer"
+data "PrepareSound" "HYENA_Rig_DFLT_CUST_EatingCorpse_01"
+data "PrepareLoopSound" "Generic_GeneralAction_Loop"
+data "CastSound" "FOR_Owlbear_LastCub_Eat"
+data "SpellContainerID" "SP_SoundTestContainer"
+
+new entry "SP_SoundTest4"
+type "SpellData"
+data "SpellType" "Shout"
+using "SP_SoundTestContainer"
+data "PrepareSound" "GOB_WolfPens_Worg_002_WorgEating"
+data "PrepareLoopSound" "Generic_GeneralAction_Loop"
+data "CastSound" "CAMP_OwlbearCub_CRD_1_PlayerEat"
+data "SpellContainerID" "SP_SoundTestContainer"
+
+new entry "SP_SoundTest5"
+type "SpellData"
+data "SpellType" "Shout"
+using "SP_SoundTestContainer"
+data "PrepareSound" "FOR_Owlbear_LastCub_MotherEat"
+data "PrepareLoopSound" "Generic_GeneralAction_Loop"
+data "CastSound" "GNOLL_Rig_DFLT_CUST_EatingCorpse"
+data "SpellContainerID" "SP_SoundTestContainer"
+
+new entry "SP_SoundTest6"
+type "SpellData"
+data "SpellType" "Shout"
+using "SP_SoundTestContainer"
+data "PrepareSound" "WORG_RIG_DFLT_CUST_Eating_01"
+data "PrepareLoopSound" "Generic_GeneralAction_Loop"
+data "CastSound" "HARPY_Rig_DFLT_CUST_EatingCorpse_01_Foley"
+data "SpellContainerID" "SP_SoundTestContainer"

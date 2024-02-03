@@ -335,6 +335,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         --         end
         --     end
         --     )
+        SP_PlayGurgle(object)
     elseif status == 'SP_Item_Bound' then
         _P("Applied " .. status .. " Status to " .. object)
     elseif status == 'SP_Struggle' then

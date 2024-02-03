@@ -134,6 +134,7 @@
 	<content contentuid="hbfda4247g1115g43a6g91aeg39418c9a494c" version="1">You are being swallowed by the pred!</content>
 	<content contentuid="ha1bbbf43g48f2g4a14ga251gde36ebbb3389" version="1">Peckish</content>
 	<content contentuid="hb59a20b1g0791g4c26gbef0g231a70a33377" version="1">You are feeling slightly hungry. Your wisdom and constitution are reduced by [1]. There is a low chance you will randomly start digesting your prey.</content>
+	<content contentuid="he3aaea57gf32fg4ec8g8900g552b14e0af9f" version="1">Hunger</content>
 	<content contentuid="h9f188535g52b4g446ag922dg10fe5b2d7a8e" version="1">Hungry</content>
 	<content contentuid="h2dfdb9e9ge9ddg490egb5eeg0d7e4ca4185e" version="1">You feel hungry. Your wisdom, constitution, strength are reduced by [1]. There is a medium chance you will randomly start digesting your endo prey.</content>
 	<content contentuid="hfbe41265gd387g4f0fg8a20g5108107a06f3" version="1">Starving</content>

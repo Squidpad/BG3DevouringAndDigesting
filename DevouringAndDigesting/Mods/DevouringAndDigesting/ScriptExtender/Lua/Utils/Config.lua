@@ -125,6 +125,10 @@ local DEFAULT_VARS = {
     StatusBonusStomach = {
         description = "Only prey who are in your stomach (oral vore) recieve benefits from feats.",
         value = false
+    },
+    GurgleProbability = {
+        description = "A chance of a gurgle being played evey 6 seconds (a turn). Set to 0 to disable. 5 ~ 100%, 10 ~ 50%, 20 ~ 25%, 100 ~ 5%, etc.",
+        value = 80
     }
 }
 

@@ -621,10 +621,10 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     end
 
     -- add swallow cooldown after regurgitation
-    if (locus ~= "A") and ConfigVars.RegurgitationCooldown.value > 0 then
+    if locus ~= "A" and preyString == "All" and ConfigVars.RegurgitationCooldown.value > 0 then
         Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown', ConfigVars.RegurgitationCooldown.value * SecondsPerTurn, 1)
     end
-    if (locus ~= "A") and ConfigVars.RegurgitationCooldown2.value > 0 then
+    if locus ~= "A" and preyString == "All" and ConfigVars.RegurgitationCooldown2.value > 0 then
         Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown2', ConfigVars.RegurgitationCooldown2.value * SecondsPerTurn, 1)
     end
 
@@ -1080,6 +1080,30 @@ function SP_GetSwallowVoreStatus(pred, endo)
         return "SP_PartiallySwallowedGentle"
     else
         return "SP_PartiallySwallowed"
+    end
+end
+
+
+---plays a random gurgle
+---@param pred GUIDSTRING
+function SP_PlayGurgle(pred)
+    local baseProbability = ConfigVars.GurgleProbability.value
+    if baseProbability == 0 then
+        return
+    elseif baseProbability < 6 then
+        baseProbability = 6
+    end
+    local randomResult = Osi.Random(baseProbability)
+    if randomResult == 1 then
+        Osi.PlaySound(pred, "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_A")
+    elseif randomResult == 2 then
+        Osi.PlaySound(pred, "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_B")
+    elseif randomResult == 3 then
+        Osi.PlaySound(pred, "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_C")
+    elseif randomResult == 4 then
+        Osi.PlaySound(pred, "SHA_SpiderMeatHunk_StomachGurgle_A")
+    elseif randomResult == 5 then
+        Osi.PlaySound(pred, "SHA_SpiderMeatHunk_StomachGurgle_B")
     end
 end
 
