@@ -660,9 +660,9 @@ function SP_UpdateWeight(pred)
         -- reduces the weight of swallowed allies.
         local fullWeight = VoreData[k].Weight + VoreData[k].AddWeight
         if VoreData[k].Digestion == 0 then
-            if Osi.HasPassive(pred, "SP_Improved_Stomach_Shelter") then
+            if Osi.HasPassive(pred, "SP_Improved_Stomach_Shelter") == 1 then
                 weightReduction = fullWeight
-            elseif Osi.HasPassive(pred, "SP_Stomach_Shelter") then
+            elseif Osi.HasPassive(pred, "SP_Stomach_Shelter") == 1 then
                 weightReduction = fullWeight / 2
             end
             fullWeight = fullWeight - weightReduction
