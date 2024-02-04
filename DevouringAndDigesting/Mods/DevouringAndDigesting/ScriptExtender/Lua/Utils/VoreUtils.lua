@@ -955,9 +955,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
         end
     end
     for k, v in pairs(VoreData) do
-        if next(v.Prey) ~= nil then
-            SP_UpdateWeight(k)
-        end
+        SP_UpdateWeight(k)
     end
     PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
     if Ext.Debug.IsDeveloperMode then
