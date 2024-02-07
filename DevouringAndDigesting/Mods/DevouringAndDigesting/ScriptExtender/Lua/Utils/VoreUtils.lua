@@ -233,6 +233,9 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested, swallowStages, locus
     SP_VoreDataEntry(pred, true)
 
     local statusStacks = SP_AddPrey(pred, prey, swallowType, notNested, swallowStages, locus)
+    if VoreData[pred].StuffedStacks < 1 and statusStacks < 1 then
+        statusStacks = 1
+    end
     if notNested then
         local stuffedStatus = SP_GetStuffedVoreStatus(pred, statusStacks)
 
@@ -277,7 +280,9 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested, swallowStag
     for _, v in ipairs(preys) do
         statusStacks = statusStacks + SP_AddPrey(pred, v, swallowType, notNested, swallowStages, locus)
     end
-
+    if VoreData[pred].StuffedStacks < 1 and statusStacks < 1 then
+        statusStacks = 1
+    end
     if notNested then
         local stuffedStatus = SP_GetStuffedVoreStatus(pred, statusStacks)
 
