@@ -106,7 +106,7 @@ end
 ---@param spellElement? string Like fire, lightning, etc I think.
 ---@param storyActionID? integer
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
-    _P(SP_GetDisplayNameFromGUID(caster) .. " cast " .. spell .. " on " .. SP_GetDisplayNameFromGUID(target))
+    -- _P(SP_GetDisplayNameFromGUID(caster) .. " cast " .. spell .. " on " .. SP_GetDisplayNameFromGUID(target))
     local voreSpellType, voreLocus = SP_GetSpellParams(spell)
     if voreSpellType ~= nil then
         _P(voreSpellType .. voreLocus)
