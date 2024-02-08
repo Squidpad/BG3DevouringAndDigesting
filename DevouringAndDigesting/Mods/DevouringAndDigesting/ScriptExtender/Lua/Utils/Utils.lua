@@ -183,7 +183,7 @@ end
 ---@param table table table to query
 function SP_TableLength(table)
     local l = 0
-    for _, _ in pairs(table) do
+    for i, j in pairs(table) do
         l = l + 1
     end
     return l

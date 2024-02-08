@@ -37,6 +37,15 @@ VoreLoci = {
     ['C'] = "SP_Swallowed_Cock",
 }
 
+-- List of gurgle sounds randomly played for stuffed preds
+GurgleSounds = {
+    "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_A",
+    "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_B",
+    "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_C",
+    "SHA_SpiderMeatHunk_StomachGurgle_A",
+    "SHA_SpiderMeatHunk_StomachGurgle_B"
+}
+
 -- A new way to store data about every character that is involved in vore
 VoreData = {}
 
@@ -1102,20 +1111,13 @@ function SP_PlayGurgle(pred)
     local baseProbability = math.floor(100 / basePercentage * 5)
     if baseProbability == 0 then
         return
-    elseif baseProbability < 5 then
-        baseProbability = 5
     end
-    local randomResult = Osi.Random(baseProbability + 1)
-    if randomResult == 1 then
-        Osi.PlaySound(pred, "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_A")
-    elseif randomResult == 2 then
-        Osi.PlaySound(pred, "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_B")
-    elseif randomResult == 3 then
-        Osi.PlaySound(pred, "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_C")
-    elseif randomResult == 4 then
-        Osi.PlaySound(pred, "SHA_SpiderMeatHunk_StomachGurgle_A")
-    elseif randomResult == 5 then
-        Osi.PlaySound(pred, "SHA_SpiderMeatHunk_StomachGurgle_B")
+    ---convert the percentage
+    basePercentage = math.floor(100 / basePercentage * #GurgleSounds)
+    local randomResult = Osi.Random(basePercentage) + 1
+    if randomResult <= #GurgleSounds then
+        _P("Gurgle random result " .. randomResult)
+        Osi.PlaySound(pred, GurgleSounds[randomResult])
     end
 end
 
