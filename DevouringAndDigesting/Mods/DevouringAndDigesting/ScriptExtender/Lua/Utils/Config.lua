@@ -78,15 +78,14 @@ local DEFAULT_VARS = {
             default = false,
         },
         VoreDifficulty = {
-            description =
-            "Determines how hard it is to swallow non-consenting characters. Possible values: \"default\" = checks rolled normally, \"easy\" = you make checks with advantage, \"cheat\" = you always succeed",
+            description = "Determines how hard it is to swallow non-consenting characters. \"default\" = checks rolled normally, \"easy\" = you make checks with advantage, \"cheat\" = you always succeed",
             value = "default",
             default = "default",
             choices = {"default", "easy", "cheat"},
         },
         StatusBonusLocus = {
             description = "Prey in the following loci will recieve benefits from feats.",
-            value = {"oral"},
+            value = {"oral", "anal", "unbirth", "cock"},
             default = {"oral", "anal", "unbirth", "cock"},
             choices = {"oral", "anal", "unbirth", "cock"},
         },
@@ -96,8 +95,7 @@ local DEFAULT_VARS = {
             default = true,
         },
         RequireProperAnatomy = {
-            description =
-            "If true, special types of vore will require you to have a body part that would enable that type of vore.",
+            description = "If true, special types of vore will require you to have a body part that would enable that type of vore.",
             value = true,
             default = true,
         },
@@ -305,8 +303,8 @@ function SP_LoadConfigFromFile()
     _P("Config loaded: \"Script Extender\\" .. CONFIG_PATH .. "\".")
 
     local isVersionValid = (
-        loadedConfig.__CephelosModConfig ~= nil and loadedConfig.__CephelosModConfig.value ~= nil and
-        SP_IsInt(loadedConfig.__CephelosModConfig.value) and loadedConfig.__CephelosModConfig.value > 0
+        loadedConfig.__CephelosModConfig ~= nil and loadedConfig.__CephelosModConfig ~= nil and
+        SP_IsInt(loadedConfig.__CephelosModConfig) and loadedConfig.__CephelosModConfig > 0
     )
     if not isVersionValid then
         _F("Invalid config version detected. Your config will be reset.")
@@ -320,10 +318,10 @@ function SP_LoadConfigFromFile()
         return
     end
 
-    if loadedConfig.__CephelosModConfig.value > CURRENT_VERSION then
+    if loadedConfig.__CephelosModConfig > CURRENT_VERSION then
         _F(
             "Newer config version detected " ..
-            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__CephelosModConfig.value .. "). " ..
+            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__CephelosModConfig .. "). " ..
             "Sorry, your config isn't compatible with the current mod version installed. " ..
             "Default config will be loaded."
         )
@@ -341,27 +339,27 @@ function SP_LoadConfigFromFile()
 
     local saveRequired = false
 
-    if loadedConfig.__CephelosModConfig.value < CURRENT_VERSION then
+    if loadedConfig.__CephelosModConfig < CURRENT_VERSION then
         _P(
             "Old version config detected " ..
-            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__CephelosModConfig.value .. ")."
+            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__CephelosModConfig .. ")."
         )
         saveRequired = true
-        for i = loadedConfig.__CephelosModConfig.value + 1, CURRENT_VERSION, 1 do
+        for i = loadedConfig.__CephelosModConfig + 1, CURRENT_VERSION, 1 do
             if SP_ConfigMigrations["To" .. i] ~= nil then
-                _P("Migrating config from version " .. loadedConfig.__CephelosModConfig.value .. " to " .. i .. ".")
+                _P("Migrating config from version " .. loadedConfig.__CephelosModConfig .. " to " .. i .. ".")
                 local newConfigVars = SP_Deepcopy(loadedConfig)
-                newConfigVars.__CephelosModConfig.value = i
+                newConfigVars.__CephelosModConfig = i
                 local successful = SP_ConfigMigrations["To" .. i](newConfigVars, SP_DeepCopy(DEFAULT_VARS))
                 if successful then
                     loadedConfig = newConfigVars
                 end
             end
-            if loadedConfig.__CephelosModConfig.value ~= i then
+            if loadedConfig.__CephelosModConfig ~= i then
                 _F(
                     "Sorry, your config isn't compatible with the current mod version installed " ..
                     "and can't be upgraded: failed to migrate " ..
-                    "from " .. loadedConfig.__CephelosModConfig.value .. " to " .. i .. ". " ..
+                    "from " .. loadedConfig.__CephelosModConfig .. " to " .. i .. ". " ..
                     "Default config will be loaded."
                 )
                 SP_ShowMessageBox(

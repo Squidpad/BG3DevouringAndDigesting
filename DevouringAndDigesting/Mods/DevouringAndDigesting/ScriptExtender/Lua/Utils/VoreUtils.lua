@@ -120,7 +120,7 @@ function SP_NewVoreDataEntry(character)
     -- so we make all non-dead prey count as endoed during migration
     VoreData[character].Digestion = 3
     -- if the items are being digested
-    VoreData[character].Digestion.DigestItems = false
+    VoreData[character].DigestItems = false
     -- guid of combat character is in
     VoreData[character].Combat = Osi.CombatGetGuidFor(character) or ""
     -- This is a set, not an array, for an easier search of a specific prey, so use k instead of v when iterating
@@ -537,7 +537,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         end
     end
     if stopDigestingItems and VoreData[pred].Items == "" then
-        VoreData[pred].Digestion.DigestItems = false
+        VoreData[pred].DigestItems = false
     end
 
     -- Remove regurgitated prey from the table and release them
@@ -1178,7 +1178,7 @@ function SP_FillVoreData(character, pred)
         VoreData[character].Fat = 0
         VoreData[character].AddWeight = 0
         VoreData[character].WeightReduction = 0
-        VoreData[character].Digestion.DigestItems = false
+        VoreData[character].DigestItems = false
         VoreData[character].SwallowProcess = 0
         VoreData[character].Satiation = 0
         VoreData[character].Stuffed = ""

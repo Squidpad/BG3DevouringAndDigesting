@@ -62,7 +62,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
             SP_RegurgitatePrey(caster, prey, 1, "Absorb")
         elseif spell == "SP_SwitchToLethal" then
             if VoreData[caster] ~= nil then
-                VoreData[caster].Digestion.DigestItems = true
+                VoreData[caster].DigestItems = true
                 for k, v in pairs(VoreData[caster].Prey) do
                     SP_SwitchToDigestionType(caster, k, 0, 2)
                 end
@@ -225,7 +225,7 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
 
         if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(roller, 'SP_SoothingStomach') == 0 then
             if voreLocus == 'O' then
-                VoreData[roller].Digestion.DigestItems = true
+                VoreData[roller].DigestItems = true
             end
             for k, v in pairs(VoreData[roller].Prey) do
                 if voreLocus == v then
@@ -329,9 +329,9 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
             end
         end
         if lethalRandomSwitch and ConfigVars.Hunger.LethalRandomSwitch.value then
-            VoreData[object].Digestion.DigestItems = true
+            VoreData[object].DigestItems = true
         end
-        if VoreData[object].Digestion.DigestItems and VoreData[object].Items ~= "" then
+        if VoreData[object].DigestItems and VoreData[object].Items ~= "" then
             SP_DigestItem(object)
         end
         -- elseif status == "SP_Pacifist_Applicator" then
@@ -355,7 +355,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(VoreData[object].Pred, 'SP_SoothingStomach') == 0 then
             local pred = VoreData[object].Pred
             if VoreData[object].Locus == 'O' then
-                VoreData[pred].Digestion.DigestItems = true
+                VoreData[pred].DigestItems = true
             end
             for k, v in pairs(VoreData[pred].Prey) do
                 if VoreData[object].Locus == v then
@@ -700,7 +700,7 @@ function SP_HungerSystem(stacks, isLong)
                         end
                     end
                     if ConfigVars.Hunger.LethalRandomSwitch.value then
-                        VoreData[pred].Digestion.DigestItems = true
+                        VoreData[pred].DigestItems = true
                     end
                 end
             end
