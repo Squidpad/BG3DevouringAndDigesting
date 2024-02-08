@@ -6,131 +6,252 @@ local MAX_BACKUPS = 5
 
 -- If you're making non-backward compatible changes,
 -- increment CURRENT_VERSION by 1 and write a migration in Migrations/ConfigMigrations.lua.
-local CURRENT_VERSION = 1
+local CURRENT_VERSION = 2
 
 ---@class SP_ConfigVars
 local DEFAULT_VARS = {
-    Version = {
-        description = "Do not change this manually. Helps maintain your config file when upgrading the mod version.",
-        value = 1,
+    VisualsAndAudio = {
+        GurgleProbability = {
+            description = "The % chance of a gurgle being played evey 6 seconds (a turn). Set to 0 to disable.",
+            value = 6.25,
+            default = 6.25,
+            range = {0, 100, 0.25},
+            extras = {
+                slider = true,
+                precision = 2,
+            },
+        },
     },
-    VoreDifficulty = {
-        description = "Determines how hard it is to swallow non-consenting characters. Possible values: \"default\" = checks rolled normally, \"easy\" = you make checks with advantage, \"debug\" = you always succeed",
-        value = "default"
-    },
-    RequireProperAnatomy = {
-        description = "If true, special types of vore will require you to have a body part that would enable that type of vore.",
-        value = true
-    },
-    SlowDigestion = {
-        description = "If true, you will not lose weight until you rest. If false, you lose it immediately upon finishing digestion and you will be immidiately able to absorb / dispose of prey",
-        value = true
-    },
-    DigestionRateShort = {
-        description = "Determines by how much the weight of a prey who is being digested is reduced after each short rest",
-        value = 20
-    },
-    DigestionRateLong = {
-        description = "Determines by how much the weight of a prey who is being digested is reduced after a long rest",
-        value = 60
-    },
-    TeleportPrey = {
-        description = "Determines if a living prey is teleported to their predator at the end of each turn (or every 6 seconds outside of turn-based mode). By default is on, should be only turned off in case of performance issues",
-        value = true
-    },
-    RegurgDist = {
-        description = "Determines how far prey spawn when regurgitated. Default is 2",
-        value = 2
+    Debug = {
+        TeleportPrey = {
+            description =
+            "Determines if a living prey is teleported to their predator at the end of each turn (or every 6 seconds outside of turn-based mode). By default is on, should be only turned off in case of performance issues",
+            value = true,
+            default = true,
+        },
+        LockStomach = {
+            description =
+            "Whether to lock the stomach object used for storing items during item vore or not. This is for you to be able to LOOK inside, actually removing the items will lead to unintended consequences.",
+            value = true,
+            default = true,
+        },
     },
     WeightGain = {
-        description = "TEST. Stores and adds \"fat\" value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.",
-        value = false
+        WeightGain = {
+            description =
+            "TEST. Stores and adds \"fat\" value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.",
+            value = false,
+            default = false,
+        },
+        WeightGainRate = {
+            description = "TEST. % of a prey's weight you gain as fat.",
+            value = 25,
+            default = 25,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        WeightLossLong = {
+            description = "TEST. How much fat a character loses on long resting.",
+            value = 11,
+            default = 11,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        WeightLossShort = {
+            description = "TEST. How much fat a character loses on short resting.",
+            value = 3,
+            default = 3,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
     },
-    WeightLossShort = {
-        description = "TEST. How much fat a character looses on short resting.",
-        value = 3
+    Mechanics = {
+        BoilingInsidesFast = {
+            description = "Dead prey are digested twice as fast if you have 'Boiling insides' feat.",
+            value = false,
+            default = false,
+        },
+        VoreDifficulty = {
+            description =
+            "Determines how hard it is to swallow non-consenting characters. Possible values: \"default\" = checks rolled normally, \"easy\" = you make checks with advantage, \"cheat\" = you always succeed",
+            value = "default",
+            default = "default",
+            choices = {"default", "easy", "cheat"},
+        },
+        StatusBonusLocus = {
+            description = "Prey in the following loci will recieve benefits from feats.",
+            value = {"oral"},
+            default = {"oral", "anal", "unbirth", "cock"},
+            choices = {"oral", "anal", "unbirth", "cock"},
+        },
+        SwallowDown = {
+            description = "Preds will need to use a 'Contine Swallowing' spell to fully swallow a prey.",
+            value = true,
+            default = true,
+        },
+        RequireProperAnatomy = {
+            description =
+            "If true, special types of vore will require you to have a body part that would enable that type of vore.",
+            value = true,
+            default = true,
+        },
+        SwitchEndoLethal = {
+            description = "When you start digesting prey, you will start digesting endo prey as well.",
+            value = true,
+            default = true,
+        },
     },
-    WeightLossLong = {
-        description = "TEST. How much fat a character looses on long resting.",
-        value = 11
+    Regurgitation = {
+        RegurgitationDistance = {
+            description = "Determines how far prey spawn when regurgitated.",
+            value = 2,
+            default = 2,
+            range = {0, 5, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        RegurgitationCooldownSwallow = {
+            description =
+            "Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable",
+            value = 2,
+            default = 2,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            }
+        },
+        RegurgitationCooldownRegurgitate = {
+            description =
+            "Preds are unable to regurgitate prey for a number of turn after regurgitation. Set to 0 to disable",
+            value = 0,
+            default = 0,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            }
+        },
     },
-    WeightGainRate = {
-        description = "TEST. By how much DigestionRate is divided for fat gain rate. If this is set to 0, it will become 1 instead.",
-        value = 4
-    },
-    LockStomach = {
-        description = "Whether to lock the stomach object used for storing items during item vore or not. This is for you to be able to LOOK inside, actually removing the items will lead to unintended consequences.",
-        value = true
-    },
-    SwitchEndoLethal = {
-        description = "When you start digesting prey, you will start digesting endo prey as well.",
-        value = true
-    },
-    DigestItems = {
-        description = "When you start digesting prey, the items in your stomach might be digested. WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE",
-        value = false
-    },
-    RegurgitationCooldown = {
-        description = "Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable",
-        value = 2
-    },
-    RegurgitationCooldown2 = {
-        description = "Preds are unable to regurgitate prey for a number of turn after regurgitation. Set to 0 to disable",
-        value = 0
-    },
-    SwallowDown = {
-        description = "Preds will need to use a 'Contine Swallowing' spell to fully swallow a prey.",
-        value = true
+    Digestion = {
+        SlowDigestion = {
+            description =
+            "If true, you will not lose weight until you rest. If false, you lose it immediately upon finishing digestion and you will be immidiately able to absorb / dispose of prey",
+            value = true,
+            default = true,
+        },
+        DigestItems = {
+            description =
+            "When you start digesting prey, the items in your stomach might be digested. WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE",
+            value = false,
+            default = false,
+        },
+        DigestionRateLong = {
+            description =
+            "Determines by how much the weight of a prey who is being digested is reduced after a long rest",
+            value = 60,
+            default = 60,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        DigestionRateShort = {
+            description =
+            "Determines by how much the weight of a prey who is being digested is reduced after each short rest",
+            value = 20,
+            default = 20,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
     },
     Hunger = {
-        description = "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will recieve debuffs. Setting this to false disables hunger completely.",
-        value = false
+        Hunger = {
+            description =
+            "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will recieve debuffs. Setting this to false disables hunger completely.",
+            value = false,
+            default = false,
+        },
+        HungerBreakpoint1 = {
+            description = "Stacks of hunger at which a debuff is appled",
+            value = 8,
+            default = 8,
+            range = {1, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        HungerBreakpoint2 = {
+            description = "Stacks of hunger at which a second debuff is appled",
+            value = 12,
+            default = 12,
+            range = {1, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        HungerBreakpoint3 = {
+            description = "Stacks of hunger at which a third debuff is appled",
+            value = 16,
+            default = 16,
+            range = {1, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        HungerLong = {
+            description = "Hunger stacks gained on long rest.",
+            value = 4,
+            default = 4,
+            range = {1, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        HungerShort = {
+            description = "Hunger stacks gained on short rest.",
+            value = 1,
+            default = 1,
+            range = {1, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        HungerSatiation = {
+            description = "Satiation stacks needed to remove one hunger stack.",
+            value = 3,
+            default = 3,
+            range = {1, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        HungerSatiationRate = {
+            description = "By how much digestion rate is divided for satiation gain.",
+            value = 4,
+            default = 4,
+            range = {1, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        LethalRandomSwitch = {
+            description =
+            "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidently start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
+            value = false,
+            default = false,
+        },
     },
-    LethalRandomSwitch = {
-        description = "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidently start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
-        value = false
-    },
-    HungerShort = {
-        description = "Hunger stacks gained on short rest.",
-        value = 1
-    },
-    HungerLong = {
-        description = "Hunger stacks gained on long rest.",
-        value = 3
-    },
-    HungerSatiation = {
-        description = "Satiation stacks needed to remove one hunger stack.",
-        value = 3
-    },
-    HungerSatiationRate = {
-        description = "By how much digestion rate is divided for satiation gain. DO NOT SET THIS TO 0",
-        value = 4
-    },
-    HungerBreakpoint1 = {
-        description = "Stacks of hunger at which a debuff is appled",
-        value = 8
-    },
-    HungerBreakpoint2 = {
-        description = "Stacks of hunger at which a second debuff is appled",
-        value = 12
-    },
-    HungerBreakpoint3 = {
-        description = "Stacks of hunger at which a third debuff is appled",
-        value = 16
-    },
-    BoilingInsidesFast = {
-        description = "Dead prey are digested twice as fast if you have 'Boiling insides' feat.",
-        value = false
-    },
-    StatusBonusStomach = {
-        description = "Only prey who are in your stomach (oral vore) recieve benefits from feats.",
-        value = false
-    },
-    GurgleProbability = {
-        description = "A chance of a gurgle being played evey 6 seconds (a turn). Set to 0 to disable. 5 ~ 100%, 10 ~ 50%, 20 ~ 25%, 100 ~ 5%, etc.",
-        value = 80
-    }
+    __CephelosModConfig = 2,
 }
+
 
 local function SP_BackupConfig()
     if MAX_BACKUPS < 1 then
@@ -173,7 +294,7 @@ end
 function SP_LoadConfigFromFile()
     local content = Ext.IO.LoadFile(CONFIG_PATH)
     if content == nil then
-        _P("Config not found. But it's okay if you've installed the mod for the first time!")
+        _P("Config not found. If this is your first time launching the game with this mod enabled, this is fine.")
         SP_ResetConfig()
         SP_SaveConfig()
         return
@@ -184,8 +305,8 @@ function SP_LoadConfigFromFile()
     _P("Config loaded: \"Script Extender\\" .. CONFIG_PATH .. "\".")
 
     local isVersionValid = (
-        loadedConfig.Version ~= nil and loadedConfig.Version.value ~= nil and
-        SP_IsInt(loadedConfig.Version.value) and loadedConfig.Version.value > 0
+        loadedConfig.__CephelosModConfig ~= nil and loadedConfig.__CephelosModConfig.value ~= nil and
+        SP_IsInt(loadedConfig.__CephelosModConfig.value) and loadedConfig.__CephelosModConfig.value > 0
     )
     if not isVersionValid then
         _F("Invalid config version detected. Your config will be reset.")
@@ -199,10 +320,10 @@ function SP_LoadConfigFromFile()
         return
     end
 
-    if loadedConfig.Version.value > CURRENT_VERSION then
+    if loadedConfig.__CephelosModConfig.value > CURRENT_VERSION then
         _F(
             "Newer config version detected " ..
-            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.Version.value .. "). " ..
+            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__CephelosModConfig.value .. "). " ..
             "Sorry, your config isn't compatible with the current mod version installed. " ..
             "Default config will be loaded."
         )
@@ -220,27 +341,27 @@ function SP_LoadConfigFromFile()
 
     local saveRequired = false
 
-    if loadedConfig.Version.value < CURRENT_VERSION then
+    if loadedConfig.__CephelosModConfig.value < CURRENT_VERSION then
         _P(
             "Old version config detected " ..
-            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.Version.value .. ")."
+            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__CephelosModConfig.value .. ")."
         )
         saveRequired = true
-        for i = loadedConfig.Version.value + 1, CURRENT_VERSION, 1 do
+        for i = loadedConfig.__CephelosModConfig.value + 1, CURRENT_VERSION, 1 do
             if SP_ConfigMigrations["To" .. i] ~= nil then
-                _P("Migrating config from version " .. loadedConfig.Version.value .. " to " .. i .. ".")
+                _P("Migrating config from version " .. loadedConfig.__CephelosModConfig.value .. " to " .. i .. ".")
                 local newConfigVars = SP_Deepcopy(loadedConfig)
-                newConfigVars.Version.value = i
-                local successful = SP_ConfigMigrations["To" .. i](newConfigVars)
+                newConfigVars.__CephelosModConfig.value = i
+                local successful = SP_ConfigMigrations["To" .. i](newConfigVars, SP_DeepCopy(DEFAULT_VARS))
                 if successful then
                     loadedConfig = newConfigVars
                 end
             end
-            if loadedConfig.Version.value ~= i then
+            if loadedConfig.__CephelosModConfig.value ~= i then
                 _F(
                     "Sorry, your config isn't compatible with the current mod version installed " ..
                     "and can't be upgraded: failed to migrate " ..
-                    "from " .. loadedConfig.Version.value .. " to " .. i .. ". " ..
+                    "from " .. loadedConfig.__CephelosModConfig.value .. " to " .. i .. ". " ..
                     "Default config will be loaded."
                 )
                 SP_ShowMessageBox(
@@ -258,33 +379,52 @@ function SP_LoadConfigFromFile()
     -- Looking for unknown keys.
     for k, _ in pairs(loadedConfig) do
         if DEFAULT_VARS[k] == nil then
-            _P("Unknown config parameter: \"" .. k .. "\". Removing parameter.")
+            _P("Unknown config category: \"" .. k .. "\". Removing category.")
             loadedConfig[k] = nil
             saveRequired = true
+        end
+        for i, _ in pairs(k) do
+            if DEFAULT_VARS[k][i] == nil then
+                _P("Unknown config parameter: \"" .. k .. "\". Removing parameter.")
+                loadedConfig[k][i] = nil
+                saveRequired = true
+            end
         end
     end
     -- Looking for known keys.
     for k, _ in pairs(DEFAULT_VARS) do
         if loadedConfig[k] == nil then
-            _F("Missing config parameter: \"" .. k .. "\". Resetting parameter.")
+            _F("Missing config category: \"" .. k .. "\". Resetting category.")
             loadedConfig[k] = DEFAULT_VARS[k]
             saveRequired = true
+        end
+        for i, _ in pairs(k) do
+            if loadedConfig[k][i] == nil then
+                _F("Missing config parameter: \"" .. k .. "\". Resetting parameter.")
+                loadedConfig[k] = DEFAULT_VARS[k][i]
+                saveRequired = true
+            end
         end
     end
     -- Looking for mismatched descriptions.
     for k, _ in pairs(DEFAULT_VARS) do
-        if loadedConfig[k]["description"] ~= DEFAULT_VARS[k]["description"] then
-            _P("Updating config parameter description: \"" .. k .. "\".")
-            loadedConfig[k]["description"] = DEFAULT_VARS[k]["description"]
-            saveRequired = true
+        for i in pairs(k) do
+            if loadedConfig[k][i]["description"] ~= DEFAULT_VARS[k][i]["description"] then
+                _P("Updating config parameter description: \"" .. i .. "\".")
+                loadedConfig[k][i]["description"] = DEFAULT_VARS[k][i]["description"]
+                saveRequired = true
+            end
         end
     end
     -- Looking for invalid value types.
     for k, _ in pairs(DEFAULT_VARS) do
-        if type(loadedConfig[k]["value"]) ~= type((DEFAULT_VARS[k]["value"])) then
-            _P("Invalid value set for \"" .. loadedConfig[k] .. "\", resetting to default value of \"" .. tostring(DEFAULT_VARS[k]["value"]) .. "\"")
-            loadedConfig[k]["value"] = DEFAULT_VARS[k]["value"]
-            saveRequired = true
+        for i in pairs(k) do
+            if type(loadedConfig[k][i]["value"]) ~= type((DEFAULT_VARS[k][i]["value"])) then
+                _P("Invalid value set for \"" ..
+                    loadedConfig[k][i] .. "\", resetting to default value of \"" .. tostring(DEFAULT_VARS[k][i]["value"]) .. "\"")
+                loadedConfig[k][i]["value"] = DEFAULT_VARS[k][i]["value"]
+                saveRequired = true
+            end
         end
     end
 

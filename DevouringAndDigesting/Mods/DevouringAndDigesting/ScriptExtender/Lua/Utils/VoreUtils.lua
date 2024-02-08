@@ -111,7 +111,7 @@ function SP_NewVoreDataEntry(character)
     -- so we make all non-dead prey count as endoed during migration
     VoreData[character].Digestion = 3
     -- if the items are being digested
-    VoreData[character].DigestItems = false
+    VoreData[character].Digestion.DigestItems = false
     -- guid of combat character is in
     VoreData[character].Combat = Osi.CombatGetGuidFor(character) or ""
     -- This is a set, not an array, for an easier search of a specific prey, so use k instead of v when iterating
@@ -184,7 +184,7 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
             VoreData[prey].DisableDowned = true
         end
 
-        if ConfigVars.SwallowDown.value and swallowStages then
+        if ConfigVars.Mechanics.SwallowDown.value and swallowStages then
             VoreData[prey].SwallowProcess = preySize - predSize + 1
             if VoreData[prey].SwallowProcess < 0 then
                 VoreData[prey].SwallowProcess = 0
@@ -492,9 +492,9 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
                     -- Osi.GetRotation() returns degrees for some ungodly reason, let's fix that :)
                     predYRotation = (predYRotation + rotationOffset) * math.pi / 180
                     -- Equation for rotating a vector in the X dimension.
-                    local newX = predX + ConfigVars.RegurgDist.value * math.cos(predYRotation)
+                    local newX = predX + ConfigVars.Regurgitation.RegurgitationDistance.value * math.cos(predYRotation)
                     -- Equation for rotating a vector in the Z dimension.
-                    local newZ = predZ + ConfigVars.RegurgDist.value * math.sin(predYRotation)
+                    local newZ = predZ + ConfigVars.Regurgitation.RegurgitationDistance.value * math.sin(predYRotation)
                     -- Places prey at pred's location, vaguely in front of them.
                     Osi.ItemMoveToPosition(uuid, newX, predY, newZ, 100000, 100000)
                     _P("Moved Item " .. uuid)
@@ -528,7 +528,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         end
     end
     if stopDigestingItems and VoreData[pred].Items == "" then
-        VoreData[pred].DigestItems = false
+        VoreData[pred].Digestion.DigestItems = false
     end
 
     -- Remove regurgitated prey from the table and release them
@@ -571,8 +571,8 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
             local predX, predY, predZ = Osi.getPosition(pred)
             local predXRotation, predYRotation, predZRotation = Osi.GetRotation(pred)
             predYRotation = predYRotation * math.pi / 180
-            local newX = predX + ConfigVars.RegurgDist.value * math.cos(predYRotation)
-            local newZ = predZ + ConfigVars.RegurgDist.value * math.sin(predYRotation)
+            local newX = predX + ConfigVars.Regurgitation.RegurgitationDistance.value * math.cos(predYRotation)
+            local newZ = predZ + ConfigVars.Regurgitation.RegurgitationDistance.value * math.sin(predYRotation)
             Osi.TeleportToPosition(prey, newX, predY, newZ, "", 0, 0, 0, 0, 1)
             if Osi.HasPassive(prey, 'SP_EscapeArtist') == 0 then
                 Osi.ApplyStatus(prey, "PRONE", 1 * SecondsPerTurn, 1, pred)
@@ -632,11 +632,11 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     end
 
     -- add swallow cooldown after regurgitation
-    if locus ~= "A" and preyString == "All" and ConfigVars.RegurgitationCooldown.value > 0 then
-        Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown', ConfigVars.RegurgitationCooldown.value * SecondsPerTurn, 1)
+    if locus ~= "A" and preyString == "All" and ConfigVars.Regurgitation.RegurgitationCooldownSwallow.value > 0 then
+        Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown', ConfigVars.Regurgitation.RegurgitationCooldownSwallow.value * SecondsPerTurn, 1)
     end
-    if locus ~= "A" and preyString == "All" and ConfigVars.RegurgitationCooldown2.value > 0 then
-        Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown2', ConfigVars.RegurgitationCooldown2.value * SecondsPerTurn, 1)
+    if locus ~= "A" and preyString == "All" and ConfigVars.Regurgitation.RegurgitationCooldownRegurgitate.value > 0 then
+        Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown2', ConfigVars.Regurgitation.RegurgitationCooldownRegurgitate.value * SecondsPerTurn, 1)
     end
 
 
@@ -822,7 +822,7 @@ end
 ---@param eventName string Name that RollResult should look for. No predetermined values, can be whatever.
 function SP_VoreCheck(pred, prey, eventName)
     local advantage = 0
-    if ConfigVars.VoreDifficulty.value == 'easy' then
+    if ConfigVars.Mechanics.VoreDifficulty.value == 'easy' then
         advantage = 1
     end
     if eventName == 'StruggleCheck' then
@@ -917,7 +917,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
         if v.AddWeight > 0 then
             local thisAddDiff = weightDiff
 
-            if ConfigVars.BoilingInsidesFast.value and Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1 then
+            if ConfigVars.Mechanics.BoilingInsidesFast.value and Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1 then
                 thisAddDiff = thisAddDiff * 2
             end
             --
@@ -925,8 +925,8 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                 thisAddDiff = v.AddWeight
             end
             VoreData[k].AddWeight = VoreData[k].AddWeight - thisAddDiff
-            if ConfigVars.Hunger.value and Osi.IsPartyMember(k, 0) == 1 then
-                VoreData[k].Satiation = VoreData[k].Satiation + thisAddDiff // ConfigVars.HungerSatiationRate.value
+            if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(k, 0) == 1 then
+                VoreData[k].Satiation = VoreData[k].Satiation + thisAddDiff // ConfigVars.Hunger.HungerSatiationRate.value
             end
             SP_ReduceWeightRecursive(v.Pred, thisAddDiff, false)
         end
@@ -937,32 +937,32 @@ function SP_SlowDigestion(weightDiff, fatDiff)
     for k, v in pairs(VoreData) do
         if v.Digestion == 1 then
             local thisDiff = weightDiff
-            if ConfigVars.BoilingInsidesFast.value and Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1 then
+            if ConfigVars.Mechanics.BoilingInsidesFast.value and Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1 then
                 thisDiff = thisDiff * 2
             end
             -- Prey's weight after digestion should not be smaller then 1/5th of their original (fake) weight.
             if (v.Weight - weightDiff) < (v.FixedWeight // 5) then
                 thisDiff = v.Weight - v.FixedWeight // 5
             end
-            if ConfigVars.WeightGain.value then
-                VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + math.floor(thisDiff * (ConfigVars.WeightGainRate.value / 100))
+            if ConfigVars.WeightGain.WeightGain.value then
+                VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + math.floor(thisDiff * (ConfigVars.WeightGain.WeightGainRate.value / 100))
             end
             -- if prey is not aberration or elemental or pred has boilinginsides, add satiation
-            if ConfigVars.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and
+            if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and
                 (Osi.IsTagged(k, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 and
                     Osi.IsTagged(k, "196351e2-ff25-4e2b-8560-222ac6b94a54") == 0 and
                     Osi.IsTagged(k, "22e5209c-eaeb-40dc-b6ef-a371794110c2") == 0 and
                     Osi.IsTagged(k, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                     Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1) then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
-                    thisDiff // ConfigVars.HungerSatiationRate.value
+                    thisDiff // ConfigVars.Hunger.HungerSatiationRate.value
             end
             SP_ReduceWeightRecursive(k, thisDiff, false)
             -- if prey is endoed and pred has soothing stomach, add satiation
         elseif v.Digestion == 0 then
-            if ConfigVars.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and Osi.HasPassive(v.Pred, "SP_SoothingStomach") == 1 then
+            if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and Osi.HasPassive(v.Pred, "SP_SoothingStomach") == 1 then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
-                    weightDiff // ConfigVars.HungerSatiationRate.value
+                    weightDiff // ConfigVars.Hunger.HungerSatiationRate.value
             end
         end
     end
@@ -979,7 +979,7 @@ end
 
 ---Recursively generates a list of all nested prey
 ---@param pred GUIDSTRING
----@param voreLocus string "O" == Oral, "A" == Anal, "U" == Unbirth, "All" == all prey in any locus
+---@param voreLocus string options: "O" == Oral, "A" == Anal, "U" == Unbirth, "All" == all prey in any locus
 ---@param digestionType? integer Only count prey of this type: 0 == endo, 1 == dead, 2 == lethal, 3 == none
 ---@return table
 function SP_GetNestedPrey(pred, voreLocus, digestionType)
@@ -1000,8 +1000,8 @@ end
 
 ---Filters out prey with a specific prey type and returns them
 ---@param preyTable table
----@param locus string "O" == Oral, "A" == Anal, "U" == Unbirth, "All" == all prey in any locus
----@param digestionType? integer 0 == endo, 1 == dead, 2 == lethal, 3 == none
+---@param locus string options: "O" == Oral, "A" == Anal, "U" == Unbirth, "All" == all prey in any locus
+---@param digestionType? integer options: 0 == endo, 1 == dead, 2 == lethal, 3 == none
 ---@return table
 function SP_FilterPrey(preyTable, locus, digestionType)
     local output = {}
@@ -1044,7 +1044,7 @@ end
 ---@param locus string
 ---@return string
 function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
-    if locus == 'O' or not ConfigVars.StatusBonusStomach.value then
+    if locus == 'O' or not ConfigVars.Mechanics.StatusBonusLocus.value then
         if endo then
             if Osi.HasPassive(prey, "SP_Gastronaut") == 1 then
                 return "SP_SwallowedXray"
@@ -1097,7 +1097,7 @@ end
 ---plays a random gurgle
 ---@param pred GUIDSTRING
 function SP_PlayGurgle(pred)
-    local basePercentage = ConfigVars.GurgleProbability.value
+    local basePercentage = ConfigVars.VisualsAndAudio.GurgleProbability.value
     ---convert the percentage into 5/X chance
     local baseProbability = math.floor(100 / basePercentage * 5)
     if baseProbability == 0 then
@@ -1123,8 +1123,11 @@ end
 function VoreConfigOptions()
     _P("Vore Mod Configuration Options: ")
     for k, v in pairs(ConfigVars) do
-        _P(k .. ": " .. v.description)
-        _P("Currently set to " .. tostring(v.value))
+        _P(k .. ": ")
+        for i, j in pairs(v) do
+            _P(i .. ": " .. j.description)
+            _P("Currently set to " .. tostring(j.value))
+        end
     end
 end
 
@@ -1173,7 +1176,7 @@ function SP_FillVoreData(character, pred)
         VoreData[character].Fat = 0
         VoreData[character].AddWeight = 0
         VoreData[character].WeightReduction = 0
-        VoreData[character].DigestItems = false
+        VoreData[character].Digestion.DigestItems = false
         VoreData[character].SwallowProcess = 0
         VoreData[character].Satiation = 0
         VoreData[character].Stuffed = ""
