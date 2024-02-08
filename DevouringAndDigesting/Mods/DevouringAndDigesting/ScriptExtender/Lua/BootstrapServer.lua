@@ -547,7 +547,7 @@ function SP_OnBeforeDeath(character)
                     local preyWeightDiff = VoreData[character].Weight - VoreData[character].FixedWeight // 5
 
                     if ConfigVars.WeightGain.value then
-                        VoreData[pred].Fat = VoreData[pred].Fat + math.floor(preyWeightDiff * ConfigVars.WeightGainRate.value / 100)
+                        VoreData[pred].Fat = VoreData[pred].Fat + preyWeightDiff * ConfigVars.WeightGainRate.value // 100
                     end
 
                     if ConfigVars.Hunger.value and Osi.IsPartyMember(pred, 0) == 1 and
@@ -557,7 +557,7 @@ function SP_OnBeforeDeath(character)
                             Osi.IsTagged(character, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                             Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
                         VoreData[pred].Satiation = VoreData[pred].Satiation +
-                            math.floor(preyWeightDiff * ConfigVars.HungerSatiationRate.value / 100)
+                            preyWeightDiff * ConfigVars.HungerSatiationRate.value // 100
                     end
 
                     SP_DelayCallTicks(10, function ()

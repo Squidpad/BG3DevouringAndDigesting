@@ -935,7 +935,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
             end
             VoreData[k].AddWeight = VoreData[k].AddWeight - thisAddDiff
             if ConfigVars.Hunger.value and Osi.IsPartyMember(k, 0) == 1 then
-                VoreData[k].Satiation = VoreData[k].Satiation + math.floor(thisAddDiff * ConfigVars.HungerSatiationRate.value / 100)
+                VoreData[k].Satiation = VoreData[k].Satiation + thisAddDiff * ConfigVars.HungerSatiationRate.value // 100
             end
             SP_ReduceWeightRecursive(v.Pred, thisAddDiff, false)
         end
@@ -954,7 +954,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                 thisDiff = v.Weight - v.FixedWeight // 5
             end
             if ConfigVars.WeightGain.value then
-                VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + math.floor(thisDiff * ConfigVars.WeightGainRate.value / 100)
+                VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + thisDiff * ConfigVars.WeightGainRate.value // 100
             end
             -- if prey is not aberration or elemental or pred has boilinginsides, add satiation
             if ConfigVars.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and
@@ -964,14 +964,14 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                     Osi.IsTagged(k, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                     Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1) then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
-                    math.floor(thisDiff * ConfigVars.HungerSatiationRate.value / 100)
+                    thisDiff * ConfigVars.HungerSatiationRate.value // 100
             end
             SP_ReduceWeightRecursive(k, thisDiff, false)
             -- if prey is endoed and pred has soothing stomach, add satiation
         elseif v.Digestion == 0 then
             if ConfigVars.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and Osi.HasPassive(v.Pred, "SP_SoothingStomach") == 1 then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
-                    math.floor(weightDiff * ConfigVars.HungerSatiationRate.value / 100)
+                    weightDiff * ConfigVars.HungerSatiationRate.value // 100
             end
         end
     end
