@@ -163,8 +163,8 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
     VoreData[prey].Swallowed = SP_GetSwallowedVoreStatus(pred, prey, digestionType == 0, locus)
 
     VoreData[pred].Prey[prey] = locus
-    local statusStacks = VoreData[prey].StuffedStacks + 1
-
+    local predSize = SP_GetCharacterSize(pred)
+    local preySize = SP_GetCharacterSize(prey)
     if notNested then
         Osi.SetDetached(prey, 1)
         Osi.SetVisible(prey, 0)
@@ -185,7 +185,10 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
         end
 
         if ConfigVars.SwallowDown.value and swallowStages then
-            VoreData[prey].SwallowProcess = 1
+            VoreData[prey].SwallowProcess = preySize - predSize + 1
+            if VoreData[prey].SwallowProcess < 0 then
+                VoreData[prey].SwallowProcess = 0
+            end
             --if swallowType == 0 then
             --    VoreData[prey].SwallowProcess = VoreData[prey].SwallowProcess - 1
             --end
@@ -214,7 +217,7 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
 
     VoreData[prey].Pred = pred
     -- Now accounts for the size of each prey when determining how many stacks of Stuffed you should get
-    return math.floor(statusStacks * SP_GetCharacterSize(prey) / 2)
+    return VoreData[prey].StuffedStacks + SP_GetStuffedStacksBySize(preySize)
 end
 
 ---Should be called in any situation when prey must be swallowed.
@@ -230,6 +233,9 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested, swallowStages, locus
     SP_VoreDataEntry(pred, true)
 
     local statusStacks = SP_AddPrey(pred, prey, swallowType, notNested, swallowStages, locus)
+    if VoreData[pred].StuffedStacks < 1 and statusStacks < 1 then
+        statusStacks = 1
+    end
     if notNested then
         local stuffedStatus = SP_GetStuffedVoreStatus(pred, statusStacks)
 
@@ -274,7 +280,9 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested, swallowStag
     for _, v in ipairs(preys) do
         statusStacks = statusStacks + SP_AddPrey(pred, v, swallowType, notNested, swallowStages, locus)
     end
-
+    if VoreData[pred].StuffedStacks < 1 and statusStacks < 1 then
+        statusStacks = 1
+    end
     if notNested then
         local stuffedStatus = SP_GetStuffedVoreStatus(pred, statusStacks)
 
@@ -603,7 +611,8 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         local statusStacks = 0
         for k, v in pairs(VoreData[pred].Prey) do
             _P(k)
-            statusStacks = statusStacks + VoreData[k].StuffedStacks + 1
+            local preySize = SP_GetCharacterSize(k) 
+            statusStacks = statusStacks + VoreData[k].StuffedStacks + SP_GetStuffedStacksBySize(preySize)
         end
         local stuffedStatus = SP_GetStuffedVoreStatus(pred, 1)
         if VoreData[pred].Items ~= "" and statusStacks == 0 then
@@ -611,7 +620,9 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
             Osi.ApplyStatus(pred, stuffedStatus, 1 * SecondsPerTurn, 1, pred)
         else
             VoreData[pred].StuffedStacks = statusStacks
-            Osi.ApplyStatus(pred, stuffedStatus, statusStacks * SecondsPerTurn, 1, pred)
+            if statusStacks > 0 then
+                Osi.ApplyStatus(pred, stuffedStatus, statusStacks * SecondsPerTurn, 1, pred)
+            end
         end
         VoreData[pred].Stuffed = stuffedStatus
     end
@@ -956,9 +967,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
         end
     end
     for k, v in pairs(VoreData) do
-        if next(v.Prey) ~= nil then
-            SP_UpdateWeight(k)
-        end
+        SP_UpdateWeight(k)
     end
     PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
     if Ext.Debug.IsDeveloperMode then

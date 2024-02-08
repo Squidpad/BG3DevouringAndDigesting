@@ -96,7 +96,7 @@ local DEFAULT_VARS = {
     },
     HungerLong = {
         description = "Hunger stacks gained on long rest.",
-        value = 4
+        value = 3
     },
     HungerSatiation = {
         description = "Satiation stacks needed to remove one hunger stack.",

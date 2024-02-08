@@ -37,6 +37,22 @@ function SP_GetCharacterSize(character)
     return charData.ObjectSize.Size
 end
 
+function SP_GetStuffedStacksBySize(preySize)
+    preySize = preySize - 2
+    if preySize < 0 then
+        preySize = 0
+    elseif preySize == 0 then
+        preySize = 1
+    elseif preySize == 1 then
+        preySize = 10
+    elseif preySize == 2 then
+        preySize = 100
+    elseif preySize == 3 then
+        preySize = 1000
+    end
+    return preySize
+end
+
 ---@param spell string name of the spell we're extracting data from
 ---@return string, string spellParams the type of spell and type of vore
 function SP_GetSpellParams(spell)
