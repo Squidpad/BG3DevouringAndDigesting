@@ -1113,7 +1113,7 @@ function SP_PlayGurgle(pred)
         return
     end
     ---convert the percentage
-    basePercentage = 100 // basePercentage * #GurgleSounds
+    basePercentage = math.floor(100 / basePercentage * #GurgleSounds)
     local randomResult = Osi.Random(basePercentage) + 1
     if randomResult <= #GurgleSounds then
         _P("Gurgle random result " .. randomResult)
