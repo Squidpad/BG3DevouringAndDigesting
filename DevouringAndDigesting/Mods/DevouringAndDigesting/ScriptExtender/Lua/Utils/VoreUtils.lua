@@ -843,7 +843,8 @@ function SP_VoreCheck(pred, prey, eventName)
     elseif string.sub(eventName, 1, #eventName - 2) == "Bellyport" then
         _P("Rolling Dex Save to resist Bellyport")
         --always uses Con as stat until I get around to fixing it
-        Osi.RequestPassiveRoll(prey, pred, "SavingThrow", "Dexterity", SP_GetSaveDC(pred, 3), advantage, "BellyportSave_" .. string.sub(eventName, #eventName))
+        
+        Osi.RequestPassiveRoll(prey, pred, "SavingThrow", "Dexterity", SP_GetSaveDC(pred, 3), 0, "BellyportSave_" .. string.sub(eventName, #eventName))
     elseif eventName == 'SwallowDownCheck' then
         _P('Rolling to resist secondary swallow')
         if Osi.HasPassive(pred, 'SP_StretchyMaw') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Charmed') == 1 or

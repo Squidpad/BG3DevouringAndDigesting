@@ -1,5 +1,4 @@
 local statFiles = {
-    "Armor.txt",
     "Potions.txt",
     "Items.txt",
     "Spells_Projectile.txt",
@@ -10,7 +9,9 @@ local statFiles = {
     "Passive_Status_Vore_Core.txt",
     "Experiments.txt",
     "Status_Spells.txt",
+    "Status_Spells.txt",
     "Passive.txt",
+    "Armor.txt",
 }
 
 local modPath = "Public/DevouringAndDigesting/Stats/Generated/Data/"
@@ -109,7 +110,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
     _P(SP_GetDisplayNameFromGUID(caster) .. " cast " .. spell .. " on " .. SP_GetDisplayNameFromGUID(target))
     local voreSpellType, voreLocus = SP_GetSpellParams(spell)
     if voreSpellType ~= nil then
-        _P(voreSpellType .. voreLocus)
+        _P("voreSpellType: " .. voreSpellType .. "  voreLocus: " .. voreLocus)
         if Osi.HasPassive(target, "SP_Inedible") == 0 then
             if voreSpellType == 'Endo' then
                 if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown") ~= 0 then
@@ -185,15 +186,29 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
     end
 end
 
----Triggers when a spell is cast with a target.
----@param caster CHARACTER
----@param target CHARACTER
----@param spell string
----@param spellType? string
----@param spellElement? string Like fire, lightning, etc I think.
----@param storyActionID? integer
-function SP_OnSpellCastZoneTarget(caster, target, spell, spellType, spellElement, storyActionID)
-    _P(SP_GetDisplayNameFromGUID(caster) .. " cast " .. spell .. " on " .. SP_GetDisplayNameFromGUID(target))
+---@param caster GUIDSTRING name of caster
+---@param x number x pos of target location
+---@param y number z pos of target location
+---@param z number y pos of target location
+---@param spell string name of spell
+---@param spellType string type of spell
+---@param spellElement string spell damage type
+---@param storyActionID integer
+function SP_SpellCastAtPosition(caster, x, y, z, spell, spellType, spellElement, storyActionID)
+    _P(caster .. " cast " .. spell .. " at " .. x .. " " .. y .. " " .. z)
+    local voreSpellType, voreLocus = SP_GetSpellParams(spell)
+    if voreSpellType == "SP_Projectile_Mass_Bellyport" then
+
+
+    end
+end
+
+---@param center GUIDSTRING
+---@param radius number
+---@param event string
+---@param completionEvent string
+function SP_IterateCharactersNear(center, radius, event, completionEvent)
+
 end
 
 ---Triggers whenever there's a skill check.
@@ -206,6 +221,9 @@ end
 function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRoll, criticality)
     local eventVoreName = string.sub(eventName, 1, #eventName - 2)
     local voreLocus = string.sub(eventName, #eventName)
+    _P("event: " .. eventName)
+    _P("eventVoreName: " .. eventVoreName .. "  voreLocus: " .. voreLocus)
+    _P("rollresult: " .. tostring(resultType))
     if (eventVoreName == "SwallowLethalCheck" and (resultType ~= 0 or ConfigVars.VoreDifficulty.value == 'debug')) or (eventVoreName == "BellyportSave" and (resultType ~= 1 or ConfigVars.VoreDifficulty.value == 'debug')) then
         if eventVoreName == "BellyportSave" then
             roller, rollSubject = rollSubject, roller
@@ -360,6 +378,9 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
             end
         end
         SP_VoreCheck(VoreData[object].Pred, object, "StruggleCheck")
+    elseif string.sub(status, 1, #status - 2) == "SP_Failed_Mass_Bellyport" then
+        _P(object .. "    " .. causee)
+
     end
 end
 
@@ -418,6 +439,7 @@ function SP_ItemUsed(character, item, success)
         end
     end
 end
+
 
 ---@param character CHARACTER
 function SP_OnLevelUp(character)
@@ -861,7 +883,6 @@ if Ext.Osiris == nil then
 end
 
 Ext.Osiris.RegisterListener("UsingSpellOnTarget", 6, "after", SP_OnSpellCastTarget)
-Ext.Osiris.RegisterListener("UsingSpellOnZoneWithTarget", 6, "after", SP_OnSpellCastZoneTarget)
 Ext.Osiris.RegisterListener("CastedSpell", 5, "after", SP_OnSpellCast)
 -- Ext.Osiris.RegisterListener("TurnEnded", 1, "before", SP_OnBeforeTurnEnds)
 Ext.Osiris.RegisterListener("LeveledUp", 1, "after", SP_OnLevelUp)
@@ -878,8 +899,9 @@ Ext.Osiris.RegisterListener("TemplateAddedTo", 4, "after", SP_OnItemAdded)
 Ext.Osiris.RegisterListener("Died", 1, "before", SP_OnBeforeDeath)
 Ext.Osiris.RegisterListener("ShortRested", 1, "after", SP_OnShortRest)
 Ext.Osiris.RegisterListener("LongRestFinished", 0, "after", SP_OnLongRest)
---Ext.Osiris.RegisterListener("UsingSpellAtPosition", 8, "after", SP_SpellCastAtPosition)
+Ext.Osiris.RegisterListener("UsingSpellAtPosition", 8, "after", SP_SpellCastAtPosition)
 Ext.Osiris.RegisterListener("UseFinished", 3, "after", SP_ItemUsed)
+
 
 
 Ext.Events.SessionLoaded:Subscribe(SP_OnSessionLoaded)

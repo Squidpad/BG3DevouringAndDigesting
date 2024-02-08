@@ -1,0 +1,23 @@
+
+
+function SP_CloserToSourceThan(value)
+  local errorTrue = {
+    ConditionError("DistanceGreaterThan_True", { ConditionErrorData.MakeFromNumber(value, EErrorDataType.Distance) }) }
+  local errorFalse = {
+    ConditionError("DistanceGreaterThan_False", { ConditionErrorData.MakeFromNumber(value, EErrorDataType.Distance) }) }
+  return ConditionResult(DistanceToSource() > value, errorFalse, errorTrue)
+end
+
+
+function SP_BulkRemoveStatus(entity, statuses)
+  local entity = entity or context.Source
+  local statuses = statuses or {}
+
+  if statuses ~= nil then
+    for _, status in ipairs(statuses) do
+      if HasStatus(status, entity) then
+        RemoveStatus(entity, status)
+      end
+    end
+  end
+end
