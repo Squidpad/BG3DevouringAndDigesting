@@ -55,8 +55,8 @@ local DEFAULT_VARS = {
         value = 11
     },
     WeightGainRate = {
-        description = "TEST. By how much DigestionRate is divided for fat gain rate. If this is set to 0, it will become 1 instead.",
-        value = 4
+        description = "TEST. % of DigestionRate for fat gain rate. If this is set to 0, it will become 1 instead.",
+        value = 25
     },
     LockStomach = {
         description = "Whether to lock the stomach object used for storing items during item vore or not. This is for you to be able to LOOK inside, actually removing the items will lead to unintended consequences.",
@@ -103,8 +103,8 @@ local DEFAULT_VARS = {
         value = 3
     },
     HungerSatiationRate = {
-        description = "By how much digestion rate is divided for satiation gain. DO NOT SET THIS TO 0",
-        value = 4
+        description = "% of digestion rate for satiation gain.",
+        value = 25
     },
     HungerBreakpoint1 = {
         description = "Stacks of hunger at which a debuff is appled",
@@ -127,8 +127,8 @@ local DEFAULT_VARS = {
         value = false
     },
     GurgleProbability = {
-        description = "A chance of a gurgle being played evey 6 seconds (a turn). Set to 0 to disable. 5 ~ 100%, 10 ~ 50%, 20 ~ 25%, 100 ~ 5%, etc.",
-        value = 80
+        description = "A % chance of a gurgle being played evey 6 seconds (a turn). Set to 0 to disable.",
+        value = 10
     }
 }
 

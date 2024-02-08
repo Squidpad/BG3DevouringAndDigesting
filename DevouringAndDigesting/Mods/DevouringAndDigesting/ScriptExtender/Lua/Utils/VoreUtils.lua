@@ -37,6 +37,15 @@ VoreLoci = {
     ['C'] = "SP_Swallowed_Cock",
 }
 
+-- List of gurgle sounds randomly played for stuffed preds
+GurgleSounds = {
+    "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_A",
+    "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_B",
+    "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_C",
+    "SHA_SpiderMeatHunk_StomachGurgle_A",
+    "SHA_SpiderMeatHunk_StomachGurgle_B"
+}
+
 -- A new way to store data about every character that is involved in vore
 VoreData = {}
 
@@ -926,7 +935,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
             end
             VoreData[k].AddWeight = VoreData[k].AddWeight - thisAddDiff
             if ConfigVars.Hunger.value and Osi.IsPartyMember(k, 0) == 1 then
-                VoreData[k].Satiation = VoreData[k].Satiation + thisAddDiff // ConfigVars.HungerSatiationRate.value
+                VoreData[k].Satiation = VoreData[k].Satiation + math.floor(thisAddDiff * ConfigVars.HungerSatiationRate.value / 100)
             end
             SP_ReduceWeightRecursive(v.Pred, thisAddDiff, false)
         end
@@ -945,7 +954,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                 thisDiff = v.Weight - v.FixedWeight // 5
             end
             if ConfigVars.WeightGain.value then
-                VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + math.floor(thisDiff * (ConfigVars.WeightGainRate.value / 100))
+                VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + math.floor(thisDiff * ConfigVars.WeightGainRate.value / 100)
             end
             -- if prey is not aberration or elemental or pred has boilinginsides, add satiation
             if ConfigVars.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and
@@ -955,14 +964,14 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                     Osi.IsTagged(k, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                     Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1) then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
-                    thisDiff // ConfigVars.HungerSatiationRate.value
+                    math.floor(thisDiff * ConfigVars.HungerSatiationRate.value / 100)
             end
             SP_ReduceWeightRecursive(k, thisDiff, false)
             -- if prey is endoed and pred has soothing stomach, add satiation
         elseif v.Digestion == 0 then
             if ConfigVars.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and Osi.HasPassive(v.Pred, "SP_SoothingStomach") == 1 then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
-                    weightDiff // ConfigVars.HungerSatiationRate.value
+                    math.floor(weightDiff * ConfigVars.HungerSatiationRate.value / 100)
             end
         end
     end
@@ -1098,24 +1107,17 @@ end
 ---@param pred GUIDSTRING
 function SP_PlayGurgle(pred)
     local basePercentage = ConfigVars.GurgleProbability.value
-    ---convert the percentage into 5/X chance
-    local baseProbability = math.floor(100 / basePercentage * 5)
-    if baseProbability == 0 then
+    if basePercentage > 100 then
+        basePercentage = 100
+    elseif basePercentage == 0 or #GurgleSounds == 0 then
         return
-    elseif baseProbability < 5 then
-        baseProbability = 5
     end
-    local randomResult = Osi.Random(baseProbability + 1)
-    if randomResult == 1 then
-        Osi.PlaySound(pred, "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_A")
-    elseif randomResult == 2 then
-        Osi.PlaySound(pred, "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_B")
-    elseif randomResult == 3 then
-        Osi.PlaySound(pred, "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_C")
-    elseif randomResult == 4 then
-        Osi.PlaySound(pred, "SHA_SpiderMeatHunk_StomachGurgle_A")
-    elseif randomResult == 5 then
-        Osi.PlaySound(pred, "SHA_SpiderMeatHunk_StomachGurgle_B")
+    ---convert the percentage
+    basePercentage = 100 // basePercentage * #GurgleSounds
+    local randomResult = Osi.Random(basePercentage) + 1
+    if randomResult <= #GurgleSounds then
+        _P("Gurgle random result " .. randomResult)
+        Osi.PlaySound(pred, GurgleSounds[randomResult])
     end
 end
 

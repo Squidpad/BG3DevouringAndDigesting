@@ -107,7 +107,6 @@ end
 ---@param spellElement? string Like fire, lightning, etc I think.
 ---@param storyActionID? integer
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
-    -- _P(SP_GetDisplayNameFromGUID(caster) .. " cast " .. spell .. " on " .. SP_GetDisplayNameFromGUID(target))
     local voreSpellType, voreLocus = SP_GetSpellParams(spell)
     if voreSpellType ~= nil then
         _P("voreSpellType: " .. voreSpellType .. "  voreLocus: " .. voreLocus)
@@ -195,7 +194,7 @@ end
 ---@param spellElement string spell damage type
 ---@param storyActionID integer
 function SP_SpellCastAtPosition(caster, x, y, z, spell, spellType, spellElement, storyActionID)
-    _P(caster .. " cast " .. spell .. " at " .. x .. " " .. y .. " " .. z)
+    --_P(caster .. " cast " .. spell .. " at " .. x .. " " .. y .. " " .. z)
     local voreSpellType, voreLocus = SP_GetSpellParams(spell)
     if voreSpellType == "SP_Projectile_Mass_Bellyport" then
 
@@ -221,9 +220,9 @@ end
 function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRoll, criticality)
     local eventVoreName = string.sub(eventName, 1, #eventName - 2)
     local voreLocus = string.sub(eventName, #eventName)
-    _P("event: " .. eventName)
-    _P("eventVoreName: " .. eventVoreName .. "  voreLocus: " .. voreLocus)
-    _P("rollresult: " .. tostring(resultType))
+    --_P("event: " .. eventName)
+    --_P("eventVoreName: " .. eventVoreName .. "  voreLocus: " .. voreLocus)
+    --_P("rollresult: " .. tostring(resultType))
     if (eventVoreName == "SwallowLethalCheck" and (resultType ~= 0 or ConfigVars.VoreDifficulty.value == 'cheat')) or (eventVoreName == "BellyportSave" and (resultType ~= 1 or ConfigVars.VoreDifficulty.value == 'cheat')) then
         if eventVoreName == "BellyportSave" then
             roller, rollSubject = rollSubject, roller
@@ -548,7 +547,7 @@ function SP_OnBeforeDeath(character)
                     local preyWeightDiff = VoreData[character].Weight - VoreData[character].FixedWeight // 5
 
                     if ConfigVars.WeightGain.value then
-                        VoreData[pred].Fat = VoreData[pred].Fat + math.floor(preyWeightDiff * (ConfigVars.WeightGainRate.value / 100))
+                        VoreData[pred].Fat = VoreData[pred].Fat + math.floor(preyWeightDiff * ConfigVars.WeightGainRate.value / 100)
                     end
 
                     if ConfigVars.Hunger.value and Osi.IsPartyMember(pred, 0) == 1 and
@@ -558,7 +557,7 @@ function SP_OnBeforeDeath(character)
                             Osi.IsTagged(character, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                             Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
                         VoreData[pred].Satiation = VoreData[pred].Satiation +
-                            preyWeightDiff // ConfigVars.HungerSatiationRate.value
+                            math.floor(preyWeightDiff * ConfigVars.HungerSatiationRate.value / 100)
                     end
 
                     SP_DelayCallTicks(10, function ()
