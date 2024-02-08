@@ -224,7 +224,7 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
     _P("event: " .. eventName)
     _P("eventVoreName: " .. eventVoreName .. "  voreLocus: " .. voreLocus)
     _P("rollresult: " .. tostring(resultType))
-    if (eventVoreName == "SwallowLethalCheck" and (resultType ~= 0 or ConfigVars.VoreDifficulty.value == 'debug')) or (eventVoreName == "BellyportSave" and (resultType ~= 1 or ConfigVars.VoreDifficulty.value == 'debug')) then
+    if (eventVoreName == "SwallowLethalCheck" and (resultType ~= 0 or ConfigVars.VoreDifficulty.value == 'cheat')) or (eventVoreName == "BellyportSave" and (resultType ~= 1 or ConfigVars.VoreDifficulty.value == 'cheat')) then
         if eventVoreName == "BellyportSave" then
             roller, rollSubject = rollSubject, roller
         end
@@ -548,7 +548,7 @@ function SP_OnBeforeDeath(character)
                     local preyWeightDiff = VoreData[character].Weight - VoreData[character].FixedWeight // 5
 
                     if ConfigVars.WeightGain.value then
-                        VoreData[pred].Fat = VoreData[pred].Fat + preyWeightDiff // ConfigVars.WeightGainRate.value
+                        VoreData[pred].Fat = VoreData[pred].Fat + math.floor(preyWeightDiff * (ConfigVars.WeightGainRate.value / 100))
                     end
 
                     if ConfigVars.Hunger.value and Osi.IsPartyMember(pred, 0) == 1 and

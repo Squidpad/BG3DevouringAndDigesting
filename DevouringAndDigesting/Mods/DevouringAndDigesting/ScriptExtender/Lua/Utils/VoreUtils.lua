@@ -945,7 +945,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                 thisDiff = v.Weight - v.FixedWeight // 5
             end
             if ConfigVars.WeightGain.value then
-                VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + thisDiff // ConfigVars.WeightGainRate.value
+                VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + math.floor(thisDiff * (ConfigVars.WeightGainRate.value / 100))
             end
             -- if prey is not aberration or elemental or pred has boilinginsides, add satiation
             if ConfigVars.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and
@@ -1097,13 +1097,15 @@ end
 ---plays a random gurgle
 ---@param pred GUIDSTRING
 function SP_PlayGurgle(pred)
-    local baseProbability = ConfigVars.GurgleProbability.value
+    local basePercentage = ConfigVars.GurgleProbability.value
+    ---convert the percentage into 5/X chance
+    local baseProbability = math.floor(100 / basePercentage * 5)
     if baseProbability == 0 then
         return
-    elseif baseProbability < 6 then
-        baseProbability = 6
+    elseif baseProbability < 5 then
+        baseProbability = 5
     end
-    local randomResult = Osi.Random(baseProbability)
+    local randomResult = Osi.Random(baseProbability + 1)
     if randomResult == 1 then
         Osi.PlaySound(pred, "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_A")
     elseif randomResult == 2 then
