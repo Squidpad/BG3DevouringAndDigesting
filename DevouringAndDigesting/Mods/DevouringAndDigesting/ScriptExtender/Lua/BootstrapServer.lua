@@ -25,6 +25,8 @@ Ext.Require("Utils/VoreUtils.lua")
 Ext.Require("Utils/Config.lua")
 Ext.Require("Utils/Migrations/ConfigMigrations.lua")
 Ext.Require("Utils/Migrations/PersistentVarsMigrations.lua")
+Ext.Require("Utils/TableData.lua")
+
 
 Ext.Vars.RegisterModVariable(ModuleUUID, "VoreData", {})
 
@@ -192,7 +194,6 @@ function SP_SpellCastAtPosition(caster, x, y, z, spell, spellType, spellElement,
     local voreSpellType, voreLocus = SP_GetSpellParams(spell)
     if voreSpellType == "SP_Projectile_Mass_Bellyport" then
 
-
     end
 end
 
@@ -355,7 +356,6 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         SP_VoreCheck(VoreData[object].Pred, object, "StruggleCheck")
     elseif string.sub(status, 1, #status - 2) == "SP_Failed_Mass_Bellyport" then
         _P(object .. "    " .. causee)
-
     end
 end
 
@@ -365,7 +365,7 @@ end
 function SP_ItemUsed(character, item, success)
     if string.sub(item, 1, 3) == 'SP_' then
         local template = Osi.GetTemplate(item)
-        
+
         -- item name + map key
         if template == 'SP_PotionOfAnalVore_04987160-cb88-4d3e-b219-1843e5253d51' then
             if Osi.HasPassive(character, "SP_CanAnalVore") == 0 then
@@ -415,7 +415,6 @@ function SP_ItemUsed(character, item, success)
     end
 end
 
-
 ---@param character CHARACTER
 function SP_OnLevelUp(character)
     SP_DelayCallTicks(10, function ()
@@ -446,7 +445,7 @@ function SP_OnStatusRemoved(object, status, causee, storyActionID)
     -- regurgitates prey it they are not fully swallowed
     if status == 'SP_PartiallySwallowed' or status == 'SP_PartiallySwallowedGentle' then
         if VoreData[object] ~= nil then
-            if VoreData[object].Pred ~= nil and VoreData[object].SwallowProcess > 0 then
+            if VoreData[object].Pred ~= "" and VoreData[object].SwallowProcess > 0 then
                 VoreData[object].SwallowProcess = 0
                 SP_RegurgitatePrey(VoreData[object].Pred, object, -1)
             end
@@ -472,7 +471,6 @@ function SP_OnCombatLeave(object, combatGuid)
     end
 end
 
-
 ---Runs when someone dies.
 ---@param character CHARACTER
 function SP_OnBeforeDeath(character)
@@ -480,7 +478,7 @@ function SP_OnBeforeDeath(character)
         -- If character was pred.
         VoreData[character].Fat = 0
         VoreData[character].Satiation = 0
-        if VoreData[character].Pred ~= nil then
+        if VoreData[character].Pred ~= "" then
             VoreData[VoreData[character].Pred].AddWeight = VoreData[VoreData[character].Pred].AddWeight +
                 VoreData[character].AddWeight
         end
@@ -490,7 +488,7 @@ function SP_OnBeforeDeath(character)
             SP_RegurgitatePrey(character, 'All', -1)
         end
         -- If character was prey (both can be true at the same time)
-        if VoreData[character] ~= nil and VoreData[character].Pred ~= nil then
+        if VoreData[character] ~= nil and VoreData[character].Pred ~= "" then
             local pred = VoreData[character].Pred
             VoreData[character].Digestion = 1
             if VoreData[character].Locus == 'O' then
@@ -513,7 +511,8 @@ function SP_OnBeforeDeath(character)
                     local preyWeightDiff = VoreData[character].Weight - VoreData[character].FixedWeight // 5
 
                     if ConfigVars.WeightGain.WeightGain.value then
-                        VoreData[pred].Fat = VoreData[pred].Fat + preyWeightDiff * ConfigVars.WeightGain.WeightGainRate.value // 100
+                        VoreData[pred].Fat = VoreData[pred].Fat +
+                            preyWeightDiff * ConfigVars.WeightGain.WeightGainRate.value // 100
                     end
 
                     if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(pred, 0) == 1 and
@@ -615,9 +614,11 @@ function SP_HungerSystem(stacks, isLong)
             local satiationDiff = VoreData[pred].Satiation // ConfigVars.Hunger.HungerSatiation.value
             newhungerStacks = hungerStacks - satiationDiff
             if newhungerStacks > 0 then
-                VoreData[pred].Satiation = VoreData[pred].Satiation - satiationDiff * ConfigVars.Hunger.HungerSatiation.value
+                VoreData[pred].Satiation = VoreData[pred].Satiation -
+                    satiationDiff * ConfigVars.Hunger.HungerSatiation.value
             else
-                VoreData[pred].Satiation = VoreData[pred].Satiation - hungerStacks * ConfigVars.Hunger.HungerSatiation.value
+                VoreData[pred].Satiation = VoreData[pred].Satiation -
+                    hungerStacks * ConfigVars.Hunger.HungerSatiation.value
                 newhungerStacks = 0
             end
         end
@@ -670,6 +671,7 @@ end
 function SP_OnSessionLoaded()
     -- Persistent variables are only available after SessionLoaded is triggered!
     _D(PersistentVars)
+    SP_ResetConfig()
     SP_LoadConfigFromFile()
     if PersistentVars['VoreData'] == nil then
         PersistentVars['VoreData'] = {}
@@ -680,6 +682,7 @@ function SP_OnSessionLoaded()
         local modvars = Ext.Vars.GetModVariables(ModuleUUID)
         modvars.VoreData = VoreData
     end
+    SP_MigratePersistentVars()
 end
 
 function SP_OnLevelLoaded(level)
@@ -705,10 +708,6 @@ function SP_OnResetCompleted()
     _P('Reloading stats!')
 end
 
-function SP_MigratePersistentVars()
-    --TODO
-end
-
 ---Runs whenever you change game regions.
 ---@param level? string Name of new game region.
 function SP_OnBeforeLevelUnloaded(level)
@@ -725,7 +724,7 @@ function SP_OnBeforeLevelUnloaded(level)
     -- maybe remove this completely
     for k, v in pairs(VoreData) do
         VoreData[k].Prey = {}
-        VoreData[k].Pred = nil
+        VoreData[k].Pred = ""
         if v.Items == "" then
             VoreData[k] = nil
         end

@@ -1,89 +1,6 @@
-Ext.Require("Utils/Config.lua")
-Ext.Require("Utils/Utils.lua")
-
--- Needs to be here to prevent PCs from being teleported beneath the map.
--- Maybe it is better to teleport them.
--- 1. When you click on companion's portrait, camera will move to them, which
--- will force the game to load the world around them. If they are teleported
--- outside of the map (not beneath), there is nothing to load.
--- 2. When an character dies, their body becomes lootable. Even if they are
--- invisible and detached, the player can still highlight & loot them with alt key.
-local CompanionsSet = {
-    ["S_Player_ShadowHeart_3ed74f06-3c60-42dc-83f6-f034cb47c679"] = true,
-    ["S_Player_Astarion_c7c13742-bacd-460a-8f65-f864fe41f255"] = true,
-    ["S_Player_Gale_ad9af97d-75da-406a-ae13-7071c563f604"] = true,
-    ["S_Player_Wyll_c774d764-4a17-48dc-b470-32ace9ce447d"] = true,
-    ["S_Player_Karlach_2c76687d-93a2-477b-8b18-8a14b549304c"] = true,
-    ["S_Player_Laezel_58a69333-40bf-8358-1d17-fff240d7fb12"] = true,
-    ["S_Player_Jaheira_91b6b200-7d00-4d62-8dc9-99e8339dfa1a"] = true,
-    ["S_Player_Minsc_0de603c5-42e2-4811-9dad-f652de080eba"] = true,
-    ["S_GLO_Halsin_7628bc0e-52b8-42a7-856a-13a6fd413323"] = true,
-    ["S_GOB_DrowCommander_25721313-0c15-4935-8176-9f134385451b"] = true,
-}
-
--- Keys and Names of Digestion type statuses, keys are value of VoreData[character].Digestion
-DigestionTypes = {
-    [0] = "SP_Swallowed_Endo",
-    [1] = "SP_Swallowed_Dead",
-    [2] = "SP_Swallowed_Lethal",
-    [3] = "None",
-}
-
-
--- Keys and Names of Locus type statuses, keys are values of VoreData[character].Prey
-VoreLoci = {
-    ['O'] = "SP_Swallowed_Oral",
-    ['A'] = "SP_Swallowed_Anal",
-    ['U'] = "SP_Swallowed_Unbirth",
-    ['C'] = "SP_Swallowed_Cock",
-}
-
--- List of gurgle sounds randomly played for stuffed preds
-GurgleSounds = {
-    "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_A",
-    "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_B",
-    "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_C",
-    "SHA_SpiderMeatHunk_StomachGurgle_A",
-    "SHA_SpiderMeatHunk_StomachGurgle_B"
-}
-
 -- A new way to store data about every character that is involved in vore
+---@type table<string, VoreDataEntry>
 VoreData = {}
-
--- ApplyStatus applies statuses for a number of seconds instead of turns.
--- Multiply the duration by this.
-SecondsPerTurn = 6
-
--- CharacterCreationAppearanceVisuals table for women.
--- Goes like this: race -> bodyshape (1 == weak, 2 == strong) -> belly size.
-BellyTableFemale = {
-    Human = {
-        {
-            "5b04165d-2ec9-47f9-beff-0660640fc602", 
-            "5660e004-e2af-4f3a-ae76-375408cb78c3",
-            "65a6eeac-9a14-4937-92b8-5e50bb960074",
-            "fafef7ab-087f-4362-9436-3e63ef7bcd95", 
-            "4a404594-e28d-4f47-b1c2-2ef593961e33",
-            "78fc1e05-ee83-4e6c-b14f-6f116e875b03", 
-            "b10b965b-9620-48c2-9037-0556fd23d472",
-            "14388c37-34ab-4963-b61e-19cea0a90e39",
-        }, 
-        {
-            "4bfa882a-3bef-49b8-9e8a-21198a2dbee5", 
-            "4741a71a-8884-4d3d-929d-708e350953bb",
-            "c2042e11-0626-440b-bee0-bb1d631fd979",
-            "9950ba83-28ea-4680-9905-a070d6eabfe7", 
-            "4e698e03-94b8-4526-9fa5-5feb1f78c3b0",
-            "e250ffe9-a94c-44b4-a225-f8cf61ad430d", 
-            "02c9846c-200d-47cb-b381-1ceeb4280774",
-            "73aae7c2-49ef-4cac-b1b9-b3cfa6a4a31a",
-        },
-    },
-}
-
--- Instead of hacking together half-solutions to spell modification, we can just make new copies of spells with what we want!
--- Will this create a huge bloat of files? Maybe. It'd be funny, though
-ComplexCustomSpells = true
 
 ---Adds or deletes VoreData of a character
 ---@param character CHARACTER
@@ -92,7 +9,7 @@ function SP_VoreDataEntry(character, create)
     if VoreData[character] == nil and create then
         _P("Adding character " .. character)
         SP_NewVoreDataEntry(character)
-    elseif VoreData[character].Pred == nil and next(VoreData[character].Prey) == nil and VoreData[character].Items == ""
+    elseif VoreData[character].Pred == "" and next(VoreData[character].Prey) == nil and VoreData[character].Items == ""
         and VoreData[character].Fat == 0 and VoreData[character].AddWeight == 0 and VoreData[character].Satiation == 0 and
         not create then
         _P("Removing character " .. character)
@@ -104,48 +21,8 @@ end
 
 ---@param character CHARACTER
 function SP_NewVoreDataEntry(character)
-    VoreData[character] = {}
-    -- pred of this character
-    VoreData[character].Pred = nil
-    -- weight of this character, only for prey, 0 for preds. This is dynamically changed
-    VoreData[character].Weight = 0
-    -- weight of this character, only for prey, 0 for preds. This is stored to keep the track of digestion process
-    VoreData[character].FixedWeight = 0
-    -- by how much prey's weight was reduced by pred's perks
-    VoreData[character].WeightReduction = 0
-    -- if a tag that disables downed state was appled on swallow. Should be false for non-prey
-    VoreData[character].DisableDowned = false
-    --- "O" == Oral, "A" == Anal, "U" == Unbirth
-    -- 0 == endo, 1 == dead, 2 == lethal, 3 == none. Since the statuses might be changed in the future,
-    -- it's not reliable to ask osiris if a character has a status,
-    -- so we make all non-dead prey count as endoed during migration
-    VoreData[character].Digestion = 3
-    -- if the items are being digested
-    VoreData[character].DigestItems = false
-    -- guid of combat character is in
+    VoreData[character] = SP_Deepcopy(VoreDataEntry)
     VoreData[character].Combat = Osi.CombatGetGuidFor(character) or ""
-    -- This is a set, not an array, for an easier search of a specific prey, so use k instead of v when iterating
-    -- use next(VoreData[character].Prey) == nil instead of #VoreData[character].Prey == 0 to check if it's empty
-    -- value of the prey is the method used to eat them: "O" == "Oral", "A" == "Anal", "U" == "Unbirth", "C" == "Cock"
-    VoreData[character].Prey = {}
-    VoreData[character].Items = ""
-    -- For weigth gain, only visually increases the size of belly
-    VoreData[character].Fat = 0
-    -- Belly weight that does not belong to a specific prey
-    -- The difference between this and fat is that fat does not affect carry capacity and is purely visual
-    -- AddWeight is reduced at the same rate as normal prey digestion, while Fat uses a separate value
-    VoreData[character].AddWeight = 0
-    VoreData[character].SwallowProcess = 0
-    -- stores satiation that decreases hunger stacks
-    VoreData[character].Satiation = 0
-    -- prey only
-    VoreData[character].Locus = ""
-    -- what swallowed status is appled (prey only)
-    VoreData[character].Swallowed = ""
-    -- what stuffed status is appled (pred only)
-    VoreData[character].Stuffed = ""
-    -- no of stuffed stacks
-    VoreData[character].StuffedStacks = 0
 end
 
 ---This adds a prey to pred without updating pred's weight or saving table
@@ -220,7 +97,7 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
         Osi.ApplyStatus(prey, VoreData[prey].Swallowed, 100 * SecondsPerTurn, 1, pred)
     end
     -- if a character who is inside of stomach swallows someone else who is in the same stomach
-    if VoreData[pred].Pred ~= nil and VoreData[pred].Pred == VoreData[prey].Pred then
+    if VoreData[pred].Pred ~= "" and VoreData[pred].Pred == VoreData[prey].Pred then
         VoreData[pred].Weight = VoreData[pred].Weight + VoreData[prey].Weight + VoreData[prey].AddWeight
         VoreData[pred].FixedWeight = VoreData[pred].FixedWeight + VoreData[prey].Weight + VoreData[prey].AddWeight
     end
@@ -439,7 +316,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
                 _P('Prey:' .. prey)
                 VoreData[pred].Prey[prey] = nil
                 -- Voreception
-                if VoreData[pred].Pred ~= nil then
+                if VoreData[pred].Pred ~= "" then
                     -- reduce pred weight in prey weight tables, since they are both prey and pred
                     VoreData[pred].Weight = VoreData[pred].Weight - VoreData[prey].Weight - VoreData[prey].AddWeight
                     VoreData[pred].FixedWeight = VoreData[pred].FixedWeight - VoreData[prey].Weight -
@@ -456,7 +333,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     local regItems = false
     if VoreData[pred].Items ~= "" and preyState ~= 1 and spell ~= "LevelChange" and preyString == 'All' then
         regItems = true
-        if VoreData[pred].Pred ~= nil then
+        if VoreData[pred].Pred ~= "" then
             local weightDiff = Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // 1000
             VoreData[pred].Weight = VoreData[pred].Weight - weightDiff
             VoreData[pred].FixedWeight = VoreData[pred].FixedWeight - weightDiff
@@ -578,7 +455,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         VoreData[prey].Digestion = 3
         VoreData[prey].Locus = ""
         VoreData[prey].Swallowed = ""
-        VoreData[prey].Pred = nil
+        VoreData[prey].Pred = ""
         SP_VoreDataEntry(prey, false)
     end
 
@@ -868,12 +745,12 @@ function SP_ReduceWeightRecursive(character, diff, updateWeight)
     if character == nil then
         return
     end
-    if VoreData[character].Pred ~= nil then
+    if VoreData[character].Pred ~= "" then
         VoreData[character].Weight = VoreData[character].Weight - diff
         if updateWeight then
             SP_UpdateWeight(character)
         end
-        if VoreData[VoreData[character].Pred].Pred ~= nil then
+        if VoreData[VoreData[character].Pred].Pred ~= "" then
             VoreData[VoreData[character].Pred].FixedWeight = VoreData[VoreData[character].Pred].FixedWeight - diff
             SP_ReduceWeightRecursive(VoreData[character].Pred, diff)
         elseif updateWeight then
@@ -949,7 +826,6 @@ function SP_SlowDigestion(weightDiff, fatDiff)
     for k, v in pairs(VoreData) do
         SP_UpdateWeight(k)
     end
-    _D(VoreData)
 end
 
 ---Recursively generates a list of all nested prey
@@ -1094,18 +970,7 @@ function SP_PlayGurgle(pred)
 end
 
 
----Console command for printing config options and states.
-function VoreConfigOptions()
-    _P("Vore Mod Configuration Options: ")
-    for k, v in pairs(ConfigVars) do
-        _P(k .. ": ")
-        for i, j in pairs(v) do
-            _P(i .. ": " .. j.description)
-            _P("Currently set to " .. tostring(j.value))
-        end
-    end
-end
-
+---finds and removes prey that were erased from existence for some unknown reason
 function SP_CheckVoreData()
     for k, v in pairs(VoreData) do
         local dead = Osi.IsDead(k)
@@ -1115,11 +980,39 @@ function SP_CheckVoreData()
             if next(v.Prey) ~= nil then
                 _P(k .. " WAS A PRED")
             end
-            if v.Pred ~= nil then
+            if v.Pred ~= "" then
                 local pred = v.Pred
                 VoreData[pred].AddWeight = VoreData[pred].AddWeight + v.Weight
                 VoreData[k] = nil
+                VoreData[pred].Prey[k] = nil
             end
+        end
+    end
+end
+
+---resets missing values in VoreData to default value from VoreDataEntry
+---not usable for something more complex
+function SP_MigratePersistentVars()
+    for k, v in pairs(VoreData) do
+        for i, j in pairs(VoreDataEntry) do
+            if v[i] == nil then
+                _P('Character: ' .. k)
+                _P('Missing value: ' .. i)
+                VoreData[k][i] = j
+            end
+        end
+    end
+end
+
+
+---Console command for printing config options and states.
+function VoreConfigOptions()
+    _P("Vore Mod Configuration Options: ")
+    for k, v in pairs(ConfigVars) do
+        _P(k .. ": ")
+        for i, j in pairs(v) do
+            _P(i .. ": " .. j.description)
+            _P("Currently set to " .. tostring(j.value))
         end
     end
 end
