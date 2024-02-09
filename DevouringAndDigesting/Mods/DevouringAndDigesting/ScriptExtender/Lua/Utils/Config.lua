@@ -117,7 +117,7 @@ local DEFAULT_VARS = {
                 slider = true,
             },
         },
-        RegurgitationCooldownSwallow = {
+        CooldownSwallow = {
             description =
             "Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable",
             value = 2,
@@ -127,7 +127,7 @@ local DEFAULT_VARS = {
                 slider = true,
             },
         },
-        RegurgitationCooldownRegurgitate = {
+        CooldownRegurgitate = {
             description =
             "Preds are unable to regurgitate prey for a number of turn after regurgitation. Set to 0 to disable",
             value = 0,
@@ -308,6 +308,7 @@ function SP_LoadConfigFromFile()
     ---@type SP_ConfigVars
     local loadedConfig = Ext.Json.Parse(content)
 
+
     _P("Config loaded: \"Script Extender\\" .. CONFIG_PATH .. "\".")
 
     local isVersionValid = (
@@ -379,6 +380,10 @@ function SP_LoadConfigFromFile()
             end
         end
     end
+
+    -- removes the version number so we don't have to make an exception when checking stuff
+    DEFAULT_VARS.__CephelosModConfig = nil
+    loadedConfig.__CephelosModConfig = nil
 
     -- Looking for unknown keys.
     for k, v in pairs(loadedConfig) do

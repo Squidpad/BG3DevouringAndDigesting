@@ -8,7 +8,6 @@ data "TargetConditions" "not Item() and not Self() and Character() and not Dead(
 data "Icon" "Spell_Enchantment_HoldPerson"
 data "DisplayName" "hed0193e5geef5g45d4g880age75088cfffb9;1"
 data "Description" "h121d9c41gd0d2g4119g9f80gf0735fbd14a8;6"
-data "TooltipAttackSave" "Dexterity"
 data "TooltipStatusApply" "ApplyStatus(SP_Swallowed,100,-1)"
 data "TooltipUpcastDescription" "04cc3403-f67a-4747-b49e-a1802cc7a6ad"
 data "PrepareSound" "Spell_Prepare_Control_Gen_L1to3_01"

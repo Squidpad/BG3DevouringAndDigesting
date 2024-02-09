@@ -277,7 +277,7 @@ end
 ---@param preyString GUIDSTRING | string either guid of prey, or "All" to regurigitate all prey in given locus
 ---@param preyState integer State of prey to regurgitate: 0 == alive, 1 == dead, -1 == all, 10 == alive and digested.
 ---@param spell? string Internal name of spell (this does not reflect the in-game spell used).
----@param locus? string
+---@param locus? string locus to regurgiate from
 function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     _P('Starting Regurgitation')
 
@@ -303,10 +303,6 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
             end
             if locus == "" then
                 locus = nil
-            elseif locus == "UC" then
-                if v == "C" or v == "U" then
-                    v = "UC"
-                end
             end
 
             if isReal == 1 and (locus == nil or v == locus) and (preyString == "All" or prey == preyString) and (preyState == -1 or
@@ -494,11 +490,11 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     end
 
     -- add swallow cooldown after regurgitation
-    if locus ~= "A" and preyString == "All" and ConfigVars.Regurgitation.RegurgitationCooldownSwallow.value > 0 then
-        Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown', ConfigVars.Regurgitation.RegurgitationCooldownSwallow.value * SecondsPerTurn, 1)
+    if locus ~= "A" and preyString == "All" and ConfigVars.Regurgitation.CooldownSwallow.value > 0 then
+        Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown', ConfigVars.Regurgitation.CooldownSwallow.value * SecondsPerTurn, 1)
     end
-    if locus ~= "A" and preyString == "All" and ConfigVars.Regurgitation.RegurgitationCooldownRegurgitate.value > 0 then
-        Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown2', ConfigVars.Regurgitation.RegurgitationCooldownRegurgitate.value * SecondsPerTurn, 1)
+    if locus ~= "A" and preyString == "All" and ConfigVars.Regurgitation.CooldownRegurgitate.value > 0 then
+        Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown2', ConfigVars.Regurgitation.CooldownRegurgitate.value * SecondsPerTurn, 1)
     end
 
 
@@ -637,6 +633,24 @@ function SP_UpdateBelly(pred, weight)
     end)
 end
 
+---Gets the proper number of stuffed stacks based on prey size
+---@param preySize number size of the prey
+function SP_GetStuffedStacksBySize(preySize)
+    preySize = preySize - 2
+    if preySize < 0 then
+        preySize = 0
+    elseif preySize == 0 then
+        preySize = 1
+    elseif preySize == 1 then
+        preySize = 8
+    elseif preySize == 2 then
+        preySize = 64
+    elseif preySize == 3 then
+        preySize = 512
+    end
+    return preySize
+end
+
 ---Checks if eating a character would exceed pred's carry limit.
 ---@param pred CHARACTER
 ---@param prey CHARACTER
@@ -710,9 +724,9 @@ function SP_VoreCheck(pred, prey, eventName)
         Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", predStat, preyStat, advantage, 0, eventName)
     elseif string.sub(eventName, 1, #eventName - 2) == "Bellyport" then
         _P("Rolling Dex Save to resist Bellyport")
-        --always uses Con as stat until I get around to fixing it
-        
-        Osi.RequestPassiveRoll(prey, pred, "SavingThrow", "Dexterity", SP_GetSaveDC(pred, 3), 0, "BellyportSave_" .. string.sub(eventName, #eventName))
+        --always uses highest stat until I get around to fixing it
+    
+        Osi.RequestPassiveRoll(prey, pred, "SavingThrow", "Dexterity", SP_GetSaveDC(pred, 0), 0, "BellyportSave_" .. string.sub(eventName, #eventName))
     elseif eventName == 'SwallowDownCheck' then
         _P('Rolling to resist secondary swallow')
         if Osi.HasPassive(pred, 'SP_StretchyMaw') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Charmed') == 1 or

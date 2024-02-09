@@ -28,7 +28,7 @@ Ext.Require("Utils/Migrations/PersistentVarsMigrations.lua")
 Ext.Require("Utils/TableData.lua")
 
 
-Ext.Vars.RegisterModVariable(ModuleUUID, "VoreData", {})
+Ext.Vars.RegisterModVariable(ModuleUUID, "ModVoreData", {})
 
 
 
@@ -56,9 +56,10 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         elseif string.sub(spell, 0, 12) == 'SP_Disposal_' then
             local prey = string.sub(spell, 13)
             SP_RegurgitatePrey(caster, prey, 10, '', 'A')
-        elseif string.sub(spell, 0, 8) == 'SP_Release_' then
-            local prey = string.sub(spell, 10)
-            SP_RegurgitatePrey(caster, prey, 10, '', 'UC')
+        elseif string.sub(spell, 0, 11) == 'SP_Release_' then
+            local locus = string.sub(spell, 12, 12)
+            local prey = string.sub(spell, 14)
+            SP_RegurgitatePrey(caster, prey, 10, '', locus)
         elseif string.sub(spell, 0, 10) == 'SP_Absorb_' then
             local prey = string.sub(spell, 11)
             SP_RegurgitatePrey(caster, prey, 1, "Absorb")
@@ -354,8 +355,18 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
             end
         end
         SP_VoreCheck(VoreData[object].Pred, object, "StruggleCheck")
-    elseif string.sub(status, 1, #status - 2) == "SP_Failed_Mass_Bellyport" then
-        _P(object .. "    " .. causee)
+    elseif string.sub(status, 1, #status - 2) == "SP_Hit_Mass_Bellyport" then
+        if Osi.HasActiveStatus(causee, "SP_RegurgitationCooldown") ~= 0 then
+            return
+        end
+        if SP_CanFitPrey(causee, object) then
+            SP_DelayCallTicks(7, function ()
+                SP_VoreCheck(causee, object, "Bellyport_" .. string.sub(status, #status))
+            end)
+        else
+            Osi.ApplyStatus(causee, "SP_Cant_Fit_Prey", 1, 1, object)
+        end
+
     end
 end
 
@@ -708,6 +719,11 @@ function SP_OnResetCompleted()
     _P('Reloading stats!')
 end
 
+
+function SP_MigratePersistentVars()
+    --TODO
+end
+
 ---Runs whenever you change game regions.
 ---@param level? string Name of new game region.
 function SP_OnBeforeLevelUnloaded(level)
@@ -780,6 +796,13 @@ function SP_DebugVore()
         local pred = predData.ServerCharacter.Template.Name .. "_" .. predData.Uuid.EntityUuid
         Osi.SetLevel(pred, 4)
     end
+end
+
+function SP_ToggleDebug()
+    local h = GetHostCharacter()
+    Osi.ApplyStatus(h, "SP_DebugActionStatus", -1)
+    Osi.ApplyStatus(h, "SP_DebugStatsStatus", -1)
+    Osi.ApplyStatus(h, "SP_DebugCarryStatus", -1)
 end
 
 -- If you know where to get type hints for this, please let me know.
