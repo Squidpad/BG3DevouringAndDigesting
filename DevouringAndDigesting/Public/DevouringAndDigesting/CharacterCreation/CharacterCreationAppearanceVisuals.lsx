@@ -48,7 +48,7 @@
                         </node>
                     </children>
                 </node>
-                <!-- 23 -->
+                <!-- 3 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="0" />
                     <attribute id="BodyType" type="uint8" value="1" />
@@ -62,7 +62,7 @@
                         </node>
                     </children>
                 </node>
-				<!-- 3 -->
+				<!-- 4 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="0" />
                     <attribute id="BodyType" type="uint8" value="1" />
@@ -76,7 +76,7 @@
                         </node>
                     </children>
                 </node>
-				<!-- 4 -->
+				<!-- 5 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="0" />
                     <attribute id="BodyType" type="uint8" value="1" />
@@ -90,7 +90,7 @@
                         </node>
                     </children>
                 </node>
-				<!-- 5 -->
+				<!-- 6 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="0" />
                     <attribute id="BodyType" type="uint8" value="1" />
@@ -104,7 +104,7 @@
                         </node>
                     </children>
                 </node>
-                <!-- 6 -->
+                <!-- 7 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="0" />
                     <attribute id="BodyType" type="uint8" value="1" />
@@ -118,7 +118,7 @@
                         </node>
                     </children>
                 </node>
-                <!-- 7 -->
+                <!-- 8 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="0" />
                     <attribute id="BodyType" type="uint8" value="1" />
@@ -161,7 +161,7 @@
                         </node>
                     </children>
                 </node>
-                <!-- 23 -->
+                <!-- 3 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="1" />
                     <attribute id="BodyType" type="uint8" value="1" />
@@ -175,7 +175,7 @@
                         </node>
                     </children>
                 </node>
-				<!-- 3 -->
+				<!-- 4 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="1" />
                     <attribute id="BodyType" type="uint8" value="1" />
@@ -189,7 +189,7 @@
                         </node>
                     </children>
                 </node>
-				<!-- 4 -->
+				<!-- 5 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="1" />
                     <attribute id="BodyType" type="uint8" value="1" />
@@ -203,7 +203,7 @@
                         </node>
                     </children>
                 </node>
-				<!-- 5 -->
+				<!-- 6 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="1" />
                     <attribute id="BodyType" type="uint8" value="1" />
@@ -217,7 +217,7 @@
                         </node>
                     </children>
                 </node>
-                <!-- 6 -->
+                <!-- 7 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="1" />
                     <attribute id="BodyType" type="uint8" value="1" />
@@ -231,7 +231,7 @@
                         </node>
                     </children>
                 </node>
-                <!-- 7 -->
+                <!-- 8 -->
                 <node id="CharacterCreationAppearanceVisual"> 
                     <attribute id="BodyShape" type="uint8" value="1" />
                     <attribute id="BodyType" type="uint8" value="1" />

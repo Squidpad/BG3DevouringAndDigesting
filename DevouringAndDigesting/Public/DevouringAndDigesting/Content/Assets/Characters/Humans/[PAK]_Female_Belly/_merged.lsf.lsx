@@ -4,6 +4,7 @@
 	<region id="VisualBank">
 		<node id="VisualBank">
 			<children>
+				<!-- normal female -->
 				<node id="Resource">
 					<attribute id="AttachBone" type="FixedString" value="" />
 					<attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
@@ -292,6 +293,7 @@
 						</node>
 					</children>
 				</node>
+				<!-- strong female -->
 				<node id="Resource">
 					<attribute id="AttachBone" type="FixedString" value="" />
 					<attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
