@@ -66,7 +66,6 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                 for k, v in pairs(VoreData[caster].Prey) do
                     SP_SwitchToDigestionType(caster, k, 0, 2)
                 end
-                PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
             end
         elseif spell == 'SP_SwallowDown' then
             for k, v in pairs(VoreData[caster].Prey) do
@@ -76,11 +75,6 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                     else
                         VoreData[k].SwallowProcess = VoreData[k].SwallowProcess - 1
 
-                        PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-                        if Ext.Debug.IsDeveloperMode then
-                            local modvars = GetVoreData()
-                            modvars.VoreData = SP_Deepcopy(VoreData)
-                        end
                         if VoreData[k].SwallowProcess == 0 then
                             SP_FullySwallow(caster, k)
                         end
@@ -232,11 +226,6 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
                     SP_SwitchToDigestionType(roller, k, 0, 2)
                 end
             end
-            PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-            if Ext.Debug.IsDeveloperMode then
-                local modvars = GetVoreData()
-                modvars.VoreData = SP_Deepcopy(VoreData)
-            end
         end
     elseif eventName == "StruggleCheck" and resultType ~= 0 then
         _P('Struggle Success by ' .. roller .. ' against ' .. rollSubject)
@@ -302,10 +291,10 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         local lethalRandomSwitch = false
         if ConfigVars.Hunger.Hunger.value then
             local hungerStacks = Osi.GetStatusTurns(object, "SP_Hunger")
-            if hungerStacks >= ConfigVars.Hunger.Hunger.HungerBreakpoint1.value then
+            if hungerStacks >= ConfigVars.Hunger.HungerBreakpoint1.value then
                 if hungerStacks >= ConfigVars.Hunger.HungerBreakpoint3.value then
                     lethalRandomSwitch = true
-                elseif hungerStacks >= ConfigVars.Hunger.Hunger.HungerBreakpoint2.value then
+                elseif hungerStacks >= ConfigVars.Hunger.HungerBreakpoint2.value then
                     if Osi.Random(10) == 1 then
                         lethalRandomSwitch = true
                     end
@@ -361,11 +350,6 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
                 if VoreData[object].Locus == v then
                     SP_SwitchToDigestionType(pred, k, 0, 2)
                 end
-            end
-            PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-            if Ext.Debug.IsDeveloperMode then
-                local modvars = GetVoreData()
-                modvars.VoreData = SP_Deepcopy(VoreData)
             end
         end
         SP_VoreCheck(VoreData[object].Pred, object, "StruggleCheck")
@@ -476,11 +460,6 @@ end
 function SP_OnCombatEnter(object, combatGuid)
     if VoreData[object] ~= nil then
         VoreData[object].Combat = combatGuid
-        PersistentVars['VoreData'][object].Combat = combatGuid
-        if Ext.Debug.IsDeveloperMode then
-            local modvars = GetVoreData()
-            modvars.VoreData = SP_Deepcopy(VoreData)
-        end
     end
 end
 
@@ -490,11 +469,6 @@ end
 function SP_OnCombatLeave(object, combatGuid)
     if VoreData[object] ~= nil then
         VoreData[object].Combat = ""
-        PersistentVars['VoreData'][object].Combat = ""
-        if Ext.Debug.IsDeveloperMode then
-            local modvars = GetVoreData()
-            modvars.VoreData = SP_Deepcopy(VoreData)
-        end
     end
 end
 
@@ -539,7 +513,7 @@ function SP_OnBeforeDeath(character)
                     local preyWeightDiff = VoreData[character].Weight - VoreData[character].FixedWeight // 5
 
                     if ConfigVars.WeightGain.WeightGain.value then
-                        VoreData[pred].Fat = VoreData[pred].Fat + math.floor(preyWeightDiff * (ConfigVars.WeightGain.WeightGainRate.value / 100))
+                        VoreData[pred].Fat = VoreData[pred].Fat + preyWeightDiff * ConfigVars.WeightGain.WeightGainRate.value // 100
                     end
 
                     if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(pred, 0) == 1 and
@@ -549,7 +523,7 @@ function SP_OnBeforeDeath(character)
                             Osi.IsTagged(character, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                             Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
                         VoreData[pred].Satiation = VoreData[pred].Satiation +
-                            preyWeightDiff // ConfigVars.Hunger.HungerSatiationRate.value
+                            preyWeightDiff * ConfigVars.Hunger.HungerSatiationRate.value // 100
                     end
 
                     SP_DelayCallTicks(10, function ()
@@ -557,11 +531,6 @@ function SP_OnBeforeDeath(character)
                     end)
                 end
             end
-        end
-        PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-        if Ext.Debug.IsDeveloperMode then
-            local modvars = GetVoreData()
-            modvars.VoreData = SP_Deepcopy(VoreData)
         end
     end
 end
@@ -607,12 +576,6 @@ function SP_OnShortRest(character)
     --Osi.IteratePlayerCharacters("HungerCalculateShort", "")
     SP_HungerSystem(ConfigVars.Hunger.HungerShort.value, false)
 
-
-    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-    if Ext.Debug.IsDeveloperMode then
-        local modvars = GetVoreData()
-        modvars.VoreData = SP_Deepcopy(VoreData)
-    end
     _D(VoreData)
     SP_DelayCallTicks(5, function ()
         CalculateRest = true
@@ -630,11 +593,6 @@ function SP_OnLongRest()
     SP_SlowDigestion(ConfigVars.Digestion.DigestionRateLong.value, ConfigVars.WeightGain.WeightLossLong.value)
 
     SP_HungerSystem(ConfigVars.Hunger.HungerLong.value, true)
-    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-    if Ext.Debug.IsDeveloperMode then
-        local modvars = GetVoreData()
-        modvars.VoreData = SP_Deepcopy(VoreData)
-    end
     _D(VoreData)
 end
 
@@ -712,35 +670,20 @@ end
 function SP_OnSessionLoaded()
     -- Persistent variables are only available after SessionLoaded is triggered!
     _D(PersistentVars)
-    SP_ResetConfig()
     SP_LoadConfigFromFile()
     if PersistentVars['VoreData'] == nil then
         PersistentVars['VoreData'] = {}
-        if Ext.Debug.IsDeveloperMode then
-            local modvars = GetVoreData()
-            modvars.VoreData = {}
-        end
-    else
-        VoreData = SP_Deepcopy(PersistentVars['VoreData'])
-        if Ext.Debug.IsDeveloperMode then
-            local modvars = GetVoreData()
-            modvars.VoreData = SP_Deepcopy(VoreData)
-        end
+    end
+    VoreData = PersistentVars['VoreData']
+    -- I have no idea what this does but it should work
+    if Ext.Debug.IsDeveloperMode then
+        local modvars = Ext.Vars.GetModVariables(ModuleUUID)
+        modvars.VoreData = VoreData
     end
 end
 
 function SP_OnLevelLoaded(level)
-    if PersistentVars['PreyTablePred'] ~= nil then
-        SP_MigrateTables()
-    end
-    VoreData = SP_Deepcopy(PersistentVars['VoreData'])
     SP_CheckVoreData()
-
-
-    if Ext.Debug.IsDeveloperMode then
-        local modvars = GetVoreData()
-        modvars.VoreData = SP_Deepcopy(VoreData)
-    end
 end
 
 ---Runs when reset command is sent to console.
@@ -759,20 +702,7 @@ function SP_OnResetCompleted()
             end
         end
     end
-    if Ext.Debug.IsDeveloperMode then
-        local modvars = GetVoreData()
-        VoreData = modvars.VoreData
-        PersistentVars['VoreData'] = VoreData
-    end
     _P('Reloading stats!')
-end
-
-function GetVoreData()
-    local modvars = Ext.Vars.GetModVariables(ModuleUUID)
-    if modvars.VoreData == nil then
-        modvars.VoreData = {}
-    end
-    return modvars
 end
 
 function SP_MigratePersistentVars()
@@ -800,11 +730,6 @@ function SP_OnBeforeLevelUnloaded(level)
             VoreData[k] = nil
         end
     end
-    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-    if Ext.Debug.IsDeveloperMode then
-        local modvars = GetVoreData()
-        modvars.VoreData = SP_Deepcopy(VoreData)
-    end
 end
 
 function SP_ResetVore()
@@ -822,11 +747,6 @@ function SP_ResetVore()
         end
         SP_DelayCallTicks(10, function ()
             VoreData = {}
-            PersistentVars['VoreData'] = {}
-            if Ext.Debug.IsDeveloperMode then
-                local modvars = GetVoreData()
-                modvars.VoreData = SP_Deepcopy(VoreData)
-            end
             _P("Vore reset complete")
         end)
     end)
@@ -839,11 +759,6 @@ function SP_KillVore()
     PersistentVars['FakePreyWeightTable'] = nil
     PersistentVars['DisableDownedPreyTable'] = nil
     VoreData = {}
-    PersistentVars['VoreData'] = nil
-    if Ext.Debug.IsDeveloperMode then
-        local modvars = GetVoreData()
-        modvars.VoreData = nil
-    end
 end
 
 -- gives player all usable items from mod (to avoid using SummonTutorialChest)

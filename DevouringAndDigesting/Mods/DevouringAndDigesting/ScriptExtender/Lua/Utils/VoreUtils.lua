@@ -1,4 +1,5 @@
 Ext.Require("Utils/Config.lua")
+Ext.Require("Utils/Utils.lua")
 
 -- Needs to be here to prevent PCs from being teleported beneath the map.
 -- Maybe it is better to teleport them.
@@ -264,11 +265,6 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested, swallowStages, locus
     Osi.AddSpell(pred, 'SP_SwitchToLethal', 0, 0)
 
     SP_UpdateWeight(pred)
-    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-    if Ext.Debug.IsDeveloperMode then
-        local modvars = GetVoreData()
-        modvars.VoreData = SP_Deepcopy(VoreData)
-    end
     _D(VoreData)
     _P('Swallowing END')
 end
@@ -312,11 +308,6 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested, swallowStag
 
 
     SP_UpdateWeight(pred)
-    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-    if Ext.Debug.IsDeveloperMode then
-        local modvars = GetVoreData()
-        modvars.VoreData = SP_Deepcopy(VoreData)
-    end
     _P('Swallowing END')
 end
 
@@ -339,11 +330,6 @@ function SP_FullySwallow(pred, prey)
     if removeSD then
         Osi.RemoveSpell(pred, 'SP_SwallowDown')
     end
-    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-    if Ext.Debug.IsDeveloperMode then
-        local modvars = GetVoreData()
-        modvars.VoreData = SP_Deepcopy(VoreData)
-    end
 end
 
 ---Swallow an item.
@@ -365,11 +351,6 @@ function SP_SwallowItem(pred, item)
         VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
         Osi.ToInventory(item, VoreData[pred].Items, 9999, 0, 0)
 
-        PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-        if Ext.Debug.IsDeveloperMode then
-            local modvars = GetVoreData()
-            modvars.VoreData = SP_Deepcopy(VoreData)
-        end
         SP_DelayCallTicks(4, function ()
             SP_UpdateWeight(pred)
         end)
@@ -403,11 +384,6 @@ function SP_SwallowAllItems(pred, container)
         Osi.MoveAllItemsTo(container, VoreData[pred].Items, 0, 0, 0, 0)
         Osi.MoveAllStoryItemsTo(container, VoreData[pred].Items, 0, 0)
 
-        PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-        if Ext.Debug.IsDeveloperMode then
-            local modvars = GetVoreData()
-            modvars.VoreData = SP_Deepcopy(VoreData)
-        end
         SP_DelayCallTicks(4, function ()
             SP_UpdateWeight(pred)
         end)
@@ -657,11 +633,6 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         SP_UpdateWeight(pred)
     end
     SP_VoreDataEntry(pred, false)
-    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-    if Ext.Debug.IsDeveloperMode then
-        local modvars = GetVoreData()
-        modvars.VoreData = SP_Deepcopy(VoreData)
-    end
     _P('Ending Regurgitation')
 end
 
@@ -935,7 +906,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
             end
             VoreData[k].AddWeight = VoreData[k].AddWeight - thisAddDiff
             if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(k, 0) == 1 then
-                VoreData[k].Satiation = VoreData[k].Satiation + thisAddDiff // ConfigVars.Hunger.HungerSatiationRate.value
+                VoreData[k].Satiation = VoreData[k].Satiation + thisAddDiff * ConfigVars.Hunger.HungerSatiationRate.value // 100
             end
             SP_ReduceWeightRecursive(v.Pred, thisAddDiff, false)
         end
@@ -954,7 +925,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                 thisDiff = v.Weight - v.FixedWeight // 5
             end
             if ConfigVars.WeightGain.WeightGain.value then
-                VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + math.floor(thisDiff * (ConfigVars.WeightGain.WeightGainRate.value / 100))
+                VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + thisDiff * ConfigVars.WeightGain.WeightGainRate.value // 100
             end
             -- if prey is not aberration or elemental or pred has boilinginsides, add satiation
             if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and
@@ -964,24 +935,19 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                     Osi.IsTagged(k, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                     Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1) then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
-                    thisDiff // ConfigVars.Hunger.HungerSatiationRate.value
+                    thisDiff * ConfigVars.Hunger.HungerSatiationRate.value // 100
             end
             SP_ReduceWeightRecursive(k, thisDiff, false)
             -- if prey is endoed and pred has soothing stomach, add satiation
         elseif v.Digestion == 0 then
             if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and Osi.HasPassive(v.Pred, "SP_SoothingStomach") == 1 then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
-                    weightDiff // ConfigVars.Hunger.HungerSatiationRate.value
+                    weightDiff * ConfigVars.Hunger.HungerSatiationRate.value // 100
             end
         end
     end
     for k, v in pairs(VoreData) do
         SP_UpdateWeight(k)
-    end
-    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-    if Ext.Debug.IsDeveloperMode then
-        local modvars = GetVoreData()
-        modvars.VoreData = SP_Deepcopy(VoreData)
     end
     _D(VoreData)
 end
@@ -1053,7 +1019,13 @@ end
 ---@param locus string
 ---@return string
 function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
-    if locus == 'O' or not ConfigVars.Mechanics.StatusBonusLocus.value then
+    local correctlocus = false
+    for k, v in pairs(ConfigVars.Mechanics.StatusBonusLocus.value) do
+        if string.sub(v, 1, 1) == locus then
+            correctlocus = true
+        end
+    end
+    if correctlocus then
         if endo then
             if Osi.HasPassive(prey, "SP_Gastronaut") == 1 then
                 return "SP_SwallowedXray"
@@ -1107,19 +1079,20 @@ end
 ---@param pred GUIDSTRING
 function SP_PlayGurgle(pred)
     local basePercentage = ConfigVars.VisualsAndAudio.GurgleProbability.value
-    ---convert the percentage into 5/X chance
-    local baseProbability = math.floor(100 / basePercentage * 5)
-    if baseProbability == 0 then
+    if basePercentage > 100 then
+        basePercentage = 100
+    elseif basePercentage == 0 or #GurgleSounds == 0 then
         return
     end
     ---convert the percentage
-    basePercentage = math.floor(100 / basePercentage * #GurgleSounds)
+    basePercentage = 100 * #GurgleSounds // basePercentage
     local randomResult = Osi.Random(basePercentage) + 1
     if randomResult <= #GurgleSounds then
         _P("Gurgle random result " .. randomResult)
         Osi.PlaySound(pred, GurgleSounds[randomResult])
     end
 end
+
 
 ---Console command for printing config options and states.
 function VoreConfigOptions()
@@ -1129,71 +1102,6 @@ function VoreConfigOptions()
         for i, j in pairs(v) do
             _P(i .. ": " .. j.description)
             _P("Currently set to " .. tostring(j.value))
-        end
-    end
-end
-
-function SP_MigrateTables()
-    _P("Migrating between PreyTablePred and VoreData")
-    -- adds all prey to the table
-    for k, v in pairs(PersistentVars['PreyTablePred']) do
-        SP_FillVoreData(k, v)
-    end
-    local allPreds = {}
-    for _, v in pairs(PersistentVars['PreyTablePred']) do
-        allPreds[v] = (allPreds[v] or 0) + 1
-    end
-    for k, v in pairs(allPreds) do
-        SP_FillVoreData(k, nil)
-    end
-    PersistentVars['PreyTablePred'] = nil
-    PersistentVars['PreyWeightTable'] = nil
-    PersistentVars['FakePreyWeightTable'] = nil
-    PersistentVars['DisableDownedPreyTable'] = nil
-    PersistentVars['VoreData'] = SP_Deepcopy(VoreData)
-    if Ext.Debug.IsDeveloperMode then
-        local modvars = GetVoreData()
-        modvars.VoreData = SP_Deepcopy(VoreData)
-    end
-    _P("Migration Finished, new table:")
-    _D(VoreData)
-end
-
-function SP_FillVoreData(character, pred)
-    local dead = Osi.IsDead(character)
-    if dead ~= nil and Osi.IsCharacter(character) == 1 then
-        _P(character)
-        VoreData[character] = {}
-        VoreData[character].Pred = pred
-        VoreData[character].Weight = PersistentVars['PreyWeightTable'][character] or 0
-        VoreData[character].FixedWeight = PersistentVars['FakePreyWeightTable'][character] or 0
-        VoreData[character].DisableDowned = PersistentVars['DisableDownedPreyTable'][character] or false
-        -- all previous prey are considered to be Oral
-        VoreData[character].Digestion = dead
-        VoreData[character].Combat = Osi.CombatGetGuidFor(character) or ""
-        VoreData[character].Prey = {}
-        VoreData[character].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', character) or
-            ""
-        -- weight that does not belong to any prey
-        VoreData[character].Fat = 0
-        VoreData[character].AddWeight = 0
-        VoreData[character].WeightReduction = 0
-        VoreData[character].DigestItems = false
-        VoreData[character].SwallowProcess = 0
-        VoreData[character].Satiation = 0
-        VoreData[character].Stuffed = ""
-        if pred ~= nil then
-            VoreData[character].Locus = "O"
-        else
-            VoreData[character].Locus = ""
-        end
-        VoreData[character].Swallowed = ""
-        -- fills the prey table
-        for k, v in pairs(PersistentVars['PreyTablePred']) do
-            if v == character then
-                -- all previous prey are considered to be Oral
-                VoreData[character].Prey[k] = "O"
-            end
         end
     end
 end

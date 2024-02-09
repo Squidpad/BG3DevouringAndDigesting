@@ -1,3 +1,5 @@
+Ext.Require("Utils/Utils.lua")
+
 ---@type SP_ConfigVars
 ConfigVars = {}
 
@@ -6,104 +8,103 @@ local MAX_BACKUPS = 5
 
 -- If you're making non-backward compatible changes,
 -- increment CURRENT_VERSION by 1 and write a migration in Migrations/ConfigMigrations.lua.
-local CURRENT_VERSION = 2
+local CURRENT_VERSION = 3
 
 ---@class SP_ConfigVars
 local DEFAULT_VARS = {
     VisualsAndAudio = {
         GurgleProbability = {
             description = "The % chance of a gurgle being played evey 6 seconds (a turn). Set to 0 to disable.",
-            value = 6.25,
-            default = 6.25,
-            range = {0, 100, 0.25},
+            value = 8,
+            default = 8,
+            range = {0, 100, 1},
             extras = {
-                slider = true,
-                precision = 2,
-            },
-        },
+                slider = true
+            }
+        }
     },
     Debug = {
         TeleportPrey = {
             description =
             "Determines if a living prey is teleported to their predator at the end of each turn (or every 6 seconds outside of turn-based mode). By default is on, should be only turned off in case of performance issues",
             value = true,
-            default = true,
+            default = true
         },
         LockStomach = {
             description =
             "Whether to lock the stomach object used for storing items during item vore or not. This is for you to be able to LOOK inside, actually removing the items will lead to unintended consequences.",
             value = true,
-            default = true,
-        },
+            default = true
+        }
     },
     WeightGain = {
         WeightGain = {
             description =
-            "TEST. Stores and adds \"fat\" value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.",
+            "Stores and adds \"fat\" value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.",
             value = false,
-            default = false,
+            default = false
         },
         WeightGainRate = {
-            description = "TEST. % of a prey's weight you gain as fat.",
+            description = "% of a prey's weight you gain as fat.",
             value = 25,
             default = 25,
             range = {0, 100, 1},
             extras = {
-                slider = true,
-            },
+                slider = true
+            }
         },
         WeightLossLong = {
-            description = "TEST. How much fat a character loses on long resting.",
+            description = "How much fat a character loses on long resting.",
             value = 11,
             default = 11,
             range = {0, 100, 1},
             extras = {
-                slider = true,
-            },
+                slider = true
+            }
         },
         WeightLossShort = {
-            description = "TEST. How much fat a character loses on short resting.",
+            description = "How much fat a character loses on short resting.",
             value = 3,
             default = 3,
             range = {0, 100, 1},
             extras = {
-                slider = true,
-            },
-        },
+                slider = true
+            }
+        }
     },
     Mechanics = {
         BoilingInsidesFast = {
             description = "Dead prey are digested twice as fast if you have 'Boiling insides' feat.",
             value = false,
-            default = false,
+            default = false
         },
         VoreDifficulty = {
             description = "Determines how hard it is to swallow non-consenting characters. \"default\" = checks rolled normally, \"easy\" = you make checks with advantage, \"cheat\" = you always succeed",
             value = "default",
             default = "default",
-            choices = {"default", "easy", "cheat"},
+            choices = {"default", "easy", "cheat"}
         },
         StatusBonusLocus = {
             description = "Prey in the following loci will recieve benefits from feats.",
-            value = {"oral", "anal", "unbirth", "cock"},
-            default = {"oral", "anal", "unbirth", "cock"},
-            choices = {"oral", "anal", "unbirth", "cock"},
+            value = {"Oral", "Anal", "Unbirth", "Cock"},
+            default = {"Oral", "Anal", "Unbirth", "Cock"},
+            choices = {"Oral", "Anal", "Unbirth", "Cock"}
         },
         SwallowDown = {
             description = "Preds will need to use a 'Contine Swallowing' spell to fully swallow a prey.",
             value = true,
-            default = true,
+            default = true
         },
         RequireProperAnatomy = {
             description = "If true, special types of vore will require you to have a body part that would enable that type of vore.",
             value = true,
-            default = true,
+            default = true
         },
         SwitchEndoLethal = {
             description = "When you start digesting prey, you will start digesting endo prey as well.",
             value = true,
-            default = true,
-        },
+            default = true
+        }
     },
     Regurgitation = {
         RegurgitationDistance = {
@@ -112,8 +113,8 @@ local DEFAULT_VARS = {
             default = 2,
             range = {0, 5, 1},
             extras = {
-                slider = true,
-            },
+                slider = true
+            }
         },
         RegurgitationCooldownSwallow = {
             description =
@@ -122,7 +123,7 @@ local DEFAULT_VARS = {
             default = 2,
             range = {0, 100, 1},
             extras = {
-                slider = true,
+                slider = true
             }
         },
         RegurgitationCooldownRegurgitate = {
@@ -132,22 +133,22 @@ local DEFAULT_VARS = {
             default = 0,
             range = {0, 100, 1},
             extras = {
-                slider = true,
+                slider = true
             }
-        },
+        }
     },
     Digestion = {
         SlowDigestion = {
             description =
             "If true, you will not lose weight until you rest. If false, you lose it immediately upon finishing digestion and you will be immidiately able to absorb / dispose of prey",
             value = true,
-            default = true,
+            default = true
         },
         DigestItems = {
             description =
             "When you start digesting prey, the items in your stomach might be digested. WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE",
             value = false,
-            default = false,
+            default = false
         },
         DigestionRateLong = {
             description =
@@ -156,8 +157,8 @@ local DEFAULT_VARS = {
             default = 60,
             range = {0, 100, 1},
             extras = {
-                slider = true,
-            },
+                slider = true
+            }
         },
         DigestionRateShort = {
             description =
@@ -166,16 +167,16 @@ local DEFAULT_VARS = {
             default = 20,
             range = {0, 100, 1},
             extras = {
-                slider = true,
-            },
-        },
+                slider = true
+            }
+        }
     },
     Hunger = {
         Hunger = {
             description =
             "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will recieve debuffs. Setting this to false disables hunger completely.",
             value = false,
-            default = false,
+            default = false
         },
         HungerBreakpoint1 = {
             description = "Stacks of hunger at which a debuff is appled",
@@ -183,8 +184,8 @@ local DEFAULT_VARS = {
             default = 8,
             range = {1, 100, 1},
             extras = {
-                slider = true,
-            },
+                slider = true
+            }
         },
         HungerBreakpoint2 = {
             description = "Stacks of hunger at which a second debuff is appled",
@@ -192,8 +193,8 @@ local DEFAULT_VARS = {
             default = 12,
             range = {1, 100, 1},
             extras = {
-                slider = true,
-            },
+                slider = true
+            }
         },
         HungerBreakpoint3 = {
             description = "Stacks of hunger at which a third debuff is appled",
@@ -201,17 +202,17 @@ local DEFAULT_VARS = {
             default = 16,
             range = {1, 100, 1},
             extras = {
-                slider = true,
-            },
+                slider = true
+            }
         },
         HungerLong = {
             description = "Hunger stacks gained on long rest.",
-            value = 4,
-            default = 4,
+            value = 3,
+            default = 3,
             range = {1, 100, 1},
             extras = {
-                slider = true,
-            },
+                slider = true
+            }
         },
         HungerShort = {
             description = "Hunger stacks gained on short rest.",
@@ -219,8 +220,8 @@ local DEFAULT_VARS = {
             default = 1,
             range = {1, 100, 1},
             extras = {
-                slider = true,
-            },
+                slider = true
+            }
         },
         HungerSatiation = {
             description = "Satiation stacks needed to remove one hunger stack.",
@@ -228,26 +229,32 @@ local DEFAULT_VARS = {
             default = 3,
             range = {1, 100, 1},
             extras = {
-                slider = true,
-            },
+                slider = true
+            }
         },
         HungerSatiationRate = {
-            description = "By how much digestion rate is divided for satiation gain.",
-            value = 4,
-            default = 4,
+            description = "% of digestion rate for satiation gain.",
+            value = 25,
+            default = 25,
             range = {1, 100, 1},
             extras = {
-                slider = true,
-            },
+                slider = true
+            }
         },
         LethalRandomSwitch = {
             description =
             "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidently start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
             value = false,
-            default = false,
-        },
+            default = false
+        }
     },
-    __CephelosModConfig = 2,
+    __CephelosModConfig = {
+        Version = {
+            description = "Do not edit this.",
+            value = 3,
+            default = 3
+        }
+    }
 }
 
 
@@ -297,14 +304,15 @@ function SP_LoadConfigFromFile()
         SP_SaveConfig()
         return
     end
-
+    -- is there a point in storing this as a separate variable instead of loading it in ConfigVars directly?
+    ---@type SP_ConfigVars
     local loadedConfig = Ext.Json.Parse(content)
 
     _P("Config loaded: \"Script Extender\\" .. CONFIG_PATH .. "\".")
 
     local isVersionValid = (
-        loadedConfig.__CephelosModConfig ~= nil and loadedConfig.__CephelosModConfig ~= nil and
-        SP_IsInt(loadedConfig.__CephelosModConfig) and loadedConfig.__CephelosModConfig > 0
+        loadedConfig.__CephelosModConfig ~= nil and loadedConfig.__CephelosModConfig.Version ~= nil and
+        loadedConfig.__CephelosModConfig.Version.value ~= nil and loadedConfig.__CephelosModConfig.Version.value > 0
     )
     if not isVersionValid then
         _F("Invalid config version detected. Your config will be reset.")
@@ -318,12 +326,12 @@ function SP_LoadConfigFromFile()
         return
     end
 
-    if loadedConfig.__CephelosModConfig > CURRENT_VERSION then
+    if loadedConfig.__CephelosModConfig.Version.value > CURRENT_VERSION then
         _F(
             "Newer config version detected " ..
-            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__CephelosModConfig .. "). " ..
+            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__CephelosModConfig.Version.value .. "). " ..
             "Sorry, your config isn't compatible with the current mod version installed. " ..
-            "Default config will be loaded."
+            "Default config will be loaded and yours will be backed up."
         )
         SP_ShowMessageBox(
             Ext.Loca.GetTranslatedString("h35ebd26bg84c7g4efag8be1gefde311b9f2e") .. "\n\n" ..
@@ -333,33 +341,36 @@ function SP_LoadConfigFromFile()
         )
         -- Let's not overwrite config file so player can easily
         -- get back to compatible mod version. Just load defaults.
+        -- or just back up player's version
+        SP_BackupConfig()
         SP_ResetConfig()
+        SP_SaveConfig()
         return
     end
 
     local saveRequired = false
 
-    if loadedConfig.__CephelosModConfig < CURRENT_VERSION then
+    if loadedConfig.__CephelosModConfig.Version.value < CURRENT_VERSION then
         _P(
             "Old version config detected " ..
-            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__CephelosModConfig .. ")."
+            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__CephelosModConfig.Version.value .. ")."
         )
         saveRequired = true
-        for i = loadedConfig.__CephelosModConfig + 1, CURRENT_VERSION, 1 do
+        for i = loadedConfig.__CephelosModConfig.Version.value + 1, CURRENT_VERSION, 1 do
             if SP_ConfigMigrations["To" .. i] ~= nil then
-                _P("Migrating config from version " .. loadedConfig.__CephelosModConfig .. " to " .. i .. ".")
+                _P("Migrating config from version " .. loadedConfig.__CephelosModConfig.Version.value .. " to " .. i .. ".")
                 local newConfigVars = SP_Deepcopy(loadedConfig)
-                newConfigVars.__CephelosModConfig = i
-                local successful = SP_ConfigMigrations["To" .. i](newConfigVars, SP_DeepCopy(DEFAULT_VARS))
+                newConfigVars.__CephelosModConfig.Version.value = i
+                local successful = SP_ConfigMigrations["To" .. i](newConfigVars)
                 if successful then
-                    loadedConfig = newConfigVars
+                    loadedConfig = SP_Deepcopy(newConfigVars)
                 end
             end
-            if loadedConfig.__CephelosModConfig ~= i then
+            if loadedConfig.__CephelosModConfig.Version.value ~= i then
                 _F(
                     "Sorry, your config isn't compatible with the current mod version installed " ..
                     "and can't be upgraded: failed to migrate " ..
-                    "from " .. loadedConfig.__CephelosModConfig .. " to " .. i .. ". " ..
+                    "from " .. loadedConfig.__CephelosModConfig.Version.value .. " to " .. i .. ". " ..
                     "Default config will be loaded."
                 )
                 SP_ShowMessageBox(
@@ -367,7 +378,9 @@ function SP_LoadConfigFromFile()
                     Ext.Loca.GetTranslatedString("h1c89714ag5f55g44f0g9a4fg6beac7723a20") .. "\n\n" ..
                     Ext.Loca.GetTranslatedString("h31c7c480g72c9g44ebg9b2eg80f5f0f9e78d")
                 )
+                SP_BackupConfig()
                 SP_ResetConfig()
+                SP_SaveConfig()
                 saveRequired = false
                 break
             end
@@ -375,58 +388,68 @@ function SP_LoadConfigFromFile()
     end
 
     -- Looking for unknown keys.
-    for k, _ in pairs(loadedConfig) do
+    for k, v in pairs(loadedConfig) do
         if DEFAULT_VARS[k] == nil then
             _P("Unknown config category: \"" .. k .. "\". Removing category.")
             loadedConfig[k] = nil
             saveRequired = true
         end
-        for i, _ in pairs(k) do
+        for i, _ in pairs(v) do
             if DEFAULT_VARS[k][i] == nil then
-                _P("Unknown config parameter: \"" .. k .. "\". Removing parameter.")
+                _P("Unknown config parameter: \"" .. i .. "\". Removing parameter.")
                 loadedConfig[k][i] = nil
                 saveRequired = true
             end
         end
     end
     -- Looking for known keys.
-    for k, _ in pairs(DEFAULT_VARS) do
+    for k, v in pairs(DEFAULT_VARS) do
         if loadedConfig[k] == nil then
             _F("Missing config category: \"" .. k .. "\". Resetting category.")
-            loadedConfig[k] = DEFAULT_VARS[k]
+            loadedConfig[k] = SP_Deepcopy(v)
             saveRequired = true
         end
-        for i, _ in pairs(k) do
+        for i, j in pairs(v) do
             if loadedConfig[k][i] == nil then
-                _F("Missing config parameter: \"" .. k .. "\". Resetting parameter.")
-                loadedConfig[k] = DEFAULT_VARS[k][i]
+                _F("Missing config parameter: \"" .. i .. "\". Resetting parameter.")
+                loadedConfig[k][i] = SP_Deepcopy(v)
                 saveRequired = true
             end
         end
     end
     -- Looking for mismatched descriptions.
-    for k, _ in pairs(DEFAULT_VARS) do
-        for i in pairs(k) do
-            if loadedConfig[k][i]["description"] ~= DEFAULT_VARS[k][i]["description"] then
+    for k, v in pairs(DEFAULT_VARS) do
+        for i, j in pairs(v) do
+            if loadedConfig[k][i].description ~= j.description then
                 _P("Updating config parameter description: \"" .. i .. "\".")
-                loadedConfig[k][i]["description"] = DEFAULT_VARS[k][i]["description"]
+                loadedConfig[k][i].description = j.description
+                saveRequired = true
+            end
+        end
+    end
+    -- Looking for mismatched default values.
+    for k, v in pairs(DEFAULT_VARS) do
+        for i, j in pairs(v) do
+            if loadedConfig[k][i].default ~= j.default and type(j.default) ~= "table" then
+                _P("Updating config default value for: \"" .. i .. "\".")
+                loadedConfig[k][i].default = j.default
                 saveRequired = true
             end
         end
     end
     -- Looking for invalid value types.
-    for k, _ in pairs(DEFAULT_VARS) do
-        for i in pairs(k) do
-            if type(loadedConfig[k][i]["value"]) ~= type((DEFAULT_VARS[k][i]["value"])) then
+    for k, v in pairs(DEFAULT_VARS) do
+        for i, j in pairs(v) do
+            if type(loadedConfig[k][i].value) ~= type((j.value)) then
                 _P("Invalid value set for \"" ..
-                    loadedConfig[k][i] .. "\", resetting to default value of \"" .. tostring(DEFAULT_VARS[k][i]["value"]) .. "\"")
-                loadedConfig[k][i]["value"] = DEFAULT_VARS[k][i]["value"]
+                    i .. "\", resetting to default value of \"" .. tostring(j.value) .. "\"")
+                loadedConfig[k][i].value = j.value
                 saveRequired = true
             end
         end
     end
 
-    ConfigVars = loadedConfig
+    ConfigVars = SP_Deepcopy(loadedConfig)
 
     if saveRequired then
         SP_BackupConfig()
