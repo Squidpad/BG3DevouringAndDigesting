@@ -51,6 +51,10 @@
     "files.associations": {
         "*.txt": "bg3txt"
     },
+    "emmylua.spell.dict": [
+        "vore",
+        "endo"
+    ],
 
       
 }

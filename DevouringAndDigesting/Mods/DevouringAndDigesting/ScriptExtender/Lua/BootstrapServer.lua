@@ -816,7 +816,7 @@ Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
 -- Lets you config during runtime.
 Ext.RegisterConsoleCommand('VoreConfigOptions', VoreConfigOptions)
 Ext.RegisterConsoleCommand('VoreConfigReload', SP_LoadConfigFromFile)
-Ext.RegisterConsoleCommand('VoreConfigReset', SP_ResetConfig)
+Ext.RegisterConsoleCommand('VoreConfigReset', SP_ResetAndSaveConfig)
 
 Ext.RegisterConsoleCommand("ResetVore", SP_ResetVore)
 Ext.RegisterConsoleCommand("KillVore", SP_KillVore)

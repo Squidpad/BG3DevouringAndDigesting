@@ -6,13 +6,14 @@ local MAX_BACKUPS = 5
 
 -- If you're making non-backward compatible changes,
 -- increment CURRENT_VERSION by 1 and write a migration in Migrations/ConfigMigrations.lua.
-local CURRENT_VERSION = 3
+-- Only once per release!
+local CURRENT_VERSION = 1
 
 ---@class SP_ConfigVars
 local DEFAULT_VARS = {
     VisualsAndAudio = {
         GurgleProbability = {
-            description = "The % chance of a gurgle being played evey 6 seconds (a turn). Set to 0 to disable.",
+            description = "The % chance of a gurgle being played every 6 seconds (a turn). Set to 0 to disable.",
             value = 8,
             default = 8,
             range = {0, 100, 1},
@@ -84,7 +85,7 @@ local DEFAULT_VARS = {
             choices = {"default", "easy", "cheat"},
         },
         StatusBonusLocus = {
-            description = "Prey in the following loci will recieve benefits from feats.",
+            description = "Prey in the following loci will receive benefits from feats.",
             value = {"Oral", "Anal", "Unbirth", "Cock"},
             default = {"Oral", "Anal", "Unbirth", "Cock"},
             choices = {"Oral", "Anal", "Unbirth", "Cock"},
@@ -140,7 +141,7 @@ local DEFAULT_VARS = {
     Digestion = {
         SlowDigestion = {
             description =
-            "If true, you will not lose weight until you rest. If false, you lose it immediately upon finishing digestion and you will be immidiately able to absorb / dispose of prey",
+            "If true, you will not lose weight until you rest. If false, you lose it immediately upon finishing digestion and you will be immediately able to absorb / dispose of prey",
             value = true,
             default = true,
         },
@@ -174,12 +175,12 @@ local DEFAULT_VARS = {
     Hunger = {
         Hunger = {
             description =
-            "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will recieve debuffs. Setting this to false disables hunger completely.",
+            "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will receive debuffs. Setting this to false disables hunger completely.",
             value = false,
             default = false,
         },
         HungerBreakpoint1 = {
-            description = "Stacks of hunger at which a debuff is appled",
+            description = "Stacks of hunger at which a debuff is applied",
             value = 8,
             default = 8,
             range = {1, 100, 1},
@@ -188,7 +189,7 @@ local DEFAULT_VARS = {
             },
         },
         HungerBreakpoint2 = {
-            description = "Stacks of hunger at which a second debuff is appled",
+            description = "Stacks of hunger at which a second debuff is applied",
             value = 12,
             default = 12,
             range = {1, 100, 1},
@@ -197,7 +198,7 @@ local DEFAULT_VARS = {
             },
         },
         HungerBreakpoint3 = {
-            description = "Stacks of hunger at which a third debuff is appled",
+            description = "Stacks of hunger at which a third debuff is applied",
             value = 16,
             default = 16,
             range = {1, 100, 1},
@@ -243,20 +244,14 @@ local DEFAULT_VARS = {
         },
         LethalRandomSwitch = {
             description =
-            "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidently start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
+            "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
             value = false,
             default = false,
         },
     },
-    __CephelosModConfig = {
-        Version = {
-            description = "Do not edit this.",
-            value = 3,
-            default = 3,
-        },
-    },
+    __Version = CURRENT_VERSION,
+    __CephelosModConfigVersion = 1,
 }
-
 
 local function SP_BackupConfig()
     if MAX_BACKUPS < 1 then
@@ -296,6 +291,11 @@ function SP_ResetConfig()
     _P("Default config loaded.")
 end
 
+function SP_ResetAndSaveConfig()
+    SP_ResetConfig()
+    SP_SaveConfig()
+end
+
 function SP_LoadConfigFromFile()
     local content = Ext.IO.LoadFile(CONFIG_PATH)
     if content == nil then
@@ -304,15 +304,14 @@ function SP_LoadConfigFromFile()
         SP_SaveConfig()
         return
     end
-    -- is there a point in storing this as a separate variable instead of loading it in ConfigVars directly?
+
     ---@type SP_ConfigVars
     local loadedConfig = Ext.Json.Parse(content)
 
     _P("Config loaded: \"Script Extender\\" .. CONFIG_PATH .. "\".")
 
     local isVersionValid = (
-        loadedConfig.__CephelosModConfig ~= nil and loadedConfig.__CephelosModConfig.Version ~= nil and
-        loadedConfig.__CephelosModConfig.Version.value ~= nil and loadedConfig.__CephelosModConfig.Version.value > 0
+        loadedConfig.__Version ~= nil and SP_IsInt(loadedConfig.__Version) and loadedConfig.__Version > 0
     )
     if not isVersionValid then
         _F("Invalid config version detected. Your config will be reset.")
@@ -321,17 +320,16 @@ function SP_LoadConfigFromFile()
             Ext.Loca.GetTranslatedString("h86742a8fga59cg4597g8b7dg30e4788a1ed0")
         )
         SP_BackupConfig()
-        SP_ResetConfig()
-        SP_SaveConfig()
+        SP_ResetAndSaveConfig()
         return
     end
 
-    if loadedConfig.__CephelosModConfig.Version.value > CURRENT_VERSION then
+    if loadedConfig.__Version > CURRENT_VERSION then
         _F(
             "Newer config version detected " ..
-            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__CephelosModConfig.Version.value .. "). " ..
+            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__Version .. "). " ..
             "Sorry, your config isn't compatible with the current mod version installed. " ..
-            "Default config will be loaded and yours will be backed up."
+            "Default config will be loaded."
         )
         SP_ShowMessageBox(
             Ext.Loca.GetTranslatedString("h35ebd26bg84c7g4efag8be1gefde311b9f2e") .. "\n\n" ..
@@ -339,39 +337,34 @@ function SP_LoadConfigFromFile()
             Ext.Loca.GetTranslatedString("h31c7c480g72c9g44ebg9b2eg80f5f0f9e78d") .. "\n\n" ..
             Ext.Loca.GetTranslatedString("h79032db6g7469g4f1cgaca2g743d89c7b335")
         )
-        -- Let's not overwrite config file so player can easily
-        -- get back to compatible mod version. Just load defaults.
-        -- or just back up player's version
         SP_BackupConfig()
-        SP_ResetConfig()
-        SP_SaveConfig()
+        SP_ResetAndSaveConfig()
         return
     end
 
     local saveRequired = false
 
-    if loadedConfig.__CephelosModConfig.Version.value < CURRENT_VERSION then
+    if loadedConfig.__Version < CURRENT_VERSION then
         _P(
             "Old version config detected " ..
-            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__CephelosModConfig.Version.value .. ")."
+            "(current: " .. CURRENT_VERSION .. "; yours: " .. loadedConfig.__Version .. ")."
         )
         saveRequired = true
-        for i = loadedConfig.__CephelosModConfig.Version.value + 1, CURRENT_VERSION, 1 do
+        for i = loadedConfig.__Version + 1, CURRENT_VERSION, 1 do
             if SP_ConfigMigrations["To" .. i] ~= nil then
-                _P("Migrating config from version " ..
-                    loadedConfig.__CephelosModConfig.Version.value .. " to " .. i .. ".")
+                _P("Migrating config from version " .. loadedConfig.__Version .. " to " .. i .. ".")
                 local newConfigVars = SP_Deepcopy(loadedConfig)
-                newConfigVars.__CephelosModConfig.Version.value = i
+                newConfigVars.__Version = i
                 local successful = SP_ConfigMigrations["To" .. i](newConfigVars)
                 if successful then
                     loadedConfig = SP_Deepcopy(newConfigVars)
                 end
             end
-            if loadedConfig.__CephelosModConfig.Version.value ~= i then
+            if loadedConfig.__Version ~= i then
                 _F(
                     "Sorry, your config isn't compatible with the current mod version installed " ..
                     "and can't be upgraded: failed to migrate " ..
-                    "from " .. loadedConfig.__CephelosModConfig.Version.value .. " to " .. i .. ". " ..
+                    "from " .. loadedConfig.__Version .. " to " .. i .. ". " ..
                     "Default config will be loaded."
                 )
                 SP_ShowMessageBox(
@@ -380,8 +373,7 @@ function SP_LoadConfigFromFile()
                     Ext.Loca.GetTranslatedString("h31c7c480g72c9g44ebg9b2eg80f5f0f9e78d")
                 )
                 SP_BackupConfig()
-                SP_ResetConfig()
-                SP_SaveConfig()
+                SP_ResetAndSaveConfig()
                 saveRequired = false
                 break
             end
@@ -410,7 +402,7 @@ function SP_LoadConfigFromFile()
             loadedConfig[k] = SP_Deepcopy(v)
             saveRequired = true
         end
-        for i, j in pairs(v) do
+        for i, _ in pairs(v) do
             if loadedConfig[k][i] == nil then
                 _F("Missing config parameter: \"" .. i .. "\". Resetting parameter.")
                 loadedConfig[k][i] = SP_Deepcopy(v)
@@ -450,7 +442,7 @@ function SP_LoadConfigFromFile()
         end
     end
 
-    ConfigVars = SP_Deepcopy(loadedConfig)
+    ConfigVars = loadedConfig
 
     if saveRequired then
         SP_BackupConfig()
