@@ -247,6 +247,16 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
                 SP_FullySwallow(roller, rollSubject)
             end
         else
+            local removeSD = true
+            VoreData[rollSubject].SwallowProcess = 0
+            for k, v in pairs(VoreData[roller].Prey) do
+                if VoreData[k].SwallowProcess > 0 then
+                    removeSD = false
+                end
+            end
+            if removeSD then
+                Osi.RemoveSpell(roller, 'SP_SwallowDown')
+            end
             SP_RegurgitatePrey(roller, rollSubject, -1)
         end
     end
@@ -285,7 +295,7 @@ end
 ---Runs each time a status is applied.
 ---@param object CHARACTER Recipient of status.
 ---@param status string Internal name of status.
----@param causee? GUIDSTRING Thing that caused status to be applied.
+---@param causee GUIDSTRING Thing that caused status to be applied.
 ---@param storyActionID? integer
 function SP_OnStatusApplied(object, status, causee, storyActionID)
     if status == 'SP_Digesting' then
@@ -366,7 +376,6 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         else
             Osi.ApplyStatus(causee, "SP_Cant_Fit_Prey", 1, 1, object)
         end
-
     end
 end
 
@@ -457,8 +466,18 @@ function SP_OnStatusRemoved(object, status, causee, storyActionID)
     if status == 'SP_PartiallySwallowed' or status == 'SP_PartiallySwallowedGentle' then
         if VoreData[object] ~= nil then
             if VoreData[object].Pred ~= "" and VoreData[object].SwallowProcess > 0 then
+                local pred = VoreData[object].Pred
+                local removeSD = true
                 VoreData[object].SwallowProcess = 0
-                SP_RegurgitatePrey(VoreData[object].Pred, object, -1)
+                for k, v in pairs(VoreData[pred].Prey) do
+                    if VoreData[k].SwallowProcess > 0 then
+                        removeSD = false
+                    end
+                end
+                if removeSD then
+                    Osi.RemoveSpell(pred, 'SP_SwallowDown')
+                end
+                SP_RegurgitatePrey(pred, object, -1)
             end
         end
     end
@@ -691,7 +710,7 @@ function SP_OnSessionLoaded()
     -- I have no idea what this does but it should work
     if Ext.Debug.IsDeveloperMode then
         local modvars = Ext.Vars.GetModVariables(ModuleUUID)
-        modvars.VoreData = VoreData
+        modvars.ModVoreData = VoreData
     end
     SP_MigratePersistentVars()
 end
@@ -716,12 +735,8 @@ function SP_OnResetCompleted()
             end
         end
     end
+    VoreData = PersistentVars['VoreData']
     _P('Reloading stats!')
-end
-
-
-function SP_MigratePersistentVars()
-    --TODO
 end
 
 ---Runs whenever you change game regions.
@@ -799,7 +814,7 @@ function SP_DebugVore()
 end
 
 function SP_ToggleDebug()
-    local h = GetHostCharacter()
+    local h = Osi.GetHostCharacter()
     Osi.ApplyStatus(h, "SP_DebugActionStatus", -1)
     Osi.ApplyStatus(h, "SP_DebugStatsStatus", -1)
     Osi.ApplyStatus(h, "SP_DebugCarryStatus", -1)

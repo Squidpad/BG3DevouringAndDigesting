@@ -572,63 +572,58 @@ end
 ---@param pred CHARACTER
 ---@param weight integer How many weight placeholders in inventory.
 function SP_UpdateBelly(pred, weight)
-    -- Only female belly is currently implemented.
-    if Osi.GetBodyType(pred, 1) ~= "Female" then
-        _P("Character is not female, they are " .. Osi.GetBodyType(pred, 1))
-        return
-    end
     local predRace = Osi.GetRace(pred, 1)
     -- These races use the same or similar model.
-    if string.find(predRace, 'Drow') ~= nil or string.find(predRace, 'Elf') ~= nil or string.find(predRace, 'Human') ~=
-        nil or string.find(predRace, 'Gith') ~= nil or string.find(predRace, 'Orc') ~= nil or
+    if string.find(predRace, 'Drow') ~= nil or string.find(predRace, 'Elf') ~= nil or string.find(predRace, 'Human') ~= nil or
         string.find(predRace, 'Aasimar') ~= nil or string.find(predRace, 'Tiefling') ~= nil then
         predRace = 'Human'
+    elseif string.find(predRace, 'Gith') ~= nil then
+        predRace = 'Gith'
+    elseif string.find(predRace, 'Orc') ~= nil then
+        predRace = 'Orc'
     end
-    if BellyTableFemale[predRace] == nil then
+    if BellyTable[predRace] == nil then
+        _P("Race " .. predRace .. " does not support bellies")
         return
     end
-    -- 1 == normal body, 2 == strong body. Did not check orks.
-    local bodyShape = 1
-    local tags = Ext.Entity.Get(pred).Tag.Tags
-    for _, v in pairs(tags) do
-        if v == "d3116e58-c55a-4853-a700-bee996207397" then
-            bodyShape = 2
+    local sex = Osi.GetBodyType(pred, 1)
+    -- Only female belly is currently implemented.
+    if BellyTable[predRace].Sexes == false then
+        sex = "Sex"
+    end
+    if BellyTable[predRace][sex] == nil then
+        _P("Sex " .. sex .. " does not support bellies")
+        return
+    end
+    local bodyShape = 0
+    if BellyTable[predRace][sex].BodyShapes then
+        local tags = Ext.Entity.Get(pred).Tag.Tags
+        for _, v in pairs(tags) do
+            if v == "d3116e58-c55a-4853-a700-bee996207397" then
+                bodyShape = 1
+            end
         end
     end
-
-    -- Remove when separacte orc bellies are added. Their body is closer to the strong body, so a strong belly is used.
-    if string.find(Osi.GetRace(pred, 1), 'Orc') ~= nil then
-        bodyShape = 2
+    if BellyTable[predRace][sex][bodyShape] == nil then
+        _P("Body shape " .. bodyShape .. " does not support bellies")
+        return
     end
 
-    -- Determines the belly weight thresholds.
-    local weightStage = 0
-    if weight > 420 then
-        weightStage = 8
-    elseif weight > 300 then
-        weightStage = 7
-    elseif weight > 220 then
-        weightStage = 6
-    elseif weight > 135 then
-        weightStage = 5
-    elseif weight > 70 then
-        weightStage = 4
-    elseif weight > 45 then
-        weightStage = 3
-    elseif weight > 30 then
-        weightStage = 2
-    elseif weight > 15 then
-        weightStage = 1
-    end
-    -- Clears overrives. Might break if you change bodyshape or race or gender.
-    for _, v in ipairs(BellyTableFemale[predRace][bodyShape]) do
+    -- Clears overrives. Will break if you change bodyshape or race or gender.
+    for k, v in pairs(BellyTable[predRace][sex][bodyShape]) do
         Osi.RemoveCustomVisualOvirride(pred, v)
     end
 
+    local bellySize = 0
+    for k, v in pairs(BellyTable[predRace][sex][bodyShape]) do
+        if weight > k and k > bellySize then
+            bellySize = k
+        end
+    end
     -- Delay is necessary, otherwise will not work.
     SP_DelayCallTicks(2, function ()
-        if weightStage > 0 then
-            Osi.AddCustomVisualOverride(pred, BellyTableFemale[predRace][bodyShape][weightStage])
+        if bellySize > 0 then
+            Osi.AddCustomVisualOverride(pred, BellyTable[predRace][sex][bodyShape][bellySize])
         end
     end)
 end
@@ -725,8 +720,9 @@ function SP_VoreCheck(pred, prey, eventName)
     elseif string.sub(eventName, 1, #eventName - 2) == "Bellyport" then
         _P("Rolling Dex Save to resist Bellyport")
         --always uses highest stat until I get around to fixing it
-    
-        Osi.RequestPassiveRoll(prey, pred, "SavingThrow", "Dexterity", SP_GetSaveDC(pred, 0), 0, "BellyportSave_" .. string.sub(eventName, #eventName))
+
+        Osi.RequestPassiveRoll(prey, pred, "SavingThrow", "Dexterity", SP_GetSaveDC(pred, 0), 0,
+                               "BellyportSave_" .. string.sub(eventName, #eventName))
     elseif eventName == 'SwallowDownCheck' then
         _P('Rolling to resist secondary swallow')
         if Osi.HasPassive(pred, 'SP_StretchyMaw') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Charmed') == 1 or
@@ -797,7 +793,8 @@ function SP_SlowDigestion(weightDiff, fatDiff)
             end
             VoreData[k].AddWeight = VoreData[k].AddWeight - thisAddDiff
             if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(k, 0) == 1 then
-                VoreData[k].Satiation = VoreData[k].Satiation + thisAddDiff * ConfigVars.Hunger.HungerSatiationRate.value // 100
+                VoreData[k].Satiation = VoreData[k].Satiation +
+                    thisAddDiff * ConfigVars.Hunger.HungerSatiationRate.value // 100
             end
             SP_ReduceWeightRecursive(v.Pred, thisAddDiff, false)
         end
@@ -816,7 +813,8 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                 thisDiff = v.Weight - v.FixedWeight // 5
             end
             if ConfigVars.WeightGain.WeightGain.value then
-                VoreData[v.Pred].Fat = VoreData[v.Pred].Fat + thisDiff * ConfigVars.WeightGain.WeightGainRate.value // 100
+                VoreData[v.Pred].Fat = VoreData[v.Pred].Fat +
+                    thisDiff * ConfigVars.WeightGain.WeightGainRate.value // 100
             end
             -- if prey is not aberration or elemental or pred has boilinginsides, add satiation
             if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and
@@ -964,7 +962,6 @@ function SP_GetSwallowVoreStatus(pred, endo)
     end
 end
 
-
 ---plays a random gurgle
 ---@param pred GUIDSTRING
 function SP_PlayGurgle(pred)
@@ -983,14 +980,13 @@ function SP_PlayGurgle(pred)
     end
 end
 
-
 ---finds and removes prey that were erased from existence for some unknown reason
 function SP_CheckVoreData()
     for k, v in pairs(VoreData) do
         local dead = Osi.IsDead(k)
         local character = Osi.IsCharacter(k)
         if dead == nil or character == 0 then
-            _P(k .. " WAS ERASED FROM EXISTENSE")
+            _F(k .. " WAS ERASED FROM EXISTENSE")
             if next(v.Prey) ~= nil then
                 _P(k .. " WAS A PRED")
             end
@@ -1010,14 +1006,13 @@ function SP_MigratePersistentVars()
     for k, v in pairs(VoreData) do
         for i, j in pairs(VoreDataEntry) do
             if v[i] == nil then
-                _P('Character: ' .. k)
-                _P('Missing value: ' .. i)
+                _F('Character: ' .. k)
+                _F('Missing value: ' .. i)
                 VoreData[k][i] = j
             end
         end
     end
 end
-
 
 ---Console command for printing config options and states.
 function VoreConfigOptions()

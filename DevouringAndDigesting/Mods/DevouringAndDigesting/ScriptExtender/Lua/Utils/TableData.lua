@@ -1,4 +1,3 @@
-
 -- Needs to be here to prevent PCs from being teleported beneath the map.
 -- Maybe it is better to teleport them.
 -- 1. When you click on companion's portrait, camera will move to them, which
@@ -42,7 +41,7 @@ GurgleSounds = {
     "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_B",
     "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_C",
     "SHA_SpiderMeatHunk_StomachGurgle_A",
-    "SHA_SpiderMeatHunk_StomachGurgle_B"
+    "SHA_SpiderMeatHunk_StomachGurgle_B",
 }
 
 -- ApplyStatus applies statuses for a number of seconds instead of turns.
@@ -50,28 +49,74 @@ GurgleSounds = {
 SecondsPerTurn = 6
 
 -- CharacterCreationAppearanceVisuals table for women.
--- Goes like this: race -> bodyshape (1 == weak, 2 == strong) -> belly size.
-BellyTableFemale = {
-    Human = {
-        {
-            "5b04165d-2ec9-47f9-beff-0660640fc602", 
-            "5660e004-e2af-4f3a-ae76-375408cb78c3",
-            "65a6eeac-9a14-4937-92b8-5e50bb960074",
-            "fafef7ab-087f-4362-9436-3e63ef7bcd95", 
-            "4a404594-e28d-4f47-b1c2-2ef593961e33",
-            "78fc1e05-ee83-4e6c-b14f-6f116e875b03", 
-            "b10b965b-9620-48c2-9037-0556fd23d472",
-            "14388c37-34ab-4963-b61e-19cea0a90e39",
+---@type table
+BellyTable = {
+    -- prototype
+    Test123 = {
+        --if there are different bellies for different sexes
+        Sexes = false,
+        Sex = {
+            --if there are different bellies for different body types
+            BodyShapes = false,
+            [0] = {},
         },
-        {
-            "4bfa882a-3bef-49b8-9e8a-21198a2dbee5", 
-            "4741a71a-8884-4d3d-929d-708e350953bb",
-            "c2042e11-0626-440b-bee0-bb1d631fd979",
-            "9950ba83-28ea-4680-9905-a070d6eabfe7", 
-            "4e698e03-94b8-4526-9fa5-5feb1f78c3b0",
-            "e250ffe9-a94c-44b4-a225-f8cf61ad430d", 
-            "02c9846c-200d-47cb-b381-1ceeb4280774",
-            "73aae7c2-49ef-4cac-b1b9-b3cfa6a4a31a",
+    },
+    Human = {
+        Sexes = true,
+        Female = {
+            BodyShapes = true,
+            [0] = {
+                [420] = "14388c37-34ab-4963-b61e-19cea0a90e39",
+                [300] = "b10b965b-9620-48c2-9037-0556fd23d472",
+                [220] = "78fc1e05-ee83-4e6c-b14f-6f116e875b03",
+                [135] = "4a404594-e28d-4f47-b1c2-2ef593961e33",
+                [70] = "fafef7ab-087f-4362-9436-3e63ef7bcd95",
+                [45] = "65a6eeac-9a14-4937-92b8-5e50bb960074",
+                [30] = "5660e004-e2af-4f3a-ae76-375408cb78c3",
+                [15] = "5b04165d-2ec9-47f9-beff-0660640fc602",
+            },
+            [1] = {
+                [420] = "73aae7c2-49ef-4cac-b1b9-b3cfa6a4a31a",
+                [300] = "02c9846c-200d-47cb-b381-1ceeb4280774",
+                [220] = "e250ffe9-a94c-44b4-a225-f8cf61ad430d",
+                [135] = "4e698e03-94b8-4526-9fa5-5feb1f78c3b0",
+                [70] = "9950ba83-28ea-4680-9905-a070d6eabfe7",
+                [45] = "c2042e11-0626-440b-bee0-bb1d631fd979",
+                [30] = "4741a71a-8884-4d3d-929d-708e350953bb",
+                [15] = "4bfa882a-3bef-49b8-9e8a-21198a2dbee5",
+            },
+        },
+    },
+    Gith = {
+        Sexes = true,
+        Female = {
+            BodyShapes = false,
+            [0] = {
+                [420] = "14388c37-34ab-4963-b61e-19cea0a90e39",
+                [300] = "b10b965b-9620-48c2-9037-0556fd23d472",
+                [220] = "78fc1e05-ee83-4e6c-b14f-6f116e875b03",
+                [135] = "4a404594-e28d-4f47-b1c2-2ef593961e33",
+                [70] = "fafef7ab-087f-4362-9436-3e63ef7bcd95",
+                [45] = "65a6eeac-9a14-4937-92b8-5e50bb960074",
+                [30] = "5660e004-e2af-4f3a-ae76-375408cb78c3",
+                [15] = "5b04165d-2ec9-47f9-beff-0660640fc602",
+            },
+        },
+    },
+    Orc = {
+        Sexes = true,
+        Female = {
+            BodyShapes = false,
+            [0] = {
+                [420] = "73aae7c2-49ef-4cac-b1b9-b3cfa6a4a31a",
+                [300] = "02c9846c-200d-47cb-b381-1ceeb4280774",
+                [220] = "e250ffe9-a94c-44b4-a225-f8cf61ad430d",
+                [135] = "4e698e03-94b8-4526-9fa5-5feb1f78c3b0",
+                [70] = "9950ba83-28ea-4680-9905-a070d6eabfe7",
+                [45] = "c2042e11-0626-440b-bee0-bb1d631fd979",
+                [30] = "4741a71a-8884-4d3d-929d-708e350953bb",
+                [15] = "4bfa882a-3bef-49b8-9e8a-21198a2dbee5",
+            },
         },
     },
 }
@@ -118,5 +163,5 @@ VoreDataEntry = {
     Locus = "",
     Swallowed = "",
     Stuffed = "",
-    StuffedStacks = 0
+    StuffedStacks = 0,
 }

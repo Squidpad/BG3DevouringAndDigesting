@@ -305,7 +305,6 @@ function SP_LoadConfigFromFile()
         return
     end
 
-    ---@type SP_ConfigVars
     local loadedConfig = Ext.Json.Parse(content)
 
 
@@ -381,10 +380,6 @@ function SP_LoadConfigFromFile()
         end
     end
 
-    -- removes the version number so we don't have to make an exception when checking stuff
-    DEFAULT_VARS.__CephelosModConfig = nil
-    loadedConfig.__CephelosModConfig = nil
-
     -- Looking for unknown keys.
     for k, v in pairs(loadedConfig) do
         if DEFAULT_VARS[k] == nil then
@@ -392,11 +387,13 @@ function SP_LoadConfigFromFile()
             loadedConfig[k] = nil
             saveRequired = true
         end
-        for i, _ in pairs(v) do
-            if DEFAULT_VARS[k][i] == nil then
-                _P("Unknown config parameter: \"" .. i .. "\". Removing parameter.")
-                loadedConfig[k][i] = nil
-                saveRequired = true
+        if type(v) == "table" then
+            for i, _ in pairs(v) do
+                if DEFAULT_VARS[k][i] == nil then
+                    _P("Unknown config parameter: \"" .. i .. "\". Removing parameter.")
+                    loadedConfig[k][i] = nil
+                    saveRequired = true
+                end
             end
         end
     end
@@ -404,45 +401,57 @@ function SP_LoadConfigFromFile()
     for k, v in pairs(DEFAULT_VARS) do
         if loadedConfig[k] == nil then
             _F("Missing config category: \"" .. k .. "\". Resetting category.")
-            loadedConfig[k] = SP_Deepcopy(v)
+            if type(v) == "table" then
+                loadedConfig[k] = SP_Deepcopy(v)
+            elseif type(v) == "number" or type(v) == "string" then
+                loadedConfig[k] = v
+            end
             saveRequired = true
         end
-        for i, _ in pairs(v) do
-            if loadedConfig[k][i] == nil then
-                _F("Missing config parameter: \"" .. i .. "\". Resetting parameter.")
-                loadedConfig[k][i] = SP_Deepcopy(v)
-                saveRequired = true
+        if type(v) == "table" then
+            for i, j in pairs(v) do
+                if loadedConfig[k][i] == nil then
+                    _F("Missing config parameter: \"" .. i .. "\". Resetting parameter.")
+                    loadedConfig[k][i] = SP_Deepcopy(j)
+                    saveRequired = true
+                end
             end
         end
     end
     -- Looking for mismatched descriptions.
     for k, v in pairs(DEFAULT_VARS) do
-        for i, j in pairs(v) do
-            if loadedConfig[k][i].description ~= j.description then
-                _P("Updating config parameter description: \"" .. i .. "\".")
-                loadedConfig[k][i].description = j.description
-                saveRequired = true
+        if type(v) == "table" then
+            for i, j in pairs(v) do
+                if loadedConfig[k][i].description ~= j.description then
+                    _P("Updating config parameter description: \"" .. i .. "\".")
+                    loadedConfig[k][i].description = j.description
+                    saveRequired = true
+                end
             end
         end
     end
     -- Looking for mismatched default values.
     for k, v in pairs(DEFAULT_VARS) do
-        for i, j in pairs(v) do
-            if loadedConfig[k][i].default ~= j.default and type(j.default) ~= "table" then
-                _P("Updating config default value for: \"" .. i .. "\".")
-                loadedConfig[k][i].default = j.default
-                saveRequired = true
+        if type(v) == "table" then
+            for i, j in pairs(v) do
+                if loadedConfig[k][i].default ~= j.default and type(j.default) ~= "table" then
+                    _P("Updating config default value for: \"" .. i .. "\".")
+                    loadedConfig[k][i].default = j.default
+                    saveRequired = true
+                end
             end
         end
     end
     -- Looking for invalid value types.
     for k, v in pairs(DEFAULT_VARS) do
-        for i, j in pairs(v) do
-            if type(loadedConfig[k][i].value) ~= type((j.value)) then
-                _P("Invalid value set for \"" ..
-                    i .. "\", resetting to default value of \"" .. tostring(j.value) .. "\"")
-                loadedConfig[k][i].value = j.value
-                saveRequired = true
+        if type(v) == "table" then
+            for i, j in pairs(v) do
+                if type(loadedConfig[k][i].value) ~= type((j.value)) then
+                    _P("Invalid value set for \"" ..
+                        i .. "\", resetting to default value of \"" .. tostring(j.value) .. "\"")
+                    loadedConfig[k][i].value = j.value
+                    saveRequired = true
+                end
             end
         end
     end
