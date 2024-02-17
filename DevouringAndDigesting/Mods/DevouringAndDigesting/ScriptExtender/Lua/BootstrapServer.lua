@@ -44,9 +44,9 @@ CalculateRest = true
 ---@param spellElement string Like fire, lightning, etc I think.
 ---@param storyActionID integer
 function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
-    -- Spell's format will always be like 'SP_Spell_' followed by either the
-    -- GUID of the prey, or 'All'. Probably possible to add some sort of extra
-    -- data to the custom spell, but this is way easier.
+    if string.sub(spell, 1, 3) ~= 'SP_' then
+        return
+    end
     if VoreData[caster] ~= nil then
         if string.sub(spell, 0, 15) == 'SP_Regurgitate_' then
             if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown2") ~= 0 then
@@ -124,6 +124,9 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             cooldown = Osi.Random(cooldown) + ConfigVars.NPCVore.CooldownMin.value
             if voreSpellType == 'Endo' then
                 -- applies cooldown for npcs
+                if VoreData[caster] ~= nil and VoreData[caster].Pred == target then
+                    return
+                end
                 Osi.ApplyStatus(caster, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * cooldown, 1, caster)
                 if Osi.IsItem(target) == 1 then
                     if Osi.GetCanPickUp(target) == 1 then
@@ -146,6 +149,9 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                 end
             elseif voreSpellType == 'Lethal' then
                 -- applies cooldown for npcs
+                if VoreData[caster] ~= nil and VoreData[caster].Pred == target then
+                    return
+                end
                 Osi.ApplyStatus(caster, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * cooldown, 1, caster)
                 if SP_CanFitPrey(caster, target) or ConfigVars.Mechanics.AllowOverstuffing.value then
                     SP_DelayCallTicks(6, function ()
@@ -179,6 +185,10 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         end
         if voreSpellType == 'Me' then
             if Osi.IsTagged(target, "f7265d55-e88e-429e-88df-93f8e41c821c") == 0 then
+                return
+            end
+            if VoreData[caster] ~= nil and VoreData[target] ~= nil and
+                 (VoreData[caster].Pred == target or VoreData[target].Pred == caster) then
                 return
             end
             if SP_CanFitPrey(target, caster) or ConfigVars.Mechanics.AllowOverstuffing.value then
