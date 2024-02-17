@@ -103,6 +103,7 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
     end
 
     VoreData[prey].Pred = pred
+    SP_ApplyOverstuffing(pred)
     -- Now accounts for the size of each prey when determining how many stacks of Stuffed you should get
     return VoreData[prey].StuffedStacks + SP_GetStuffedStacksBySize(preySize)
 end
@@ -182,7 +183,6 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested, swallowStag
     Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
     Osi.AddSpell(pred, 'SP_SwitchToLethal', 0, 0)
     Osi.AddSpell(pred, 'SP_SpeedUpDigestion', 0, 0)
-
 
     SP_UpdateWeight(pred)
     _P('Swallowing END')
@@ -500,7 +500,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
 
     _P("New table: ")
     _D(VoreData)
-
+    
     -- Updates the weight of the pred if the items or prey were regurgitated.
     if #markedForRemoval > 0 or #markedForSwallow > 0 or #markedForErase > 0 or regItems then
         SP_UpdateWeight(pred)
@@ -566,6 +566,9 @@ function SP_UpdateWeight(pred)
     Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
 
     SP_UpdateBelly(pred, newWeightVisual)
+    SP_DelayCallTicks(15, function () 
+        SP_ApplyOverstuffing(pred)
+    end)
 end
 
 --- purely visual updating
@@ -673,12 +676,31 @@ end
 function SP_CanFitItem(pred, item)
     local predData = Ext.Entity.Get(pred)
     local predRoom = predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight
+    if Osi.HasPassive(pred, "SP_BottomlessStomach") == 1 then
+        predRoom = predRoom * 2
+    end
     local itemData = Ext.Entity.Get(item).Data.Weight
     if predRoom > itemData then
         return true
     else
         _P("Can't fit " .. item " inside " .. pred)
         return false
+    end
+end
+
+---Determines how overstuffed a pred is and applies the proper status stacks
+---@param pred CHARACTER
+function SP_ApplyOverstuffing(pred)
+    local mediumCharacterWeight = 75000
+    local predData = Ext.Entity.Get(pred)
+    _P("invweight: " .. predData.InventoryWeight.Weight)
+    _P("Enc: " .. predData.EncumbranceStats["HeavilyEncumberedWeight"])
+    local overStuff = (predData.InventoryWeight.Weight - predData.EncumbranceStats["HeavilyEncumberedWeight"]) / mediumCharacterWeight
+    Osi.RemoveStatus(pred, "SP_OverstuffedDamage")
+    _P("overstuff: " .. overStuff)
+    _P("turns: " .. (overStuff / mediumCharacterWeight * SecondsPerTurn))
+    if overStuff > 0 then
+        Osi.ApplyStatus(pred, "SP_OverstuffedDamage", overStuff * SecondsPerTurn)
     end
 end
 
@@ -717,12 +739,6 @@ function SP_VoreCheck(pred, prey, eventName)
             preyStat = "Acrobatics"
         end
         Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", predStat, preyStat, advantage, 0, eventName)
-    elseif string.sub(eventName, 1, #eventName - 2) == "Bellyport" then
-        _P("Rolling Dex Save to resist Bellyport")
-        --always uses highest stat until I get around to fixing it
-
-        Osi.RequestPassiveRoll(prey, pred, "SavingThrow", "Dexterity", SP_GetSaveDC(pred, 0), 0,
-                               "BellyportSave_" .. string.sub(eventName, #eventName))
     elseif eventName == 'SwallowDownCheck' then
         _P('Rolling to resist secondary swallow')
         if Osi.HasPassive(pred, 'SP_StretchyMaw') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Charmed') == 1 or

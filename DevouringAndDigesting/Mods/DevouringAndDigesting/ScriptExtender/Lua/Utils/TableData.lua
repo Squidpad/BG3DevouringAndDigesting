@@ -127,7 +127,7 @@ ComplexCustomSpells = true
 
 ---a template for a new entry in VoreData
 ---@class VoreDataEntry
----@field Pred string pred of this character
+---@field Pred CHARACTER pred of this character
 ---@field Weight integer weight of this character, only for prey, 0 for preds. This is dynamically changed
 ---@field FixedWeight integer weight of this character, only for prey, 0 for preds. This is stored to keep the track of digestion process
 ---@field WeightReduction integer by how much preys weight was reduced by preds perks
@@ -135,8 +135,8 @@ ComplexCustomSpells = true
 ---@field Digestion integer dygestion types 0 == endo, 1 == dead, 2 == lethal, 3 == none. for prey only
 ---@field DigestItems boolean if the items are being digested
 ---@field Combat string guid of combat character is in
----@field Prey table<string, string> value of the prey is the locus they are in
----@field Items string id of stomach item that contains swallowed items in preds inventory
+---@field Prey table<CHARACTER, string> value of the prey is the locus they are in
+---@field Items GUIDSTRING id of stomach item that contains swallowed items in preds inventory
 ---@field Fat integer For weigth gain, only visually increases the size of belly
 ---@field AddWeight integer AddWeight is reduced at the same rate as normal prey digestion, while Fat uses a separate value
 ---@field SwallowProcess integer this is 0 when the prey is fully swallowed, for prey only
@@ -145,6 +145,7 @@ ComplexCustomSpells = true
 ---@field Swallowed string what swallowed status is appled (prey only)
 ---@field Stuffed string what stuffed status is appled (pred only)
 ---@field StuffedStacks integer number of stuffed stacks
+---@field BellyportTargets table<CHARACTER> table of prey this character has cast a Bellyport spell on
 VoreDataEntry = {
     Pred = "",
     Weight = 0,
@@ -164,4 +165,5 @@ VoreDataEntry = {
     Swallowed = "",
     Stuffed = "",
     StuffedStacks = 0,
+    BellyportTargets = {},
 }

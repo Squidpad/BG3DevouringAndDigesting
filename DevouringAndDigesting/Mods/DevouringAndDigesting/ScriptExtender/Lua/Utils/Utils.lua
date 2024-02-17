@@ -7,6 +7,13 @@ function SP_GetDisplayNameFromGUID(target)
     return Osi.ResolveTranslatedString(Osi.GetDisplayName(target))
 end
 
+---Returns a character's name given it's GUID
+---@param guid GUIDSTRING
+---@return CHARACTER
+function SP_CharacterFromGUID(guid)
+    return string.sub(Osi.GetTemplate(guid), 1, -37) .. guid
+end
+
 ---@param character CHARACTER guid of character
 ---@param stat number stat to get save DC of 1 == Str, 2 == Dex, 3 == Con, 4 == Wis, 5 == Int, 6 == Cha, 0 = Highest
 ---@return DIFFICULTYCLASS guid that corresponds to that DC
@@ -20,7 +27,6 @@ function SP_GetSaveDC(character, stat)
     end
     local highest = 0
     if stat == 0 then
-        
         for i = 1, 6 do
             if entity.Stats.AbilityModifiers[i] > highest then
                 highest = entity.Stats.AbilityModifiers[i]
@@ -28,19 +34,28 @@ function SP_GetSaveDC(character, stat)
         end
     end
     local DC = 8 + total_boosts + entity.Stats.ProficiencyBonus + (highest or entity.Stats.AbilityModifiers[stat])
+    
     return DCTable[DC]
 end
 
 ---Returns character weight + their inventory weight.
----@param character CHARACTER
----@return number
+---@param character CHARACTER character to querey
+---@return number total weight
 function SP_GetTotalCharacterWeight(character)
     local charData = Ext.Entity.Get(character)
-    _P("Total weight of " .. SP_GetDisplayNameFromGUID(character) .. " is " ..
-        (charData.InventoryWeight.Weight + charData.Data.Weight) / 1000 .. " kg")
-    return (charData.InventoryWeight.Weight + charData.Data.Weight) / 1000
+    if charData.InventoryWeight ~= nil then
+        _P("Total weight of " .. SP_GetDisplayNameFromGUID(character) .. " is " ..
+            (charData.InventoryWeight.Weight + charData.Data.Weight) / 1000 .. " kg")
+        return (charData.InventoryWeight.Weight + charData.Data.Weight) / 1000
+    else
+        _P("Total weight of " .. SP_GetDisplayNameFromGUID(character) .. " is " ..
+            charData.Data.Weight / 1000 .. " kg")
+        return charData.Data.Weight / 1000
+    end
 end
 
+---@param character CHARACTER the character to query
+---@return number size of the character
 function SP_GetCharacterSize(character)
     local charData = Ext.Entity.Get(character)
     return charData.ObjectSize.Size
