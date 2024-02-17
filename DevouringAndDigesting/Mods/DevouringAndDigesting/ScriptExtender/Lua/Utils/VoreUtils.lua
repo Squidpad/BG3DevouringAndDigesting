@@ -53,6 +53,7 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
     local predSize = SP_GetCharacterSize(pred)
     local preySize = SP_GetCharacterSize(prey)
     if notNested then
+        Osi.AddSpell(prey, 'SP_ReleaseMe', 0, 0)
         Osi.SetDetached(prey, 1)
         Osi.SetVisible(prey, 0)
 
@@ -443,6 +444,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
             Osi.ClearTag(prey, '7095912e-fcb9-41dd-aec3-3cf7803e4b22')
             VoreData[prey].DisableDowned = false
         end
+        Osi.RemoveSpell(prey, 'SP_ReleaseMe')
         Osi.SetDetached(prey, 0)
         Osi.SetVisible(prey, 1)
         Osi.RemoveStatus(prey, DigestionTypes[VoreData[prey].Digestion], pred)
@@ -469,11 +471,12 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         local statusStacks = 0
         for k, v in pairs(VoreData[pred].Prey) do
             _P(k)
-            local preySize = SP_GetCharacterSize(k) 
+            local preySize = SP_GetCharacterSize(k)
             statusStacks = statusStacks + VoreData[k].StuffedStacks + SP_GetStuffedStacksBySize(preySize)
         end
-        local stuffedStatus = SP_GetStuffedVoreStatus(pred, 1)
-        if VoreData[pred].Items ~= "" and statusStacks == 0 then
+        local stuffedStatus = SP_GetStuffedVoreStatus(pred, statusStacks)
+        if statusStacks == 0 and (VoreData[pred].Items ~= "" or next(VoreData[pred].Prey) ~= nil) then
+            stuffedStatus = SP_GetStuffedVoreStatus(pred, 1)
             VoreData[pred].StuffedStacks = 1
             Osi.ApplyStatus(pred, stuffedStatus, 1 * SecondsPerTurn, 1, pred)
         else
@@ -501,6 +504,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     _P("New table: ")
     _D(VoreData)
 
+    Osi.RemoveStatus(pred, "SP_Cant_Fit_Prey")
     -- Updates the weight of the pred if the items or prey were regurgitated.
     if #markedForRemoval > 0 or #markedForSwallow > 0 or #markedForErase > 0 or regItems then
         SP_UpdateWeight(pred)
@@ -513,6 +517,12 @@ end
 ---Remember to save VoreData after calling this
 ---@param pred CHARACTER
 function SP_UpdateWeight(pred)
+    if VoreData[pred] == nil then
+        Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
+        Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
+        SP_UpdateBelly(pred, 0)
+        return
+    end
     local newWeight = 0
     local newWeightVisual = 0
     -- these will be modified by perks in the future
@@ -555,6 +565,10 @@ function SP_UpdateWeight(pred)
 
     if VoreData[pred].Items ~= "" then
         newWeightVisual = newWeightVisual + Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // 1000
+    end
+
+    if Osi.HasActiveStatus(pred, "SP_BellyCompressed") == 1 then
+        newWeightVisual = 0
     end
 
     _P("Changing weight of " .. pred .. " to " .. newWeightVisual)
@@ -608,10 +622,17 @@ function SP_UpdateBelly(pred, weight)
         _P("Body shape " .. bodyShape .. " does not support bellies")
         return
     end
-
-    -- Clears overrives. Will break if you change bodyshape or race or gender.
-    for k, v in pairs(BellyTable[predRace][sex][bodyShape]) do
-        Osi.RemoveCustomVisualOvirride(pred, v)
+    -- fixes most npcs not having a field that stores visual overrides
+    local predData = Ext.Entity.Get(pred)
+    if predData.CharacterCreationAppearance == nil then
+        predData:CreateComponent("CharacterCreationAppearance")
+    end
+    -- Clears overrides. Changed this so it will remove all belly-related visual overrides, meaning it should not break on polymorph
+    -- need to test ObjectTransformed (I hope that means polymorph)
+    for k, v in pairs(predData.CharacterCreationAppearance.Visuals) do
+        if AllBellies[v] == true then
+            Osi.RemoveCustomVisualOvirride(pred, v)
+        end
     end
 
     local bellySize = 0
@@ -621,11 +642,11 @@ function SP_UpdateBelly(pred, weight)
         end
     end
     -- Delay is necessary, otherwise will not work.
-    SP_DelayCallTicks(2, function ()
-        if bellySize > 0 then
+    if bellySize > 0 then
+        SP_DelayCallTicks(2, function ()
             Osi.AddCustomVisualOverride(pred, BellyTable[predRace][sex][bodyShape][bellySize])
-        end
-    end)
+        end)
+    end
 end
 
 ---Gets the proper number of stuffed stacks based on prey size
@@ -705,8 +726,12 @@ function SP_VoreCheck(pred, prey, eventName)
     elseif string.sub(eventName, 1, #eventName - 2) == 'SwallowLethalCheck' then
         _P('Rolling to resist swallow')
         if Osi.HasPassive(pred, 'SP_StretchyMaw') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Charmed') == 1 or
-            Osi.HasActiveStatusWithGroup(prey, 'SG_Restrained') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Unconscious') == 1 then
+            Osi.HasActiveStatusWithGroup(prey, 'SG_Restrained') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Unconscious') == 1 or
+            Osi.HasActiveStatus(prey, "SP_Tasty") == 1 then
             advantage = 1
+        end
+        if Osi.HasActiveStatus(prey, "SP_Disgusting") == 1 then
+            advantage = 2 - advantage * 2
         end
         local predStat = 'Athletics'
         local preyStat = 'Athletics'
@@ -726,8 +751,12 @@ function SP_VoreCheck(pred, prey, eventName)
     elseif eventName == 'SwallowDownCheck' then
         _P('Rolling to resist secondary swallow')
         if Osi.HasPassive(pred, 'SP_StretchyMaw') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Charmed') == 1 or
-            Osi.HasActiveStatusWithGroup(prey, 'SG_Restrained') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Unconscious') == 1 then
+            Osi.HasActiveStatusWithGroup(prey, 'SG_Restrained') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Unconscious') == 1 or
+            Osi.HasActiveStatus(prey, "SP_Tasty") == 1 then
             advantage = 1
+        end
+        if Osi.HasActiveStatus(prey, "SP_Disgusting") == 1 then
+            advantage = advantage - 1
         end
         local predStat = 'Athletics'
         local preyStat = 'Athletics'
@@ -740,6 +769,12 @@ function SP_VoreCheck(pred, prey, eventName)
             preyStat = "Acrobatics"
         end
         Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", predStat, preyStat, advantage, 0, eventName)
+    elseif eventName == 'ReleaseMeCheck' then
+        _P('Rolling to free me')
+        if VoreData[prey].Digestion == 1 then
+            advantage = 1
+        end
+        Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", "Wisdom", "Charisma", advantage, 0, eventName)
     end
 end
 
@@ -975,8 +1010,53 @@ function SP_PlayGurgle(pred)
     basePercentage = 100 * #GurgleSounds // basePercentage
     local randomResult = Osi.Random(basePercentage) + 1
     if randomResult <= #GurgleSounds then
-        _P("Gurgle random result " .. randomResult)
         Osi.PlaySound(pred, GurgleSounds[randomResult])
+    end
+end
+
+---@param character CHARACTER
+function SP_AssignRoleRandom(character)
+    if Osi.HasPassive(character, "SP_BlockGluttony") == 1 or Osi.HasPassive(character, "SP_Gluttony") == 1 then
+        return
+    end
+    if Ext.Entity.Get(character).ServerCharacter.Temporary == true then
+        Osi.AddPassive(character, "SP_BlockGluttony")
+        return
+    end
+    local race = Osi.GetRace(character, 0)
+    if RACE_TABLE[race] == nil then
+        _P("Race not supported " .. race)
+        Osi.AddPassive(character, "SP_BlockGluttony")
+        return
+    end
+    local selectedPobability = 0
+    if RACE_TABLE[race] == nil then
+        selectedPobability = 0
+    elseif SINGLE_GENDER_CREATURE[race] == true then
+        selectedPobability = ConfigVars.NPCVore.ProbabilityCreature.value * RACE_TABLE[race] // 100
+    elseif Osi.GetBodyType(character, 0) == "Female" then
+        selectedPobability = ConfigVars.NPCVore.ProbabilityFemale.value * RACE_TABLE[race] // 100
+    elseif Osi.GetBodyType(character, 0) == "Male" then
+        selectedPobability = ConfigVars.NPCVore.ProbabilityMale.value * RACE_TABLE[race] // 100
+    end
+
+    if PRED_NPC_TABLE[character] ~= nil and (selectedPobability > 0 or ConfigVars.NPCVore.SpecialNPCsOverridePreferences.value) then
+        Osi.AddPassive(character, "SP_Gluttony")
+    elseif selectedPobability > 0 then
+        local size = SP_GetCharacterSize(character)
+        if size == 0 then
+            return
+        end
+        local randomRoll = Osi.Random(100) + 1
+        _P(randomRoll)
+        _P(selectedPobability)
+        if randomRoll <= selectedPobability then
+            _P("Adding PRED to " .. character)
+            Osi.AddPassive(character, "SP_Gluttony")
+        else
+            _P("Adding PREY to " .. character)
+            Osi.AddPassive(character, "SP_BlockGluttony")
+        end
     end
 end
 

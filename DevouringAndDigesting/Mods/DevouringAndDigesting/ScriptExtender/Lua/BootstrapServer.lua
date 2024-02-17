@@ -26,6 +26,7 @@ Ext.Require("Utils/Config.lua")
 Ext.Require("Utils/Migrations/ConfigMigrations.lua")
 Ext.Require("Utils/Migrations/PersistentVarsMigrations.lua")
 Ext.Require("Utils/TableData.lua")
+Ext.Require("Utils/RaceTable.lua")
 
 
 Ext.Vars.RegisterModVariable(ModuleUUID, "ModVoreData", {})
@@ -84,6 +85,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                     end
                 end
             end
+        -- deal small amount of damage to prey
         elseif spell == 'SP_SpeedUpDigestion' then
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
@@ -91,6 +93,12 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                         Osi.ApplyStatus(k, 'SP_SpeedUpDigestion_Status', 0, 1, caster)
                     end
                 end
+            end
+        -- ask pred to release me
+        elseif spell == 'SP_ReleaseMe' then
+            if VoreData[caster].Pred ~= nil then
+                --SP_RegurgitatePrey(VoreData[caster].Pred, caster, 0)
+                SP_VoreCheck(VoreData[caster].Pred, caster, "ReleaseMeCheck")
             end
         end
     end
@@ -104,11 +112,19 @@ end
 ---@param spellElement? string Like fire, lightning, etc I think.
 ---@param storyActionID? integer
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
+    if string.sub(spell, 1, 3) ~= 'SP_' then
+        return
+    end
     local voreSpellType, voreLocus = SP_GetSpellParams(spell)
     if voreSpellType ~= nil then
         _P("voreSpellType: " .. voreSpellType .. "  voreLocus: " .. voreLocus)
         if Osi.HasPassive(target, "SP_Inedible") == 0 then
+            -- calculates cooldown for npcs
+            local cooldown = ConfigVars.NPCVore.CooldownMax.value - ConfigVars.NPCVore.CooldownMin.value + 1
+            cooldown = Osi.Random(cooldown) + ConfigVars.NPCVore.CooldownMin.value
             if voreSpellType == 'Endo' then
+                -- applies cooldown for npcs
+                Osi.ApplyStatus(caster, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * cooldown, 1, caster)
                 if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown") ~= 0 then
                     return
                 end
@@ -119,7 +135,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                                 SP_SwallowItem(caster, target)
                             end)
                         else
-                            Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
+                            Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", SecondsPerTurn * 6, 1, target)
                         end
                     end
                 else
@@ -128,10 +144,12 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                             SP_SwallowPrey(caster, target, 0, true, true, voreLocus)
                         end)
                     else
-                        Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
+                        Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", SecondsPerTurn * 6, 1, target)
                     end
                 end
             elseif voreSpellType == 'Lethal' then
+                -- applies cooldown for npcs
+                Osi.ApplyStatus(caster, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * cooldown, 1, caster)
                 if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown") ~= 0 then
                     return
                 end
@@ -140,9 +158,11 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                         SP_VoreCheck(caster, target, "SwallowLethalCheck_" .. voreLocus)
                     end)
                 else
-                    Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
+                    Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", SecondsPerTurn * 6, 1, target)
                 end
             elseif voreSpellType == 'Bellyport' then
+                -- applies cooldown for npcs
+                Osi.ApplyStatus(caster, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * cooldown, 1, caster)
                 if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown") ~= 0 then
                     return
                 end
@@ -151,11 +171,14 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                         SP_VoreCheck(caster, target, "Bellyport_" .. voreLocus)
                     end)
                 else
-                    Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", 1, 1, target)
+                    Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", SecondsPerTurn * 6, 1, target)
                 end
             end
         end
         if voreSpellType == 'Me' then
+            if Osi.IsTagged(target, "f7265d55-e88e-429e-88df-93f8e41c821c") == 0 then
+                return
+            end
             if SP_CanFitPrey(target, caster) then
                 if Osi.IsAlly(caster, target) == 1 then
                     SP_DelayCallTicks(12, function ()
@@ -168,7 +191,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                 end
             end
         end
-    elseif string.sub(spell, 1, 3) == 'SP_' then
+    else
         if spell == 'SP_Target_Massage_Pred' then
             if VoreData[target] ~= nil then
                 Osi.RemoveStatus(target, 'SP_Indigestion')
@@ -177,6 +200,25 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                         Osi.ApplyStatus(k, 'SP_MassageAcid', 0, 1, target)
                     end
                 end
+            end
+        elseif spell == 'SP_AssignNPCPred' then
+            _P(target)
+            if Osi.HasPassive(target, "SP_BlockGluttony") == 1 then
+                _P("Was prey")
+                Osi.RemovePassive(target, "SP_BlockGluttony")
+            end
+            if Ext.Entity.Get(target).ServerCharacter.Temporary == false then
+                Osi.AddPassive(target, "SP_Gluttony")
+            end
+            -- Osi.SetRelationTemporaryHostile(target, caster)
+        elseif spell == 'SP_AssignNPCPrey' then
+            _P(target)
+            if Osi.HasPassive(target, "SP_Gluttony") == 1 then
+                _P("Was predator")
+                Osi.RemovePassive(target, "SP_Gluttony")
+            end
+            if Ext.Entity.Get(target).ServerCharacter.Temporary == false then
+                Osi.AddPassive(target, "SP_BlockGluttony")
             end
         end
     end
@@ -259,6 +301,11 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
             end
             SP_RegurgitatePrey(roller, rollSubject, -1)
         end
+    elseif eventName == "ReleaseMeCheck" then
+        if resultType == 0 and VoreData[roller] ~= nil and VoreData[rollSubject] ~= nil then
+            -- add animation here
+            SP_RegurgitatePrey(roller, "All", 0, "", VoreData[rollSubject].Locus)
+        end
     end
 end
 
@@ -268,8 +315,8 @@ function SP_DigestItem(pred)
     if not ConfigVars.Digestion.DigestItems.value then
         return
     end
-    -- the chance of an item being digested is 1/3 per Digestion tick
-    if VoreData[pred].Items == nil and Osi.Random(3) ~= 1 then
+    -- the chance of an item being digested is 1/10 per Digestion tick
+    if VoreData[pred].Items == nil and Osi.Random(10) ~= 1 then
         return
     end
 
@@ -298,6 +345,9 @@ end
 ---@param causee GUIDSTRING Thing that caused status to be applied.
 ---@param storyActionID? integer
 function SP_OnStatusApplied(object, status, causee, storyActionID)
+    if string.sub(status, 1, 3) ~= 'SP_' then
+        return
+    end
     if status == 'SP_Digesting' then
         --Randomly start digesting prey because of hunger
         local lethalRandomSwitch = false
@@ -318,9 +368,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
             end
         end
         for k, v in pairs(VoreData[object].Prey) do
-            --local predData = Ext.Entity.Get(object).Transform.Transform.Translate
             if VoreData[k].Digestion ~= 1 and (ConfigVars.Debug.TeleportPrey.value == true or VoreData[k].Combat ~= "") then
-                -- I have no idea how to teleport prey to the exact same position as pred, not just near them
                 local predX, predY, predZ = Osi.GetPosition(object)
                 Osi.TeleportToPosition(k, predX, predY, predZ, "", 0, 0, 0, 0, 0)
             end
@@ -335,19 +383,11 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         if VoreData[object].DigestItems and VoreData[object].Items ~= "" then
             SP_DigestItem(object)
         end
-        -- elseif status == "SP_Pacifist_Applicator" then
-        --     _P("Applied " .. status .. " Status to " .. object .. " and the causee was " .. causee)
-        --     SP_DelayCallTicks(10, function()
-        --         if VoreData[causee] ~= nil and next(VoreData[causee].Prey) ~= nil then
-        --             for prey, _ in pairs(VoreData[causee].Prey) do
-        --                 Osi.ApplyStatus(prey, "SP_Pacifist", -1, 1, object)
-        --             end
-        --         end
-        --     end
-        --     )
+
         SP_PlayGurgle(object)
-    elseif status == 'SP_Item_Bound' then
-        _P("Applied " .. status .. " Status to " .. object)
+    --add random role to characters around host
+    elseif status == "SP_ROLESELECTOR_AURA" then
+        SP_AssignRoleRandom(object)
     elseif status == 'SP_Struggle' then
         _P("Applied " .. status .. " Status to " .. object .. " and the causee was " .. causee)
         if Osi.HasPassive(VoreData[object].Pred, 'SP_BoilingInsides') == 1 then
@@ -375,6 +415,22 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
             end)
         else
             Osi.ApplyStatus(causee, "SP_Cant_Fit_Prey", 1, 1, object)
+        end
+    elseif status == 'SP_BellySlamStatus' then
+        -- causee is a uuid not a guidstring so we need to convert it
+        local pred = ""
+        for k, v in pairs(VoreData) do
+            if string.sub(k, -36) == causee then
+                pred = k
+            end
+        end
+        if pred ~= "" then
+            local damagea = (Osi.Random(8) + 1) * VoreData[pred].StuffedStacks * (Osi.GetLevel(pred) // 5 + 1)
+            Osi.ApplyDamage(object, damagea, "Bludgeoning", pred)
+        end
+    elseif status == 'SP_BellyCompressed' then
+        if VoreData[object] ~= nil then
+            SP_UpdateWeight(object)
         end
     end
 end
@@ -430,6 +486,12 @@ function SP_ItemUsed(character, item, success)
                 Osi.AddPassive(character, "SP_HasDebugSpells")
             else
                 Osi.RemovePassive(character, "SP_HasDebugSpells")
+            end
+        elseif template == 'SP_PotionOfAssign_b8d700d0-681f-4c38-b444-fe69b361d9b3' then
+            if Osi.HasPassive(character, "SP_Assigner") == 0 then
+                Osi.AddPassive(character, "SP_Assigner")
+            else
+                Osi.RemovePassive(character, "SP_Assigner")
             end
         end
     end
@@ -593,11 +655,6 @@ function SP_OnShortRest(character)
     if CalculateRest == false then
         return
     end
-    for k, v in pairs(VoreData) do
-        if next(v.Prey) ~= nil then
-            Osi.RemoveStatus(k, "SP_Indigestion")
-        end
-    end
     CalculateRest = false
     _P('SP_OnShortRest')
     SP_SlowDigestion(ConfigVars.Digestion.DigestionRateShort.value, ConfigVars.WeightGain.WeightLossShort.value)
@@ -614,14 +671,22 @@ end
 ---Fires once after long rest.
 function SP_OnLongRest()
     _P('SP_OnLongRest')
-    for k, v in pairs(VoreData) do
-        if next(v.Prey) ~= nil then
-            Osi.RemoveStatus(k, "SP_Indigestion")
-        end
-    end
     SP_SlowDigestion(ConfigVars.Digestion.DigestionRateLong.value, ConfigVars.WeightGain.WeightLossLong.value)
 
     SP_HungerSystem(ConfigVars.Hunger.HungerLong.value, true)
+
+    SP_DelayCallTicks(15, function ()
+        for k, v in pairs(VoreData) do
+            -- makes npcs release their prey if they are digested or endoed (with a random chance)
+            if next(v.Prey) ~= nil and Osi.IsPlayer(k) == 0 then
+                if Osi.Random(2) == 1 then
+                    SP_RegurgitatePrey(k, "All", 10, "Rest")
+                else
+                    SP_RegurgitatePrey(k, "All", 1, "Rest")
+                end
+            end
+        end
+    end)
     _D(VoreData)
 end
 
@@ -717,6 +782,7 @@ end
 
 function SP_OnLevelLoaded(level)
     SP_CheckVoreData()
+    Osi.ApplyStatus(Osi.GetHostCharacter(), "SP_ROLESELECTOR", -1)
 end
 
 ---Runs when reset command is sent to console.
@@ -794,14 +860,15 @@ end
 -- gives player all usable items from mod (to avoid using SummonTutorialChest)
 function SP_GiveMeVore()
     local player = Osi.GetHostCharacter()
-    Osi.TemplateAddTo('91cb93c0-0e07-4b3a-a1e9-a836585146a9', player, 1)
-    Osi.TemplateAddTo('04987160-cb88-4d3e-b219-1843e5253d51', player, 1)
-    Osi.TemplateAddTo('f3914e54-2c48-426a-a338-8e1c86ebc7be', player, 1)
-    Osi.TemplateAddTo('92067c3c-547e-4451-9377-632391702de9', player, 1)
-    Osi.TemplateAddTo('04cbdeb4-a98e-44cd-b032-972df0ba3ca1', player, 1)
-    Osi.TemplateAddTo('69d2df14-6d8a-4f94-92b5-cc48bc60f132', player, 1)
-    Osi.TemplateAddTo('02ee5321-7bcd-4712-ba06-89eb1850c2e4', player, 1)
-    Osi.TemplateAddTo('319379c2-3627-4c26-b14d-3ce8abb676c3', player, 1)
+    Osi.TemplateAddTo('b8d700d0-681f-4c38-b444-fe69b361d9b3', player, 1)
+    -- Osi.TemplateAddTo('91cb93c0-0e07-4b3a-a1e9-a836585146a9', player, 1)
+    -- Osi.TemplateAddTo('04987160-cb88-4d3e-b219-1843e5253d51', player, 1)
+    -- Osi.TemplateAddTo('f3914e54-2c48-426a-a338-8e1c86ebc7be', player, 1)
+    -- Osi.TemplateAddTo('92067c3c-547e-4451-9377-632391702de9', player, 1)
+    -- Osi.TemplateAddTo('04cbdeb4-a98e-44cd-b032-972df0ba3ca1', player, 1)
+    -- Osi.TemplateAddTo('69d2df14-6d8a-4f94-92b5-cc48bc60f132', player, 1)
+    -- Osi.TemplateAddTo('02ee5321-7bcd-4712-ba06-89eb1850c2e4', player, 1)
+    -- Osi.TemplateAddTo('319379c2-3627-4c26-b14d-3ce8abb676c3', player, 1)
 end
 
 function SP_DebugVore()

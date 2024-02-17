@@ -3,12 +3,12 @@
 	<version major="4" minor="0" revision="6" build="3" lslib_meta="v1,bswap_guids" />
 	<region id="Tags">
 		<node id="Tags">
-			<attribute id="Description" type="LSString" value="Unable to be eaten" />
-			<attribute id="DisplayDescription" type="TranslatedString" handle="hfd1c72cfgab58g4dc3ga3b8g2bf778663e5c" version="1" />
-			<attribute id="DisplayName" type="TranslatedString" handle="he6914aa5gebe2g496cg98b4g296f00a86432" version="3" />
+			<attribute id="Description" type="LSString" value="This character is not a predator" />
+			<attribute id="DisplayDescription" type="TranslatedString" handle="hfbcbe22ag4328g4d22gb5dfgea5446f427dc" version="1" />
+			<attribute id="DisplayName" type="TranslatedString" handle="h2cf78240g5555g4570g8584g50248646a9b6" version="1" />
 			<attribute id="Icon" type="FixedString" value="" />
-			<attribute id="Name" type="FixedString" value="Inedible" />
-			<attribute id="UUID" type="guid" value="dd1f4e71-8382-4a5d-8134-9d1a166c8684" />
+			<attribute id="Name" type="FixedString" value="NOTPRED" />
+			<attribute id="UUID" type="guid" value="1d094e39-a50a-4315-8bf3-1c67e498291a" />
 			<children>
 				<node id="Categories">
 					<children>
@@ -23,9 +23,6 @@
 						</node>
 						<node id="Category">
 							<attribute id="Name" type="LSString" value="PlayerRace" />
-						</node>
-						<node id="Category">
-							<attribute id="Name" type="LSString" value="CharacterSheet" />
 						</node>
 					</children>
 				</node>

@@ -2,7 +2,7 @@
 <contentList>
 	<content contentuid="IAmLazy" version="1">[1]</content>
 	<content contentuid="h086643dege15eg42acga7c3gc0f596312163" version="1">Devouring and Digesting</content>
-
+	<!-- Config messages -->
 	<content contentuid="haff912c3gf2afg4723ga736gf534cb4f5352" version="1">Old version config detected.</content>
 	<content contentuid="h35ebd26bg84c7g4efag8be1gefde311b9f2e" version="1">Newer config version detected.</content>
 	<content contentuid="h035645a0g5808g4618ga1b6g0e23a8ecb0ab" version="1">Invalid config version detected.</content>
@@ -11,12 +11,12 @@
 	<content contentuid="h31c7c480g72c9g44ebg9b2eg80f5f0f9e78d" version="1">Default config has been loaded.</content>
 	<content contentuid="h86742a8fga59cg4597g8b7dg30e4788a1ed0" version="1">Your config has been reset.</content>
 	<content contentuid="h79032db6g7469g4f1cgaca2g743d89c7b335" version="1">Type !VoreConfigReset in the console or&#x3C;br&#x3E;delete your config manually to reset your config&#x3C;br&#x3E;and stop this popup from appearing.</content>
-
+	<!-- loot -->
+	<content contentuid="hc5942267gf430g4ea1g8cefg256f1fa726a5" version="1">Potion of Role Selection</content>
+	<content contentuid="hc0531247g62e4g42fagaf57g9e5cf2ca1ddd" version="1">Allows you to give or take predator abilities from others.</content>
 	<content contentuid="hbe2ba459gfae6g4b2egb8abg734abbbf8f93" version="1">Have fun cheating, I guess</content>
 	<content contentuid="hf92a001fg38bag4cb0g9d15ga1e654e59105" version="1">Ring of Debuging</content>
 	<content contentuid="h02748ea0gac19g438cgad0bg6cd6567cddc9" version="1">Debug</content>
-	<content contentuid="h86f0551cg30cag4d85g962fgb14dfd2a29b2" version="1">Predator</content>
-	<content contentuid="hdb8de1d1g2aceg4e07g89dag0793dc76a8a4" version="1">You possess the ability to swallow creatures far larger than your body would betray. While not apparent at a glance, in you lies a hunger that frightens you as much as it excites you.</content>
 	<content contentuid="h7e60efadgd577g4416gba59gc4a6ffbe7104" version="1">You can swallow other creatures whole.. but now you're so hungry...</content>
 	<content contentuid="h87505252g0da0g4b0ag9537ga89b6438fee3" version="1">Smells acidic... You're not sure you should drink it...</content>	
 	<content contentuid="h1f2c5352g0e6cg4fa6g90ebg9233255c69c1" version="1">Grants you the ability to swallow your foes whole.</content>
@@ -33,7 +33,6 @@
 	<content contentuid="h69d8d005gecc9g4f76g9a44g6bc3c09a44b0" version="1">One swig and you're good to go.</content>
 	<content contentuid="ha2dde9a2g161fg4bdfg863fg02bd8cccb804" version="1">Renders you unable to be eaten by others.</content>
 	<content contentuid="haa3e796cg6a8ag4717g87e6g05ae98388598" version="1">Potion of Inedibility</content>
-	<content contentuid="he6914aa5gebe2g496cg98b4g296f00a86432" version="1">Inedible</content>
 	<content contentuid="ha01b4fb5g490bg4b15g9427g2050400752a4" version="1">Swallow Whole</content>
 	<content contentuid="hd857482fg8c34g46edg992fg50f4dd202c4d" version="1">Swallow Whole (Oral)</content>
 	<content contentuid="h3297cb60gf5deg4cdbga791g01a2201377fc" version="1">Swallow Whole (Anal)</content>
@@ -58,7 +57,7 @@
 	<content contentuid="hb5147271ge34ag4d48gb7c8g59005d458e26" version="1">Cock Vore</content>
 
 	<content contentuid="ha1dd02f2gbf31g4974g97adgd6ed92875d6e" version="1">Flex belly</content>
-	<content contentuid="habd5cd92g8c6ag4d0fg8285g2ee8d844db9a" version="1">Flex and massage your belly, causing every lethally swallowed prey to take [1].</content>
+	<content contentuid="habd5cd92g8c6ag4d0fg8285g2ee8d844db9a" version="1">Flex and massage your belly, causing every lethally swallowed prey to take [1] and [2].</content>
 
 	<content contentuid="hde5b3914gbda1g436cga5eeg8b3a99a72351" version="1">Disposal</content>
 	<content contentuid="h9e865451g0c75g453cg98b6g51bb45be5445" version="1">Releases all of your fully digested or anally swallowed prey.</content>
@@ -133,19 +132,27 @@
 	<content contentuid="h88caf937g86ccg4125ga9e7gde32a7d0353c" version="1">Continue swallow your prey down your throat. If you don't swallow them in time, they will escape!</content>
 	<content contentuid="h40b866b2g6abdg4ed3g80f6gf0ace9e1bc50" version="1">Being Swallowed!</content>
 	<content contentuid="hbfda4247g1115g43a6g91aeg39418c9a494c" version="1">You are being swallowed by the pred!</content>
-	<content contentuid="ha1bbbf43g48f2g4a14ga251gde36ebbb3389" version="1">Peckish</content>
-	<content contentuid="hb59a20b1g0791g4c26gbef0g231a70a33377" version="1">You are feeling slightly hungry. Your wisdom and constitution are reduced by [1]. There is a low chance you will randomly start digesting your prey.</content>
-	<content contentuid="he3aaea57gf32fg4ec8g8900g552b14e0af9f" version="1">Hunger</content>
-	<content contentuid="h9f188535g52b4g446ag922dg10fe5b2d7a8e" version="1">Hungry</content>
-	<content contentuid="h2dfdb9e9ge9ddg490egb5eeg0d7e4ca4185e" version="1">You feel hungry. Your wisdom, constitution, strength are reduced by [1]. There is a medium chance you will randomly start digesting your endo prey.</content>
-	<content contentuid="hfbe41265gd387g4f0fg8a20g5108107a06f3" version="1">Starving</content>
-	<content contentuid="h5df1346dg35d3g491fg986bg1908d7721936" version="1">You are starving. Your wisdom, constitution, strength, intelligence are reduced by [1]. You can no longer keep your stomach acids at bay, all endo attemts will result in lethal vore.</content>
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Eat Me!</content>
 	<content contentuid="he0c7df65gf5deg44b6g9763g3e4ebf1b3295" version="1">Eat Me! (Oral)</content>
 	<content contentuid="h738f1a2cg1c9fg4f34g9828g71beb077b9d1" version="1">Eat Me! (Anal)</content>
 	<content contentuid="h793bdcefg70a5g4026g99eag34dfd61107c5" version="1">Eat Me! (Unbirth)</content>
 	<content contentuid="h8f30f6c5g11d1g4a6dgaab6geed24ad0cba1" version="1">Eat Me! (Cock)</content>
-	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Shove yourself down a character's throat. It's up to them whether to digest you or net.</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Shove yourself down a character's throat. It's up to them whether to digest you or not.</content>
+	<!-- Core Statuses -->
+	<content contentuid="he3aaea57gf32fg4ec8g8900g552b14e0af9f" version="1">Hunger</content>
+	<content contentuid="ha1bbbf43g48f2g4a14ga251gde36ebbb3389" version="1">Peckish</content>
+	<content contentuid="hb59a20b1g0791g4c26gbef0g231a70a33377" version="1">You are feeling slightly hungry. Your wisdom and constitution are reduced by [1]. There is a low chance you will randomly start digesting your prey.</content>
+	<content contentuid="h9f188535g52b4g446ag922dg10fe5b2d7a8e" version="1">Hungry</content>
+	<content contentuid="h2dfdb9e9ge9ddg490egb5eeg0d7e4ca4185e" version="1">You feel hungry. Your wisdom, constitution, strength are reduced by [1]. There is a medium chance you will randomly start digesting your endo prey.</content>
+	<content contentuid="hfbe41265gd387g4f0fg8a20g5108107a06f3" version="1">Starving</content>
+	<content contentuid="h5df1346dg35d3g491fg986bg1908d7721936" version="1">You are starving. Your wisdom, constitution, strength, intelligence are reduced by [1]. You can no longer keep your stomach acids at bay, all endo attemts will result in lethal vore.</content>
+	<!-- Tags -->
+	<content contentuid="h86f0551cg30cag4d85g962fgb14dfd2a29b2" version="1">Predator</content>
+	<content contentuid="hdb8de1d1g2aceg4e07g89dag0793dc76a8a4" version="1">You possess the ability to swallow creatures far larger than your body would betray. While not apparent at a glance, in you lies a hunger that frightens you as much as it excites you.</content>
+	<content contentuid="h2cf78240g5555g4570g8584g50248646a9b6" version="1">Prey</content>
+	<content contentuid="hfbcbe22ag4328g4d22gb5dfgea5446f427dc" version="1">You do not possess the ability to swallow others whole.</content>
+	<content contentuid="he6914aa5gebe2g496cg98b4g296f00a86432" version="1">Inedible</content>
+	<content contentuid="hfd1c72cfgab58g4dc3ga3b8g2bf778663e5c" version="1">Predators are unable to be devour you.</content>
 	<!-- pred subclass features-->
 	<content contentuid="h9082f1a2g5c36g446egb3ceg32b71e80729a" version="1">Stomach Sentinel</content>
 	<content contentuid="h76e18109gbc38g449dga82bgb7950d911b00" version="1">Protect your allies safe inside of you.</content>
@@ -157,7 +164,7 @@
 	<content contentuid="h1ddddec9g2043g4b06gb997g2970d3a1cdab" version="1">Allies inside of you are effectively weightless.</content>
 	<content contentuid="h2091a042g700eg49b4ga508g4449d010ac0b" version="1">Strength From Many</content>
 	<content contentuid="h7d411dcfg2d65g403cg9d34ga633f1fd265e" version="1">Gain a +2 to Strength and Constitution for each ally you have swallowed.</content>
-	<!-- pred feats (none are implemented rn) -->
+	<!-- pred feats -->
 	<content contentuid="h54388124gd369g4a55gb75dg89cf37ad12e2" version="1">Bottomless Stomach</content>
 	<content contentuid="h3becb8d4gbb8cg40b4g9384gc7b70bc1e34a" version="1">Doubles your stomach capacity. Gain the ability to perform Anal Vore.</content>
 	<content contentuid="hcf77ee75gda7fg425dg8e40gc73ced72981d" version="1">Boiling Insides</content>
@@ -166,13 +173,13 @@
 	<content contentuid="hb6575320g69a5g4366gb0bbg32ea27d17eff" version="1">All damage dealt to you by creatures in your stomach is halved. You gain advantage against the struggles of your prey.</content>
 	<content contentuid="h1aaf187ag5c9cg4f1cga013g294543b2e470" version="1">Musclegut</content>
 	<content contentuid="hd528fec9g01b9g4dcbgb2b6g406740be0ad3" version="1">You do not suffer negative consequences from being stuffed, regardless of prey amount. When you have 3 or more prey inside, you gain advantage on intimidation, 1 AC, and 2 damage reduction from all sources .</content>
-	<content contentuid="hf451da9cgbc97g464agb95cg4ead7bb1e6ec" version="1">Muscle control</content>
+	<content contentuid="hf451da9cgbc97g464agb95cg4ead7bb1e6ec" version="1">Comfortable Embrace</content>
 	<content contentuid="hd4bb28a5g97e3g40ecg89eeg454d8797b456" version="1">Endoed prey are not blinded and can use spells. You do not break concentration of willing prey when you swallow them.</content>
-	<content contentuid="h51e3b020g60c6g4345g8afcgf0442a6ebc02" version="1">Stretchy maw</content>
+	<content contentuid="h51e3b020g60c6g4345g8afcgf0442a6ebc02" version="1">Stretchy Maw</content>
 	<content contentuid="hb0d6a564g4ba4g46adga24eg2baf1ae14c34" version="1">You gain advantage for swallowing prey.</content>
 	<content contentuid="hd145f6fdga2b6g4a82gb482gd88b8a301198" version="1">Soothing Stomach</content>
 	<content contentuid="he2f6ce79g4621g48b0gbcdcgb7d012537e79" version="1">Your hunger is satisfied by resting with a prey inside your stomach. You can digest lethally-swallowed prey and keep an endoed swallow prey safe at the same time. Gain the ability to perform Unbirth.</content>
-	<!-- prey feats (none are implemented rn) -->
+	<!-- prey feats -->
 	<content contentuid="h3d2dc720g5db6g41ccg9b1ag13c6e6478896" version="1">Escape Artist</content>
 	<content contentuid="he0b69c0agb8e5g47e4g8079g11ff0073a272" version="1">You gain advantage when struggling and you are not knocked Prone when regurgitated. Gain resistance to damage dealt by acid.</content>
 	<content contentuid="hdb90bba1g351bg4783g8063g4db2e1f2ba44" version="1">Gastronaut</content>
@@ -183,7 +190,63 @@
 	<content contentuid="h00871744gf7a5g451fgbc07g50a4b7dc7c95" version="1">Once per long rest you can massage the belly of a pred, and all the lethal vored prey inside the pred will immediately take digestion damage and pred's indigestion will be reduced to zero.</content>
 	<content contentuid="h26dea810g635cg4374g9ea5g8581be0dafef" version="1">Belly Diver</content>
 	<content contentuid="hc2117ed5g08e3g4d36g90begf39608de3b23" version="1">You are not restrained or blinded when swallowed by any pred. Gain the advantage against your pred.</content>
-	<!-- spells -->
+	<!-- feat spells -->
 	<content contentuid="h7a52537ag16c5g4c5cga0fcg2662cec801f0" version="1">Help pred</content>
 	<content contentuid="h382787b6gcbe6g4c45gbd60g11e2342007ce" version="1">Massage belly</content>
+	<!-- utility spells-->
+	<content contentuid="hffb97084g8a45g45acgadd6g7e96b4b9f2d2" version="1">Assign a role</content>
+	<content contentuid="hb1ba345cgefadg48ddg893fgc8b3c85c9ccd" version="1">Turns a character into a predator or prey.</content>
+	<content contentuid="hb01a577dg712fg4d21gb1bbg22a190105732" version="1">Make Predator</content>
+	<content contentuid="h2493c23egb50dg4e70g9cafgbf6338badd57" version="1">Make Prey</content>
+	<content contentuid="hd610e037g5016g4229g9f47gaab4bb3176fd" version="1">Ask to release</content>
+	<content contentuid="h8f7f9e25g8784g4382g8f22g9cd8ed3dbe36" version="1">Ask your predator to release you.</content>
+	<!-- Cantrips -->
+	<content contentuid="he02600d0g524fg4be2gb43eg93622af33b63" version="1">Lick</content>
+	<content contentuid="h69c5ce17gb38bg42c8g9c0eg5d9575cd0077" version="1">You attempt to whet your appetite on the taste of a nearby creature. On a hit, the target takes [1]. For the next 2 turns the Swallow attempts you make against the target are made with Advantage.</content>
+	<content contentuid="h8b961defg7decg45b8g848bg05e1d75b4fcf" version="1">Belly slam</content>
+	<content contentuid="h2bccdd7cgd729g4a23gbb0ag3af33d061575" version="1">You slam your belly into a character, dealing [1] that increases with the amount of stuffed stacks you have.</content>
+	<content contentuid="h4bb3ac0dg6893g45d4ga44cg9df6516a062b" version="1">Flavour/Disgust</content>
+	<content contentuid="h9fa0e47eg5ce9g4035g9278g27c9e9ecdaf4" version="1">You point at a creature within range, altering it's natural flavor.</content>
+	<content contentuid="hb171b1f5g4bcdg46b7g90b9gb059230f5a99" version="1">Flavour</content>
+	<content contentuid="h504a1a99g4c3bg4888gb40fg20aa5da93ece" version="1">A creature of your choice within range becomes irresistably delicious to any predator. That creature has Disadvantage on checks to avoid being Swallowed.</content>
+	<content contentuid="h01ed8bdeg11f5g44f8g808eg58bc71ad81cb" version="1">Disgust</content>
+	<content contentuid="h10b8e129g6c89g47f8ga159g6284ffd084a6" version="1">A creature of your choice within range becomes disgusting in flavor to any predator. That creature has Advantage on checks to avoid being Swallowed.</content>
+	<content contentuid="h352fc061gc05eg417ag82fcg3316fd9c4e75" version="1">Burping</content>
+	<content contentuid="hf465d23bg4324g4eebg81f6g7d6c7c51465a" version="1">You may only cast this spell if you contain at least 1 prey in your stomach. You emanate a thunderous burp in front of you. Each creature within range must make a Constitution saving throw or take [1]</content>
+	<content contentuid="h097848a4g9417g48e4gb2b7g14a5dc4e1cc7" version="1">Unsolvent Flesh</content>
+	<content contentuid="had5b7526gb25cg484fg8105gc614f7d283d8" version="1">You briefly turn your skin into a smooth, acid resistant shell, gaining resistance to Acid damage for 2 turns.</content>
+	<!-- Spellbook spells -->
+	<content contentuid="h86ddd764gf46eg46afgb2f0g63e044b737a4" version="1">Compress</content>
+	<content contentuid="h31aaefc3gb352g4773g9502gd4170b1dc44c" version="1">You touch one target creature with a creature inside of them. Their body compresses itself until it appears that they have no creatures inside of them.</content>
+	<content contentuid="hf45e56e3g4370g49a7g8ea2gd0877db3edaa" version="1">Frog's Tongue</content>
+	<content contentuid="h7c8cb1adg00ecg43bcg826ag78afe85dfcd9" version="1">Your tongue flies out like a whip, entangling and dragging a creature towards you. A creature in range must make a Strength Saving throw or be pulled up closer to the spellcaster. If the creature is moved within your melee range, you automatically make an attempt to swallow it.</content>
+	<content contentuid="hf3d9c0fcg3c63g4fa1g807cga054d4e8d0ad" version="1">Ravenous</content>
+	<content contentuid="heef31140gf100g4975g9e62g2bc58d3f6d21" version="1">You choose a creature, fooling their body into thinking that they are starving. For the duration of the spell, they have advantage on all checks made to grapple or devour another creature.</content>
+	<content contentuid="hb8a604bbg33aeg4fa3gaa3ag59f47c7d41a7" version="1">Rescue</content>
+	<content contentuid="h5335979fgbaecg4d6cg90d3gb43ab518caaf" version="1">You swiftly whisk a friendly creature out of harms way, depositing them in a safe place. Select a second creature within range; the first creature is teleported into their stomach, and gains immunity to acid damage for the next 10 turns.</content>
+	<content contentuid="h1e65f379g5ea1g4b42g9c3eg15e79a0cbb08" version="1">Acidify</content>
+	<content contentuid="h38573089gb72fg4aadgb0d8gf173ef977f36" version="1">You touch a predator with creatures in their stomach, filling their belly with acid. All living creatures in the stomach immediately take [1]. Speed up the digestion of non-living creatures in their stomach by 40.</content>
+	<content contentuid="h695df312g8840g44eag99acga040cea80b82" version="1">Heave</content>
+	<content contentuid="h67d0b2afgdc83g4887ga3a0g2ba512d4c97b" version="1">Your magic forces a predator to disgorge their prey. When you cast this spell against a target that has prey in its stomach, the target must make a Wisdom saving throw. On a failure, they regurgitate all creatures from their stomach. If the target has not swallowed any prey, they are instead poisoned until the start of your next turn.</content>
+	<content contentuid="hec0450e4g5353g4c7dgbff5g294c40d38bf9" version="1">Medicinal Acids</content>
+	<content contentuid="hf92f1d17g9736g4c44gb2fcg1d925f48af5d" version="1">You touch 1 friendly creature with another creature inside it, granting the predator the ability to excrete healing acids. The predator stops digesting their prey, and each round, all prey within the predator regain [1] hit points.</content>
+	<content contentuid="h890650a8g2c4eg47cdg9c96gf70e259be618" version="1">Leeching Insides</content>
+	<content contentuid="h8c36b9b8g94a8g4f38g9f1aga8862541ec2a" version="1">You touch a creature. For the duration of the spell, whenever they inflict digestion damage, they regain hit points equal to half the damage dealt.</content>
+	<content contentuid="hc9477ec6g7799g4dcdg94ceg55c3415732eb" version="1">Still Prey</content>
+	<content contentuid="h5f6de038g2739g43d2gaf3bgb0d42ebac35a" version="1">You touch a creature, willing the creatures inside of them into stillness. All prey are incapacitated and immune to all digestion damage for the duration of the spell.</content>
+	<content contentuid="hcb1ec43eg8d73g4d60gb9f7g604eac3c430e" version="1">Power Word Swallow</content>
+	<content contentuid="hbf91528dgc00fg49c8g8977g3b5e000ab543" version="1">Your speak a word of power that can transport a creature of your choice. They are instantly teleported to the stomach of another creature of your choice within range. That creature is unable to meaningfully struggle for the next hour.</content>
+	<content contentuid="h3e39f96cg77e6g4954gb1e7gb74286a35974" version="1">Churn</content>
+	<content contentuid="h72e19c2fg7171g4c8bgac89g75d92be2e9bb" version="1">With a single touch, you make a pred's belly rapidly boil through it's prey. All creatures inside of the predator's stomach immediately take [1] and [2], and all the dead prey are immediately fully digested.</content>
+	<content contentuid="hdbb58683gb507g4a89gaf9cg046e07357af0" version="1">Rebirth</content>
+	<content contentuid="ha2742172g0d20g4ad0gbe34g3728a1d24235" version="1">You consume a corpse of a humanoid. Your body slowly reconstructs the body of a creature. After the spell ends, you release the humanoid, fully formed and healthy. If weight gain is enabled, this spells will drain your fat to reconstruct the body of the prey.</content>
+	<content contentuid="h2e4326e2gafaag4195gbafdg0afc73a61829" version="1">Primal Belch</content>
+	<content contentuid="hee2143c1g5e87g4334gbc52gef694968e913" version="1">You release an earth-shattering belch. All creatures caught in the range of the cone must make a Strength saving throw. On a fail, each creature is knocked prone and takes [1], that increases with the amount of stuffed stacks you have. On a success, creatures take half damage and are not knocked prone.</content>
+	<!-- Statuses for spells -->
+	<content contentuid="h09241c51g5974g4151gbad5gaff27e532710" version="1">Tasty</content>
+	<content contentuid="hed648fecg97cbg48abga39eg12298058ba1a" version="1">Predators have an Advantage when trying to swallow this character.</content>
+	<content contentuid="h6184ffb0g372dg45ccg9cbeg552a0c1fe300" version="1">Disgusting</content>
+	<content contentuid="h4120dc13g6c78g4b5bgaf11g646a80ec50e8" version="1">Predators have a Disadvantage when trying to swallow this character.</content>
+	<content contentuid="h8d173316g064cg43fdg8349gf3368097d635" version="1">Compressed prey</content>
+	<content contentuid="haad0f231gd5abg405cga258g5915dee39709" version="1">It appears as if this predator has no prey inside them.</content>
 </contentList>
