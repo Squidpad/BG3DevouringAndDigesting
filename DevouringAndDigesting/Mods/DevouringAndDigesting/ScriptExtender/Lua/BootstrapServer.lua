@@ -323,7 +323,7 @@ function SP_DigestItem(pred)
         return
     end
     -- the chance of an item being digested is 1/10 per Digestion tick
-    if VoreData[pred].Items == nil and Osi.Random(10) ~= 1 then
+    if VoreData[pred].Items == "" and Osi.Random(10) ~= 1 then
         return
     end
 
@@ -537,7 +537,7 @@ function SP_OnTransform(object, toTemplate)
     _P("Transformed: " .. object)
     if VoreData[object] ~= nil then
         if next(VoreData[object].Prey) ~= nil or VoreData[object].AddWeight > 0 or VoreData[object].Fat > 0 or
-            VoreData[object].Items > 0 then
+            VoreData[object].Items ~= "" then
             SP_UpdateWeight(object)
         end
     end
