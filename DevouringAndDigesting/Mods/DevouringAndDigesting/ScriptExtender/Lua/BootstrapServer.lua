@@ -339,7 +339,8 @@ function SP_DigestItem(pred)
     end
     -- removes empty stomach item
     if i == 0 then
-        Osi.TemplateRemoveFrom('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred, 1)
+        Osi.RequestDelete(VoreData[pred].Items)
+        VoreData[pred].Items = ""
         Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
     end
 end
