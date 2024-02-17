@@ -847,7 +847,6 @@ function SP_SlowDigestion(weightDiff, fatDiff)
             end
             SP_ReduceWeightRecursive(v.Pred, thisAddDiff, false)
         end
-        SP_VoreDataEntry(k, false)
     end
 
     -- reduces prey weight
@@ -886,6 +885,9 @@ function SP_SlowDigestion(weightDiff, fatDiff)
     end
     for k, v in pairs(VoreData) do
         SP_UpdateWeight(k)
+    end
+    for k, v in pairs(VoreData) do
+        SP_VoreDataEntry(k, false)
     end
 end
 
@@ -1037,6 +1039,10 @@ function SP_AssignRoleRandom(character)
         Osi.AddPassive(character, "SP_BlockGluttony")
         return
     end
+    if Osi.IsTagged(character, "ee978587-6c68-4186-9bfc-3b3cc719a835") == 1 then
+        Osi.AddPassive(character, "SP_BlockGluttony")
+        return
+    end
     local race = Osi.GetRace(character, 0)
     if RACE_TABLE[race] == nil then
         _P("Race not supported " .. race)
@@ -1053,17 +1059,17 @@ function SP_AssignRoleRandom(character)
     elseif Osi.GetBodyType(character, 0) == "Male" then
         selectedPobability = ConfigVars.NPCVore.ProbabilityMale.value * RACE_TABLE[race] // 100
     end
-
+    local size = SP_GetCharacterSize(character)
+    if size == 0 and selectedPobability > ConfigVars.NPCVore.ClampTiny.value then
+        selectedPobability = ConfigVars.NPCVore.ClampTiny.value
+        return
+    elseif size == 1 and selectedPobability > ConfigVars.NPCVore.ClampSmall.value then
+        selectedPobability = ConfigVars.NPCVore.ClampSmall.value
+    end
     if PRED_NPC_TABLE[character] ~= nil and (selectedPobability > 0 or ConfigVars.NPCVore.SpecialNPCsOverridePreferences.value) then
         Osi.AddPassive(character, "SP_Gluttony")
     elseif selectedPobability > 0 then
-        local size = SP_GetCharacterSize(character)
-        if size == 0 then
-            return
-        end
         local randomRoll = Osi.Random(100) + 1
-        _P(randomRoll)
-        _P(selectedPobability)
         if randomRoll <= selectedPobability then
             _P("Adding PRED to " .. character)
             Osi.AddPassive(character, "SP_Gluttony")
@@ -1073,6 +1079,7 @@ function SP_AssignRoleRandom(character)
         end
     end
 end
+
 
 ---finds and removes prey that were erased from existence for some unknown reason
 function SP_CheckVoreData()

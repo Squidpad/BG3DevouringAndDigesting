@@ -276,6 +276,16 @@ local DEFAULT_VARS = {
             value = true,
             default = true,
         },
+        ClampTiny = {
+            description = "Limits the probability of a tiny character being chosen as a pred to this value. Set to some 10000 to disable.",
+            value = 0,
+            default = 0,
+        },
+        ClampSmall = {
+            description = "Limits the probability of a small character being chosen as a pred to this value. Set to some 10000 to disable.",
+            value = 40,
+            default = 40,
+        },
         CooldownMin = {
             description = "Minimum cooldown between NPC vore attempts (in turns).",
             value = 2,

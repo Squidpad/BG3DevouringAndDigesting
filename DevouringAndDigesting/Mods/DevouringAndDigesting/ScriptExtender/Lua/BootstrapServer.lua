@@ -511,6 +511,19 @@ function SP_OnLevelUp(character)
     end)
 end
 
+---sadly does not work
+---@param object GUIDSTRING
+---@param toTemplate GUIDSTRING
+function SP_OnTransform(object, toTemplate)
+    _P("Transformed: " .. object)
+    if VoreData[object] ~= nil then
+        if next(VoreData[object].Prey) ~= nil or VoreData[object].AddWeight > 0 or VoreData[object].Fat > 0 or
+            VoreData[object].Items > 0 then
+            SP_UpdateWeight(object)
+        end
+    end
+end
+
 ---Runs each time a status is removed.
 ---@param object CHARACTER Recipient of status.
 ---@param status string Internal name of status.
@@ -886,8 +899,8 @@ end
 
 Ext.Osiris.RegisterListener("UsingSpellOnTarget", 6, "after", SP_OnSpellCastTarget)
 Ext.Osiris.RegisterListener("CastedSpell", 5, "after", SP_OnSpellCast)
--- Ext.Osiris.RegisterListener("TurnEnded", 1, "before", SP_OnBeforeTurnEnds)
 Ext.Osiris.RegisterListener("LeveledUp", 1, "after", SP_OnLevelUp)
+--Ext.Osiris.RegisterListener("ObjectTransformed", 2, "after", SP_OnTransform)
 
 Ext.Osiris.RegisterListener("EnteredCombat", 2, "after", SP_OnCombatEnter)
 Ext.Osiris.RegisterListener("LeftCombat", 2, "after", SP_OnCombatLeave)
