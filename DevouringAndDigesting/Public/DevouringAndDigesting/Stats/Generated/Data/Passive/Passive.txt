@@ -1,77 +1,46 @@
-new entry "SP_BottomlessStomach"
-type "PassiveData"
-data "Boosts" ""
-
-new entry "SP_BoilingInsides"
-type "PassiveData"
-data "Boosts" "IgnoreResistance(Acid, Resistant)"
-
-new entry "SP_LeadBelly"
-type "PassiveData"
-
-new entry "SP_Musclegut"
-type "PassiveData"
-
-new entry "SP_MuscleControl"
-type "PassiveData"
-
-new entry "SP_StretchyMaw"
-type "PassiveData"
-
-new entry "SP_SoothingStomach"
-type "PassiveData"
-data "Boosts" ""
-
-new entry "SP_EscapeArtist"
-type "PassiveData"
-data "Boosts" "Resistance(Acid, Resistant)"
-
-new entry "SP_Gastronaut"
-type "PassiveData"
-data "Boosts" "UnlockSpell(SP_Target_Heal_Pred)"
-
-new entry "SP_Dense"
-type "PassiveData"
-
-new entry "SP_BellyFanatic"
-type "PassiveData"
-data "Boosts" "UnlockSpell(SP_Target_Massage_Pred)"
-
-new entry "SP_BellyDiver"
-type "PassiveData"
-data "Boosts" "UnlockSpell(SP_Target_Swallow_Me)"
-
-
 new entry "SP_Gluttony"
 type "PassiveData"
 data "DisplayName" "h86f0551cg30cag4d85g962fgb14dfd2a29b2;1"
 data "Description" "h7e60efadgd577g4416gba59gc4a6ffbe7104;1"
 data "Icon" "statIcons_Bloated"
 data "Boosts" "Tag(PREDATOR);UnlockSpell(SP_Target_Swallow_O)"
+data "Properties" "Highlighted"
+
+new entry "SP_BlockGluttony"
+type "PassiveData"
+data "Boosts" "Tag(NOTPRED)"
+
 
 new entry "SP_CanAnalVore"
 type "PassiveData"
 data "Description" "IAmLazy;1"
 data "DescriptionParams" "You are capable of Anal Vore"
 data "Boosts" "IF(Tagged('PREDATOR',context.Source)):UnlockSpell(SP_Target_Swallow_A)"
+data "Properties" "Highlighted"
 
 new entry "SP_CanUnbirth"
 type "PassiveData"
 data "Description" "IAmLazy;1"
 data "DescriptionParams" "You are capable of Unbirth"
 data "Boosts" "IF(Tagged('PREDATOR',context.Source)):UnlockSpell(SP_Target_Swallow_U)"
+data "Properties" "Highlighted"
 
 new entry "SP_CanCockVore"
 type "PassiveData"
 data "Description" "IAmLazy;1"
 data "DescriptionParams" "You are capable of Cock Vore"
 data "Boosts" "IF(Tagged('PREDATOR',context.Source)):UnlockSpell(SP_Target_Swallow_C)"
+data "Properties" "Highlighted"
 
 new entry "SP_IsPrey"
 type "PassiveData"
 data "DisplayName" "h86f0551cg30cag4d85g962fgb14dfd2a29b2;1"
 data "Description" "h7e60efadgd577g4416gba59gc4a6ffbe7104;1"
 data "Boosts" "UnlockSpell(SP_Target_Swallow_Me)"
+
+new entry "SP_Assigner"
+type "PassiveData"
+data "Boosts" "UnlockSpell(SP_AssignNPCRole)"
 
 new entry "SP_Inedible"
 type "PassiveData"
@@ -85,4 +54,4 @@ type "PassiveData"
 data "DisplayName" "h86f0551cg30cag4d85g962fgb14dfd2a29b2;1"
 data "Description" "h7e60efadgd577g4416gba59gc4a6ffbe7104;1"
 data "Icon" "statIcons_Bloated"
-data "Boosts" "UnlockSpell(SP_Target_Bellyport);UnlockSpell(SP_Projectile_Mass_Bellyport)"
+data "Boosts" "UnlockSpell(SP_Target_Bellyport);UnlockSpell(SP_Projectile_Mass_Bellyport);UnlockSpell(SP_Target_Lick);UnlockSpell(SP_Target_BellySlam);UnlockSpell(SP_Target_FlavorDisgust);UnlockSpell(SP_Target_Compress);UnlockSpell(SP_Target_Tongue);UnlockSpell(SP_Target_Ravenous);UnlockSpell(SP_Target_Rescue);UnlockSpell(SP_Target_Acidify);UnlockSpell(SP_Target_Heave);UnlockSpell(SP_Target_StillPrey);UnlockSpell(SP_Target_PowerWordSwallow);UnlockSpell(SP_Target_Rebirth);UnlockSpell(SP_Target_Churn);UnlockSpell(SP_Target_LeechingAcid);UnlockSpell(SP_Target_HealingAcid);UnlockSpell(SP_Shout_SuperBelch);UnlockSpell(SP_Shout_ResistAcid);UnlockSpell(SP_Shout_Burping);"

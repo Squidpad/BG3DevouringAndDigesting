@@ -18,6 +18,7 @@ data "SpellFlags" "Temporary;IsLinkedSpellContainer"
 data "PrepareEffect" "813f3837-a027-49f6-8ab8-06917d2f80d3"
 data "CastEffect" "dbb69154-0834-4ae7-b438-b831ba7cab45"
 data "TargetEffect" "fa3eaf23-5a9a-47a0-bc24-eb03d85d4d7a"
+data "AIFlags" "CanNotUse"
 
 
 

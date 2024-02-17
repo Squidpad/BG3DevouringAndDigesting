@@ -255,6 +255,38 @@ local DEFAULT_VARS = {
             default = false,
         },
     },
+    NPCVore = {
+        ProbabilityFemale = {
+            description = "The % of an NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
+            value = 30,
+            default = 30,
+        },
+        ProbabilityMale = {
+            description = "The % of an NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
+            value = 15,
+            default = 15,
+        },
+        ProbabilityCreature = {
+            description = "The % of an NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
+            value = 25,
+            default = 25,
+        },
+        SpecialNPCsOverridePreferences = {
+            description = "NPCs from the 'always become pred' list will become predators regardless of enabled genders.",
+            value = true,
+            default = true,
+        },
+        CooldownMin = {
+            description = "Minimum cooldown between NPC vore attempts (in turns).",
+            value = 2,
+            default = 2,
+        },
+        CooldownMax = {
+            description = "Maximum cooldown between NPC vore attempts (in turns).",
+            value = 5,
+            default = 5,
+        },
+    },
     __Version = CURRENT_VERSION,
     __CephelosModConfigVersion = 1,
 }
