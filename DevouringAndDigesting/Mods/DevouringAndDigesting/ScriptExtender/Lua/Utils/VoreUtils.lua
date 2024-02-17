@@ -732,12 +732,12 @@ end
 ---@param eventName string Name that RollResult should look for. No predetermined values, can be whatever.
 function SP_VoreCheck(pred, prey, eventName)
     local advantage = 0
+    local preyAdvantage = 0
     if ConfigVars.Mechanics.VoreDifficulty.value == 'easy' then
         advantage = 1
     end
     if eventName == 'StruggleCheck' then
         _P("Rolling struggle check")
-        local preyAdvantage = 0
         if Osi.HasPassive(pred, 'SP_LeadBelly') == 1 then
             advantage = 1
         end
@@ -756,6 +756,9 @@ function SP_VoreCheck(pred, prey, eventName)
         if Osi.HasActiveStatus(prey, "SP_Disgusting") == 1 then
             advantage = 2 - advantage * 2
         end
+        if VoreData[prey] ~= nil and VoreData[prey].StuffedStacks > 0 then
+            preyAdvantage = 1
+        end
         local predStat = 'Athletics'
         local preyStat = 'Athletics'
         if Osi.HasSkill(pred, "Acrobatics") > Osi.HasSkill(pred, "Athletics") then
@@ -764,7 +767,7 @@ function SP_VoreCheck(pred, prey, eventName)
         if Osi.HasSkill(prey, "Acrobatics") > Osi.HasSkill(prey, "Athletics") then
             preyStat = "Acrobatics"
         end
-        Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", predStat, preyStat, advantage, 0, eventName)
+        Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", predStat, preyStat, advantage, preyAdvantage, eventName)
     elseif eventName == 'SwallowDownCheck' then
         _P('Rolling to resist secondary swallow')
         if Osi.HasPassive(pred, 'SP_StretchyMaw') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Charmed') == 1 or
@@ -774,6 +777,9 @@ function SP_VoreCheck(pred, prey, eventName)
         end
         if Osi.HasActiveStatus(prey, "SP_Disgusting") == 1 then
             advantage = 2 - advantage * 2
+        end
+        if VoreData[prey] ~= nil and VoreData[prey].StuffedStacks > 0 then
+            preyAdvantage = 1
         end
         local predStat = 'Athletics'
         local preyStat = 'Athletics'
@@ -785,13 +791,15 @@ function SP_VoreCheck(pred, prey, eventName)
             _P("Prey Acrobatics")
             preyStat = "Acrobatics"
         end
-        Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", predStat, preyStat, advantage, 0, eventName)
+        Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", predStat, preyStat, advantage, preyAdvantage, eventName)
     elseif eventName == 'ReleaseMeCheck' then
         _P('Rolling to free me')
         if VoreData[prey].Digestion == 1 then
             advantage = 1
+        else
+            preyAdvantage = 1
         end
-        Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", "Wisdom", "Charisma", advantage, 0, eventName)
+        Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", "Wisdom", "Charisma", advantage, preyAdvantage, eventName)
     end
 end
 

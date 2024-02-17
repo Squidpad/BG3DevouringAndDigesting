@@ -263,13 +263,13 @@ local DEFAULT_VARS = {
         },
         ProbabilityMale = {
             description = "The % of an NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
-            value = 15,
-            default = 15,
+            value = 10,
+            default = 10,
         },
         ProbabilityCreature = {
             description = "The % of an NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
-            value = 25,
-            default = 25,
+            value = 20,
+            default = 20,
         },
         SpecialNPCsOverridePreferences = {
             description = "NPCs from the 'always become pred' list will become predators regardless of enabled genders.",

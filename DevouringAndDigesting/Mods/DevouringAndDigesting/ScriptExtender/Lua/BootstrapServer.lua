@@ -283,7 +283,7 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
         if Osi.GetStatusTurns(rollSubject, "SP_Indigestion") >= 6 then
             Osi.RemoveStatus(rollSubject, "SP_Indigestion")
             -- evey prey will be regurgitated
-            SP_RegurgitatePrey(rollSubject, "All", 0, "", voreLocus)
+            SP_RegurgitatePrey(rollSubject, "All", 0, "", VoreData[roller].Locus)
         end
     elseif eventName == "SwallowDownCheck" then
         _P("event: " .. eventName)
