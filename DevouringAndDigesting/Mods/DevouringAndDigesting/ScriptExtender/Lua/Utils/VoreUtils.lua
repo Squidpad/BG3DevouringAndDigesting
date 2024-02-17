@@ -516,7 +516,8 @@ end
 ---Changes the amount of Weight Placeholders by looking for weights of all prey in pred.
 ---Remember to save VoreData after calling this
 ---@param pred CHARACTER
-function SP_UpdateWeight(pred)
+---@param noVisual? boolean when we need to change the amount of weight placeholders but not the actual weight
+function SP_UpdateWeight(pred, noVisual)
     if VoreData[pred] == nil then
         Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
         Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
@@ -578,9 +579,11 @@ function SP_UpdateWeight(pred)
     -- This is the only solution that worked. 8d3b74d4-0fe6-465f-9e96-36b416f4ea6f is removed
     -- immediately after being added (in the main script).
     Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
-
+    if noVisual == true then
+        return
+    end
     SP_UpdateBelly(pred, newWeightVisual)
-    SP_DelayCallTicks(4, function () 
+    SP_DelayCallTicks(4, function ()
         SP_ApplyOverstuffing(pred)
     end)
 end
@@ -1062,7 +1065,6 @@ function SP_AssignRoleRandom(character)
     local size = SP_GetCharacterSize(character)
     if size == 0 and selectedPobability > ConfigVars.NPCVore.ClampTiny.value then
         selectedPobability = ConfigVars.NPCVore.ClampTiny.value
-        return
     elseif size == 1 and selectedPobability > ConfigVars.NPCVore.ClampSmall.value then
         selectedPobability = ConfigVars.NPCVore.ClampSmall.value
     end

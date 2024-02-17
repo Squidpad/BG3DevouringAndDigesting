@@ -319,8 +319,10 @@ function SP_DigestItem(pred)
 
     local itemList = Ext.Entity.Get(VoreData[pred].Items).InventoryOwner.PrimaryInventory:GetAllComponents()
         .InventoryContainer.Items
+    local i = 0
     for k, v in pairs(itemList) do
         local uuid = v.Item:GetAllComponents().Uuid.EntityUuid
+        i = i + 1
         if Osi.IsStoryItem(uuid) == 0 and Osi.IsTagged(uuid, '983087c8-c9d3-4a87-bc69-65f9329666c8') == 0 and
             Osi.IsTagged(uuid, '7b96246c-54ba-43ea-b01d-4e0b20ad35f1') == 0 then
             _P("item" .. uuid)
@@ -330,9 +332,15 @@ function SP_DigestItem(pred)
                 VoreData[pred].AddWeight = VoreData[pred].AddWeight + Ext.Entity.Get(uuid).Data.Weight // 1000
                 Osi.RequestDelete(uuid)
                 Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', VoreData[pred].Items, 1, 0)
+                SP_UpdateWeight(pred, true)
             end
             return
         end
+    end
+    -- removes empty stomach item
+    if i == 0 then
+        Osi.TemplateRemoveFrom('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred, 1)
+        Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
     end
 end
 
