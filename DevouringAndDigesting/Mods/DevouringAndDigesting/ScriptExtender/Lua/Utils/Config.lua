@@ -95,6 +95,12 @@ local DEFAULT_VARS = {
             value = true,
             default = true,
         },
+        AllowOverstuffing = {
+            description =
+            "If true, devouring prey can push you over your maximum carrying capacity, but you'll take damage every round proportional to how overstuffed you are. If false, you'll be hard-capped by your carrying capacity.",
+            value = true,
+            default = true,
+        },
         RequireProperAnatomy = {
             description =
             "If true, special types of vore will require you to have a body part that would enable that type of vore.",
