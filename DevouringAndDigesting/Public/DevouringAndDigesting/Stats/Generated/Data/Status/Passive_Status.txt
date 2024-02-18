@@ -26,7 +26,7 @@ data "Boosts" ""
 data "StackType" "Additive"
 data "StatusEffect" ""
 data "TickType" "EndTurn"
-data "TickFunctors" "ApplyStatus(SP_Digesting, 1, 1)"
+data "TickFunctors" "ApplyStatus(SP_Digesting, 100, 1)"
 data "StatusPropertyFlags" "FreezeDuration;IgnoreResting;DisableCombatlog"
 
 new entry "SP_ImprovedStuffedIntimidate"
@@ -43,7 +43,7 @@ data "Boosts" "AC(1);Advantage(Skill, Intimidation);DamageReduction(All,Flat,2)"
 data "StackType" "Additive"
 data "StatusEffect" ""
 data "TickType" "EndTurn"
-data "TickFunctors" "ApplyStatus(SP_Digesting, 1, 1)"
+data "TickFunctors" "ApplyStatus(SP_Digesting, 100, 1)"
 data "StatusPropertyFlags" "FreezeDuration;IgnoreResting;DisableCombatlog"
 
 

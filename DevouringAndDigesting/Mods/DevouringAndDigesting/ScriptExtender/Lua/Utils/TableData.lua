@@ -55,6 +55,8 @@ BellyTable = {
     Test123 = {
         --if there are different bellies for different sexes
         Sexes = false,
+        -- 2 == medium size
+        DefaultSize = 2,
         Sex = {
             --if there are different bellies for different body types
             BodyShapes = false,
@@ -63,6 +65,7 @@ BellyTable = {
     },
     Human = {
         Sexes = true,
+        DefaultSize = 2,
         Female = {
             BodyShapes = true,
             [0] = {
@@ -106,6 +109,7 @@ BellyTable = {
     },
     Gith = {
         Sexes = true,
+        DefaultSize = 2,
         Female = {
             BodyShapes = false,
             [0] = {
@@ -132,6 +136,7 @@ BellyTable = {
     },
     Orc = {
         Sexes = true,
+        DefaultSize = 2,
         Female = {
             BodyShapes = false,
             [0] = {

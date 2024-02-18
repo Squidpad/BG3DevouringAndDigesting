@@ -641,6 +641,17 @@ function SP_UpdateBelly(pred, weight)
         end
     end
 
+    -- for size change
+    local predSizeCategory = predData.ObjectSize.Size
+
+    if predSizeCategory ~= nil then
+        if predSizeCategory > BellyTable[predRace].DefaultSize then
+            weight = weight // (predSizeCategory - BellyTable[predRace].DefaultSize + 1)
+        elseif predSizeCategory < BellyTable[predRace].DefaultSize then
+            weight = weight * (BellyTable[predRace].DefaultSize - predSizeCategory + 1)
+        end
+    end
+
     local bellySize = 0
     for k, v in pairs(BellyTable[predRace][sex][bodyShape]) do
         if weight > k and k > bellySize then
