@@ -179,17 +179,15 @@
 	<content contentuid="h54388124gd369g4a55gb75dg89cf37ad12e2" version="1">Bottomless Stomach</content>
 	<content contentuid="h3becb8d4gbb8cg40b4g9384gc7b70bc1e34a" version="1">Doubles your stomach capacity. Gain the ability to perform Anal Vore.</content>
 	<content contentuid="hcf77ee75gda7fg425dg8e40gc73ced72981d" version="1">Boiling Insides</content>
-	<content contentuid="h1ea537d9g15f3g401cga78ag66fd4f2c4827" version="1">Increase digestion damage by 1d4 and Proficiency Bonus. You are satiated by digesting non-organic creatures. Gain the ability to perform Cock Vore</content>
-	<content contentuid="h9895a405g5744g4652g9b3dg8c95a3d77a1c" version="1">Lead Belly</content>
-	<content contentuid="hb6575320g69a5g4366gb0bbg32ea27d17eff" version="1">All damage dealt to you by creatures in your stomach is halved. You gain advantage against the struggles of your prey.</content>
+	<content contentuid="h1ea537d9g15f3g401cga78ag66fd4f2c4827" version="1">Increase digestion damage by 1d4 and Proficiency Bonus, and you ignore acid resistance of your prey. You are satiated by digesting non-organic creatures. Gain the ability to perform Cock Vore</content>
 	<content contentuid="h1aaf187ag5c9cg4f1cga013g294543b2e470" version="1">Musclegut</content>
 	<content contentuid="hd528fec9g01b9g4dcbgb2b6g406740be0ad3" version="1">You do not suffer negative consequences from being stuffed, regardless of prey amount. When you have 3 or more prey inside, you gain advantage on intimidation, 1 AC, and 2 damage reduction from all sources .</content>
 	<content contentuid="hf451da9cgbc97g464agb95cg4ead7bb1e6ec" version="1">Comfortable Embrace</content>
-	<content contentuid="hd4bb28a5g97e3g40ecg89eeg454d8797b456" version="1">Endoed prey are not blinded and can use spells. You do not break concentration of willing prey when you swallow them.</content>
+	<content contentuid="hd4bb28a5g97e3g40ecg89eeg454d8797b456" version="1">Endoed prey are not blinded and can use spells. You do not break concentration of willing prey when you swallow them. You can digest lethally-swallowed prey and keep an endoed swallow prey safe at the same time.</content>
 	<content contentuid="h51e3b020g60c6g4345g8afcgf0442a6ebc02" version="1">Stretchy Maw</content>
-	<content contentuid="hb0d6a564g4ba4g46adga24eg2baf1ae14c34" version="1">You gain advantage for swallowing prey.</content>
-	<content contentuid="hd145f6fdga2b6g4a82gb482gd88b8a301198" version="1">Soothing Stomach</content>
-	<content contentuid="he2f6ce79g4621g48b0gbcdcgb7d012537e79" version="1">Your hunger is satisfied by resting with a prey inside your stomach. You can digest lethally-swallowed prey and keep an endoed swallow prey safe at the same time. Gain the ability to perform Unbirth.</content>
+	<content contentuid="hb0d6a564g4ba4g46adga24eg2baf1ae14c34" version="1">You gain advantage for swallowing prey. Gain advantage against the struggles of your prey.</content>
+	<content contentuid="hd145f6fdga2b6g4a82gb482gd88b8a301198" version="1">Soothing Insides</content>
+	<content contentuid="he2f6ce79g4621g48b0gbcdcgb7d012537e79" version="1">Your hunger is satisfied by resting with a prey inside you. Gain the ability to perform Unbirth. Gain <LSTag Type="Status" Tooltip="SP_Shout_HealingAcid_U">Medicinal Acids (Unbirth)</LSTag>.</content>
 	<!-- prey feats -->
 	<content contentuid="h3d2dc720g5db6g41ccg9b1ag13c6e6478896" version="1">Escape Artist</content>
 	<content contentuid="he0b69c0agb8e5g47e4g8079g11ff0073a272" version="1">You gain advantage when struggling and you are not knocked Prone when regurgitated. Gain resistance to damage dealt by acid.</content>
@@ -240,7 +238,9 @@
 	<content contentuid="h695df312g8840g44eag99acga040cea80b82" version="1">Heave</content>
 	<content contentuid="h67d0b2afgdc83g4887ga3a0g2ba512d4c97b" version="1">Your magic forces a predator to disgorge their prey. When you cast this spell against a target that has prey in its stomach, the target must make a Wisdom saving throw. On a failure, they regurgitate all creatures from their stomach. If the target has not swallowed any prey, they are instead poisoned until the start of your next turn.</content>
 	<content contentuid="hec0450e4g5353g4c7dgbff5g294c40d38bf9" version="1">Medicinal Acids</content>
-	<content contentuid="hf92f1d17g9736g4c44gb2fcg1d925f48af5d" version="1">You touch 1 friendly creature with another creature inside it, granting the predator the ability to excrete healing acids. The predator stops digesting their prey, and each round, all prey within the predator regain [1] hit points.</content>
+	<content contentuid="hf92f1d17g9736g4c44gb2fcg1d925f48af5d" version="1">You touch 1 friendly creature with another creature inside it, granting the predator the ability to excrete healing acids. The predator stops digesting their prey, and each round, all prey within the predator regain [1].</content>
+	<content contentuid="hc31b81f2g17f6g4f49ga1b0g20b59d8907c4" version="1">Medicinal Acids (Unbirth)</content>
+	<content contentuid="h87705e9dg91ddg4eafg99b6g53e725fcbfd2" version="1">You stop digesting your unbirthed prey, and each round, all prey within the your womb regain [1].</content>
 	<content contentuid="h890650a8g2c4eg47cdg9c96gf70e259be618" version="1">Leeching Insides</content>
 	<content contentuid="h8c36b9b8g94a8g4f38g9f1aga8862541ec2a" version="1">You touch a creature. For the duration of the spell, whenever they inflict digestion damage, they regain hit points equal to half the damage dealt.</content>
 	<content contentuid="hc9477ec6g7799g4dcdg94ceg55c3415732eb" version="1">Still Prey</content>
@@ -260,4 +260,6 @@
 	<content contentuid="h4120dc13g6c78g4b5bgaf11g646a80ec50e8" version="1">Predators have a Disadvantage when trying to swallow this character.</content>
 	<content contentuid="h8d173316g064cg43fdg8349gf3368097d635" version="1">Compressed prey</content>
 	<content contentuid="haad0f231gd5abg405cga258g5915dee39709" version="1">It appears as if this predator has no prey inside them.</content>
+	<content contentuid="h55709b76gd90eg43f1g9186g03c7058f3197" version="1">Healing acid (Unbirth)</content>
+	<content contentuid="h6c3c3ddegc688g437ega730gaf4e3fcb4ff7" version="1">You heal prey inside you.</content>
 </contentList>

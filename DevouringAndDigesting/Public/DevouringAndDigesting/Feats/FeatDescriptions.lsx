@@ -19,13 +19,6 @@
           <attribute id="UUID" type="guid" value="ac8b5d7b-def7-4602-9394-86b99468522e"/>
         </node>
         <node id="FeatDescription">
-          <attribute id="DisplayName" type="TranslatedString" handle="h9895a405g5744g4652g9b3dg8c95a3d77a1c" version="1"/>
-          <attribute id="Description" type="TranslatedString" handle="hb6575320g69a5g4366gb0bbg32ea27d17eff" version="1"/>
-          <attribute id="ExactMatch" type="FixedString" value="Lead Belly"/>
-          <attribute id="FeatId" type="guid" value="b5a87c0a-b639-4f1e-86bd-4758ac89d972"/>
-          <attribute id="UUID" type="guid" value="ee501028-f54f-4b85-8d15-5ee11df3fa68"/>
-        </node>
-        <node id="FeatDescription">
           <attribute id="DisplayName" type="TranslatedString" handle="h1aaf187ag5c9cg4f1cga013g294543b2e470" version="1"/>
           <attribute id="Description" type="TranslatedString" handle="hd528fec9g01b9g4dcbgb2b6g406740be0ad3" version="1"/>
           <attribute id="ExactMatch" type="FixedString" value="Musclegut"/>

@@ -161,7 +161,7 @@ data "Boosts" "AC(-1);RollBonus(SavingThrow,-1,Dexterity)"
 data "StackType" "Additive"
 data "StatusEffect" ""
 data "TickType" "EndTurn"
-data "TickFunctors" "ApplyStatus(SP_Digesting, 1, 1)"
+data "TickFunctors" "ApplyStatus(SP_Digesting, 100, 1)"
 data "StatusPropertyFlags" "DisableOverhead;MultiplyEffectsByDuration;FreezeDuration;IgnoreResting;DisableCombatlog"
 
 new entry "SP_Indigestion"
@@ -271,13 +271,6 @@ data "StatusPropertyFlags" "DisablePortraitIndicator;ApplyToDead;IgnoreResting;D
 data "StackType" "Overwrite"
 data "TickFunctors" "DealDamage(1d6,Force)"
 
-
-new entry "SP_AI_HELPER_BLOCKVORE"
-type "StatusData"
-data "StatusType" "BOOST"
-data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
-data "StackType" "Overwrite"
-
 new entry "SP_ROLESELECTOR"
 type "StatusData"
 data "StatusType" "BOOST"
@@ -295,3 +288,18 @@ data "StackId" "SP_ROLESELECTOR_AURA"
 data "StackType" "Ignore"
 data "StatusPropertyFlags" "DisableOverhead;DisablePortraitIndicator;DisableCombatlog"
 data "StatusGroups" "SG_RemoveOnRespec"
+
+
+new entry "SP_AI_HELPER_BLOCKVORE"
+type "StatusData"
+data "StatusType" "BOOST"
+data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
+data "StackType" "Overwrite"
+
+new entry "SP_AI_HELPER_ENDO"
+type "StatusData"
+data "StatusType" "BOOST"
+data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
+data "StackType" "Overwrite"
+data "Boosts" "AC(6);ActionResourceBlock(Movement);ActionResourceBlock(ReactionActionPoint);ActionResourceBlock(ActionPoint);ActionResourceBlock(BonusActionPoint)"
+data "OnApplyFunctors" "IF(IsDowned()):RegainHitPoints(30)"

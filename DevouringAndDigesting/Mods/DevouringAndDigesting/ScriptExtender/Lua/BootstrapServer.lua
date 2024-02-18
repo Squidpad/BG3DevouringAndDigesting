@@ -96,7 +96,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
             end
         -- ask pred to release me
         elseif spell == 'SP_ReleaseMe' then
-            if VoreData[caster].Pred ~= nil then
+            if VoreData[caster].Pred ~= "" then
                 --SP_RegurgitatePrey(VoreData[caster].Pred, caster, 0)
                 SP_VoreCheck(VoreData[caster].Pred, caster, "ReleaseMeCheck")
             end
@@ -263,7 +263,7 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
 
         SP_SwallowPrey(roller, rollSubject, 2, true, true, voreLocus)
 
-        if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(roller, 'SP_SoothingStomach') == 0 then
+        if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(roller, 'SP_MuscleControl') == 0 then
             if voreLocus == 'O' then
                 VoreData[roller].DigestItems = true
             end
@@ -284,6 +284,8 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
             Osi.RemoveStatus(rollSubject, "SP_Indigestion")
             -- evey prey will be regurgitated
             SP_RegurgitatePrey(rollSubject, "All", 0, "", VoreData[roller].Locus)
+            -- preds will not try to vore anyone after forced regurgitation
+            Osi.ApplyStatus(rollSubject, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * 10, 1, rollSubject)
         end
     elseif eventName == "SwallowDownCheck" then
         _P("event: " .. eventName)
@@ -367,6 +369,9 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
     if status == 'SP_Digesting' then
         --Randomly start digesting prey because of hunger
         local lethalRandomSwitch = false
+        if VoreData[object] == nil then
+            return
+        end
         if ConfigVars.Hunger.Hunger.value then
             local hungerStacks = Osi.GetStatusTurns(object, "SP_Hunger")
             if hungerStacks >= ConfigVars.Hunger.HungerBreakpoint1.value then
@@ -404,11 +409,13 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
     elseif status == "SP_ROLESELECTOR_AURA" then
         SP_AssignRoleRandom(object)
     elseif status == 'SP_Struggle' then
-        _P("Applied " .. status .. " Status to " .. object .. " and the causee was " .. Osi.GetTemplate(causee))
+        if VoreData[object] == nil or VoreData[object].Pred == "" then
+            return
+        end
         if Osi.HasPassive(VoreData[object].Pred, 'SP_BoilingInsides') == 1 then
             Osi.ApplyStatus(object, "SP_BoilingInsidesAcid", 0, 1, VoreData[object].Pred)
         end
-        if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(VoreData[object].Pred, 'SP_SoothingStomach') == 0 then
+        if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(VoreData[object].Pred, 'SP_MuscleControl') == 0 then
             local pred = VoreData[object].Pred
             if VoreData[object].Locus == 'O' then
                 VoreData[pred].DigestItems = true
@@ -443,6 +450,20 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
     elseif status == 'SP_BellyCompressed' then
         if VoreData[object] ~= nil then
             SP_UpdateWeight(object)
+        end
+    elseif string.sub(status, 0, 20) == 'SP_HealingAcid_Tick_' then
+        _P("Healing Acid Tick")
+        local locus = string.sub(status, 21)
+        if VoreData[object] ~= nil then
+            for k, v in pairs(VoreData[object].Prey) do
+                if v == locus then
+                    SP_SwitchToDigestionType(object, k, 2, 0)
+                    Osi.ApplyStatus(k, "SP_HealingAcid_RegainHP", 1, 1, object)
+                end
+            end
+            if locus == "O" then
+                VoreData[object].DigestItems = false
+            end
         end
     end
 end
@@ -530,15 +551,16 @@ function SP_OnLevelUp(character)
     end)
 end
 
----sadly does not work
----@param object GUIDSTRING
----@param toTemplate GUIDSTRING
-function SP_OnTransform(object, toTemplate)
-    _P("Transformed: " .. object)
-    if VoreData[object] ~= nil then
-        if next(VoreData[object].Prey) ~= nil or VoreData[object].AddWeight > 0 or VoreData[object].Fat > 0 or
-            VoreData[object].Items ~= "" then
-            SP_UpdateWeight(object)
+---@param character CHARACTER
+---@param race string
+---@param gender string
+---@param shapeshiftStatus string
+function SP_OnTransform(character, race, gender, shapeshiftStatus)
+    _P("Transformed: " .. character)
+    if VoreData[character] ~= nil then
+        if next(VoreData[character].Prey) ~= nil or VoreData[character].AddWeight > 0 or VoreData[character].Fat > 0 or
+            VoreData[character].Items ~= "" then
+            SP_UpdateWeight(character)
         end
     end
 end
@@ -919,7 +941,7 @@ end
 Ext.Osiris.RegisterListener("UsingSpellOnTarget", 6, "after", SP_OnSpellCastTarget)
 Ext.Osiris.RegisterListener("CastedSpell", 5, "after", SP_OnSpellCast)
 Ext.Osiris.RegisterListener("LeveledUp", 1, "after", SP_OnLevelUp)
---Ext.Osiris.RegisterListener("ObjectTransformed", 2, "after", SP_OnTransform)
+Ext.Osiris.RegisterListener("ShapeshiftChanged", 4, "after", SP_OnTransform)
 
 Ext.Osiris.RegisterListener("EnteredCombat", 2, "after", SP_OnCombatEnter)
 Ext.Osiris.RegisterListener("LeftCombat", 2, "after", SP_OnCombatLeave)

@@ -715,12 +715,8 @@ end
 function SP_ApplyOverstuffing(pred)
     local mediumCharacterWeight = 75000
     local predData = Ext.Entity.Get(pred)
-    _P("invweight: " .. predData.InventoryWeight.Weight)
-    _P("Enc: " .. predData.EncumbranceStats["HeavilyEncumberedWeight"])
     local overStuff = (predData.InventoryWeight.Weight - predData.EncumbranceStats["HeavilyEncumberedWeight"]) // mediumCharacterWeight
     Osi.RemoveStatus(pred, "SP_OverstuffedDamage")
-    _P("overstuff: " .. overStuff)
-    _P("turns: " .. (overStuff / mediumCharacterWeight * SecondsPerTurn))
     if overStuff > 0 then
         Osi.ApplyStatus(pred, "SP_OverstuffedDamage", overStuff * SecondsPerTurn)
     end
@@ -738,7 +734,7 @@ function SP_VoreCheck(pred, prey, eventName)
     end
     if eventName == 'StruggleCheck' then
         _P("Rolling struggle check")
-        if Osi.HasPassive(pred, 'SP_LeadBelly') == 1 then
+        if Osi.HasPassive(pred, 'SP_StretchyMaw') == 1 then
             advantage = 1
         end
         if Osi.HasPassive(prey, 'SP_EscapeArtist') == 1 then
@@ -977,14 +973,12 @@ function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
     end
     if correctlocus then
         if endo then
-            if Osi.HasPassive(prey, "SP_Gastronaut") == 1 then
+            if Osi.HasPassive(prey, "SP_Gastronaut") == 1 or Osi.HasPassive(pred, "SP_MuscleControl") == 1 then
                 return "SP_SwallowedXray"
             elseif Osi.HasPassive(prey, "SP_BellyDiver") == 1 then
                 return "SP_SwallowedDiver"
-            elseif Osi.HasPassive(pred, "SP_MuscleControl") == 1 then
-                return "SP_SwallowedGentle"
             else
-                return "SP_Swallowed"
+                return "SP_SwallowedGentle"
             end
         elseif Osi.HasPassive(prey, "SP_BellyDiver") == 1 then
             return "SP_SwallowedDiver"
@@ -1119,7 +1113,11 @@ function SP_MigratePersistentVars()
             if v[i] == nil then
                 _F('Character: ' .. k)
                 _F('Missing value: ' .. i)
-                VoreData[k][i] = j
+                if type(j) == "table" then
+                    VoreData[k][i] = SP_Deepcopy(j)
+                else
+                    VoreData[k][i] = j
+                end
             end
         end
     end

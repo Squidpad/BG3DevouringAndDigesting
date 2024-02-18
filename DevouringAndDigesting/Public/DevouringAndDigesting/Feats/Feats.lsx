@@ -22,14 +22,6 @@
         </node>
         <node id="Feat">
           <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
-          <attribute id="Name" type="FixedString" value="Lead Belly"/>
-          <attribute id="PassivesAdded" type="LSString" value="SP_LeadBelly"/>
-          <attribute id="PassivesRemoved" type="LSString" value=""/>
-          <attribute id="Requirements" type="LSString" value=""/>
-          <attribute id="UUID" type="guid" value="b5a87c0a-b639-4f1e-86bd-4758ac89d972"/>
-        </node>
-        <node id="Feat">
-          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
           <attribute id="Name" type="FixedString" value="Musclegut"/>
           <attribute id="PassivesAdded" type="LSString" value="SP_Musclegut"/>
           <attribute id="PassivesRemoved" type="LSString" value=""/>
