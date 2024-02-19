@@ -921,17 +921,13 @@ end
 ---@param digestionType? integer Only count prey of this type: 0 == endo, 1 == dead, 2 == lethal, 3 == none
 ---@return table
 function SP_GetNestedPrey(pred, voreLocus, digestionType)
-    if VoreData[pred] == nil or VoreData[pred].Prey == nil then
+    if VoreData[pred] == nil or next(VoreData[pred].Prey) == nil then
         return {}
     end
     _D(VoreData[pred])
-    local allPrey = VoreData[pred].Prey
-    if digestionType ~= nil then
-        allPrey = SP_FilterPrey(allPrey, voreLocus, digestionType)
-    end
+    local allPrey = SP_FilterPrey(pred, voreLocus, nil, digestionType)
     for k, _ in pairs(allPrey) do
-        ---@diagnostic disable-next-line: param-type-mismatch
-        allPrey = SP_TableConcat(allPrey, SP_GetNestedPrey(VoreData[k].Prey, digestionType))
+        allPrey = SP_TableConcat(allPrey, SP_GetNestedPrey(k, voreLocus, digestionType))
     end
     return allPrey
 end
@@ -945,7 +941,7 @@ end
 function SP_FilterPrey(pred, locus, partyMember, digestionType)
     local output = {}
     for k, v in pairs(VoreData[pred].Prey) do
-        if (VoreData[k].Digestion == digestionType or digestionType == nil) and (locus == VoreData[k].Locus or locus == "All") and (Osi.IsPartyMember(k, 0) == 1 or partyMember == nil) then
+        if (VoreData[k].Digestion == digestionType or digestionType == nil) and (locus == v or locus == "All") and (Osi.IsPartyMember(k, 0) == 1 or partyMember == nil) then
             table.insert(output, k)
         end
     end
