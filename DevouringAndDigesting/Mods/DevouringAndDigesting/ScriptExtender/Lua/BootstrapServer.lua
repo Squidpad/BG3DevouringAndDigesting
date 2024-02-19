@@ -69,7 +69,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         elseif string.sub(spell, 0, 18) == "SP_SwitchToLethal_" then
             if VoreData[caster] ~= nil then
                 local locus = string.sub(spell, 19)
-                if locus == "O" then
+                if locus == "O" or locus == "All" then
                     VoreData[caster].DigestItems = true
                 end
                 for k, v in pairs(VoreData[caster].Prey) do
