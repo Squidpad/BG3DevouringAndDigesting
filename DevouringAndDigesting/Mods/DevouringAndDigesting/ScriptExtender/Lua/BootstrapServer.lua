@@ -176,11 +176,10 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                             ConfigVars.Mechanics.AllowOverstuffing.value) then
                         predRoom = predRoom - SP_GetTotalCharacterWeight(prey)
                         table.insert(preyTable, prey)
+                        Osi.RemoveStatus(prey, "SP_Hit_Bellyport")
                     end
                 end
-                _P(caster)
-                _D(VoreData)
-                _D(VoreData[caster])
+                
                 SP_DelayCallTicks(5, function ()
                     SP_SwallowPreyMultiple(target, preyTable, 2, true, false, voreLocus)
                     VoreData[caster].SpellTargets = {}
