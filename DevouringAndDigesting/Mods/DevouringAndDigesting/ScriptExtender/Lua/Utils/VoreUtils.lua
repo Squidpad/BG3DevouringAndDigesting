@@ -45,6 +45,12 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
         return -1
     end
 
+    ---For debugging and general fun
+    if Osi.HasActiveStatus(pred, "SP_AlwaysEndoStatus") == 1 then
+        digestionType = 0
+        Osi.LeaveCombat(prey)
+    end
+
     VoreData[prey].Digestion = digestionType
     VoreData[prey].Locus = locus
     VoreData[prey].Swallowed = SP_GetSwallowedVoreStatus(pred, prey, digestionType == 0, locus)
@@ -534,7 +540,7 @@ function SP_UpdateWeight(pred, noVisual)
         -- protecting allies by swallowing them, and gets a feature that
         -- reduces the weight of swallowed allies.
         local fullWeight = VoreData[k].Weight + VoreData[k].AddWeight
-        if VoreData[k].Digestion == 0 then
+        if VoreData[k].Digestion == 0 and Osi.IsPartyMember(k, 0) == 1 then
             if Osi.HasPassive(pred, "SP_Improved_Stomach_Shelter") == 1 then
                 weightReduction = fullWeight
             elseif Osi.HasPassive(pred, "SP_Stomach_Shelter") == 1 then
@@ -931,15 +937,16 @@ function SP_GetNestedPrey(pred, voreLocus, digestionType)
 end
 
 ---Filters out prey with a specific prey type and returns them
----@param preyTable table
+---@param pred CHARACTER pred to querey
 ---@param locus string options: "O" == Oral, "A" == Anal, "U" == Unbirth, "All" == all prey in any locus
+---@param partyMember? boolean if true, will only return prey in the party
 ---@param digestionType? integer options: 0 == endo, 1 == dead, 2 == lethal, 3 == none
 ---@return table
-function SP_FilterPrey(preyTable, locus, digestionType)
+function SP_FilterPrey(pred, locus, partyMember, digestionType)
     local output = {}
-    for k, v in pairs(preyTable) do
-        if (VoreData[k].Digestion == digestionType or digestionType == nil) and (locus == VoreData[k].Locus or locus == "All") then
-            output[k] = k
+    for k, v in pairs(VoreData[pred].Prey) do
+        if (VoreData[k].Digestion == digestionType or digestionType == nil) and (locus == VoreData[k].Locus or locus == "All") and (Osi.IsPartyMember(k, 0) == 1 or partyMember == nil) then
+            table.insert(output, k)
         end
     end
     return output

@@ -27,7 +27,9 @@ Ext.Require("Utils/Migrations/ConfigMigrations.lua")
 Ext.Require("Utils/Migrations/PersistentVarsMigrations.lua")
 Ext.Require("Utils/TableData.lua")
 Ext.Require("Utils/RaceTable.lua")
+Ext.Require("Utils/DCTable.lua")
 
+Ext.Require("Subclasses/StomachSentinel.lua")
 
 Ext.Vars.RegisterModVariable(ModuleUUID, "ModVoreData", {})
 
@@ -64,10 +66,12 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         elseif string.sub(spell, 0, 10) == 'SP_Absorb_' then
             local prey = string.sub(spell, 11)
             SP_RegurgitatePrey(caster, prey, 1, "Absorb")
-        elseif spell == "SP_SwitchToLethal" then
+        elseif string.sub(spell, 1, 17) == "SP_SwitchToLethal" then
             if VoreData[caster] ~= nil then
                 VoreData[caster].DigestItems = true
-                for k, v in pairs(VoreData[caster].Prey) do
+                pattern = "^SP_SwitchToLethal_([OAUC]l?l?)$"
+                local locus = string.match(spell, pattern)
+                for k, v in pairs(SP_FilterPrey(VoreData[caster].Prey, locus)) do
                     SP_SwitchToDigestionType(caster, k, 0, 2)
                 end
             end
@@ -85,7 +89,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                     end
                 end
             end
-        -- deal small amount of damage to prey
+            -- deal small amount of damage to prey
         elseif spell == 'SP_SpeedUpDigestion' then
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
@@ -94,7 +98,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                     end
                 end
             end
-        -- ask pred to release me
+            -- ask pred to release me
         elseif spell == 'SP_ReleaseMe' then
             if VoreData[caster].Pred ~= "" then
                 --SP_RegurgitatePrey(VoreData[caster].Pred, caster, 0)
@@ -163,12 +167,13 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             elseif voreSpellType == "Bellyport_Destination" then
                 _P("caster " .. caster)
                 local predData = Ext.Entity.Get(caster)
-                local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) / 1000
+                local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) /
+                    1000
                 local preyTable = {}
                 for prey, k in pairs(VoreData[caster].SpellTargets) do
                     -- this will teleport the exact amount of prey that fit inside pred
                     if k == "Bellyport" and (SP_GetTotalCharacterWeight(prey) <= predRoom or
-                         ConfigVars.Mechanics.AllowOverstuffing.value) then
+                            ConfigVars.Mechanics.AllowOverstuffing.value) then
                         predRoom = predRoom - SP_GetTotalCharacterWeight(prey)
                         table.insert(preyTable, prey)
                     end
@@ -188,7 +193,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                 return
             end
             if VoreData[caster] ~= nil and VoreData[target] ~= nil and
-                 (VoreData[caster].Pred == target or VoreData[target].Pred == caster) then
+                (VoreData[caster].Pred == target or VoreData[target].Pred == caster) then
                 return
             end
             if SP_CanFitPrey(target, caster) or ConfigVars.Mechanics.AllowOverstuffing.value then
@@ -243,7 +248,6 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         end
     end
 end
-
 
 ---Triggers whenever there's a skill check.
 ---@param eventName string Name of event passed from the func that called the roll.
@@ -405,7 +409,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
             SP_DigestItem(object)
         end
         SP_PlayGurgle(object)
-    --add random role to characters around host
+        --add random role to characters around host
     elseif status == "SP_ROLESELECTOR_AURA" then
         SP_AssignRoleRandom(object)
     elseif status == 'SP_Struggle' then
@@ -428,7 +432,6 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         end
         SP_VoreCheck(VoreData[object].Pred, object, "StruggleCheck")
     elseif status == "SP_Hit_Bellyport" then
-        
         local pred = SP_CharacterFromGUID(causee)
         if VoreData[pred] == nil then
             SP_VoreDataEntry(pred, true)
@@ -444,8 +447,11 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
             end
         end
         if pred ~= "" then
-            local damagea = (Osi.Random(8) + 1) * VoreData[pred].StuffedStacks * (Osi.GetLevel(pred) // 5 + 1)
-            Osi.ApplyDamage(object, damagea, "Bludgeoning", pred)
+            local damage = 0
+            for _ = 1, VoreData[pred].StuffedStacks * max(3, (Osi.GetLevel(pred) // 5 + 1)) do
+                damage = damage + (Osi.Random(8) + 1)
+            end
+            Osi.ApplyDamage(object, damage, "Bludgeoning", pred)
         end
     elseif status == 'SP_BellyCompressed' then
         if VoreData[object] ~= nil then
@@ -890,10 +896,6 @@ function SP_ResetVore()
     end)
 end
 
-function SP_DumpVoreData()
-    _D(VoreData)
-end
-
 -- deletes every vore-related variable and possibly fixed broken saves
 function SP_KillVore()
     PersistentVars['PreyTablePred'] = nil
@@ -926,11 +928,32 @@ function SP_DebugVore()
     end
 end
 
-function SP_ToggleDebug()
-    local h = Osi.GetHostCharacter()
-    Osi.ApplyStatus(h, "SP_DebugActionStatus", -1)
-    Osi.ApplyStatus(h, "SP_DebugStatsStatus", -1)
-    Osi.ApplyStatus(h, "SP_DebugCarryStatus", -1)
+function SP_DebugFeats()
+    local v = GetHostCharacter()
+    Osi.AddPassive(v, "SP_EveryonesStrength")
+    Osi.AddPassive(v, "SP_Improved_Stomach_Shelter")
+    Osi.AddPassive(v, "SP_Gastric_Bulwark")
+    Osi.AddPassive(v, "SP_BottomlessStomach")
+    Osi.AddPassive(v, "SP_EndoAnyone")
+    Osi.AddPassive(v, "SP_AlwaysEndoToggle")
+end
+
+function SP_DebugStatus()
+    local v = Osi.GetHostCharacter()
+    Osi.ApplyStatus(v, "SP_DebugActionStatus", -1)
+    Osi.ApplyStatus(v, "SP_DebugInitStatus", -1)
+    Osi.ApplyStatus(v, "SP_DebugSpellSaveStatus", -1)
+    Osi.ApplyStatus(v, "FEATHER_FALL", -1)
+end
+
+function SP_DebugTest()
+    local v = Osi.GetHostCharacter()
+    Osi.AddCustomVisualOverride(v, "895fcd5b-dc72-4926-811f-c4c2e12903e9")
+end
+
+function SP_DebugTest2()
+    local v = Osi.GetHostCharacter()
+    Osi.RemoveCustomVisualOvirride(v, "895fcd5b-dc72-4926-811f-c4c2e12903e9")
 end
 
 -- If you know where to get type hints for this, please let me know.
@@ -962,7 +985,10 @@ Ext.Osiris.RegisterListener("UseFinished", 3, "after", SP_ItemUsed)
 Ext.Events.SessionLoaded:Subscribe(SP_OnSessionLoaded)
 Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
 
-Ext.RegisterConsoleCommand('DumpVoreData', SP_DumpVoreData)
+Ext.RegisterConsoleCommand('DebugFeats', SP_DebugFeats)
+Ext.RegisterConsoleCommand('DebugStatus', SP_DebugStatus)
+Ext.RegisterConsoleCommand('Test', SP_DebugTest)
+Ext.RegisterConsoleCommand('Test2', SP_DebugTest2)
 
 -- Lets you config during runtime.
 Ext.RegisterConsoleCommand('VoreConfigOptions', VoreConfigOptions)
