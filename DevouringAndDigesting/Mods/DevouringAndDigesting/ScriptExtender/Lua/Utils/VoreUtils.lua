@@ -11,7 +11,7 @@ function SP_VoreDataEntry(character, create)
         SP_NewVoreDataEntry(character)
     elseif VoreData[character].Pred == "" and next(VoreData[character].Prey) == nil and VoreData[character].Items == ""
         and VoreData[character].Fat == 0 and VoreData[character].AddWeight == 0 and VoreData[character].Satiation == 0 and
-        not create then
+        next(VoreData[character].SpellTargets) == nil and not create then
         _P("Removing character " .. character)
         VoreData[character] = nil
     else
@@ -277,6 +277,26 @@ function SP_SwallowAllItems(pred, container)
             SP_SwallowAllItems(pred, container)
         end)
     end
+end
+
+---checks if pred can swallow prey
+---@param pred CHARACTER
+---@param prey CHARACTER
+---@return boolean
+function SP_VorePossible(pred, prey)
+    if Osi.HasPassive(prey, "SP_Inedible") ~= 0 or Osi.HasActiveStatus(pred, "SP_RegurgitationCooldown") ~= 0 then
+        return false
+    end
+    if VoreData[pred] ~= nil and VoreData[pred].Pred == prey then
+        return false
+    end
+    local isItem = Osi.IsItem(prey) == 1
+    if not ConfigVars.Mechanics.AllowOverstuffing.value and ((isItem and not SP_CanFitItem(pred, prey)) or
+         (not isItem and not SP_CanFitPrey(pred, prey))) then
+        Osi.ApplyStatus(pred, "SP_Cant_Fit_Prey", SecondsPerTurn * 6, 1, prey)
+        return false
+    end
+    return true
 end
 
 ---Should be called in any situation when prey must be released, including pred's death.
@@ -639,13 +659,6 @@ function SP_UpdateBelly(pred, weight)
     if predData.CharacterCreationAppearance == nil then
         predData:CreateComponent("CharacterCreationAppearance")
     end
-    -- Clears overrides. Changed this so it will remove all belly-related visual overrides, meaning it should not break on polymorph
-    -- need to test ObjectTransformed (I hope that means polymorph)
-    for k, v in pairs(predData.CharacterCreationAppearance.Visuals) do
-        if AllBellies[v] == true then
-            Osi.RemoveCustomVisualOvirride(pred, v)
-        end
-    end
 
     -- for size change
     local predSizeCategory = predData.ObjectSize.Size
@@ -659,15 +672,27 @@ function SP_UpdateBelly(pred, weight)
     end
 
     local bellySize = 0
+    local bellyShape = ""
     for k, v in pairs(BellyTable[predRace][sex][bodyShape]) do
         if weight > k and k > bellySize then
             bellySize = k
+            bellyShape = v
+        end
+    end
+
+    -- Clears overrides. Changed this so it will remove all belly-related visual overrides, meaning it should not break on polymorph
+    for k, v in pairs(predData.CharacterCreationAppearance.Visuals) do
+        if AllBellies[v] == true and bellyShape ~= v then
+            Osi.RemoveCustomVisualOvirride(pred, v)
+        elseif bellyShape == v then
+            _P("No need to change belly for " .. pred)
+            bellyShape = ""
         end
     end
     -- Delay is necessary, otherwise will not work.
-    if bellySize > 0 then
+    if bellyShape ~= "" then
         SP_DelayCallTicks(2, function ()
-            Osi.AddCustomVisualOverride(pred, BellyTable[predRace][sex][bodyShape][bellySize])
+            Osi.AddCustomVisualOverride(pred, bellyShape)
         end)
     end
 end
@@ -759,7 +784,7 @@ function SP_VoreCheck(pred, prey, eventName)
         end
         Osi.RequestPassiveRollVersusSkill(prey, pred, "SkillCheck", "Strength", "Constitution", preyAdvantage, advantage,
                                           eventName)
-    elseif string.sub(eventName, 1, #eventName - 2) == 'SwallowLethalCheck' then
+    elseif string.sub(eventName, 1, 13) == 'SwallowCheck_' then
         _P('Rolling to resist swallow')
         if Osi.HasPassive(pred, 'SP_StretchyMaw') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Charmed') == 1 or
             Osi.HasActiveStatusWithGroup(prey, 'SG_Restrained') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Unconscious') == 1 or
@@ -807,7 +832,7 @@ function SP_VoreCheck(pred, prey, eventName)
         Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", predStat, preyStat, advantage, preyAdvantage, eventName)
     elseif eventName == 'ReleaseMeCheck' then
         _P('Rolling to free me')
-        if VoreData[prey].Digestion == 1 then
+        if VoreData[prey].Digestion == 2 then
             advantage = 1
         else
             preyAdvantage = 1

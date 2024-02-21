@@ -67,7 +67,7 @@ data "Properties" "Highlighted"
 
 new entry "SP_BellyDiver"
 type "PassiveData"
-data "Boosts" "UnlockSpell(SP_Target_Swallow_Me)"
+data "Boosts" "UnlockSpell(SP_Target_Offer_Me)"
 data "DisplayName" "h26dea810g635cg4374g9ea5g8581be0dafef;1"
 data "Description" "hc2117ed5g08e3g4d36g90begf39608de3b23;1"
 data "Properties" "Highlighted"
