@@ -66,13 +66,16 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         elseif string.sub(spell, 0, 10) == 'SP_Absorb_' then
             local prey = string.sub(spell, 11)
             SP_RegurgitatePrey(caster, prey, 1, "Absorb")
-        elseif string.sub(spell, 1, 17) == "SP_SwitchToLethal" then
+        elseif string.sub(spell, 0, 18) == "SP_SwitchToLethal_" then
             if VoreData[caster] ~= nil then
-                VoreData[caster].DigestItems = true
-                pattern = "^SP_SwitchToLethal_([OAUC]l?l?)$"
-                local locus = string.match(spell, pattern)
-                for k, v in pairs(SP_FilterPrey(VoreData[caster].Prey, locus)) do
-                    SP_SwitchToDigestionType(caster, k, 0, 2)
+                local locus = string.sub(spell, 19)
+                if locus == "O" or locus == "All" then
+                    VoreData[caster].DigestItems = true
+                end
+                for k, v in pairs(VoreData[caster].Prey) do
+                    if locus == v or locus == "All" then
+                        SP_SwitchToDigestionType(caster, k, 0, 2)
+                    end
                 end
             end
         elseif spell == 'SP_SwallowDown' then
@@ -439,15 +442,10 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         Osi.AddSpell(pred, "SP_Target_Bellyport_Destination")
     elseif status == 'SP_BellySlamStatus' then
         -- causee is a uuid not a guidstring so we need to convert it
-        local pred = ""
-        for k, v in pairs(VoreData) do
-            if string.sub(k, -36) == causee then
-                pred = k
-            end
-        end
-        if pred ~= "" then
+        local pred = SP_CharacterFromGUID(causee)
+        if VoreData[pred] ~= nil then
             local damage = 0
-            for _ = 1, VoreData[pred].StuffedStacks * max(3, (Osi.GetLevel(pred) // 5 + 1)) do
+            for _ = 1, SP_Clamp(VoreData[pred].StuffedStacks * (Osi.GetLevel(pred) // 5 + 1), 1, 3) do
                 damage = damage + (Osi.Random(8) + 1)
             end
             Osi.ApplyDamage(object, damage, "Bludgeoning", pred)

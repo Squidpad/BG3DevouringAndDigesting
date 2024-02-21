@@ -207,3 +207,12 @@ function SP_TableLength(table)
     return l
 end
 
+---clamps the val between lower and upper values
+---@param val number
+---@param lower number
+---@param upper number
+function SP_Clamp(val, lower, upper)
+    if lower > upper then lower, upper = upper, lower end -- swap if boundaries supplied the wrong way
+    return math.max(lower, math.min(upper, val))
+end
+
