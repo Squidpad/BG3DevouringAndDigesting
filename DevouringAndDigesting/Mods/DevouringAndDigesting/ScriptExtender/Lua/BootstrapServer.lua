@@ -819,7 +819,9 @@ function SP_OnSessionLoaded()
     -- Persistent variables are only available after SessionLoaded is triggered!
     _D(PersistentVars)
     SP_ResetConfig()
+    SP_ResetRaceWeightsConfig()
     SP_LoadConfigFromFile()
+    SP_LoadRaceWeightsConfigFromFile()
     if PersistentVars['VoreData'] == nil then
         PersistentVars['VoreData'] = {}
     end
@@ -928,7 +930,7 @@ function SP_DebugVore()
 end
 
 function SP_DebugFeats()
-    local v = GetHostCharacter()
+    local v = Osi.GetHostCharacter()
     Osi.AddPassive(v, "SP_EveryonesStrength")
     Osi.AddPassive(v, "SP_Improved_Stomach_Shelter")
     Osi.AddPassive(v, "SP_Gastric_Bulwark")
@@ -943,16 +945,6 @@ function SP_DebugStatus()
     Osi.ApplyStatus(v, "SP_DebugInitStatus", -1)
     Osi.ApplyStatus(v, "SP_DebugSpellSaveStatus", -1)
     Osi.ApplyStatus(v, "FEATHER_FALL", -1)
-end
-
-function SP_DebugTest()
-    local v = Osi.GetHostCharacter()
-    Osi.AddCustomVisualOverride(v, "895fcd5b-dc72-4926-811f-c4c2e12903e9")
-end
-
-function SP_DebugTest2()
-    local v = Osi.GetHostCharacter()
-    Osi.RemoveCustomVisualOvirride(v, "895fcd5b-dc72-4926-811f-c4c2e12903e9")
 end
 
 -- If you know where to get type hints for this, please let me know.

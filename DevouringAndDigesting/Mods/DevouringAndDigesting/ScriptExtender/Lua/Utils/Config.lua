@@ -257,19 +257,31 @@ local DEFAULT_VARS = {
     },
     NPCVore = {
         ProbabilityFemale = {
-            description = "The % of an NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
+            description = "The % of a female NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
             value = 30,
             default = 30,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
         },
         ProbabilityMale = {
-            description = "The % of an NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
-            value = 10,
-            default = 10,
+            description = "The % of a male NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
+            value = 30,
+            default = 30,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
         },
         ProbabilityCreature = {
-            description = "The % of an NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
+            description = "The % of a monster becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
             value = 20,
             default = 20,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
         },
         SpecialNPCsOverridePreferences = {
             description = "NPCs from the 'always become pred' list will become predators regardless of enabled genders.",
@@ -277,24 +289,49 @@ local DEFAULT_VARS = {
             default = true,
         },
         ClampTiny = {
-            description = "Limits the probability of a tiny character being chosen as a pred to this value. Set to some 10000 to disable.",
+            description = "Limits the probability of a tiny character being chosen as a pred to this value. Set to 100 or higher to disable.",
             value = 0,
             default = 0,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
         },
         ClampSmall = {
-            description = "Limits the probability of a small character being chosen as a pred to this value. Set to some 10000 to disable.",
+            description = "Limits the probability of a small character being chosen as a pred to this value. Set to 100 or higher to disable.",
             value = 40,
             default = 40,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        ClampMedium = {
+            description = "Limits the probability of a medium character being chosen as a pred to this value. Set to 100 or higher to disable.",
+            value = 100,
+            default = 100,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
         },
         CooldownMin = {
             description = "Minimum cooldown between NPC vore attempts (in turns).",
             value = 2,
             default = 2,
+            range = {0, 10, 1},
+            extras = {
+                slider = true,
+            },
         },
         CooldownMax = {
             description = "Maximum cooldown between NPC vore attempts (in turns).",
             value = 5,
             default = 5,
+            range = {0, 10, 1},
+            extras = {
+                slider = true,
+            },
         },
     },
     __Version = CURRENT_VERSION,

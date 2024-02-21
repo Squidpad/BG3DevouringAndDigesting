@@ -188,6 +188,15 @@ function SP_TableConcat(t1, t2)
     return t1
 end
 
+---returns all tables merged together
+---@param tt table<table>
+function SP_TableConcatMany(tt)
+    local result = {}
+    for _, v in ipairs(tt) do
+        result = SP_TableConcat(result, v)
+    end
+    return result
+end
 ---returns length of a table when # does not work (table is not an array)
 ---@param table table table to query
 function SP_TableLength(table)

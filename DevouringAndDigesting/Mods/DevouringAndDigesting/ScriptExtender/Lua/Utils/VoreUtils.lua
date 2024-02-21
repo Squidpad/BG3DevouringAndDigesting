@@ -1058,29 +1058,30 @@ function SP_AssignRoleRandom(character)
     if Osi.HasPassive(character, "SP_BlockGluttony") == 1 or Osi.HasPassive(character, "SP_Gluttony") == 1 then
         return
     end
+    if Osi.IsTagged(character, "ee978587-6c68-4186-9bfc-3b3cc719a835") == 1 then
+        Osi.AddPassive(character, "SP_BlockGluttony")
+        Osi.AddPassive(character, "SP_Inedible")
+        return
+    end
     if Ext.Entity.Get(character).ServerCharacter.Temporary == true then
         Osi.AddPassive(character, "SP_BlockGluttony")
         return
     end
-    if Osi.IsTagged(character, "ee978587-6c68-4186-9bfc-3b3cc719a835") == 1 then
-        Osi.AddPassive(character, "SP_BlockGluttony")
-        return
-    end
     local race = Osi.GetRace(character, 0)
-    if RACE_TABLE[race] == nil then
+    if RaceConfigVars[race] == nil then
         _P("Race not supported " .. race)
         Osi.AddPassive(character, "SP_BlockGluttony")
         return
     end
     local selectedPobability = 0
-    if RACE_TABLE[race] == nil then
+    if RaceConfigVars[race] == nil then
         selectedPobability = 0
     elseif SINGLE_GENDER_CREATURE[race] == true then
-        selectedPobability = ConfigVars.NPCVore.ProbabilityCreature.value * RACE_TABLE[race] // 100
+        selectedPobability = ConfigVars.NPCVore.ProbabilityCreature.value * RaceConfigVars[race]
     elseif Osi.GetBodyType(character, 0) == "Female" then
-        selectedPobability = ConfigVars.NPCVore.ProbabilityFemale.value * RACE_TABLE[race] // 100
+        selectedPobability = ConfigVars.NPCVore.ProbabilityFemale.value * RaceConfigVars[race]
     elseif Osi.GetBodyType(character, 0) == "Male" then
-        selectedPobability = ConfigVars.NPCVore.ProbabilityMale.value * RACE_TABLE[race] // 100
+        selectedPobability = ConfigVars.NPCVore.ProbabilityMale.value * RaceConfigVars[race]
     end
     local size = SP_GetCharacterSize(character)
     if size == 0 and selectedPobability > ConfigVars.NPCVore.ClampTiny.value then
