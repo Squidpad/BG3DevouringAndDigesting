@@ -155,7 +155,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                     end)
                 end
             end
-        elseif string.sub(spell, 4) == 'Lethal' then
+        elseif string.sub(spell, 6) == 'Lethal' then
             if Osi.IsItem(target) == 1 then
                 SP_DelayCallTicks(12, function ()
                     SP_SwallowItem(caster, target)
@@ -213,7 +213,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         end
     -- non swallow-related spells
     else
-        if spell == 'SP_Target_Massage_Pred' then
+        if spell == 'Massage_Pred' then
             if VoreData[target] ~= nil then
                 Osi.RemoveStatus(target, 'SP_Indigestion')
                 for k, v in pairs(VoreData[target].Prey) do
@@ -222,7 +222,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                     end
                 end
             end
-        elseif spell == 'SP_Target_AssignNPCPred' then
+        elseif spell == 'AssignNPCPred' then
             _P(target)
             if Osi.HasPassive(target, "SP_BlockGluttony") == 1 then
                 _P("Was prey")
@@ -231,7 +231,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             if Ext.Entity.Get(target).ServerCharacter.Temporary == false then
                 Osi.AddPassive(target, "SP_Gluttony")
             end
-        elseif spell == 'SP_Target_AssignNPCPrey' then
+        elseif spell == 'AssignNPCPrey' then
             _P(target)
             if Osi.HasPassive(target, "SP_Gluttony") == 1 then
                 _P("Was predator")
@@ -240,7 +240,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             if Ext.Entity.Get(target).ServerCharacter.Temporary == false then
                 Osi.AddPassive(target, "SP_BlockGluttony")
             end
-        elseif spell == 'SP_Target_Acidify' then
+        elseif spell == 'Acidify' then
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
                     if VoreData[k].Digestion == 2 then
