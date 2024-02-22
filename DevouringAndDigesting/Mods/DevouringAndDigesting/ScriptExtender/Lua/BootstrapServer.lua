@@ -111,6 +111,8 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
     end
 end
 
+
+
 ---Triggers when a spell is cast with a target.
 ---@param caster CHARACTER
 ---@param target CHARACTER
@@ -119,99 +121,99 @@ end
 ---@param spellElement? string Like fire, lightning, etc I think.
 ---@param storyActionID? integer
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
-    if string.sub(spell, 1, 3) ~= 'SP_' then
+    if string.sub(spell, 1, 10) ~= 'SP_Target_' then
         return
     end
-    local voreSpellType, voreLocus = SP_GetSpellParams(spell)
-    if voreSpellType ~= nil then
-        _P("voreSpellType: " .. voreSpellType .. "  voreLocus: " .. voreLocus)
-        if Osi.HasPassive(target, "SP_Inedible") == 0 and Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown") == 0 then
-            -- calculates cooldown for npcs
-            local cooldown = ConfigVars.NPCVore.CooldownMax.value - ConfigVars.NPCVore.CooldownMin.value + 1
+    local locus = string.sub(spell, -1)
+    spell = string.sub(spell, 11)
+    -- main vore spell
+    if string.sub(spell, 1, 8) == 'Swallow_' then
+        spell = string.sub(spell, 9)
+        -- if pred can swallow prey
+        if not SP_VorePossible(caster, target) then
+            return
+        end
+        -- ai vore cooldown
+        local cooldown = ConfigVars.NPCVore.CooldownMax.value - ConfigVars.NPCVore.CooldownMin.value + 1
             cooldown = Osi.Random(cooldown) + ConfigVars.NPCVore.CooldownMin.value
-            if voreSpellType == 'Endo' then
-                -- applies cooldown for npcs
-                if VoreData[caster] ~= nil and VoreData[caster].Pred == target then
-                    return
-                end
-                Osi.ApplyStatus(caster, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * cooldown, 1, caster)
-                if Osi.IsItem(target) == 1 then
-                    if Osi.GetCanPickUp(target) == 1 then
-                        if SP_CanFitItem(caster, target) or ConfigVars.Mechanics.AllowOverstuffing.value then
-                            SP_DelayCallTicks(12, function ()
-                                SP_SwallowItem(caster, target)
-                            end)
-                        else
-                            Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", SecondsPerTurn * 6, 1, target)
-                        end
-                    end
-                else
-                    if SP_CanFitPrey(caster, target) or ConfigVars.Mechanics.AllowOverstuffing.value then
-                        SP_DelayCallTicks(12, function ()
-                            SP_SwallowPrey(caster, target, 0, true, true, voreLocus)
-                        end)
-                    else
-                        Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", SecondsPerTurn * 6, 1, target)
-                    end
-                end
-            elseif voreSpellType == 'Lethal' then
-                -- applies cooldown for npcs
-                if VoreData[caster] ~= nil and VoreData[caster].Pred == target then
-                    return
-                end
-                Osi.ApplyStatus(caster, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * cooldown, 1, caster)
-                if SP_CanFitPrey(caster, target) or ConfigVars.Mechanics.AllowOverstuffing.value then
-                    SP_DelayCallTicks(6, function ()
-                        SP_VoreCheck(caster, target, "SwallowLethalCheck_" .. voreLocus)
+        Osi.ApplyStatus(caster, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * cooldown, 1, caster)
+        -- vore check end
+        -- spell type check
+        if string.sub(spell, 4) == 'Endo' then
+            if Osi.IsItem(target) == 1 then
+                SP_DelayCallTicks(12, function ()
+                    SP_SwallowItem(caster, target)
+                end)
+            else
+                if Osi.IsAlly(caster, target) == 1 then
+                    SP_DelayCallTicks(12, function ()
+                        SP_SwallowPrey(caster, target, 0, true, true, locus)
                     end)
                 else
-                    Osi.ApplyStatus(caster, "SP_Cant_Fit_Prey", SecondsPerTurn * 6, 1, target)
+                    SP_DelayCallTicks(6, function ()
+                        SP_VoreCheck(caster, target, "SwallowCheck_Endo_" .. locus)
+                    end)
                 end
-            elseif voreSpellType == "Bellyport_Destination" then
-                _P("caster " .. caster)
-                local predData = Ext.Entity.Get(caster)
-                local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) /
-                    1000
-                local preyTable = {}
-                for prey, k in pairs(VoreData[caster].SpellTargets) do
-                    -- this will teleport the exact amount of prey that fit inside pred
-                    if k == "Bellyport" and (SP_GetTotalCharacterWeight(prey) <= predRoom or
-                            ConfigVars.Mechanics.AllowOverstuffing.value) then
-                        predRoom = predRoom - SP_GetTotalCharacterWeight(prey)
-                        table.insert(preyTable, prey)
-                        Osi.RemoveStatus(prey, "SP_Hit_Bellyport")
-                    end
-                end
-                
-                SP_DelayCallTicks(5, function ()
-                    SP_SwallowPreyMultiple(target, preyTable, 2, true, false, voreLocus)
-                    VoreData[caster].SpellTargets = {}
-                    Osi.RemoveSpell(caster, "SP_Target_Bellyport_Destination")
+            end
+        elseif string.sub(spell, 6) == 'Lethal' then
+            if Osi.IsItem(target) == 1 then
+                SP_DelayCallTicks(12, function ()
+                    SP_SwallowItem(caster, target)
+                    VoreData[caster].DigestItems = true
+                end)
+            else
+                SP_DelayCallTicks(6, function ()
+                    SP_VoreCheck(caster, target, "SwallowCheck_Lethal_" .. locus)
                 end)
             end
         end
-        if voreSpellType == 'Me' then
-            if Osi.IsTagged(target, "f7265d55-e88e-429e-88df-93f8e41c821c") == 0 then
-                return
-            end
-            if VoreData[caster] ~= nil and VoreData[target] ~= nil and
-                (VoreData[caster].Pred == target or VoreData[target].Pred == caster) then
-                return
-            end
-            if SP_CanFitPrey(target, caster) or ConfigVars.Mechanics.AllowOverstuffing.value then
-                if Osi.IsAlly(caster, target) == 1 then
-                    SP_DelayCallTicks(12, function ()
-                        SP_SwallowPrey(target, caster, 0, true, false, voreLocus)
-                    end)
-                else
-                    SP_DelayCallTicks(12, function ()
-                        SP_SwallowPrey(target, caster, 2, true, false, voreLocus)
-                    end)
+    -- other swallow-related spells
+    elseif string.sub(spell, 1, 21) == "Bellyport_Destination" then
+        local predData = Ext.Entity.Get(caster)
+        local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) /
+            1000
+        local preyTable = {}
+        for prey, v in pairs(VoreData[caster].SpellTargets) do
+            if v == "Bellyport" then
+                if Osi.IsCharacter(prey) == 1 and Osi.HasActiveStatus(prey, "SP_Hit_Bellyport") == 1 then
+                    -- this will teleport the exact amount of prey that fit inside pred
+                    if (SP_GetTotalCharacterWeight(prey) <= predRoom or
+                            ConfigVars.Mechanics.AllowOverstuffing.value) and SP_VorePossible(target, prey) then
+                        predRoom = predRoom - SP_GetTotalCharacterWeight(prey)
+                        table.insert(preyTable, prey)
+                    end
                 end
+                Osi.RemoveStatus(prey, "SP_Hit_Bellyport")
+                VoreData[caster].SpellTargets[prey] = nil
             end
         end
+        SP_DelayCallTicks(5, function ()
+            if #preyTable > 0 then
+                SP_SwallowPreyMultiple(target, preyTable, 2, true, false, locus)
+            end
+            Osi.RemoveSpell(caster, "SP_Target_Bellyport_Destination")
+        end)
+    -- swallow me spells
+    elseif string.sub(spell, 1, 8) == 'Offer_Me' then
+        -- prey should not target their preds
+        if VoreData[caster] ~= nil and VoreData[caster].Pred == target then
+            return
+        end
+        if not SP_VorePossible(target, caster) then
+            return
+        end 
+        if Osi.IsAlly(caster, target) == 1 then
+            SP_DelayCallTicks(12, function ()
+                SP_SwallowPrey(target, caster, 0, true, false, locus)
+            end)
+        else
+            SP_DelayCallTicks(12, function ()
+                SP_SwallowPrey(target, caster, 2, true, false, locus)
+            end)
+        end
+    -- non swallow-related spells
     else
-        if spell == 'SP_Target_Massage_Pred' then
+        if spell == 'Massage_Pred' then
             if VoreData[target] ~= nil then
                 Osi.RemoveStatus(target, 'SP_Indigestion')
                 for k, v in pairs(VoreData[target].Prey) do
@@ -220,7 +222,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                     end
                 end
             end
-        elseif spell == 'SP_AssignNPCPred' then
+        elseif spell == 'AssignNPCPred' then
             _P(target)
             if Osi.HasPassive(target, "SP_BlockGluttony") == 1 then
                 _P("Was prey")
@@ -229,8 +231,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             if Ext.Entity.Get(target).ServerCharacter.Temporary == false then
                 Osi.AddPassive(target, "SP_Gluttony")
             end
-            -- Osi.SetRelationTemporaryHostile(target, caster)
-        elseif spell == 'SP_AssignNPCPrey' then
+        elseif spell == 'AssignNPCPrey' then
             _P(target)
             if Osi.HasPassive(target, "SP_Gluttony") == 1 then
                 _P("Was predator")
@@ -239,7 +240,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             if Ext.Entity.Get(target).ServerCharacter.Temporary == false then
                 Osi.AddPassive(target, "SP_BlockGluttony")
             end
-        elseif spell == 'SP_Acidify' then
+        elseif spell == 'Acidify' then
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
                     if VoreData[k].Digestion == 2 then
@@ -259,14 +260,9 @@ end
 ---@param isActiveRoll? integer Whether or not the rolling GUI popped up. 0 == no, 1 == yes.
 ---@param criticality? CRITICALITYTYPE Whether or not it was a crit and what kind. 0 == no crit, 1 == crit success, 2 == crit fail.
 function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRoll, criticality)
-    local eventVoreName = string.sub(eventName, 1, #eventName - 2)
-    local voreLocus = string.sub(eventName, #eventName)
-    if (eventVoreName == "SwallowLethalCheck" and (resultType ~= 0 or ConfigVars.Mechanics.VoreDifficulty.value == 'cheat')) or (eventVoreName == "BellyportSave" and (resultType ~= 1 or ConfigVars.Mechanics.VoreDifficulty.value == 'cheat')) then
-        if eventVoreName == "BellyportSave" then
-            roller, rollSubject = rollSubject, roller
-        end
+    if string.sub(eventName, 1, 20) == 'SwallowCheck_Lethal_' and (resultType ~= 0 or ConfigVars.Mechanics.VoreDifficulty.value == 'cheat') then
         _P('Lethal Swallow Success by ' .. roller)
-
+        local voreLocus = string.sub(eventName, -1)
         SP_SwallowPrey(roller, rollSubject, 2, true, true, voreLocus)
 
         if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(roller, 'SP_MuscleControl') == 0 then
@@ -279,6 +275,10 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
                 end
             end
         end
+    elseif string.sub(eventName, 1, 18) == 'SwallowCheck_Endo_' and (resultType ~= 0 or ConfigVars.Mechanics.VoreDifficulty.value == 'cheat') then
+        _P('Endo Swallow Success by ' .. roller)
+        local voreLocus = string.sub(eventName, -1)
+        SP_SwallowPrey(roller, rollSubject, 0, true, true, voreLocus)
     elseif eventName == "StruggleCheck" and resultType ~= 0 then
         _P('Struggle Success by ' .. roller .. ' against ' .. rollSubject)
         _P("rollresult: " .. tostring(resultType))
