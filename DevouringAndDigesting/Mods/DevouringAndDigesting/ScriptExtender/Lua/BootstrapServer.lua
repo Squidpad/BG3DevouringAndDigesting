@@ -29,6 +29,7 @@ Ext.Require("Utils/TableData.lua")
 Ext.Require("Utils/RaceTable.lua")
 Ext.Require("Utils/DCTable.lua")
 
+--this script is missing
 Ext.Require("Subclasses/StomachSentinel.lua")
 
 Ext.Vars.RegisterModVariable(ModuleUUID, "ModVoreData", {})
@@ -128,9 +129,11 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
     spell = string.sub(spell, 11)
     -- main vore spell
     if string.sub(spell, 1, 8) == 'Swallow_' then
+        _P("Swallowing")
         spell = string.sub(spell, 9)
         -- if pred can swallow prey
         if not SP_VorePossible(caster, target) then
+            _P("Can't vore")
             return
         end
         -- ai vore cooldown
@@ -139,7 +142,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         Osi.ApplyStatus(caster, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * cooldown, 1, caster)
         -- vore check end
         -- spell type check
-        if string.sub(spell, 4) == 'Endo' then
+        if string.sub(spell, 1, 4) == 'Endo' then
             if Osi.IsItem(target) == 1 then
                 SP_DelayCallTicks(12, function ()
                     SP_SwallowItem(caster, target)
@@ -155,7 +158,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                     end)
                 end
             end
-        elseif string.sub(spell, 6) == 'Lethal' then
+        elseif string.sub(spell, 1, 6) == 'Lethal' then
             if Osi.IsItem(target) == 1 then
                 SP_DelayCallTicks(12, function ()
                     SP_SwallowItem(caster, target)
