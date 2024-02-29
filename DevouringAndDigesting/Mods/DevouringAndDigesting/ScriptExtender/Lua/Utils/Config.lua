@@ -232,8 +232,8 @@ local DEFAULT_VARS = {
         },
         HungerSatiation = {
             description = "Satiation stacks needed to remove one hunger stack.",
-            value = 3,
-            default = 3,
+            value = 4,
+            default = 4,
             range = {1, 100, 1},
             extras = {
                 slider = true,
@@ -253,6 +253,12 @@ local DEFAULT_VARS = {
             "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
             value = false,
             default = false,
+        },
+        HungerUseFat = {
+            description =
+            "If set to true, fat will be used to reduce hunger gain by half if you don't have enough satiation stacks.",
+            value = true,
+            default = true,
         },
     },
     NPCVore = {

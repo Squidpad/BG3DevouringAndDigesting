@@ -793,6 +793,21 @@ function SP_HungerSystem(stacks, isLong)
                     hungerStacks * ConfigVars.Hunger.HungerSatiation.value
                 newhungerStacks = 0
             end
+            -- half of hunger stacks (rounded up) are removed with fat
+            if newhungerStacks > 1 and ConfigVars.Hunger.HungerUseFat.value then
+                local hungerCompensation = (newhungerStacks + 1) // 2
+                satiationDiff = VoreData[pred].Fat // ConfigVars.Hunger.HungerSatiation.value
+                local newHungerCompensation = hungerCompensation - satiationDiff
+                if newHungerCompensation > 0 then
+                    VoreData[pred].Fat = VoreData[pred].Fat -
+                        satiationDiff * ConfigVars.Hunger.HungerSatiation.value
+                else
+                    VoreData[pred].Fat = VoreData[pred].Fat -
+                        hungerCompensation * ConfigVars.Hunger.HungerSatiation.value
+                    newHungerCompensation = 0
+                end
+                newhungerStacks = newhungerStacks + newHungerCompensation - hungerCompensation
+            end
         end
         if Osi.IsTagged(pred, 'f7265d55-e88e-429e-88df-93f8e41c821c') == 1 then
             Osi.RemoveStatus(pred, 'SP_Hunger')
@@ -881,22 +896,20 @@ end
 ---@param level? string Name of new game region.
 function SP_OnBeforeLevelUnloaded(level)
     _P('LEVEL CHANGE')
-    _D(level)
-    _P('Level changed to ' .. level)
+    if type(level) == "string" then
+        _D(level)
+        _P('Level changed to ' .. level)
+    end
 
     for k, v in pairs(VoreData) do
         if next(v.Prey) ~= nil then
             SP_RegurgitatePrey(k, "All", -1, "LevelChange")
         end
     end
-    -- only keeps those with items in stomach, need to test how item ids are transferred between levels,
-    -- maybe remove this completely
     for k, v in pairs(VoreData) do
         VoreData[k].Prey = {}
         VoreData[k].Pred = ""
-        if v.Items == "" then
-            VoreData[k] = nil
-        end
+        SP_VoreDataEntry(k, false)
     end
 end
 

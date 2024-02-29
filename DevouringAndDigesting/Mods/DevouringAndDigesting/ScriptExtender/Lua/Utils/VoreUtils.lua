@@ -1160,7 +1160,7 @@ function SP_CheckVoreData()
     for k, v in pairs(VoreData) do
         local dead = Osi.IsDead(k)
         local character = Osi.IsCharacter(k)
-        if dead == nil or character == 0 then
+        if dead == nil or character == nil or character == 0 then
             _F(k .. " WAS ERASED FROM EXISTENSE")
             if next(v.Prey) ~= nil then
                 _P(k .. " WAS A PRED")
@@ -1168,9 +1168,9 @@ function SP_CheckVoreData()
             if v.Pred ~= "" then
                 local pred = v.Pred
                 VoreData[pred].AddWeight = VoreData[pred].AddWeight + v.Weight
-                VoreData[k] = nil
                 VoreData[pred].Prey[k] = nil
             end
+            VoreData[k] = nil
         end
     end
 end
