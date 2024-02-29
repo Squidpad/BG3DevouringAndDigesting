@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<save>
+    <version major="4" minor="0" revision="9" build="322"/>
+    <region id="ProgressionDescriptions">
+        <node id="root">
+            <children>
+                <node id="ProgressionDescription">
+                    <attribute id="Description" type="TranslatedString" handle="h80ddca1ab04949bf978761b87606e75d64f8" version="1"/>
+                    <attribute id="DisplayName" type="TranslatedString" handle="h7833d904a8af4731a2207c6ef1ec049ce4cb" version="1"/>
+                    <attribute id="ProgressionTableId" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2" />
+                    <attribute id="SelectorId" type="FixedString" value="HungerBoon" />
+                    <attribute id="UUID" type="guid" value="2181b66e-8348-4379-80d1-1fc877d64fb4" />
+                </node>
+            </children>
+        </node>
+    </region>
+</save>

@@ -11,7 +11,8 @@ end
 ---@param guid GUIDSTRING
 ---@return CHARACTER
 function SP_CharacterFromGUID(guid)
-    return string.sub(Osi.GetTemplate(guid), 1, -37) .. guid
+    local name = Ext.Entity.Get(guid).ServerCharacter.Template.Name
+    return name .. "_" .. guid
 end
 
 ---@param character CHARACTER guid of character
@@ -59,6 +60,24 @@ end
 function SP_GetCharacterSize(character)
     local charData = Ext.Entity.Get(character)
     return charData.ObjectSize.Size
+end
+
+---@param pred CHARACTER
+---@param prey CHARACTER
+---@return string, string
+function SP_GetSwallowSkill(pred, prey)
+    local predStat = 'Athletics'
+    local preyStat = 'Athletics'
+    if Osi.HasSkill(pred, "Acrobatics") > Osi.HasSkill(pred, "Athletics") then
+        predStat = "Acrobatics"
+    end
+    if Osi.HasSkill(prey, "Acrobatics") > Osi.HasSkill(prey, "Athletics") then
+        preyStat = "Acrobatics"
+    end
+    if Osi.HasPassive(pred, "SP_SC_GreatHunger") == 1 and Osi.HasSkill(pred, "Intimidation") > Osi.HasSkill(pred, predStat) then
+        predStat = "Intimidation"
+    end
+    return predStat, preyStat
 end
 
 

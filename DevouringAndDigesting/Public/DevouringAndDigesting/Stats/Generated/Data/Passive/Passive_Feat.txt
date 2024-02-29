@@ -12,6 +12,12 @@ data "DisplayName" "hcf77ee75gda7fg425dg8e40gc73ced72981d;1"
 data "Description" "h1ea537d9g15f3g401cga78ag66fd4f2c4827;1"
 data "Properties" "Highlighted"
 
+new entry "SP_LeadBelly"
+type "PassiveData"
+data "DisplayName" "h9895a405g5744g4652g9b3dg8c95a3d77a1c;1"
+data "Description" "hb6575320g69a5g4366gb0bbg32ea27d17eff;1"
+data "Properties" "Highlighted"
+
 new entry "SP_Musclegut"
 type "PassiveData"
 data "DisplayName" "h1aaf187ag5c9cg4f1cga013g294543b2e470;1"

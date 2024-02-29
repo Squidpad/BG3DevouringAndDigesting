@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<save>
+    <version major="4" minor="0" revision="10" build="100"/>
+    <region id="Progressions">
+        <node id="root">
+            <children>
+                <node id="Progression">
+                    <attribute id="Boosts" type="LSString" value="Proficiency(MediumArmor);Proficiency(Shields)"/>
+                    <attribute id="Level" type="uint8" value="1"/>
+                    <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_GreatHunger"/>
+                    <attribute id="ProgressionType" type="uint8" value="1"/>
+                    <attribute id="Selectors" type="LSString" value="SelectSpells(65952d48-bb16-4ad7-b173-532182bf7770,2,0,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
+                    <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="UUID" type="guid" value="28a08b98-41f3-4b7b-9dc2-576a84e6d9a7"/>
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="2"/>
+                    <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="ProgressionType" type="uint8" value="1"/>
+                    <attribute id="Selectors" type="LSString" value="SelectSpells(65952d48-bb16-4ad7-b173-532182bf7770,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
+                    <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="UUID" type="guid" value="8f966a3d-6096-49fb-aa2a-906de1cdd558"/>
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="3"/>
+                    <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="ProgressionType" type="uint8" value="1"/>
+                    <attribute id="Selectors" type="LSString" value="SelectSpells(fe101a94-8619-49b2-859d-a68c2c291054,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
+                    <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="UUID" type="guid" value="0c95be25-196d-4628-b7bd-625e49cf7b3a"/>
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="4"/>
+                    <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="ProgressionType" type="uint8" value="1"/>
+                    <attribute id="Selectors" type="LSString" value="SelectSpells(f5c4af9c-5d8d-4526-9057-94a4b243cd40,1,0);SelectSpells(fe101a94-8619-49b2-859d-a68c2c291054,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
+                    <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="UUID" type="guid" value="ccb8c1bc-3d9d-4ec8-9504-02fd9b57fef3"/>
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="5"/>
+                    <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="ProgressionType" type="uint8" value="1"/>
+                    <attribute id="Selectors" type="LSString" value="SelectSpells(30e9b761-6be0-418e-bb28-5103c00c663b,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a);SelectPassives(fd2c7e00-95a5-444a-a63a-5cccb38c7f11,1,HungerBoon)"/>
+                    <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="UUID" type="guid" value="9300c12d-2693-4a4e-8733-932d893735c1"/>
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="6"/>
+                    <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_MaddeningSight"/>
+                    <attribute id="ProgressionType" type="uint8" value="1"/>
+                    <attribute id="Selectors" type="LSString" value="SelectSpells(30e9b761-6be0-418e-bb28-5103c00c663b,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
+                    <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="UUID" type="guid" value="54beb95a-9854-4226-aa08-e5ff70ab5fc2"/>
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="7"/>
+                    <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="ProgressionType" type="uint8" value="1"/>
+                    <attribute id="Selectors" type="LSString" value="SelectSpells(b64e527e-1f97-4125-84f7-78376ab1440b,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
+                    <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="UUID" type="guid" value="c42472cd-d196-42ee-9919-5f70335776d4"/>
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="8"/>
+                    <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="ProgressionType" type="uint8" value="1"/>
+                    <attribute id="Selectors" type="LSString" value="SelectSpells(b64e527e-1f97-4125-84f7-78376ab1440b,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
+                    <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="UUID" type="guid" value="0c9e1ac1-d7e0-464c-9ff9-230337ef0363"/>
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="9"/>
+                    <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="ProgressionType" type="uint8" value="1"/>
+                    <attribute id="Selectors" type="LSString" value="SelectSpells(6d2edca9-71a7-4f3f-89f0-fccfff0bdee5,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
+                    <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="UUID" type="guid" value="b9a2bd52-e4d7-4c20-b444-07881d664e15"/>
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="10"/>
+                    <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_UnstoppableGluttony"/>
+                    <attribute id="ProgressionType" type="uint8" value="1"/>
+                    <attribute id="Selectors" type="LSString" value="SelectSpells(6d2edca9-71a7-4f3f-89f0-fccfff0bdee5,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
+                    <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="UUID" type="guid" value="cef4c20d-e5c8-41af-b36a-dad5bb20cad6"/>
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="11"/>
+                    <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="ProgressionType" type="uint8" value="1"/>
+                    <attribute id="Selectors" type="LSString" value="SelectSpells(6d2edca9-71a7-4f3f-89f0-fccfff0bdee5,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
+                    <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="UUID" type="guid" value="f7de61e2-3d08-46e4-8259-faa91064110d"/>
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="12"/>
+                    <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="ProgressionType" type="uint8" value="1"/>
+                    <attribute id="Selectors" type="LSString" value="SelectSpells(6d2edca9-71a7-4f3f-89f0-fccfff0bdee5,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
+                    <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="UUID" type="guid" value="47e26ccb-9f93-4468-992d-c6ae4ce416a5"/>
+                </node>
+            </children>
+        </node>
+    </region>
+</save>
