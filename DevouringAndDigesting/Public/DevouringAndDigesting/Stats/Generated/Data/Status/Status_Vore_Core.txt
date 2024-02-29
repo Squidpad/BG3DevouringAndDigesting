@@ -267,7 +267,7 @@ data "OnApplyFunctors" "DealDamage(LevelMapValue(D4Cantrip),Bludgeoning);DealDam
 new entry "SP_OverstuffedDamage"
 type "StatusData"
 data "StatusType" "BOOST"
-data "StatusPropertyFlags" "DisablePortraitIndicator;ApplyToDead;IgnoreResting;DisableCombatlog;MultiplyEffectsByDuration;FreezeDuration"
+data "StatusPropertyFlags" "IgnoreResting;DisableCombatlog;MultiplyEffectsByDuration;FreezeDuration"
 data "StackType" "Overwrite"
 data "TickFunctors" "DealDamage(1d6,Force)"
 
@@ -277,7 +277,7 @@ data "StatusType" "BOOST"
 data "Icon" "Spell_Abjuration_Sanctuary"
 data "StackId" "SP_ROLESELECTOR"
 data "StackType" "Overwrite"
-data "AuraRadius" "30"
+data "AuraRadius" "20"
 data "AuraStatuses" "TARGET:IF(Character() and not Dead()):ApplyStatus(SP_ROLESELECTOR_AURA,100,-1)"
 data "StatusPropertyFlags" "DisableOverhead;DisablePortraitIndicator;DisableCombatlog;IgnoreResting"
 

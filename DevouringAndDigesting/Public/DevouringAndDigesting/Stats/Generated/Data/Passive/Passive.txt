@@ -40,7 +40,7 @@ data "Properties" "IsHidden"
 new entry "SP_Assigner"
 type "PassiveData"
 data "DisplayName" "h3463132ag4b97g4c1fg95c8g8eaf55466da9;1"
-data "Boosts" "UnlockSpell(SP_Target_AssignNPCRole)"
+data "Boosts" "UnlockSpell(SP_Target_AssignNPCRole);"
 data "Properties" "IsHidden"
 
 new entry "SP_Inedible"

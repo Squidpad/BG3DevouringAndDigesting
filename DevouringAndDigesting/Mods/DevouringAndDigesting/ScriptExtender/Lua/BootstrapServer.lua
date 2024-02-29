@@ -28,6 +28,7 @@ Ext.Require("Utils/Migrations/PersistentVarsMigrations.lua")
 Ext.Require("Utils/TableData.lua")
 Ext.Require("Utils/RaceTable.lua")
 Ext.Require("Utils/DCTable.lua")
+Ext.Require("Utils/ExtEvents.lua")
 
 --this script is missing
 Ext.Require("Subclasses/StomachSentinel.lua")
@@ -52,15 +53,22 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
     end
     if VoreData[caster] ~= nil then
         if string.sub(spell, 0, 15) == 'SP_Regurgitate_' then
-            if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown2") ~= 0 then
+            if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown2") ~= 0 or
+            Osi.HasActiveStatus(caster, "SP_SC_BlockVoreTotal") ~= 0 then
                 return
             end
             local prey = string.sub(spell, 16)
             SP_RegurgitatePrey(caster, prey, 10, '', 'O')
         elseif string.sub(spell, 0, 12) == 'SP_Disposal_' then
+            if Osi.HasActiveStatus(caster, "SP_SC_BlockVoreTotal") ~= 0 then
+                return
+            end
             local prey = string.sub(spell, 13)
             SP_RegurgitatePrey(caster, prey, 10, '', 'A')
         elseif string.sub(spell, 0, 11) == 'SP_Release_' then
+            if Osi.HasActiveStatus(caster, "SP_SC_BlockVoreTotal") ~= 0 then
+                return
+            end
             local locus = string.sub(spell, 12, 12)
             local prey = string.sub(spell, 14)
             SP_RegurgitatePrey(caster, prey, 10, '', locus)
@@ -107,6 +115,17 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
             if VoreData[caster].Pred ~= "" then
                 --SP_RegurgitatePrey(VoreData[caster].Pred, caster, 0)
                 SP_VoreCheck(VoreData[caster].Pred, caster, "ReleaseMeCheck")
+            end
+        elseif spell == 'SP_SC_BoundPrey_Spell' then
+            if VoreData[caster] ~= nil then
+                for k, v in pairs(VoreData[caster].Prey) do
+                    if Osi.IsAlly(caster, k) == 1 and VoreData[k].Digestion == 0 then
+                        Osi.ApplyStatus(caster, "SP_SC_BoundPrey_Pred", -1, 1, k)
+                        Osi.ApplyStatus(k, "SP_SC_BoundPrey_Prey", -1, 1, caster)
+
+                        Osi.ApplyStatus(caster, "SP_SC_BlockVoreTotal", -1, 1, k)
+                    end
+                end
             end
         end
     end
@@ -285,11 +304,14 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
     elseif eventName == "StruggleCheck" and resultType ~= 0 then
         _P('Struggle Success by ' .. roller .. ' against ' .. rollSubject)
         _P("rollresult: " .. tostring(resultType))
-        Osi.ApplyStatus(rollSubject, "SP_Indigestion", 1 * SecondsPerTurn)
+        -- Warlock passive
+        if Osi.HasPassive(rollSubject, "SP_SC_Inescapable") == 0 then
+            Osi.ApplyStatus(rollSubject, "SP_Indigestion", 1 * SecondsPerTurn)
+        end
         if Osi.HasPassive(roller, 'SP_Dense') == 1 then
             Osi.ApplyStatus(rollSubject, "PRONE", 1 * SecondsPerTurn, 1, roller)
         end
-        if Osi.GetStatusTurns(rollSubject, "SP_Indigestion") >= 6 then
+        if Osi.GetStatusTurns(rollSubject, "SP_Indigestion") >= 5 then
             Osi.RemoveStatus(rollSubject, "SP_Indigestion")
             -- evey prey will be regurgitated
             SP_RegurgitatePrey(rollSubject, "All", 0, "", VoreData[roller].Locus)
@@ -619,61 +641,57 @@ end
 ---Runs when someone dies.
 ---@param character CHARACTER
 function SP_OnBeforeDeath(character)
-    if VoreData[character] ~= nil then
-        -- If character was pred.
-        VoreData[character].Fat = 0
-        VoreData[character].Satiation = 0
-        if VoreData[character].Pred ~= "" then
-            VoreData[VoreData[character].Pred].AddWeight = VoreData[VoreData[character].Pred].AddWeight +
-                VoreData[character].AddWeight
+    if VoreData[character] == nil then
+        return
+    end
+    -- If character was pred.
+    VoreData[character].Fat = 0
+    VoreData[character].Satiation = 0
+    if VoreData[character].Pred ~= "" then
+        VoreData[VoreData[character].Pred].AddWeight = VoreData[VoreData[character].Pred].AddWeight +
+            VoreData[character].AddWeight
+    end
+    VoreData[character].AddWeight = 0
+    if next(VoreData[character].Prey) ~= nil then
+        _P(character .. " was pred and DIED")
+        SP_RegurgitatePrey(character, 'All', -1)
+    end
+
+    -- If character was prey (both can be true at the same time)
+    if VoreData[character] ~= nil and VoreData[character].Pred ~= "" then
+        local pred = VoreData[character].Pred
+        VoreData[character].Digestion = 1
+        if VoreData[character].Locus == 'O' then
+            SP_SwitchToLocus(pred, character, 'A')
         end
-        VoreData[character].AddWeight = 0
-        if next(VoreData[character].Prey) ~= nil then
-            _P(character .. " was pred and DIED")
-            SP_RegurgitatePrey(character, 'All', -1)
+        _P(character .. " was digested by " .. pred .. " and DIED")
+
+        -- Warlock slot recovery
+        if Osi.HasPassive(pred, "SP_SC_GreatHunger") == 1 and Osi.HasActiveStatus(pred, "SP_SC_GreatHunger_RestoreSlot") == 0 then
+           Osi.ApplyStatus(pred, "SP_SC_GreatHunger_RestoreSlot", 1 * SecondsPerTurn, 1, pred)
         end
-        -- If character was prey (both can be true at the same time)
-        if VoreData[character] ~= nil and VoreData[character].Pred ~= "" then
-            local pred = VoreData[character].Pred
-            VoreData[character].Digestion = 1
-            if VoreData[character].Locus == 'O' then
-                SP_SwitchToLocus(pred, character, 'A')
-            end
-            _P(character .. " was digested by " .. pred .. " and DIED")
-            -- Temp characters' corpses are not saved is save file, so they might cause issues unless disposed of on death.
-            if Ext.Entity.Get(character).ServerCharacter.Temporary == true then
-                _P("Absorbing temp character")
-                SP_DelayCallTicks(15, function ()
-                    SP_RegurgitatePrey(pred, character, -1, "Absorb", VoreData[character].Locus)
-                end)
-            else
-                SP_SwitchToDigestionType(pred, character, 1, 1)
-                -- Digested but not released prey will be stored out of bounds.
-                -- investigate if teleporting char out of bounds and reloading breaks them
-                Osi.TeleportToPosition(character, -100000, 0, -100000, "", 0, 0, 0, 1, 0)
-                -- Implementation for fast digestion.
-                if ConfigVars.Digestion.SlowDigestion.value == false then
-                    local preyWeightDiff = VoreData[character].Weight - VoreData[character].FixedWeight // 5
+        -- Warlock bound prey remove
+        if Osi.HasActiveStatus(character, "SP_SC_BoundPrey_Prey") == 1 then
+            Osi.RemoveStatus(pred, "SP_SC_BlockVoreTotal")
+            Osi.RemoveStatus(pred, "SP_SC_BoundPrey_Pred")
+        end
 
-                    if ConfigVars.WeightGain.WeightGain.value then
-                        VoreData[pred].Fat = VoreData[pred].Fat +
-                            preyWeightDiff * ConfigVars.WeightGain.WeightGainRate.value // 100
-                    end
-
-                    if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(pred, 0) == 1 and
-                        (Osi.IsTagged(character, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 and
-                            Osi.IsTagged(character, "196351e2-ff25-4e2b-8560-222ac6b94a54") == 0 and
-                            Osi.IsTagged(character, "22e5209c-eaeb-40dc-b6ef-a371794110c2") == 0 and
-                            Osi.IsTagged(character, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
-                            Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
-                        VoreData[pred].Satiation = VoreData[pred].Satiation +
-                            preyWeightDiff * ConfigVars.Hunger.HungerSatiationRate.value // 100
-                    end
-
-                    SP_DelayCallTicks(10, function ()
-                        SP_ReduceWeightRecursive(character, preyWeightDiff, true)
-                    end)
-                end
+        -- Temp characters' corpses are not saved is save file, so they might cause issues unless disposed of on death.
+        if Ext.Entity.Get(character).ServerCharacter.Temporary == true then
+            _P("Absorbing temp character")
+            SP_DelayCallTicks(15, function ()
+                SP_RegurgitatePrey(pred, character, -1, "Absorb", VoreData[character].Locus)
+            end)
+        else
+            SP_SwitchToDigestionType(pred, character, 1, 1)
+            -- Digested but not released prey will be stored out of bounds.
+            -- investigate if teleporting char out of bounds and reloading breaks them
+            Osi.TeleportToPosition(character, -100000, 0, -100000, "", 0, 0, 0, 1, 0)
+            -- Implementation for fast digestion.
+            if ConfigVars.Digestion.SlowDigestion.value == false then
+                local preyToDigest = {}
+                preyToDigest[character] = VoreData[character].Locus
+                SP_FastDigestion(pred, preyToDigest, 0)
             end
         end
     end
@@ -714,6 +732,12 @@ function SP_OnShortRest(character)
 
     --Osi.IteratePlayerCharacters("HungerCalculateShort", "")
     SP_HungerSystem(ConfigVars.Hunger.HungerShort.value, false)
+
+    for k, v in pairs(VoreData) do
+        if Osi.HasActiveStatus(k, "SP_SC_GreatHunger_RestoreSlot") == 1 then
+            Osi.RemoveStatus(k, "SP_SC_GreatHunger_RestoreSlot")
+        end
+    end
 
     _D(VoreData)
     SP_DelayCallTicks(5, function ()
@@ -924,7 +948,7 @@ function SP_DebugVore()
     for k, v in pairs(party) do
         local predData = v:GetAllComponents()
         local pred = predData.ServerCharacter.Template.Name .. "_" .. predData.Uuid.EntityUuid
-        Osi.SetLevel(pred, 4)
+        Osi.SetLevel(pred, 6)
     end
 end
 
@@ -955,6 +979,55 @@ function SP_DebugTest2()
     local v = Osi.GetHostCharacter()
     Osi.RemoveCustomVisualOvirride(v, "895fcd5b-dc72-4926-811f-c4c2e12903e9")
 end
+
+--- Removes spells from Host
+function SP_RemoveBrokenSpells()
+    local brokenSpells = {
+        "SP_SwitchToLethal",
+        "SP_SwitchToLethal_O",
+        "SP_SwitchToLethal_A",
+        "SP_SwitchToLethal_U",
+        "SP_SwitchToLethal_C",
+        "SP_SwitchToLethal_All",
+
+    }
+    local host = Osi.GetHostCharacter()
+    local hData = Ext.Entity.Get(host)
+    for _, brokenSpell in ipairs(brokenSpells) do
+        local new1 = {}
+        for i, j in pairs(hData.AddedSpells.Spells) do
+            if j.SpellId.OriginatorPrototype ~= brokenSpell then
+                table.insert(new1, j)
+            end
+        end
+        hData.AddedSpells.Spells = new1
+        for i, j in pairs(hData.HotbarContainer.Containers.DefaultBarContainer) do
+            local new2 = {}
+            for k, v in pairs(hData.HotbarContainer.Containers.DefaultBarContainer[i].Elements) do
+                if v.SpellId.OriginatorPrototype ~= brokenSpell then
+                    table.insert(new2, v)
+                end
+            end
+            hData.HotbarContainer.Containers.DefaultBarContainer[i].Elements = new2
+        end
+        local new3 = {}
+        for i, j in pairs(hData.SpellBookPrepares.PreparedSpells) do
+            if j.OriginatorPrototype ~= brokenSpell then
+                table.insert(new3, j)
+            end
+        end
+        hData.SpellBookPrepares.PreparedSpells = new3
+        local new4 = {}
+        for i, j in pairs(hData.SpellContainer.Spells) do
+            if j.SpellId.OriginatorPrototype ~= brokenSpell then
+                table.insert(new4, j)
+            end
+        end
+        hData.SpellContainer.Spells = new4
+        Osi.RemoveSpell(host, brokenSpell, 1)
+    end
+end
+
 
 -- If you know where to get type hints for this, please let me know.
 if Ext.Osiris == nil then
@@ -989,6 +1062,8 @@ Ext.RegisterConsoleCommand('DebugFeats', SP_DebugFeats)
 Ext.RegisterConsoleCommand('DebugStatus', SP_DebugStatus)
 Ext.RegisterConsoleCommand('Test', SP_DebugTest)
 Ext.RegisterConsoleCommand('Test2', SP_DebugTest2)
+
+Ext.RegisterConsoleCommand('FixSpell', SP_RemoveBrokenSpells)
 
 -- Lets you config during runtime.
 Ext.RegisterConsoleCommand('VoreConfigOptions', VoreConfigOptions)

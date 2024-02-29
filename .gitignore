@@ -9,11 +9,6 @@
 /DevouringAndDigesting/Public/DevouringAndDigesting/Assets/**/*
 /DevouringAndDigesting/Public/DevouringAndDigesting/Content/UI/**/*
 /DevouringAndDigesting/Public/DevouringAndDigesting/GUI/**/*
-/DevouringAndDigesting/Public/DevouringAndDigesting/ClassDescriptions/**/*
-/DevouringAndDigesting/Public/DevouringAndDigesting/Progressions/**/*
 /DevouringAndDigesting/Public/DevouringAndDigesting/Stats/Generated/Data/SubclassFeatures/*
-/DevouringAndDigesting/Mods/DevouringAndDigesting/ScriptExtender/Lua/BootstrapClient.lua
-/DevouringAndDigesting/Mods/DevouringAndDigesting/ScriptExtender/Lua/InitCompatibilityFramework.lua
-/DevouringAndDigesting/Mods/DevouringAndDigesting/ScriptExtender/Lua/Subclasses/*
 
 
