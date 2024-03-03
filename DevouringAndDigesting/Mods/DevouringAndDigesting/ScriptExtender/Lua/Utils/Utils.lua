@@ -39,22 +39,6 @@ function SP_GetSaveDC(character, stat)
     return DCTable[DC]
 end
 
----Returns character weight + their inventory weight.
----@param character CHARACTER character to querey
----@return number total weight
-function SP_GetTotalCharacterWeight(character)
-    local charData = Ext.Entity.Get(character)
-    if charData.InventoryWeight ~= nil then
-        _P("Total weight of " .. SP_GetDisplayNameFromGUID(character) .. " is " ..
-            (charData.InventoryWeight.Weight + charData.Data.Weight) / 1000 .. " kg")
-        return (charData.InventoryWeight.Weight + charData.Data.Weight) / 1000
-    else
-        _P("Total weight of " .. SP_GetDisplayNameFromGUID(character) .. " is " ..
-            charData.Data.Weight / 1000 .. " kg")
-        return charData.Data.Weight / 1000
-    end
-end
-
 ---@param character CHARACTER the character to query
 ---@return number size of the character
 function SP_GetCharacterSize(character)

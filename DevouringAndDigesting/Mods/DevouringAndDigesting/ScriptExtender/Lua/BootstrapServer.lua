@@ -90,14 +90,15 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         elseif spell == 'SP_SwallowDown' then
             for k, v in pairs(VoreData[caster].Prey) do
                 if VoreData[k].SwallowProcess > 0 then
-                    if VoreData[k].Digestion ~= 0 then
-                        SP_VoreCheck(caster, k, "SwallowDownCheck")
-                    else
+                    _P("Ally: " .. Osi.IsAlly(caster, k))
+                    if Osi.IsAlly(caster, k) == 1 then
                         VoreData[k].SwallowProcess = VoreData[k].SwallowProcess - 1
 
                         if VoreData[k].SwallowProcess == 0 then
                             SP_FullySwallow(caster, k)
                         end
+                    else
+                        SP_VoreCheck(caster, k, "SwallowDownCheck")
                     end
                 end
             end
@@ -105,7 +106,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         elseif spell == 'SP_SpeedUpDigestion' then
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
-                    if VoreData[k].Digestion == 2 then
+                    if VoreData[k].Digestion == DType.Lethal then
                         Osi.ApplyStatus(k, 'SP_SpeedUpDigestion_Status', 0, 1, caster)
                     end
                 end
@@ -119,7 +120,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         elseif spell == 'SP_SC_BoundPrey_Spell' then
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
-                    if Osi.IsAlly(caster, k) == 1 and VoreData[k].Digestion == 0 then
+                    if Osi.IsAlly(caster, k) == 1 and VoreData[k].Digestion == DType.Endo then
                         Osi.ApplyStatus(caster, "SP_SC_BoundPrey_Pred", -1, 1, k)
                         Osi.ApplyStatus(k, "SP_SC_BoundPrey_Prey", -1, 1, caster)
 
@@ -167,9 +168,10 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                     SP_SwallowItem(caster, target)
                 end)
             else
+                _P("Ally: " .. Osi.IsAlly(caster, target))
                 if Osi.IsAlly(caster, target) == 1 then
                     SP_DelayCallTicks(12, function ()
-                        SP_SwallowPrey(caster, target, 0, true, true, locus)
+                        SP_SwallowPrey(caster, target, DType.Endo, true, true, locus)
                     end)
                 else
                     SP_DelayCallTicks(6, function ()
@@ -211,7 +213,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         end
         SP_DelayCallTicks(5, function ()
             if #preyTable > 0 then
-                SP_SwallowPreyMultiple(target, preyTable, 2, true, false, locus)
+                SP_SwallowPreyMultiple(target, preyTable, DType.Lethal, true, false, locus)
             end
             Osi.RemoveSpell(caster, "SP_Target_Bellyport_Destination")
         end)
@@ -223,14 +225,14 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         end
         if not SP_VorePossible(target, caster) then
             return
-        end 
-        if Osi.IsAlly(caster, target) == 1 then
+        end
+        if Osi.IsEnemy(caster, target) == 0 then
             SP_DelayCallTicks(12, function ()
-                SP_SwallowPrey(target, caster, 0, true, false, locus)
+                SP_SwallowPrey(target, caster, DType.Endo, true, false, locus)
             end)
         else
             SP_DelayCallTicks(12, function ()
-                SP_SwallowPrey(target, caster, 2, true, false, locus)
+                SP_SwallowPrey(target, caster, DType.Lethal, true, false, locus)
             end)
         end
     -- non swallow-related spells
@@ -239,7 +241,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             if VoreData[target] ~= nil then
                 Osi.RemoveStatus(target, 'SP_Indigestion')
                 for k, v in pairs(VoreData[target].Prey) do
-                    if VoreData[k].Digestion == 2 then
+                    if VoreData[k].Digestion == DType.Lethal then
                         Osi.ApplyStatus(k, 'SP_MassageAcid', 0, 1, target)
                     end
                 end
@@ -265,7 +267,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         elseif spell == 'Acidify' then
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
-                    if VoreData[k].Digestion == 2 then
+                    if VoreData[k].Digestion == DType.Lethal then
                         Osi.ApplyStatus(k, 'SP_Acidify_Status', 0, 1, caster)
                     end
                 end
@@ -285,7 +287,7 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
     if string.sub(eventName, 1, 20) == 'SwallowCheck_Lethal_' and (resultType ~= 0 or ConfigVars.Mechanics.VoreDifficulty.value == 'cheat') then
         _P('Lethal Swallow Success by ' .. roller)
         local voreLocus = string.sub(eventName, -1)
-        SP_SwallowPrey(roller, rollSubject, 2, true, true, voreLocus)
+        SP_SwallowPrey(roller, rollSubject, DType.Lethal, true, true, voreLocus)
 
         if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(roller, 'SP_MuscleControl') == 0 then
             if voreLocus == 'O' then
@@ -300,7 +302,7 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
     elseif string.sub(eventName, 1, 18) == 'SwallowCheck_Endo_' and (resultType ~= 0 or ConfigVars.Mechanics.VoreDifficulty.value == 'cheat') then
         _P('Endo Swallow Success by ' .. roller)
         local voreLocus = string.sub(eventName, -1)
-        SP_SwallowPrey(roller, rollSubject, 0, true, true, voreLocus)
+        SP_SwallowPrey(roller, rollSubject, DType.Endo, true, true, voreLocus)
     elseif eventName == "StruggleCheck" and resultType ~= 0 then
         _P('Struggle Success by ' .. roller .. ' against ' .. rollSubject)
         _P("rollresult: " .. tostring(resultType))
@@ -420,7 +422,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
             end
         end
         for k, v in pairs(VoreData[object].Prey) do
-            if VoreData[k].Digestion ~= 1 and (ConfigVars.Debug.TeleportPrey.value == true or VoreData[k].Combat ~= "") then
+            if VoreData[k].Digestion ~= DType.Dead and (ConfigVars.Debug.TeleportPrey.value == true or VoreData[k].Combat ~= "") then
                 local predX, predY, predZ = Osi.GetPosition(object)
                 Osi.TeleportToPosition(k, predX, predY, predZ, "", 0, 0, 0, 0, 0)
             end
@@ -443,21 +445,25 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         if VoreData[object] == nil or VoreData[object].Pred == "" then
             return
         end
-        if Osi.HasPassive(VoreData[object].Pred, 'SP_BoilingInsides') == 1 then
-            Osi.ApplyStatus(object, "SP_BoilingInsidesAcid", 0, 1, VoreData[object].Pred)
+        if Osi.IsEnemy(object, VoreData[object].Pred) == 1 then
+            SP_VoreCheck(VoreData[object].Pred, object, "StruggleCheck")
         end
-        if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(VoreData[object].Pred, 'SP_MuscleControl') == 0 then
-            local pred = VoreData[object].Pred
-            if VoreData[object].Locus == 'O' then
-                VoreData[pred].DigestItems = true
+        if VoreData[object].Digestion == DType.Lethal then
+            if Osi.HasPassive(VoreData[object].Pred, 'SP_BoilingInsides') == 1 then
+                Osi.ApplyStatus(object, "SP_BoilingInsidesAcid", 0, 1, VoreData[object].Pred)
             end
-            for k, v in pairs(VoreData[pred].Prey) do
-                if VoreData[object].Locus == v then
-                    SP_SwitchToDigestionType(pred, k, 0, 2)
+            if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(VoreData[object].Pred, 'SP_MuscleControl') == 0 then
+                local pred = VoreData[object].Pred
+                if VoreData[object].Locus == 'O' then
+                    VoreData[pred].DigestItems = true
+                end
+                for k, v in pairs(VoreData[pred].Prey) do
+                    if VoreData[object].Locus == v then
+                        SP_SwitchToDigestionType(pred, k, 0, 2)
+                    end
                 end
             end
         end
-        SP_VoreCheck(VoreData[object].Pred, object, "StruggleCheck")
     elseif status == "SP_Hit_Bellyport" then
         local pred = SP_CharacterFromGUID(causee)
         if VoreData[pred] == nil then
@@ -647,12 +653,7 @@ function SP_OnBeforeDeath(character)
     -- If character was pred.
     VoreData[character].Fat = 0
     VoreData[character].Satiation = 0
-    if VoreData[character].Pred ~= "" then
-        VoreData[VoreData[character].Pred].AddWeight = VoreData[VoreData[character].Pred].AddWeight +
-            VoreData[character].AddWeight
-    end
-    VoreData[character].AddWeight = 0
-    if next(VoreData[character].Prey) ~= nil then
+    if next(VoreData[character].Prey) ~= nil or VoreData[character].Items ~= "" then
         _P(character .. " was pred and DIED")
         SP_RegurgitatePrey(character, 'All', -1)
     end
@@ -660,7 +661,7 @@ function SP_OnBeforeDeath(character)
     -- If character was prey (both can be true at the same time)
     if VoreData[character] ~= nil and VoreData[character].Pred ~= "" then
         local pred = VoreData[character].Pred
-        VoreData[character].Digestion = 1
+        VoreData[character].Digestion = DType.Dead
         if VoreData[character].Locus == 'O' then
             SP_SwitchToLocus(pred, character, 'A')
         end
@@ -780,36 +781,36 @@ function SP_HungerSystem(stacks, isLong)
     for k, v in pairs(party) do
         local predData = v:GetAllComponents()
         local pred = predData.ServerCharacter.Template.Name .. "_" .. predData.Uuid.EntityUuid
-        local hungerStacks = stacks + Osi.GetStatusTurns(pred, "SP_Hunger")
-        local newhungerStacks = hungerStacks
-        if VoreData[pred] ~= nil then
-            local satiationDiff = VoreData[pred].Satiation // ConfigVars.Hunger.HungerSatiation.value
-            newhungerStacks = hungerStacks - satiationDiff
-            if newhungerStacks > 0 then
-                VoreData[pred].Satiation = VoreData[pred].Satiation -
-                    satiationDiff * ConfigVars.Hunger.HungerSatiation.value
-            else
-                VoreData[pred].Satiation = VoreData[pred].Satiation -
-                    hungerStacks * ConfigVars.Hunger.HungerSatiation.value
-                newhungerStacks = 0
-            end
-            -- half of hunger stacks (rounded up) are removed with fat
-            if newhungerStacks > 1 and ConfigVars.Hunger.HungerUseFat.value then
-                local hungerCompensation = (newhungerStacks + 1) // 2
-                satiationDiff = VoreData[pred].Fat // ConfigVars.Hunger.HungerSatiation.value
-                local newHungerCompensation = hungerCompensation - satiationDiff
-                if newHungerCompensation > 0 then
-                    VoreData[pred].Fat = VoreData[pred].Fat -
+        if Osi.IsTagged(pred, 'f7265d55-e88e-429e-88df-93f8e41c821c') == 1 and Osi.IsDead(pred) == 0 then
+            local hungerStacks = stacks + Osi.GetStatusTurns(pred, "SP_Hunger")
+            local newhungerStacks = hungerStacks
+            if VoreData[pred] ~= nil then
+                local satiationDiff = VoreData[pred].Satiation // ConfigVars.Hunger.HungerSatiation.value
+                newhungerStacks = hungerStacks - satiationDiff
+                if newhungerStacks > 0 then
+                    VoreData[pred].Satiation = VoreData[pred].Satiation -
                         satiationDiff * ConfigVars.Hunger.HungerSatiation.value
                 else
-                    VoreData[pred].Fat = VoreData[pred].Fat -
-                        hungerCompensation * ConfigVars.Hunger.HungerSatiation.value
-                    newHungerCompensation = 0
+                    VoreData[pred].Satiation = VoreData[pred].Satiation -
+                        hungerStacks * ConfigVars.Hunger.HungerSatiation.value
+                    newhungerStacks = 0
                 end
-                newhungerStacks = newhungerStacks + newHungerCompensation - hungerCompensation
+                -- half of hunger stacks (rounded up) are removed with fat
+                if newhungerStacks > 1 and ConfigVars.Hunger.HungerUseFat.value then
+                    local hungerCompensation = (newhungerStacks + 1) // 2
+                    satiationDiff = VoreData[pred].Fat // ConfigVars.Hunger.HungerSatiation.value
+                    local newHungerCompensation = hungerCompensation - satiationDiff
+                    if newHungerCompensation > 0 then
+                        VoreData[pred].Fat = VoreData[pred].Fat -
+                            satiationDiff * ConfigVars.Hunger.HungerSatiation.value
+                    else
+                        VoreData[pred].Fat = VoreData[pred].Fat -
+                            hungerCompensation * ConfigVars.Hunger.HungerSatiation.value
+                        newHungerCompensation = 0
+                    end
+                    newhungerStacks = newhungerStacks + newHungerCompensation - hungerCompensation
+                end
             end
-        end
-        if Osi.IsTagged(pred, 'f7265d55-e88e-429e-88df-93f8e41c821c') == 1 then
             Osi.RemoveStatus(pred, 'SP_Hunger')
             Osi.RemoveStatus(pred, 'SP_HungerStage3')
             Osi.RemoveStatus(pred, 'SP_HungerStage2')
