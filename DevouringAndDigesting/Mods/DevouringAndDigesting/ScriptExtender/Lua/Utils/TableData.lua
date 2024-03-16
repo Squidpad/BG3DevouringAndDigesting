@@ -18,21 +18,37 @@ CompanionsSet = {
     ["S_GOB_DrowCommander_25721313-0c15-4935-8176-9f134385451b"] = true,
 }
 
--- Keys and Names of Digestion type statuses, keys are value of VoreData[character].Digestion
-DigestionTypes = {
-    [0] = "SP_Swallowed_Endo",
-    [1] = "SP_Swallowed_Dead",
-    [2] = "SP_Swallowed_Lethal",
-    [3] = "None",
+---table that stores all names of digestion statuses
+---@type table<string, table<integer, string>>
+DigestionStatuses = {
+    ['O'] = {
+        [0] = "SP_Swallowed_Endo_O",
+        [1] = "SP_Swallowed_Dead_O",
+        [2] = "SP_Swallowed_Lethal_O",
+    },
+    ['A'] = {
+        [0] = "SP_Swallowed_Endo_A",
+        [1] = "SP_Swallowed_Dead_A",
+        [2] = "SP_Swallowed_Lethal_A",
+    },
+    ['U'] = {
+        [0] = "SP_Swallowed_Endo_U",
+        [1] = "SP_Swallowed_Dead_U",
+        [2] = "SP_Swallowed_Lethal_U",
+    },
+    ['C'] = {
+        [0] = "SP_Swallowed_Endo_C",
+        [1] = "SP_Swallowed_Dead_C",
+        [2] = "SP_Swallowed_Lethal_C",
+    },
 }
 
-
--- Keys and Names of Locus type statuses, keys are values of VoreData[character].Prey
-VoreLoci = {
-    ['O'] = "SP_Swallowed_Oral",
-    ['A'] = "SP_Swallowed_Anal",
-    ['U'] = "SP_Swallowed_Unbirth",
-    ['C'] = "SP_Swallowed_Cock",
+---enum for digestion types
+DType = {
+    Endo = 0,
+    Dead = 1,
+    Lethal = 2,
+    None = 3,
 }
 
 -- List of gurgle sounds randomly played for stuffed preds
@@ -225,7 +241,7 @@ VoreDataEntry = {
     FixedWeight = 0,
     WeightReduction = 0,
     DisableDowned = false,
-    Digestion = 3,
+    Digestion = DType.None,
     DigestItems = false,
     Combat = "",
     Prey = {},
