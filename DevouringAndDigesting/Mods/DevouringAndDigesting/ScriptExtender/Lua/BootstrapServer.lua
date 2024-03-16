@@ -600,7 +600,7 @@ function SP_OnStatusRemoved(object, status, causee, storyActionID)
                 if removeSD then
                     Osi.RemoveSpell(pred, 'SP_SwallowDown')
                 end
-                SP_RegurgitatePrey(pred, object, -1)
+                SP_RegurgitatePrey(pred, object, -1, "SwallowFail")
             end
         end
     end

@@ -552,10 +552,10 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     end
 
     -- add swallow cooldown after regurgitation
-    if locus ~= "A" and preyString == "All" and ConfigVars.Regurgitation.CooldownSwallow.value > 0 then
+    if locus ~= "A" and (preyString == "All" or spell == "SwallowFail") and ConfigVars.Regurgitation.CooldownSwallow.value > 0 then
         Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown', ConfigVars.Regurgitation.CooldownSwallow.value * SecondsPerTurn, 1)
     end
-    if locus ~= "A" and preyString == "All" and ConfigVars.Regurgitation.CooldownRegurgitate.value > 0 then
+    if locus ~= "A" and (preyString == "All" or spell == "SwallowFail") and ConfigVars.Regurgitation.CooldownRegurgitate.value > 0 then
         Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown2', ConfigVars.Regurgitation.CooldownRegurgitate.value * SecondsPerTurn, 1)
     end
 
