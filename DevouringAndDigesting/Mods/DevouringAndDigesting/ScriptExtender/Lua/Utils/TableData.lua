@@ -140,7 +140,7 @@ BellyTable = {
             },
         },
         Male = {
-            BodyShapes = true,
+            BodyShapes = false,
             [0] = {
                 [135] = "5d54a45f-38b7-459e-b892-e51fc32c6f87",
                 [70] = "5c21b0f0-2869-4f15-acad-f6ff02713a03",
@@ -167,7 +167,7 @@ BellyTable = {
             },
         },
         Male = {
-            BodyShapes = true,
+            BodyShapes = false,
             [0] = {
                 [135] = "90752779-7c70-4a6f-bebf-e8afe4639ac6",
                 [85] = "1fe0747f-cb0b-4c8f-9ea9-3b970d02f28f",

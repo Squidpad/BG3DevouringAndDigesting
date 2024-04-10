@@ -495,7 +495,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
             if Osi.HasPassive(prey, 'SP_EscapeArtist') == 0 then
                 Osi.ApplyStatus(prey, "PRONE", 1 * SecondsPerTurn, 1, pred)
             end
-            Osi.ApplyStatus(prey, "WET", 1 * SecondsPerTurn, 1, pred)
+            Osi.ApplyStatus(prey, "WET", 10 * SecondsPerTurn, 1, pred)
         end
         VoreData[prey].Weight = 0
         VoreData[prey].FixedWeight = 0
