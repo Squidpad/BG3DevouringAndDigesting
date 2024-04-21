@@ -65,13 +65,19 @@
 	<content contentuid="ha1dd02f2gbf31g4974g97adgd6ed92875d6e" version="1">Flex belly</content>
 	<content contentuid="habd5cd92g8c6ag4d0fg8285g2ee8d844db9a" version="1">Flex and massage your belly, causing every lethally swallowed prey to take [1] and [2].</content>
 
+	<content contentuid="heb67e082g2f04g4e5agbc2bg8af24a4ee1ec" version="1">Regurgitate</content>
 	<content contentuid="hde5b3914gbda1g436cga5eeg8b3a99a72351" version="1">Disposal</content>
-	<content contentuid="h9e865451g0c75g453cg98b6g51bb45be5445" version="1">Releases all of your fully digested or anally swallowed prey.</content>
-
 	<content contentuid="haf0400e7g9be5g4192g98e3g18fa6434450b" version="1">Release</content>
-	<content contentuid="h1583c62fg51b3g4d72gb80dgbe158b37875d" version="1">You release prey from your [1], releasing living or fully digested prey stored there.</content>
-
-	<content contentuid="h40bb4719g3098g4d6fg84c3g8c1b877d6b58" version="1">Regurgitate all of the creatures in your stomach</content>
+	<content contentuid="h0233ec64geaf5g41d8g8eadg5a70693e5e1c" version="1">Ejaculate</content>
+	<content contentuid="h3febac6egf828g4210ga795ge0799ce8c81d" version="1">Regurgitate (Random)</content>
+	<content contentuid="h16329e3cg1f0dg4057g94c2g6bad7d2cfe24" version="1">Disposal (Random)</content>
+	<content contentuid="h9cf48cdeg8aafg46abg8404gdbcc08174bb4" version="1">Release (Random)</content>
+	<content contentuid="h9f3b362fg9601g45a9g9001g169c0929da93" version="1">Ejaculate (Random)</content>
+	<content contentuid="h653901ccg15e1g47adg8d7agb1eb8e49c5b2" version="1">Regurgitate one or more creatues.</content>
+	<content contentuid="hf0a97b33g7572g44f8g9537g13a08e9112cd" version="1">Releases all of your living or fully digested prey from your [1].</content>
+	<content contentuid="h233a0d9bg8da7g489bgb937g55f9f7f0c62d" version="1">Releases a living or fully digested prey from your [1] at random.</content>
+	<content contentuid="h339b4a78ga0a6g4b55g93fag7c8fb6725002" version="1">Regurgitate One</content>
+	<content contentuid="hfed57717ga1feg4c72gad20gbaaa9d1adf1b" version="1">Regurgitate [1] from your stomach.</content>
 
 	<content contentuid="hf1967968gea50g42d1g9474gdce71387b2d3" version="1">Swallow Whole (Endo)</content>
 	<content contentuid="h60376d5fg24b7g40e4gb8f4g0909a3d9b526" version="1">Swallow an ally whole.</content>
@@ -101,17 +107,6 @@
 
 	<content contentuid="hcdefe4f0g5c06g4078gaaecgc566f24f38a9" version="1">Stuffed!</content>
 	<content contentuid="h4b237c03g75a6g4658gbc72g3f70fe82f658" version="1">The size of your belly slows you down.</content>
-
-	<content contentuid="h55ded1e9g6c62g4d40gbcc5g6adadbf42edc" version="1">Regurgitate Everything</content>
-	<content contentuid="h66806f2ag3d2bg4776g99dcg8ad08d92edfb" version="1">Regurgitate Everything (Oral)</content>
-	<content contentuid="hd1863dfeg8d61g4c26g96ebg64784213ec5c" version="1">Regurgitate Everything (Anal)</content>
-	<content contentuid="h590a37a5geec2g4a64g89dagfaf4168c2e4c" version="1">Regurgitate Everything (Unbirth)</content>
-
-	<content contentuid="h9773e0fcgc7bag4d2cga1b4gffa4ea278c08" version="1">Expel all of your living prey from [1].</content>
-
-	<content contentuid="h339b4a78ga0a6g4b55g93fag7c8fb6725002" version="1">Regurgitate One</content>
-	<content contentuid="hfed57717ga1feg4c72gad20gbaaa9d1adf1b" version="1">Regurgitate [1] from your stomach.</content>
-	<content contentuid="h69f84568gc742g45aeg95a0g7b1862c77378" version="1">Regurgitate</content>
 
 	<content contentuid="h0dc3a529gebffg4618gb118gf0a4f3bc231d" version="1">Weight Placeholder</content>
 	<content contentuid="h87214011g31adg4c68ga2eegd5ed46a04668" version="1">This represents the weight of the prey you're carrying.</content>
@@ -192,6 +187,9 @@
 
 	<content contentuid="h6d40a345gf2f4g443fg903bg246958b7e9ad" version="1">Strength from Many</content>
 	<content contentuid="h6e9c844cgc923g4f75ga6ddgfa235192b7eb" version="1">Your Strength and Constitution are increased by [1] for each ally you have devoured.</content>
+
+	<content contentuid="h7fb07d2bg1c8cg479cg9469g26ff2bbabde6" version="1">As One</content>
+	<content contentuid="h06aa6c3cgc0deg484dgb60ega3cd69d437e7" version="1">You inherit the abilities of your swallowed allies.</content>
 	
 	<!-- pred feats -->
 	<content contentuid="h54388124gd369g4a55gb75dg89cf37ad12e2" version="1">Bottomless Stomach</content>
@@ -212,6 +210,9 @@
 	<content contentuid="hd145f6fdga2b6g4a82gb482gd88b8a301198" version="1">Soothing Insides</content>
 	<content contentuid="he2f6ce79g4621g48b0gbcdcgb7d012537e79" version="1">Your hunger is satisfied by resting with a prey inside you. Gain the ability to perform Unbirth. Gain <LSTag Type="Status" Tooltip="SP_Shout_HealingAcid_U">Medicinal Acids (Unbirth)</LSTag>.</content>
 	
+	<content contentuid="h26dea810g635cg4374g9ea5g8581be0dafef" version="1">Secondhand Predator</content>
+	<content contentuid="hc2117ed5g08e3g4d36g90begf39608de3b23" version="1">While inside of another predator, you have advantage on all checks made to devour another creature, and each time they devour another creature into the same location, you may immediately attempt to swallow that creature.</content>
+
 	<!-- prey feats -->
 	<content contentuid="h3d2dc720g5db6g41ccg9b1ag13c6e6478896" version="1">Escape Artist</content>
 	<content contentuid="he0b69c0agb8e5g47e4g8079g11ff0073a272" version="1">You gain advantage when struggling and you are not knocked Prone when regurgitated. Gain resistance to damage dealt by acid.</content>

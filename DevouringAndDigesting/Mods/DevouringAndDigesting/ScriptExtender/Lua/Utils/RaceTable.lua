@@ -1,3 +1,6 @@
+---@type SP_RaceConfigVars
+RaceConfigVars = {}
+
 local RACECONFIG_PATH = "DevouringAndDigesting\\RaceConfig.json"
 
 ---races that are considered creatures for config

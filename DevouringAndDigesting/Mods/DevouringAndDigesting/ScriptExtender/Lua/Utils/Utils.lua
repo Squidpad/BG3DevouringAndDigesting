@@ -7,13 +7,21 @@ function SP_GetDisplayNameFromGUID(target)
     return Osi.ResolveTranslatedString(Osi.GetDisplayName(target))
 end
 
----Returns a character's name given it's GUID
----@param guid GUIDSTRING
----@return CHARACTER
-function SP_CharacterFromGUID(guid)
-    return string.sub(Osi.GetTemplate(guid), 1, -37) .. guid
+---Snips naming stuff off guid of character
+---@param character CHARACTER character string to modify
+---@return GUIDSTRING guid of character
+function SP_CharacterToGUID(character)
+    return string.sub(character, -36)
 end
 
+---hacky workaround until I get around to refactoring shit
+function SP_GetPredFromGUID(guid)
+    for k, _ in pairs(VoreData) do
+        if string.match(k, guid) ~= nil then
+            return k
+        end
+    end
+end
 ---@param character CHARACTER guid of character
 ---@param stat number stat to get save DC of 1 == Str, 2 == Dex, 3 == Con, 4 == Wis, 5 == Int, 6 == Cha, 0 = Highest
 ---@return DIFFICULTYCLASS guid that corresponds to that DC
@@ -59,14 +67,6 @@ end
 function SP_GetCharacterSize(character)
     local charData = Ext.Entity.Get(character)
     return charData.ObjectSize.Size
-end
-
-
----@param spell string name of the spell we're extracting data from
----@return string, string spellParams the type of spell and type of vore
-function SP_GetSpellParams(spell)
-    local pattern = "^SP_Target_S?w?a?l?l?o?w?_?([%a_]+)_([OAUC])$"
-    return string.match(spell, pattern)
 end
 
 ---Delays a function call by given milliseconds.
@@ -190,6 +190,7 @@ end
 
 ---returns all tables merged together
 ---@param tt table<table>
+---@return table all tables merged
 function SP_TableConcatMany(tt)
     local result = {}
     for _, v in ipairs(tt) do
@@ -199,18 +200,51 @@ function SP_TableConcatMany(tt)
 end
 ---returns length of a table when # does not work (table is not an array)
 ---@param table table table to query
+---@return number length of table
 function SP_TableLength(table)
     local l = 0
-    for i, j in pairs(table) do
+    for _, _ in pairs(table) do
         l = l + 1
     end
     return l
+end
+
+---grab a random key or value from a dictionary table
+---@param table table table to search
+---@param key? boolean if true, return a key instead of a value
+---@return any
+function SP_TableRandomVal(table, key)
+    local index = Osi.Random(SP_TableLength(table))
+    for k, v in pairs(table) do
+        if index == 1 then
+            if key then return k end
+            return v
+        end
+        index = index - 1
+    end
+end
+            
+
+---splits a string
+---@param string string to split
+---@param seperator string seperator
+---@return table split string
+function SP_StringSplit(string, seperator)
+    if seperator == nil then
+        seperator = "%s"
+    end
+    local t = {}
+    for str in string.gmatch(string, "([^" .. seperator .. "]+)") do
+        table.insert(t, str)
+    end
+    return t
 end
 
 ---clamps the val between lower and upper values
 ---@param val number
 ---@param lower number
 ---@param upper number
+---@return number clamped number
 function SP_Clamp(val, lower, upper)
     if lower > upper then lower, upper = upper, lower end -- swap if boundaries supplied the wrong way
     return math.max(lower, math.min(upper, val))

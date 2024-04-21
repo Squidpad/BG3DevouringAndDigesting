@@ -47,29 +47,30 @@ CalculateRest = true
 ---@param spellElement string Like fire, lightning, etc I think.
 ---@param storyActionID integer
 function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
-    if string.sub(spell, 1, 3) ~= 'SP_' then
+    local spellParams = SP_StringSplit(spell, "_")
+    if spellParams[1] ~= 'SP' then
         return
     end
+    local spellName = spellParams[3]
+
     if VoreData[caster] ~= nil then
-        if string.sub(spell, 0, 15) == 'SP_Regurgitate_' then
+
+        if spellName == 'Regurgitate' then
             if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown2") ~= 0 then
                 return
             end
-            local prey = string.sub(spell, 16)
-            SP_RegurgitatePrey(caster, prey, 10, '', 'O')
-        elseif string.sub(spell, 0, 12) == 'SP_Disposal_' then
-            local prey = string.sub(spell, 13)
-            SP_RegurgitatePrey(caster, prey, 10, '', 'A')
-        elseif string.sub(spell, 0, 11) == 'SP_Release_' then
-            local locus = string.sub(spell, 12, 12)
-            local prey = string.sub(spell, 14)
+            local prey = table.concat({table.unpack(spellParams, 5, #spellParams)}, "_")
+            local locus = spellParams[4]
+            if locus == "X" then
+                locus = nil
+            end
             SP_RegurgitatePrey(caster, prey, 10, '', locus)
-        elseif string.sub(spell, 0, 10) == 'SP_Absorb_' then
-            local prey = string.sub(spell, 11)
+        elseif spellName == 'Absorb' then
+            local prey = spellParams[4]
             SP_RegurgitatePrey(caster, prey, 1, "Absorb")
-        elseif string.sub(spell, 0, 18) == "SP_SwitchToLethal_" then
+        elseif spellName == "SwitchToLethal" then
             if VoreData[caster] ~= nil then
-                local locus = string.sub(spell, 19)
+                local locus = spellParams[4]
                 if locus == "O" or locus == "All" then
                     VoreData[caster].DigestItems = true
                 end
@@ -79,7 +80,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                     end
                 end
             end
-        elseif spell == 'SP_SwallowDown' then
+        elseif spellName == 'SwallowDown' then
             for k, v in pairs(VoreData[caster].Prey) do
                 if VoreData[k].SwallowProcess > 0 then
                     if VoreData[k].Digestion ~= 0 then
@@ -94,16 +95,16 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                 end
             end
             -- deal small amount of damage to prey
-        elseif spell == 'SP_SpeedUpDigestion' then
+        elseif spellName == 'SpeedUpDigestion' then
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
                     if VoreData[k].Digestion == 2 then
-                        Osi.ApplyStatus(k, 'SP_SpeedUpDigestion_Status', 0, 1, caster)
+                        Osi.ApplyStatus(k, 'SP_SpeedUpDigestionStatus', 0, 1, caster)
                     end
                 end
             end
             -- ask pred to release me
-        elseif spell == 'SP_ReleaseMe' then
+        elseif spellName == 'ReleaseMe' then
             if VoreData[caster].Pred ~= "" then
                 --SP_RegurgitatePrey(VoreData[caster].Pred, caster, 0)
                 SP_VoreCheck(VoreData[caster].Pred, caster, "ReleaseMeCheck")
@@ -113,24 +114,29 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
 end
 
 
-
 ---Triggers when a spell is cast with a target.
 ---@param caster CHARACTER
 ---@param target CHARACTER
 ---@param spell string
----@param spellType? string
+---@param spellType string
 ---@param spellElement? string Like fire, lightning, etc I think.
 ---@param storyActionID? integer
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
-    if string.sub(spell, 1, 10) ~= 'SP_Target_' then
+    local spellParams = SP_StringSplit(spell, "_")
+    if spellParams[1] ~= "SP" then
         return
     end
-    local locus = string.sub(spell, -1)
-    spell = string.sub(spell, 11)
+    if spellParams[2] ~= "Target" and spellParams[2] ~= "Projectile" then
+        return
+    end
+    local locus = spellParams[#spellParams]
+    if not SP_TableContainsKey(VoreLoci, locus) then
+        locus = nil
+    end
+    local spellName = spellParams[3]
     -- main vore spell
-    if string.sub(spell, 1, 8) == 'Swallow_' then
-        _P("Swallowing")
-        spell = string.sub(spell, 9)
+    if spellName == 'Swallow' then
+        local digestionType = spellParams[4]
         -- if pred can swallow prey
         if not SP_VorePossible(caster, target) then
             _P("Can't vore")
@@ -138,11 +144,11 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         end
         -- ai vore cooldown
         local cooldown = ConfigVars.NPCVore.CooldownMax.value - ConfigVars.NPCVore.CooldownMin.value + 1
-            cooldown = Osi.Random(cooldown) + ConfigVars.NPCVore.CooldownMin.value
+        cooldown = Osi.Random(cooldown) + ConfigVars.NPCVore.CooldownMin.value
         Osi.ApplyStatus(caster, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * cooldown, 1, caster)
         -- vore check end
         -- spell type check
-        if string.sub(spell, 1, 4) == 'Endo' then
+        if digestionType == 'Endo' then
             if Osi.IsItem(target) == 1 then
                 SP_DelayCallTicks(12, function ()
                     SP_SwallowItem(caster, target)
@@ -158,7 +164,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                     end)
                 end
             end
-        elseif string.sub(spell, 1, 6) == 'Lethal' then
+        elseif digestionType == 'Lethal' then
             if Osi.IsItem(target) == 1 then
                 SP_DelayCallTicks(12, function ()
                     SP_SwallowItem(caster, target)
@@ -170,8 +176,8 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                 end)
             end
         end
-    -- other swallow-related spells
-    elseif string.sub(spell, 1, 21) == "Bellyport_Destination" then
+        -- other swallow-related spells
+    elseif spellName == "BellyportDestination" then
         local predData = Ext.Entity.Get(caster)
         local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) /
             1000
@@ -194,17 +200,17 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             if #preyTable > 0 then
                 SP_SwallowPreyMultiple(target, preyTable, 2, true, false, locus)
             end
-            Osi.RemoveSpell(caster, "SP_Target_Bellyport_Destination")
+            Osi.RemoveSpell(caster, "SP_Target_BellyportDestination")
         end)
-    -- swallow me spells
-    elseif string.sub(spell, 1, 8) == 'Offer_Me' then
+        -- swallow me spells
+    elseif spellName == 'OfferMe' then
         -- prey should not target their preds
         if VoreData[caster] ~= nil and VoreData[caster].Pred == target then
             return
         end
         if not SP_VorePossible(target, caster) then
             return
-        end 
+        end
         if Osi.IsAlly(caster, target) == 1 then
             SP_DelayCallTicks(12, function ()
                 SP_SwallowPrey(target, caster, 0, true, false, locus)
@@ -214,7 +220,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                 SP_SwallowPrey(target, caster, 2, true, false, locus)
             end)
         end
-    -- non swallow-related spells
+        -- non swallow-related spells
     else
         if spell == 'Massage_Pred' then
             if VoreData[target] ~= nil then
@@ -266,9 +272,9 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
     if string.sub(eventName, 1, 20) == 'SwallowCheck_Lethal_' and (resultType ~= 0 or ConfigVars.Mechanics.VoreDifficulty.value == 'cheat') then
         _P('Lethal Swallow Success by ' .. roller)
         local voreLocus = string.sub(eventName, -1)
-        SP_SwallowPrey(roller, rollSubject, 2, true, true, voreLocus)
+        local preyNotStolen = SP_SwallowPrey(roller, rollSubject, 2, true, true, voreLocus)
 
-        if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(roller, 'SP_MuscleControl') == 0 then
+        if ConfigVars.Mechanics.SwitchEndoLethal.value and preyNotStolen and Osi.HasPassive(roller, 'SP_MuscleControl') == 0 then
             if voreLocus == 'O' then
                 VoreData[roller].DigestItems = true
             end
@@ -313,7 +319,7 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
                 end
             end
             if removeSD then
-                Osi.RemoveSpell(roller, 'SP_SwallowDown')
+                Osi.RemoveSpell(roller, 'SP_Zone_SwallowDown')
             end
             SP_RegurgitatePrey(roller, rollSubject, -1)
         end
@@ -437,15 +443,15 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         end
         SP_VoreCheck(VoreData[object].Pred, object, "StruggleCheck")
     elseif status == "SP_Hit_Bellyport" then
-        local pred = SP_CharacterFromGUID(causee)
+        local pred = SP_GetPredFromGUID(causee)
+        _P(pred)
         if VoreData[pred] == nil then
             SP_VoreDataEntry(pred, true)
         end
         VoreData[pred].SpellTargets[object] = "Bellyport"
-        Osi.AddSpell(pred, "SP_Target_Bellyport_Destination")
+        Osi.AddSpell(pred, "SP_Target_BellyportDestination")
     elseif status == 'SP_BellySlamStatus' then
-        -- causee is a uuid not a guidstring so we need to convert it
-        local pred = SP_CharacterFromGUID(causee)
+        local pred = SP_GetPredFromUUID(causee)
         if VoreData[pred] ~= nil then
             local damage = 0
             for _ = 1, SP_Clamp(VoreData[pred].StuffedStacks * (Osi.GetLevel(pred) // 5 + 1), 1, 3) do
@@ -590,7 +596,7 @@ function SP_OnStatusRemoved(object, status, causee, storyActionID)
                     end
                 end
                 if removeSD then
-                    Osi.RemoveSpell(pred, 'SP_SwallowDown')
+                    Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown')
                 end
                 SP_RegurgitatePrey(pred, object, -1)
             end
@@ -932,12 +938,11 @@ end
 
 function SP_DebugFeats()
     local v = Osi.GetHostCharacter()
-    Osi.AddPassive(v, "SP_EveryonesStrength")
+    Osi.AddPassive(v, "SP_AsOne")
     Osi.AddPassive(v, "SP_Improved_Stomach_Shelter")
     Osi.AddPassive(v, "SP_Gastric_Bulwark")
     Osi.AddPassive(v, "SP_BottomlessStomach")
-    Osi.AddPassive(v, "SP_EndoAnyone")
-    Osi.AddPassive(v, "SP_AlwaysEndoToggle")
+    Osi.AddPassive(v, "SP_Strength_From_Many")
 end
 
 function SP_DebugStatus()
@@ -946,6 +951,16 @@ function SP_DebugStatus()
     Osi.ApplyStatus(v, "SP_DebugInitStatus", -1)
     Osi.ApplyStatus(v, "SP_DebugSpellSaveStatus", -1)
     Osi.ApplyStatus(v, "FEATHER_FALL", -1)
+end
+
+function SP_TestCustomRegurgitate()
+    local pred = Osi.GetHostCharacter()
+    local prey = SP_TableRandomVal(VoreData[pred].Prey, true)
+    SP_CreateCustomRegurgitate(v, prey)
+end
+
+function SP_DumpVore()
+    _D(VoreData)
 end
 
 -- If you know where to get type hints for this, please let me know.
@@ -979,8 +994,7 @@ Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
 
 Ext.RegisterConsoleCommand('DebugFeats', SP_DebugFeats)
 Ext.RegisterConsoleCommand('DebugStatus', SP_DebugStatus)
-Ext.RegisterConsoleCommand('Test', SP_DebugTest)
-Ext.RegisterConsoleCommand('Test2', SP_DebugTest2)
+Ext.RegisterConsoleCommand('TestCustomRegurgitate', SP_TestCustomRegurgitate)
 
 -- Lets you config during runtime.
 Ext.RegisterConsoleCommand('VoreConfigOptions', VoreConfigOptions)
@@ -991,3 +1005,5 @@ Ext.RegisterConsoleCommand("ResetVore", SP_ResetVore)
 Ext.RegisterConsoleCommand("KillVore", SP_KillVore)
 Ext.RegisterConsoleCommand("GiveMeVore", SP_GiveMeVore)
 Ext.RegisterConsoleCommand("DebugVore", SP_DebugVore)
+Ext.RegisterConsoleCommand("DumpVore", SP_DumpVore)
+

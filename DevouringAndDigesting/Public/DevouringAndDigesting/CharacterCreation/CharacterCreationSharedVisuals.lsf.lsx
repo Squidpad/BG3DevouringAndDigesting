@@ -19,343 +19,344 @@
 				Dragonborn: 9c61a74a-20df-4119-89c5-d996956b6c66 
 				Half-Orc: 5c39a726-71c8-4748-ba8d-f768b3c11a91-->
 				<!-- female small elf / human -->
-								<!-- 1 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="377687c4-7399-431b-a441-8d8a5480a5bd" />
-                    <attribute id="VisualResource" type="guid" value="93144bd5-56c9-499b-96d4-bb058c592752" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 2 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="1b79282c-9c44-4b33-ad16-94b0a55480ae" />
-                    <attribute id="VisualResource" type="guid" value="226641ad-52b8-43a0-99f1-835dcfb687c9" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 3 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="139e0e54-56c5-4843-8e2f-182898842364" />
-                    <attribute id="VisualResource" type="guid" value="e4c8493f-d3a9-4429-aa87-686012c4ec16" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 4 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="b377fc64-1160-430a-bd99-edbe300f68e4" />
-                    <attribute id="VisualResource" type="guid" value="ca8f87f1-8414-4a6b-ad98-080e3cde9ca5" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 5 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="fc02c342-e016-4114-92d7-b4484f692a35" />
-                    <attribute id="VisualResource" type="guid" value="ec30c98f-a9ee-487b-983f-c37e74ceee52" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 6 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="50b8d0ff-4ce6-4119-9e75-3fec24e192df" />
-                    <attribute id="VisualResource" type="guid" value="93e44034-a75b-4215-bcb6-8ca957202268" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 7 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="9423764e-bf7b-486b-9a21-d1b2bcb5ddc1" />
-                    <attribute id="VisualResource" type="guid" value="c2ebb40c-7bdd-416f-88ef-bd897c0b4fe3" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 8 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="740b2814-9027-47f9-89a4-5a5145a07245" />
-                    <attribute id="VisualResource" type="guid" value="d571b261-d60c-44f9-a730-78f99caddd8f" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 9 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="da2e4a69-e4ce-40c0-b99a-c657a6748b5f" />
-                    <attribute id="VisualResource" type="guid" value="a6ebf2ca-01a4-44c4-8779-fc5d5c7be883" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 10 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="750c9ed5-a930-4d06-9695-60d8c4710584" />
-                    <attribute id="VisualResource" type="guid" value="1c4c79f8-b407-46a9-83d2-4ae0f1d2b951" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 11 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="4256e6ab-04ac-4e7a-bc27-27cd1d426ba4" />
-                    <attribute id="VisualResource" type="guid" value="cb721b12-8416-4b71-8468-f78338e18c24" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 12 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="f04fbaac-c451-4593-8746-e760029d19fa" />
-                    <attribute id="VisualResource" type="guid" value="c28eaa3e-61d9-4cf0-8bc0-d4f12b42fa6d" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 13 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="331183f2-da13-4cb0-9ab0-37e987ad1b08" />
-                    <attribute id="VisualResource" type="guid" value="982f6eb6-f2eb-4a2b-8b7f-81af0c350a57" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 14 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="8ae21b52-f00f-4a95-9765-84e4b057d008" />
-                    <attribute id="VisualResource" type="guid" value="ac75b19b-ded7-4cf8-8858-c04ef70ae6aa" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 15 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="a98d0d3d-9f5d-49c5-8e14-068dc68b0b81" />
-                    <attribute id="VisualResource" type="guid" value="7ac738f6-d519-449e-a1c9-a8e35384f2d6" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 16 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="e5d8b6da-df1b-4ab2-81e3-36e0d173481b" />
-                    <attribute id="VisualResource" type="guid" value="99127d5f-802a-436a-9a83-275f38e4fa72" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 17 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="fb6d335e-6c54-4fc6-8902-c46abdf4ef6a" />
-                    <attribute id="VisualResource" type="guid" value="dcc1a76d-bb88-4345-aed9-09815e4ac775" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 18 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="e7004515-8640-4a2d-a46b-2f0fc5f365f2" />
-                    <attribute id="VisualResource" type="guid" value="2180a9e6-ca86-442c-bda7-fbf3199a58f4" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 19 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="31c30d58-d86a-4780-960b-89f126d9d7c3" />
-                    <attribute id="VisualResource" type="guid" value="42ffb1e1-6ff6-4a7d-b996-73e1bf7548e7" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 20 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="dcbb2858-0dae-4227-820c-79b9d824427e" />
-                    <attribute id="VisualResource" type="guid" value="5dccf4ef-fd1d-4926-8179-3bc7a7398d55" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 21 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="dcab9e47-facc-4a91-a356-a80106980783" />
-                    <attribute id="VisualResource" type="guid" value="9c4b8da0-5093-4a0d-b770-2bc460a3d225" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 22 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="1c080280-7715-4dc4-8e9e-f8be858ddd5a" />
-                    <attribute id="VisualResource" type="guid" value="db406924-61ae-48c9-af9e-9b0c36f4c2b5" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 23 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="14036120-f54f-42fa-8bf4-11d44a025b3c" />
-                    <attribute id="VisualResource" type="guid" value="ade7b6fd-9dfd-4bf6-9eaf-0d7b5aa8d764" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 24 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="9e20120c-5ee6-4b83-85e5-708ad0da9d22" />
-                    <attribute id="VisualResource" type="guid" value="ab2ad580-55d0-41e1-8235-5bebb8e1b904" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 25 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="564f93af-65a1-46d6-bcf1-907df4ac22de" />
-                    <attribute id="VisualResource" type="guid" value="67fb11e7-ff56-4366-b4ef-965044973326" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 26 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="7887bd2c-5959-446b-82da-cead7a3acf28" />
-                    <attribute id="VisualResource" type="guid" value="680c846a-ba76-4649-b8e4-a67f61bd8373" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 27 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="f887b4a3-1fc5-45c5-adbd-a492c76db75f" />
-                    <attribute id="VisualResource" type="guid" value="1e70cd1d-6ba3-49ec-95b0-0aa9db530c0c" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 28 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="6e2dec33-05d5-4e2f-8f24-23475d72b147" />
-                    <attribute id="VisualResource" type="guid" value="5ccb9150-d19c-45fb-a3b0-a1065831f229" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 29 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="e60cecaa-3b1c-404b-b183-c0142ab4e42f" />
-                    <attribute id="VisualResource" type="guid" value="ac7f573d-9716-45e9-8d38-c19f4419b05b" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
-				<!-- 30 -->
-                <node id="CharacterCreationSharedVisual"> 
-                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
-                    <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="55cb0fc5-6eaa-45dd-a668-b58577a50f1f" />
-                    <attribute id="VisualResource" type="guid" value="76477d6e-9b43-45e1-87eb-b152de62c119" />
-					<children>
-                        <node id="Tags">
-                        </node>
-                    </children>
-                </node>
+                <!-- 1 -->
+<!-- 1 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="14d58243-66c8-4c23-8701-010648cbbf06" />
+                        <attribute id="VisualResource" type="guid" value="0a7eaa06-0c0a-42a2-a195-2bbaa0511b09" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 2 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="caa54fef-4ae5-4ad4-af8d-384b07c53eff" />
+                        <attribute id="VisualResource" type="guid" value="7500d4c5-0e7a-4c02-ac14-c69b88dbb6ca" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 3 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="43138beb-a6b1-485c-83f2-da31cd775f07" />
+                        <attribute id="VisualResource" type="guid" value="0e9848d8-dc4a-40dc-aa36-11e89eb47011" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 4 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="8a614dba-c815-411e-8605-4d80b2caa389" />
+                        <attribute id="VisualResource" type="guid" value="e178e4e6-e732-421c-8493-8ef82c92bb21" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 5 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="fe9093c4-235f-4357-a06b-7f8cb43eaa14" />
+                        <attribute id="VisualResource" type="guid" value="b6ee80ce-a54c-4482-8070-8865a1b81017" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 6 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="8dbde3e5-79ba-4ab3-9367-7c9af41ed293" />
+                        <attribute id="VisualResource" type="guid" value="4a071ec4-3b8a-4911-8188-dcf8e69923dc" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 7 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="502edf57-9616-4d2d-a00b-2b61a2fe7a25" />
+                        <attribute id="VisualResource" type="guid" value="c6b5f9d6-7fcf-443b-8526-4cf831a62781" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 8 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="f1eacf5d-333a-4c83-9a10-dfaeefac4576" />
+                        <attribute id="VisualResource" type="guid" value="93158aeb-c485-428f-9e9c-af29bb04c065" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 9 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="f4758a20-102b-4675-bf5d-c2e4b0e73e40" />
+                        <attribute id="VisualResource" type="guid" value="2f060a42-be2e-4af7-afa9-3b11da72b93b" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 10 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="434fa34f-86c6-4c99-8ac0-2b38de3afe5b" />
+                        <attribute id="VisualResource" type="guid" value="3b55a056-1441-44ce-a302-ffcea320a49c" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 11 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="1d2516b6-f217-4ea7-b60b-32e6d895856f" />
+                        <attribute id="VisualResource" type="guid" value="0fce2c40-83eb-403c-b0b1-d1acb7304081" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 12 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="e39f5e80-d5da-4ff6-8536-2c16a6a28d05" />
+                        <attribute id="VisualResource" type="guid" value="6021b3df-0a7a-4ea3-bd29-54046ce09991" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 13 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="c0ae4b77-456a-4cdd-bde4-7927b5dc3bce" />
+                        <attribute id="VisualResource" type="guid" value="d4f3fa01-393c-435b-8c70-e149b39ec251" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 14 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="824f90cc-5f9d-4bbe-8589-7e8c012efd7a" />
+                        <attribute id="VisualResource" type="guid" value="71b80d00-b08b-48a3-a80c-451470588bf6" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 15 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="d2352c74-e648-4503-8bde-9615ebc99789" />
+                        <attribute id="VisualResource" type="guid" value="b798ff96-2b10-47c9-b137-5d6345fdb160" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 16 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="fc3b79c3-66bf-4f87-9b9d-3b2db9e25184" />
+                        <attribute id="VisualResource" type="guid" value="753392ce-209b-4d75-8f3a-7c9b68bdae16" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 17 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="2eff82bb-2f94-4a32-8cd9-a9064acae451" />
+                        <attribute id="VisualResource" type="guid" value="be2e0acb-9e03-41ad-b641-0a4261776344" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 18 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="f66519db-1768-4039-9743-c69e25160bef" />
+                        <attribute id="VisualResource" type="guid" value="2f0a7578-1bae-444f-8cda-e931dcfeacba" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 19 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="da37884e-5400-49cb-a724-e2e4cb3c302c" />
+                        <attribute id="VisualResource" type="guid" value="d1bb2e1c-d0b8-4c2d-b8ee-493b4f69f597" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 20 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="399156ef-c054-4a83-8fa3-db7a9beb4232" />
+                        <attribute id="VisualResource" type="guid" value="8ed53a41-c955-4a4d-8f65-f4790d6f0a20" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 21 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="69b69a43-7086-46ec-a197-6fd931da89c3" />
+                        <attribute id="VisualResource" type="guid" value="512ca595-02ba-4e67-ac94-740a926b8f58" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 22 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="166daea8-b473-4c15-819b-04bfa9f849b2" />
+                        <attribute id="VisualResource" type="guid" value="0fb9992b-415e-4799-a78a-c3ce82bfeb36" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 23 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="544c034e-6025-4f52-b6b8-dfe97a11ebf8" />
+                        <attribute id="VisualResource" type="guid" value="00f66d57-3258-4b86-a01a-20a310468c23" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 24 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="61929cbe-a63e-453c-86c6-01b3930bce89" />
+                        <attribute id="VisualResource" type="guid" value="f15c028a-d01d-4791-9139-fd6e626d1bd1" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 25 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="83d235af-c53a-4706-a412-e44993029681" />
+                        <attribute id="VisualResource" type="guid" value="b9b03f7b-47fa-4c2e-9488-6b6a1b2079cf" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 26 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="a91b0083-9940-42bb-b17d-9c8f2d9e2ff0" />
+                        <attribute id="VisualResource" type="guid" value="133f2e35-ceba-475b-8a87-14f54715a51e" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 27 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="5791c922-827a-46f6-a428-fb7ba20f6a0e" />
+                        <attribute id="VisualResource" type="guid" value="de854cf8-c54e-42c8-adc4-7a13bb4c7e59" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 28 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="7d9408fc-5626-4bbe-a6cc-57f5e2ee701a" />
+                        <attribute id="VisualResource" type="guid" value="840cd919-bc0e-45ff-b3e6-a248ff0e6ce8" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 29 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="ae738c8f-f60a-43ba-9e3f-eb317e689e23" />
+                        <attribute id="VisualResource" type="guid" value="162587c1-16d7-4940-a1ca-c3c100ef8ab0" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
+                    <!-- 30 -->
+                    <node id="CharacterCreationSharedVisual"> 
+                        <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                        <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
+                        <attribute id="UUID" type="guid" value="b520bf0e-eb86-4836-86e2-9e8830cb2915" />
+                        <attribute id="VisualResource" type="guid" value="e1646e44-c157-4dc8-be55-28772bf95dbe" />
+                        <children>
+                            <node id="Tags">
+                            </node>
+                        </children>
+                    </node>
 				<!-- female strong elf / human -->
 								<!-- 1 -->
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="bb388903-88fb-4ff8-90d6-cec96ec67a64" />
-                    <attribute id="VisualResource" type="guid" value="ac85d423-3add-4fff-9a67-a3547be334a4" />
+                    <attribute id="UUID" type="guid" value="ae6e74b4-1ce9-4071-b4e3-976ded2b81f5" />
+                    <attribute id="VisualResource" type="guid" value="8e9c8953-25b5-47fe-ab11-8659157ea98d" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -365,8 +366,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="71c0d81e-2952-482d-8d21-5a3f36945a86" />
-                    <attribute id="VisualResource" type="guid" value="1628c3d4-92ef-4890-9f44-bffcb787d221" />
+                    <attribute id="UUID" type="guid" value="d8e78b98-18f0-4fb8-bd78-b36b8a7fee1d" />
+                    <attribute id="VisualResource" type="guid" value="230e6f3f-7a98-4fd3-8033-1a79e6ad5ad0" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -376,8 +377,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="d5ceebe6-4c05-4ad5-97f8-9bf55573e643" />
-                    <attribute id="VisualResource" type="guid" value="b0e4556d-eb9f-4799-9ff9-bd40ac01c94c" />
+                    <attribute id="UUID" type="guid" value="ce3586ad-50b7-44eb-b326-7effe1b97022" />
+                    <attribute id="VisualResource" type="guid" value="2936f741-49c8-46cd-abbf-748784b9798a" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -387,8 +388,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="14a8d2d7-a2dc-4485-89cf-017d832d80f5" />
-                    <attribute id="VisualResource" type="guid" value="0c916d6b-6e6f-43dc-8ced-57f1dd36954f" />
+                    <attribute id="UUID" type="guid" value="0f9eb800-5108-4487-a0c4-d0a6b4382f4c" />
+                    <attribute id="VisualResource" type="guid" value="019892b2-8992-4515-a780-89020081f293" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -398,8 +399,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="c4e407f7-9032-42d3-94f6-44be78894c39" />
-                    <attribute id="VisualResource" type="guid" value="fd5bc34a-14ee-4e03-a2b8-78216a2d6f1a" />
+                    <attribute id="UUID" type="guid" value="f6af0ec7-ec43-4259-a79b-f9bd65efe4f1" />
+                    <attribute id="VisualResource" type="guid" value="56a7bc71-6e5d-4581-94d5-450d7882455b" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -409,8 +410,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="97f16d4b-a09e-49c8-8f20-07fc7fbe02a1" />
-                    <attribute id="VisualResource" type="guid" value="6bcb7b3b-997a-4c20-b6b9-31b13d58eaf2" />
+                    <attribute id="UUID" type="guid" value="bd21191f-d45c-47f1-91b0-87e77b775b9e" />
+                    <attribute id="VisualResource" type="guid" value="7aea5981-cdc7-4f73-9360-36903704d388" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -420,8 +421,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="01d6c230-b8cc-4f33-99a1-7c2be6b686ff" />
-                    <attribute id="VisualResource" type="guid" value="a001b11d-dd57-4846-a5c7-bc8a11b3be44" />
+                    <attribute id="UUID" type="guid" value="98f3811d-4d2d-4d2d-b90e-8b2103ed38ea" />
+                    <attribute id="VisualResource" type="guid" value="76d122a9-5170-4c7d-b349-33cf063634f6" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -431,8 +432,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="123f6453-6456-46d5-9942-ad046db9a17e" />
-                    <attribute id="VisualResource" type="guid" value="ff25b57f-150d-4875-8e1e-8c877c40ba8f" />
+                    <attribute id="UUID" type="guid" value="9da787d4-175f-44d3-8a19-4c40dc239f18" />
+                    <attribute id="VisualResource" type="guid" value="0ed4f17f-14c9-403a-bdf7-10bd57009e49" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -442,8 +443,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="af25e117-7f46-44fc-8ccb-526f3e517236" />
-                    <attribute id="VisualResource" type="guid" value="b3080825-cc42-4954-aa69-1ceb5e854030" />
+                    <attribute id="UUID" type="guid" value="1f5a18ce-a3a7-4ed9-9473-0c449ca16f38" />
+                    <attribute id="VisualResource" type="guid" value="6c034f12-45e1-43e0-8554-676a4883ef05" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -453,8 +454,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="fc348463-3ff8-432f-9d94-80e7e6dab519" />
-                    <attribute id="VisualResource" type="guid" value="4d8c6b23-987e-464a-aaa2-50a140e2f915" />
+                    <attribute id="UUID" type="guid" value="d24ff2bc-e099-4ab1-b8ba-2eb5a1821562" />
+                    <attribute id="VisualResource" type="guid" value="fa36d883-e380-4cab-bf6f-60f441606cc4" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -464,8 +465,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="ac69790c-620a-4549-801d-24ccba8441ce" />
-                    <attribute id="VisualResource" type="guid" value="78793d15-fd60-471f-b148-98182939632b" />
+                    <attribute id="UUID" type="guid" value="3058f5d6-5a32-46ca-b89b-4905036ac0d0" />
+                    <attribute id="VisualResource" type="guid" value="5ddacc04-8156-4a87-a3e0-27f572a8c006" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -475,8 +476,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="873552de-8a50-448c-87ac-a41c63b8b325" />
-                    <attribute id="VisualResource" type="guid" value="b15f3361-b2d1-4edf-93d8-20c0ced2f13f" />
+                    <attribute id="UUID" type="guid" value="e9972b90-76d7-4eba-a49b-ab3146e2eb06" />
+                    <attribute id="VisualResource" type="guid" value="501f1c41-3309-4b13-aca0-f0b6b636afe8" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -486,8 +487,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="b515d849-0f0d-46ed-8665-dc3ac66662c7" />
-                    <attribute id="VisualResource" type="guid" value="108884f9-3bed-4083-bd1d-b44fe513d6fa" />
+                    <attribute id="UUID" type="guid" value="9264f9fe-69ba-42c8-a3c2-fe0f8dbc2184" />
+                    <attribute id="VisualResource" type="guid" value="5a3a628a-82ba-4f89-bf2f-fc533f5d0f0f" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -497,8 +498,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="9fb82846-9a83-4342-9df2-331833bd828d" />
-                    <attribute id="VisualResource" type="guid" value="9d424259-0df8-4dd8-b5d4-e9a50a79c721" />
+                    <attribute id="UUID" type="guid" value="19415f55-3009-4d5b-bbf2-9640dc52151a" />
+                    <attribute id="VisualResource" type="guid" value="f9b44ecd-fceb-49f5-80c5-1f6e204456f8" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -508,8 +509,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="4a64c451-d852-4f5f-ae23-019ac407364e" />
-                    <attribute id="VisualResource" type="guid" value="125c515c-4d7d-4f21-a895-282054dfb407" />
+                    <attribute id="UUID" type="guid" value="6f8abb71-d7d7-49a6-951c-cd264c1796fb" />
+                    <attribute id="VisualResource" type="guid" value="38a2aca0-5dc3-4bcb-b68d-fe2a4e7bc397" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -519,8 +520,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="160c3420-30c3-4a86-9535-ca8c4776534f" />
-                    <attribute id="VisualResource" type="guid" value="5bf5d87e-e616-4a21-8732-7616f7bfdd6e" />
+                    <attribute id="UUID" type="guid" value="3ae24528-7f96-4273-818e-b37eae6da5bc" />
+                    <attribute id="VisualResource" type="guid" value="ceedd8de-7e6d-48c5-9561-3f821bf232e3" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -530,8 +531,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="8336e027-4709-42e4-a937-642b012aaea7" />
-                    <attribute id="VisualResource" type="guid" value="4dffd64d-3ea1-4b5b-a146-d40d33ab4967" />
+                    <attribute id="UUID" type="guid" value="fc17583f-c202-4cbb-abed-cf4ff99235a6" />
+                    <attribute id="VisualResource" type="guid" value="d338a464-c678-4660-ac02-7c2d557862b7" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -541,8 +542,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="6648e0fa-ad21-4faf-990d-7ebfa328ba12" />
-                    <attribute id="VisualResource" type="guid" value="6c693690-2761-498e-b049-33a66d3df476" />
+                    <attribute id="UUID" type="guid" value="24c67b70-893d-41c3-b768-8ed12ee8301a" />
+                    <attribute id="VisualResource" type="guid" value="a16f423f-d669-449e-aeda-c98e060a1845" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -552,8 +553,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="8b45d574-3793-4d7e-9bf6-e5c10f178891" />
-                    <attribute id="VisualResource" type="guid" value="e88a7200-904f-47d5-a76c-e40046039a1d" />
+                    <attribute id="UUID" type="guid" value="c4278a43-1ac5-4380-a14d-d767e8200ae3" />
+                    <attribute id="VisualResource" type="guid" value="0a1fd203-c848-4fcc-9692-2fe1640b9fdd" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -563,8 +564,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="fb6d56fa-450f-47dd-80ca-0f418fda5b98" />
-                    <attribute id="VisualResource" type="guid" value="a2280140-5a10-4884-8467-4537157cdbaf" />
+                    <attribute id="UUID" type="guid" value="a0a18761-d890-42ef-83a4-c8c58f0db943" />
+                    <attribute id="VisualResource" type="guid" value="6dd1acbb-03c3-40b8-b057-fbf86277be8d" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -574,8 +575,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="de89ecc9-92a1-457d-b596-28c3a800bc68" />
-                    <attribute id="VisualResource" type="guid" value="0a86d31d-d5a8-434a-993e-33ffe7d90658" />
+                    <attribute id="UUID" type="guid" value="925fa8d6-bcae-4483-8561-5db67fc44555" />
+                    <attribute id="VisualResource" type="guid" value="34a8070d-665d-4eaa-8625-ac93e95dfb7e" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -585,8 +586,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="22b93fc7-858d-4064-b7f7-a343c9f1496f" />
-                    <attribute id="VisualResource" type="guid" value="b858f6ad-b85a-4fbc-becb-0eb3c4557947" />
+                    <attribute id="UUID" type="guid" value="651c0529-dc0e-40ff-97b2-7c1af20bc37e" />
+                    <attribute id="VisualResource" type="guid" value="b46adff5-5266-4c16-a77c-62f2c9cd5577" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -596,8 +597,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="d0a52a57-6592-4ca1-bd18-c710ba63ab44" />
-                    <attribute id="VisualResource" type="guid" value="84302e00-84b5-4692-a249-e79bd13bce18" />
+                    <attribute id="UUID" type="guid" value="6da98aeb-4316-4686-8b37-030b78851da6" />
+                    <attribute id="VisualResource" type="guid" value="b7bac8bc-8783-4626-9122-b5d8f88db40a" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -607,8 +608,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="6b5d7b46-ff99-4449-8b8a-53ea3786714a" />
-                    <attribute id="VisualResource" type="guid" value="b75f8164-61fb-4151-80e8-b03df28baf85" />
+                    <attribute id="UUID" type="guid" value="055ea464-a2c6-4229-8f4a-5832e023f7b4" />
+                    <attribute id="VisualResource" type="guid" value="27b26ead-96a5-4008-ba20-2673f3059bf4" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -618,8 +619,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="3d4a531b-f100-4565-b574-f9c41e173cf7" />
-                    <attribute id="VisualResource" type="guid" value="71ee548a-c684-4237-a532-0274b39ece91" />
+                    <attribute id="UUID" type="guid" value="0830b66e-662d-46a9-9ca6-00f0c11bad32" />
+                    <attribute id="VisualResource" type="guid" value="0f975ccb-33e7-4af0-a99f-6b3207f1bad3" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -629,8 +630,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="6a557a46-2f00-4f3c-abbc-aabd52ac9a9d" />
-                    <attribute id="VisualResource" type="guid" value="b64fff70-07a6-4b0d-93ac-c1c68ffad861" />
+                    <attribute id="UUID" type="guid" value="10b38257-1efd-42b4-afe2-0afbd613902d" />
+                    <attribute id="VisualResource" type="guid" value="7222ab62-9c8f-4e1c-9270-cd0212d51193" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -640,8 +641,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="68b7a432-d41a-47f6-8504-037e2b917396" />
-                    <attribute id="VisualResource" type="guid" value="5e20aab9-07dc-42e1-b691-31787e953ba2" />
+                    <attribute id="UUID" type="guid" value="792e4641-0efd-4137-9cc2-32ce96e824cf" />
+                    <attribute id="VisualResource" type="guid" value="a10a2db3-b67f-4624-a101-96f3214f140a" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -651,8 +652,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="7c9c3016-dc4c-402b-a8c5-929c0783ebfd" />
-                    <attribute id="VisualResource" type="guid" value="67ebaee1-8898-41e7-a873-9d4829e1a098" />
+                    <attribute id="UUID" type="guid" value="3d194286-2895-433a-a4a4-a561cce2feeb" />
+                    <attribute id="VisualResource" type="guid" value="965fa2b4-6cba-48dc-9cc7-f6ff70256bc1" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -662,8 +663,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="bd813f43-e8e0-4788-a50d-39719f7f7720" />
-                    <attribute id="VisualResource" type="guid" value="13bad5fb-8b43-4513-8952-c1ca9262b30e" />
+                    <attribute id="UUID" type="guid" value="4b6452bc-0a75-457b-9b7a-2b71f45bd033" />
+                    <attribute id="VisualResource" type="guid" value="15c6eec8-457c-4eb4-9aa3-81dfde242347" />
 					<children>
                         <node id="Tags">
                         </node>
@@ -673,8 +674,8 @@
                 <node id="CharacterCreationSharedVisual"> 
                     <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
                     <attribute id="SlotName" type="FixedString" value="DragonbornTop" />
-                    <attribute id="UUID" type="guid" value="54dbad45-69ed-4fe6-bb14-d979fb7f8754" />
-                    <attribute id="VisualResource" type="guid" value="9deb305d-539f-4aed-8bc4-feb1ebf8e501" />
+                    <attribute id="UUID" type="guid" value="09486420-2ec2-4b55-a792-0d17df96c86c" />
+                    <attribute id="VisualResource" type="guid" value="989541f3-73f6-42fb-8b17-4e195daa263d" />
 					<children>
                         <node id="Tags">
                         </node>

@@ -59,7 +59,7 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
     local predSize = SP_GetCharacterSize(pred)
     local preySize = SP_GetCharacterSize(prey)
     if notNested then
-        Osi.AddSpell(prey, 'SP_ReleaseMe', 0, 0)
+        Osi.AddSpell(prey, 'SP_Zone_ReleaseMe', 0, 0)
         Osi.SetDetached(prey, 1)
         Osi.SetVisible(prey, 0)
 
@@ -90,7 +90,7 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
         if VoreData[prey].SwallowProcess > 0 then
             local pswallow = SP_GetSwallowVoreStatus(pred, digestionType == 0)
             Osi.ApplyStatus(prey, pswallow, (VoreData[prey].SwallowProcess + 1) * SecondsPerTurn, 1, pred)
-            Osi.AddSpell(pred, 'SP_SwallowDown', 0, 0)
+            Osi.AddSpell(pred, 'SP_Zone_SwallowDown', 0, 0)
             VoreData[prey].Swallowed = pswallow
         else
             VoreData[prey].SwallowProcess = 0
@@ -110,7 +110,7 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
     end
 
     VoreData[prey].Pred = pred
-    SP_ApplyOverstuffing(pred)
+
     -- Now accounts for the size of each prey when determining how many stacks of Stuffed you should get
     return VoreData[prey].StuffedStacks + SP_GetStuffedStacksBySize(preySize)
 end
@@ -122,12 +122,26 @@ end
 ---@param notNested boolean If prey is not transferred to another stomach.
 ---@param swallowStages boolean If swallow happens in multiple stages
 ---@param locus string
+---@return boolean|nil whether or not everything went well
 function SP_SwallowPrey(pred, prey, swallowType, notNested, swallowStages, locus)
     _P('Swallowing')
 
     SP_VoreDataEntry(pred, true)
 
-    local statusStacks = SP_AddPrey(pred, prey, swallowType, notNested, swallowStages, locus)
+    local preyStolen = false
+    local preyThief = nil
+    for k, v in pairs(VoreData[pred].Prey) do
+        if v == locus and Osi.HasPassive(k, "SP_SecondhandPred") == 1 and k ~= prey and not preyStolen then
+            preyThief = k
+            preyStolen = true
+        end
+    end
+
+
+    local statusStacks = 0
+
+    statusStacks = SP_AddPrey(pred, prey, swallowType, notNested, swallowStages, locus)
+    _P("StatusStacks: " .. statusStacks)
     if VoreData[pred].StuffedStacks < 1 and statusStacks < 1 then
         statusStacks = 1
     end
@@ -145,13 +159,23 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested, swallowStages, locus
         VoreData[pred].Stuffed = stuffedStatus
     end
 
-    Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
-    Osi.AddSpell(pred, 'SP_SpeedUpDigestion', 0, 0)
-    Osi.AddSpell(pred, 'SP_SwitchToLethal', 0, 0)
+    Osi.AddSpell(pred, 'SP_Zone_Regurgitate', 0, 0)
+    Osi.AddSpell(pred, 'SP_Zone_SpeedUpDigestion', 0, 0)
+    Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
 
     SP_UpdateWeight(pred)
+    if preyStolen then
+        SP_RegurgitatePrey(pred, prey, -1)
+        if VoreData[preyThief].Digestion == 0 and swallowType == 2 then
+            SP_SwallowPrey(preyThief, prey, 2, true, true, "U")
+        else
+            SP_SwallowPrey(preyThief, prey, 0, true, true, "U")
+        end
+    end
+
     _D(VoreData)
     _P('Swallowing END')
+    return not preyStolen
 end
 
 ---Should be called in any situation when multiple prey must be swallowed.
@@ -166,10 +190,29 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested, swallowStag
 
     SP_VoreDataEntry(pred, true)
 
+    -- local preyStolen = false
+    -- for k, v in pairs(VoreData[pred].Prey) do
+    --     if v == locus and Osi.HasPassive(k, "SP_SecondhandPred") == 1 and k ~= prey and not preyStolen then
+    --         if VoreData[k].Digestion == 0 and swallowType == 2 then
+    --             SP_SwallowPreyMultiple(k, preys, 2, true, true, "U")
+    --         else
+    --             SP_SwallowPreyMultiple(k, preys, 0, true, true, "U")
+    --         end
+    --         preyStolen = true
+    --     end
+    -- end
+
+    local preyStolen = false
+
     local statusStacks = 0
     for _, v in ipairs(preys) do
-        statusStacks = statusStacks + SP_AddPrey(pred, v, swallowType, notNested, swallowStages, locus)
+        if not preyStolen then
+            statusStacks = statusStacks + SP_AddPrey(pred, v, swallowType, notNested, swallowStages, locus)
+        else
+            statusStacks = statusStacks + VoreData[prey].StuffedStacks + SP_GetStuffedStacksBySize(SP_GetCharacterSize(v))
+        end
     end
+
     if VoreData[pred].StuffedStacks < 1 and statusStacks < 1 then
         statusStacks = 1
     end
@@ -187,9 +230,9 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested, swallowStag
         VoreData[pred].Stuffed = stuffedStatus
     end
 
-    Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
-    Osi.AddSpell(pred, 'SP_SwitchToLethal', 0, 0)
-    Osi.AddSpell(pred, 'SP_SpeedUpDigestion', 0, 0)
+    Osi.AddSpell(pred, 'SP_Zone_Regurgitate', 0, 0)
+    Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
+    Osi.AddSpell(pred, 'SP_Zone_SpeedUpDigestion', 0, 0)
 
     SP_UpdateWeight(pred)
     _P('Swallowing END')
@@ -212,7 +255,7 @@ function SP_FullySwallow(pred, prey)
         end
     end
     if removeSD then
-        Osi.RemoveSpell(pred, 'SP_SwallowDown')
+        Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown')
     end
 end
 
@@ -229,8 +272,8 @@ function SP_SwallowItem(pred, item)
             VoreData[pred].Stuffed = stuffedStatus
             Osi.ApplyStatus(pred, stuffedStatus, 1 * SecondsPerTurn, 1, pred)
 
-            Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
-            Osi.AddSpell(pred, 'SP_SwitchToLethal', 0, 0)
+            Osi.AddSpell(pred, 'SP_Zone_Regurgitate', 0, 0)
+            Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
         end
         VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
         Osi.ToInventory(item, VoreData[pred].Items, 9999, 0, 0)
@@ -261,8 +304,8 @@ function SP_SwallowAllItems(pred, container)
             VoreData[pred].Stuffed = stuffedStatus
             Osi.ApplyStatus(pred, stuffedStatus, 1 * SecondsPerTurn, 1, pred)
 
-            Osi.AddSpell(pred, 'SP_Regurgitate', 0, 0)
-            Osi.AddSpell(pred, 'SP_SwitchToLethal', 0, 0)
+            Osi.AddSpell(pred, 'SP_Zone_Regurgitate', 0, 0)
+            Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
         end
         VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
         Osi.MoveAllItemsTo(container, VoreData[pred].Items, 0, 0, 0, 0)
@@ -292,7 +335,7 @@ function SP_VorePossible(pred, prey)
     end
     local isItem = Osi.IsItem(prey) == 1
     if not ConfigVars.Mechanics.AllowOverstuffing.value and ((isItem and not SP_CanFitItem(pred, prey)) or
-         (not isItem and not SP_CanFitPrey(pred, prey))) then
+            (not isItem and not SP_CanFitPrey(pred, prey))) then
         Osi.ApplyStatus(pred, "SP_Cant_Fit_Prey", SecondsPerTurn * 6, 1, prey)
         return false
     end
@@ -301,7 +344,7 @@ end
 
 ---Should be called in any situation when prey must be released, including pred's death.
 ---@param pred CHARACTER
----@param preyString GUIDSTRING | string either guid of prey, or "All" to regurigitate all prey in given locus
+---@param preyString GUIDSTRING | string either guid of prey, "All" to regurigitate all prey in given locus, or "Random" to regurgitate one prey at random
 ---@param preyState integer State of prey to regurgitate: 0 == alive, 1 == dead, -1 == all, 10 == alive and digested.
 ---@param spell? string Internal name of spell (this does not reflect the in-game spell used).
 ---@param locus? string locus to regurgiate from
@@ -315,8 +358,15 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     local markedForSwallow = {}
     local markedForErase = {}
 
+    local roll = -1
+    if preyString == "Random" then
+        roll = Osi.Roll(SP_TableLength(VoreData[pred].Prey))
+    end
     -- Find prey to remove, clear their status, mark them for removal.
     for prey, v in pairs(VoreData[pred].Prey) do
+        if preyString == "Random" then
+            roll = roll - 1
+        end
         if not locus or v == locus then
             local isReal = Osi.IsCharacter(prey)
             if isReal ~= 1 then
@@ -332,7 +382,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
                 locus = nil
             end
 
-            if isReal == 1 and (locus == nil or v == locus) and (preyString == "All" or prey == preyString) and (preyState == -1 or
+            if isReal == 1 and (locus == nil or v == locus) and (preyString == "All" or prey == preyString or roll == 0) and (preyState == -1 or
                     ((stateCheck == preyState or preyState == 10) and
                         (stateCheck ~= 1 or (VoreData[prey].Weight <= VoreData[prey].FixedWeight // 5)))) then
                 _P('Pred:' .. pred)
@@ -470,7 +520,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
             Osi.ClearTag(prey, '7095912e-fcb9-41dd-aec3-3cf7803e4b22')
             VoreData[prey].DisableDowned = false
         end
-        Osi.RemoveSpell(prey, 'SP_ReleaseMe')
+        Osi.RemoveSpell(prey, 'SP_Zone_ReleaseMe')
         Osi.SetDetached(prey, 0)
         Osi.SetVisible(prey, 1)
         Osi.RemoveStatus(prey, DigestionTypes[VoreData[prey].Digestion], pred)
@@ -485,11 +535,12 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
 
     -- If pred has no more prey inside.
     if next(VoreData[pred].Prey) == nil and VoreData[pred].Items == "" then
-        Osi.RemoveSpell(pred, 'SP_Regurgitate', 1)
-        Osi.RemoveSpell(pred, 'SP_SwallowDown')
-        Osi.RemoveSpell(pred, 'SP_SwitchToLethal', 1)
-        Osi.RemoveSpell(pred, 'SP_SpeedUpDigestion', 1)
+        Osi.RemoveSpell(pred, 'SP_Zone_Regurgitate', 1)
+        Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown')
+        Osi.RemoveSpell(pred, 'SP_Zone_SwitchToLethal', 1)
+        Osi.RemoveSpell(pred, 'SP_Zone_SpeedUpDigestion', 1)
         Osi.RemoveStatus(pred, VoreData[pred].Stuffed)
+        Osi.RemoveStatus(pred, "SP_Indigestion")
         VoreData[pred].Stuffed = ""
         VoreData[pred].StuffedStacks = 0
     else
@@ -539,6 +590,20 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     _P('Ending Regurgitation')
 end
 
+---Creates a new spell to regurgitate one specific prey
+---@param prey GUIDSTRING guid of Prey
+---@return string spell
+function SP_CreateCustomRegurgitate(pred, prey)
+    local stat = Ext.Stats.Create("SP_Zone_Regurgitate_X_" .. prey, "SpellData", "SP_Zone_Regurgitate")
+    stat.SpellFlags = "Temporary"
+    stat.DisplayName = "h339b4a78ga0a6g4b55g93fag7c8fb6725002"
+    stat.Description = "hfed57717ga1feg4c72gad20gbaaa9d1adf1b"
+    stat.DescriptionParams = SP_GetDisplayNameFromGUID(prey)
+    stat:Sync()
+    SP_DelayCallTicks(10, function () Osi.AddSpell(pred, "SP_Zone_Regurgitate_X_" .. prey, 0, 0) end)
+    return "SP_Zone_Regurgitate_X_" .. prey
+end
+
 ---Changes the amount of Weight Placeholders by looking for weights of all prey in pred.
 ---Remember to save VoreData after calling this
 ---@param pred CHARACTER
@@ -576,11 +641,16 @@ function SP_UpdateWeight(pred, noVisual)
             weightReduction = -fullWeight
             fullWeight = fullWeight - weightReduction
         end
+        if fullWeight < 0 then
+            fullWeight = 0
+        end
+
         -- stores by how much the weight of prey was reduced, so we can add this to the weight of pred if they are swallowed
         VoreData[k].WeightReduction = (VoreData[k].Weight + VoreData[k].AddWeight) - fullWeight
 
         newWeight = newWeight + fullWeight
         if VoreData[k].Locus ~= 'C' then
+            _P("prey weight: " .. VoreData[k].Weight)
             newWeightVisual = newWeightVisual + VoreData[k].Weight + VoreData[k].AddWeight
         end
     end
@@ -608,11 +678,11 @@ function SP_UpdateWeight(pred, noVisual)
     if noVisual == true then
         return
     end
+    _P("weightvisual: " .. newWeightVisual)
     SP_UpdateBelly(pred, newWeightVisual)
-    SP_DelayCallTicks(4, function ()
-        SP_ApplyOverstuffing(pred)
-    end)
+    SP_ApplyOverstuffing(pred)
 end
+
 
 --- purely visual updating
 ---@param pred CHARACTER
@@ -628,19 +698,23 @@ function SP_UpdateBelly(pred, weight)
     elseif string.find(predRace, 'Orc') ~= nil then
         predRace = 'Orc'
     end
+    
     if BellyTable[predRace] == nil then
         _P("Race " .. predRace .. " does not support bellies")
         return
     end
+    
     local sex = Osi.GetBodyType(pred, 1)
     -- Only female belly is currently implemented.
     if BellyTable[predRace].Sexes == false then
         sex = "Sex"
     end
+    
     if BellyTable[predRace][sex] == nil then
         _P("Sex " .. sex .. " does not support bellies")
         return
     end
+    
     local bodyShape = 0
     if BellyTable[predRace][sex].BodyShapes then
         local tags = Ext.Entity.Get(pred).Tag.Tags
@@ -654,6 +728,7 @@ function SP_UpdateBelly(pred, weight)
         _P("Body shape " .. bodyShape .. " does not support bellies")
         return
     end
+    
     -- fixes most npcs not having a field that stores visual overrides
     local predData = Ext.Entity.Get(pred)
     if predData.CharacterCreationAppearance == nil then
@@ -679,7 +754,7 @@ function SP_UpdateBelly(pred, weight)
             bellyShape = v
         end
     end
-
+    
     -- Clears overrides. Changed this so it will remove all belly-related visual overrides, meaning it should not break on polymorph
     for k, v in pairs(predData.CharacterCreationAppearance.Visuals) do
         if AllBellies[v] == true and bellyShape ~= v then
