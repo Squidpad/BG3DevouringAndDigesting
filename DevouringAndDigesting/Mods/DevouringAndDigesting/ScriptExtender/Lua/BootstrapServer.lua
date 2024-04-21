@@ -17,20 +17,40 @@ local statFiles = {
 local modPath = "Public/DevouringAndDigesting/Stats/Generated/Data/"
 
 
-
+-- output
 Ext.Require("Utils/Output.lua")
-Ext.Require("Utils/Utils.lua")
-Ext.Require("Utils/EventUtils.lua")
-Ext.Require("Utils/VoreUtils.lua")
-Ext.Require("Utils/Config.lua")
-Ext.Require("Utils/Migrations/ConfigMigrations.lua")
-Ext.Require("Utils/Migrations/PersistentVarsMigrations.lua")
+-- all global tables except for VoreData
 Ext.Require("Utils/TableData.lua")
-Ext.Require("Utils/RaceTable.lua")
+-- difficulty classes
 Ext.Require("Utils/DCTable.lua")
+-- non vore or ext/osi related utils
+Ext.Require("Utils/Utils.lua")
+-- for npc vore destribution databases
+Ext.Require("Utils/RaceTable.lua")
+-- migration of config
+Ext.Require("Utils/Migrations/ConfigMigrations.lua")
+-- config, it's saving and loading
+Ext.Require("Utils/Config.lua")
+-- utils for handling events
+Ext.Require("Utils/EventUtils.lua")
+-- utils that use osi but are not vore-related
+Ext.Require("Utils/OsiUtils.lua")
+-- utils that are directly related to vore but do not use voredata
+Ext.Require("Utils/OsiVoreUtils.lua")
+-- VoreData management
+Ext.Require("Utils/VoreUtils.lua")
+-- migration of VoreData
+Ext.Require("Utils/Migrations/PersistentVarsMigrations.lua")
+-- for Ext events (but not osiris events)
+Ext.Require("Utils/ExtEvents.lua")
+-- for console commands
+Ext.Require("Utils/ConsoleCommands.lua")
 
+-- subclasses
 --this script is missing
 Ext.Require("Subclasses/StomachSentinel.lua")
+
+-- this file: osi event handling
 
 Ext.Vars.RegisterModVariable(ModuleUUID, "ModVoreData", {})
 
@@ -83,14 +103,15 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         elseif spellName == 'SwallowDown' then
             for k, v in pairs(VoreData[caster].Prey) do
                 if VoreData[k].SwallowProcess > 0 then
-                    if VoreData[k].Digestion ~= 0 then
-                        SP_VoreCheck(caster, k, "SwallowDownCheck")
-                    else
+                    _P("Ally: " .. Osi.IsAlly(caster, k))
+                    if Osi.IsAlly(caster, k) == 1 then
                         VoreData[k].SwallowProcess = VoreData[k].SwallowProcess - 1
 
                         if VoreData[k].SwallowProcess == 0 then
                             SP_FullySwallow(caster, k)
                         end
+                    else
+                        SP_VoreCheck(caster, k, "SwallowDownCheck")
                     end
                 end
             end
@@ -98,8 +119,8 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         elseif spellName == 'SpeedUpDigestion' then
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
-                    if VoreData[k].Digestion == 2 then
-                        Osi.ApplyStatus(k, 'SP_SpeedUpDigestionStatus', 0, 1, caster)
+                    if VoreData[k].Digestion == DType.Lethal then
+                        Osi.ApplyStatus(k, 'SP_SpeedUpDigestion_Status', 0, 1, caster)
                     end
                 end
             end
@@ -108,6 +129,17 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
             if VoreData[caster].Pred ~= "" then
                 --SP_RegurgitatePrey(VoreData[caster].Pred, caster, 0)
                 SP_VoreCheck(VoreData[caster].Pred, caster, "ReleaseMeCheck")
+            end
+        elseif spell == 'SP_SC_BoundPrey_Spell' then
+            if VoreData[caster] ~= nil then
+                for k, v in pairs(VoreData[caster].Prey) do
+                    if Osi.IsAlly(caster, k) == 1 and VoreData[k].Digestion == DType.Endo then
+                        Osi.ApplyStatus(caster, "SP_SC_BoundPrey_Pred", -1, 1, k)
+                        Osi.ApplyStatus(k, "SP_SC_BoundPrey_Prey", -1, 1, caster)
+
+                        Osi.ApplyStatus(caster, "SP_SC_BlockVoreTotal", -1, 1, k)
+                    end
+                end
             end
         end
     end
@@ -154,9 +186,10 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                     SP_SwallowItem(caster, target)
                 end)
             else
+                _P("Ally: " .. Osi.IsAlly(caster, target))
                 if Osi.IsAlly(caster, target) == 1 then
                     SP_DelayCallTicks(12, function ()
-                        SP_SwallowPrey(caster, target, 0, true, true, locus)
+                        SP_SwallowPrey(caster, target, DType.Endo, true, true, locus)
                     end)
                 else
                     SP_DelayCallTicks(6, function ()
@@ -198,7 +231,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         end
         SP_DelayCallTicks(5, function ()
             if #preyTable > 0 then
-                SP_SwallowPreyMultiple(target, preyTable, 2, true, false, locus)
+                SP_SwallowPreyMultiple(target, preyTable, DType.Lethal, true, false, locus)
             end
             Osi.RemoveSpell(caster, "SP_Target_BellyportDestination")
         end)
@@ -211,13 +244,13 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         if not SP_VorePossible(target, caster) then
             return
         end
-        if Osi.IsAlly(caster, target) == 1 then
+        if Osi.IsEnemy(caster, target) == 0 then
             SP_DelayCallTicks(12, function ()
-                SP_SwallowPrey(target, caster, 0, true, false, locus)
+                SP_SwallowPrey(target, caster, DType.Endo, true, false, locus)
             end)
         else
             SP_DelayCallTicks(12, function ()
-                SP_SwallowPrey(target, caster, 2, true, false, locus)
+                SP_SwallowPrey(target, caster, DType.Lethal, true, false, locus)
             end)
         end
         -- non swallow-related spells
@@ -226,7 +259,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             if VoreData[target] ~= nil then
                 Osi.RemoveStatus(target, 'SP_Indigestion')
                 for k, v in pairs(VoreData[target].Prey) do
-                    if VoreData[k].Digestion == 2 then
+                    if VoreData[k].Digestion == DType.Lethal then
                         Osi.ApplyStatus(k, 'SP_MassageAcid', 0, 1, target)
                     end
                 end
@@ -252,7 +285,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         elseif spell == 'Acidify' then
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
-                    if VoreData[k].Digestion == 2 then
+                    if VoreData[k].Digestion == DType.Lethal then
                         Osi.ApplyStatus(k, 'SP_Acidify_Status', 0, 1, caster)
                     end
                 end
@@ -272,7 +305,7 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
     if string.sub(eventName, 1, 20) == 'SwallowCheck_Lethal_' and (resultType ~= 0 or ConfigVars.Mechanics.VoreDifficulty.value == 'cheat') then
         _P('Lethal Swallow Success by ' .. roller)
         local voreLocus = string.sub(eventName, -1)
-        local preyNotStolen = SP_SwallowPrey(roller, rollSubject, 2, true, true, voreLocus)
+        local preyNotStolen = SP_SwallowPrey(roller, rollSubject, DType.Lethal, true, true, voreLocus)
 
         if ConfigVars.Mechanics.SwitchEndoLethal.value and preyNotStolen and Osi.HasPassive(roller, 'SP_MuscleControl') == 0 then
             if voreLocus == 'O' then
@@ -287,15 +320,18 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
     elseif string.sub(eventName, 1, 18) == 'SwallowCheck_Endo_' and (resultType ~= 0 or ConfigVars.Mechanics.VoreDifficulty.value == 'cheat') then
         _P('Endo Swallow Success by ' .. roller)
         local voreLocus = string.sub(eventName, -1)
-        SP_SwallowPrey(roller, rollSubject, 0, true, true, voreLocus)
+        SP_SwallowPrey(roller, rollSubject, DType.Endo, true, true, voreLocus)
     elseif eventName == "StruggleCheck" and resultType ~= 0 then
         _P('Struggle Success by ' .. roller .. ' against ' .. rollSubject)
         _P("rollresult: " .. tostring(resultType))
-        Osi.ApplyStatus(rollSubject, "SP_Indigestion", 1 * SecondsPerTurn)
+        -- Warlock passive
+        if Osi.HasPassive(rollSubject, "SP_SC_Inescapable") == 0 then
+            Osi.ApplyStatus(rollSubject, "SP_Indigestion", 1 * SecondsPerTurn)
+        end
         if Osi.HasPassive(roller, 'SP_Dense') == 1 then
             Osi.ApplyStatus(rollSubject, "PRONE", 1 * SecondsPerTurn, 1, roller)
         end
-        if Osi.GetStatusTurns(rollSubject, "SP_Indigestion") >= 6 then
+        if Osi.GetStatusTurns(rollSubject, "SP_Indigestion") >= 5 then
             Osi.RemoveStatus(rollSubject, "SP_Indigestion")
             -- evey prey will be regurgitated
             SP_RegurgitatePrey(rollSubject, "All", 0, "", VoreData[roller].Locus)
@@ -333,45 +369,6 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
     end
 end
 
----digests a random item in pred's inventory
----@param pred CHARACTER
-function SP_DigestItem(pred)
-    if not ConfigVars.Digestion.DigestItems.value then
-        return
-    end
-    -- the chance of an item being digested is 1/10 per Digestion tick
-    if VoreData[pred].Items == "" and Osi.Random(10) ~= 1 then
-        return
-    end
-
-    local itemList = Ext.Entity.Get(VoreData[pred].Items).InventoryOwner.PrimaryInventory:GetAllComponents()
-        .InventoryContainer.Items
-    local i = 0
-    for k, v in pairs(itemList) do
-        local uuid = v.Item:GetAllComponents().Uuid.EntityUuid
-        i = i + 1
-        if Osi.IsStoryItem(uuid) == 0 and Osi.IsTagged(uuid, '983087c8-c9d3-4a87-bc69-65f9329666c8') == 0 and
-            Osi.IsTagged(uuid, '7b96246c-54ba-43ea-b01d-4e0b20ad35f1') == 0 then
-            _P("item" .. uuid)
-            if Osi.IsConsumable(uuid) == 1 then
-                Osi.Use(pred, uuid, "")
-            else
-                VoreData[pred].AddWeight = VoreData[pred].AddWeight + Ext.Entity.Get(uuid).Data.Weight // 1000
-                Osi.RequestDelete(uuid)
-                Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', VoreData[pred].Items, 1, 0)
-                SP_UpdateWeight(pred, true)
-            end
-            return
-        end
-    end
-    -- removes empty stomach item
-    if i == 0 then
-        Osi.RequestDelete(VoreData[pred].Items)
-        VoreData[pred].Items = ""
-        Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
-    end
-end
-
 ---Runs each time a status is applied.
 ---@param object CHARACTER Recipient of status.
 ---@param status string Internal name of status.
@@ -404,7 +401,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
             end
         end
         for k, v in pairs(VoreData[object].Prey) do
-            if VoreData[k].Digestion ~= 1 and (ConfigVars.Debug.TeleportPrey.value == true or VoreData[k].Combat ~= "") then
+            if VoreData[k].Digestion ~= DType.Dead and (ConfigVars.Debug.TeleportPrey.value == true or VoreData[k].Combat ~= "") then
                 local predX, predY, predZ = Osi.GetPosition(object)
                 Osi.TeleportToPosition(k, predX, predY, predZ, "", 0, 0, 0, 0, 0)
             end
@@ -427,21 +424,25 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         if VoreData[object] == nil or VoreData[object].Pred == "" then
             return
         end
-        if Osi.HasPassive(VoreData[object].Pred, 'SP_BoilingInsides') == 1 then
-            Osi.ApplyStatus(object, "SP_BoilingInsidesAcid", 0, 1, VoreData[object].Pred)
+        if Osi.IsEnemy(object, VoreData[object].Pred) == 1 then
+            SP_VoreCheck(VoreData[object].Pred, object, "StruggleCheck")
         end
-        if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(VoreData[object].Pred, 'SP_MuscleControl') == 0 then
-            local pred = VoreData[object].Pred
-            if VoreData[object].Locus == 'O' then
-                VoreData[pred].DigestItems = true
+        if VoreData[object].Digestion == DType.Lethal then
+            if Osi.HasPassive(VoreData[object].Pred, 'SP_BoilingInsides') == 1 then
+                Osi.ApplyStatus(object, "SP_BoilingInsidesAcid", 0, 1, VoreData[object].Pred)
             end
-            for k, v in pairs(VoreData[pred].Prey) do
-                if VoreData[object].Locus == v then
-                    SP_SwitchToDigestionType(pred, k, 0, 2)
+            if ConfigVars.Mechanics.SwitchEndoLethal.value and Osi.HasPassive(VoreData[object].Pred, 'SP_MuscleControl') == 0 then
+                local pred = VoreData[object].Pred
+                if VoreData[object].Locus == 'O' then
+                    VoreData[pred].DigestItems = true
+                end
+                for k, v in pairs(VoreData[pred].Prey) do
+                    if VoreData[object].Locus == v then
+                        SP_SwitchToDigestionType(pred, k, 0, 2)
+                    end
                 end
             end
         end
-        SP_VoreCheck(VoreData[object].Pred, object, "StruggleCheck")
     elseif status == "SP_Hit_Bellyport" then
         local pred = SP_GetPredFromGUID(causee)
         _P(pred)
@@ -598,7 +599,7 @@ function SP_OnStatusRemoved(object, status, causee, storyActionID)
                 if removeSD then
                     Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown')
                 end
-                SP_RegurgitatePrey(pred, object, -1)
+                SP_RegurgitatePrey(pred, object, -1, "SwallowFail")
             end
         end
     end
@@ -625,61 +626,52 @@ end
 ---Runs when someone dies.
 ---@param character CHARACTER
 function SP_OnBeforeDeath(character)
-    if VoreData[character] ~= nil then
-        -- If character was pred.
-        VoreData[character].Fat = 0
-        VoreData[character].Satiation = 0
-        if VoreData[character].Pred ~= "" then
-            VoreData[VoreData[character].Pred].AddWeight = VoreData[VoreData[character].Pred].AddWeight +
-                VoreData[character].AddWeight
+    if VoreData[character] == nil then
+        return
+    end
+    -- If character was pred.
+    VoreData[character].Fat = 0
+    VoreData[character].Satiation = 0
+    if next(VoreData[character].Prey) ~= nil or VoreData[character].Items ~= "" then
+        _P(character .. " was pred and DIED")
+        SP_RegurgitatePrey(character, 'All', -1)
+    end
+
+    -- If character was prey (both can be true at the same time)
+    if VoreData[character] ~= nil and VoreData[character].Pred ~= "" then
+        local pred = VoreData[character].Pred
+        VoreData[character].Digestion = DType.Dead
+        if VoreData[character].Locus == 'O' then
+            SP_SwitchToLocus(pred, character, 'A')
         end
-        VoreData[character].AddWeight = 0
-        if next(VoreData[character].Prey) ~= nil then
-            _P(character .. " was pred and DIED")
-            SP_RegurgitatePrey(character, 'All', -1)
+        _P(character .. " was digested by " .. pred .. " and DIED")
+
+        -- Warlock slot recovery
+        if Osi.HasPassive(pred, "SP_SC_GreatHunger") == 1 and Osi.HasActiveStatus(pred, "SP_SC_GreatHunger_RestoreSlot") == 0 then
+            Osi.ApplyStatus(pred, "SP_SC_GreatHunger_RestoreSlot", 1 * SecondsPerTurn, 1, pred)
         end
-        -- If character was prey (both can be true at the same time)
-        if VoreData[character] ~= nil and VoreData[character].Pred ~= "" then
-            local pred = VoreData[character].Pred
-            VoreData[character].Digestion = 1
-            if VoreData[character].Locus == 'O' then
-                SP_SwitchToLocus(pred, character, 'A')
-            end
-            _P(character .. " was digested by " .. pred .. " and DIED")
-            -- Temp characters' corpses are not saved is save file, so they might cause issues unless disposed of on death.
-            if Ext.Entity.Get(character).ServerCharacter.Temporary == true then
-                _P("Absorbing temp character")
-                SP_DelayCallTicks(15, function ()
-                    SP_RegurgitatePrey(pred, character, -1, "Absorb", VoreData[character].Locus)
-                end)
-            else
-                SP_SwitchToDigestionType(pred, character, 1, 1)
-                -- Digested but not released prey will be stored out of bounds.
-                -- investigate if teleporting char out of bounds and reloading breaks them
-                Osi.TeleportToPosition(character, -100000, 0, -100000, "", 0, 0, 0, 1, 0)
-                -- Implementation for fast digestion.
-                if ConfigVars.Digestion.SlowDigestion.value == false then
-                    local preyWeightDiff = VoreData[character].Weight - VoreData[character].FixedWeight // 5
+        -- Warlock bound prey remove
+        if Osi.HasActiveStatus(character, "SP_SC_BoundPrey_Prey") == 1 then
+            Osi.RemoveStatus(pred, "SP_SC_BlockVoreTotal")
+            Osi.RemoveStatus(pred, "SP_SC_BoundPrey_Pred")
+        end
 
-                    if ConfigVars.WeightGain.WeightGain.value then
-                        VoreData[pred].Fat = VoreData[pred].Fat +
-                            preyWeightDiff * ConfigVars.WeightGain.WeightGainRate.value // 100
-                    end
-
-                    if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(pred, 0) == 1 and
-                        (Osi.IsTagged(character, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 and
-                            Osi.IsTagged(character, "196351e2-ff25-4e2b-8560-222ac6b94a54") == 0 and
-                            Osi.IsTagged(character, "22e5209c-eaeb-40dc-b6ef-a371794110c2") == 0 and
-                            Osi.IsTagged(character, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
-                            Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
-                        VoreData[pred].Satiation = VoreData[pred].Satiation +
-                            preyWeightDiff * ConfigVars.Hunger.HungerSatiationRate.value // 100
-                    end
-
-                    SP_DelayCallTicks(10, function ()
-                        SP_ReduceWeightRecursive(character, preyWeightDiff, true)
-                    end)
-                end
+        -- Temp characters' corpses are not saved is save file, so they might cause issues unless disposed of on death.
+        if Ext.Entity.Get(character).ServerCharacter.Temporary == true then
+            _P("Absorbing temp character")
+            SP_DelayCallTicks(15, function ()
+                SP_RegurgitatePrey(pred, character, -1, "Absorb", VoreData[character].Locus)
+            end)
+        else
+            SP_SwitchToDigestionType(pred, character, 1, 1)
+            -- Digested but not released prey will be stored out of bounds.
+            -- investigate if teleporting char out of bounds and reloading breaks them
+            Osi.TeleportToPosition(character, -100000, 0, -100000, "", 0, 0, 0, 1, 0)
+            -- Implementation for fast digestion.
+            if ConfigVars.Digestion.SlowDigestion.value == false then
+                local preyToDigest = {}
+                preyToDigest[character] = VoreData[character].Locus
+                SP_FastDigestion(pred, preyToDigest, 0)
             end
         end
     end
@@ -721,6 +713,12 @@ function SP_OnShortRest(character)
     --Osi.IteratePlayerCharacters("HungerCalculateShort", "")
     SP_HungerSystem(ConfigVars.Hunger.HungerShort.value, false)
 
+    for k, v in pairs(VoreData) do
+        if Osi.HasActiveStatus(k, "SP_SC_GreatHunger_RestoreSlot") == 1 then
+            Osi.RemoveStatus(k, "SP_SC_GreatHunger_RestoreSlot")
+        end
+    end
+
     _D(VoreData)
     SP_DelayCallTicks(5, function ()
         CalculateRest = true
@@ -747,78 +745,6 @@ function SP_OnLongRest()
         end
     end)
     _D(VoreData)
-end
-
----hunger system
----@param stacks integer how much hunger stacks to add
----@param isLong boolean is long rest
-function SP_HungerSystem(stacks, isLong)
-    -- hunger system
-    if not ConfigVars.Hunger.Hunger.value then
-        return
-    end
-    local party = Ext.Entity.Get(Osi.GetHostCharacter()).PartyMember.Party.PartyView.Characters
-
-    for k, v in pairs(party) do
-        local predData = v:GetAllComponents()
-        local pred = predData.ServerCharacter.Template.Name .. "_" .. predData.Uuid.EntityUuid
-        local hungerStacks = stacks + Osi.GetStatusTurns(pred, "SP_Hunger")
-        local newhungerStacks = hungerStacks
-        if VoreData[pred] ~= nil then
-            local satiationDiff = VoreData[pred].Satiation // ConfigVars.Hunger.HungerSatiation.value
-            newhungerStacks = hungerStacks - satiationDiff
-            if newhungerStacks > 0 then
-                VoreData[pred].Satiation = VoreData[pred].Satiation -
-                    satiationDiff * ConfigVars.Hunger.HungerSatiation.value
-            else
-                VoreData[pred].Satiation = VoreData[pred].Satiation -
-                    hungerStacks * ConfigVars.Hunger.HungerSatiation.value
-                newhungerStacks = 0
-            end
-        end
-        if Osi.IsTagged(pred, 'f7265d55-e88e-429e-88df-93f8e41c821c') == 1 then
-            Osi.RemoveStatus(pred, 'SP_Hunger')
-            Osi.RemoveStatus(pred, 'SP_HungerStage3')
-            Osi.RemoveStatus(pred, 'SP_HungerStage2')
-            Osi.RemoveStatus(pred, 'SP_HungerStage1')
-            if newhungerStacks > 0 then
-                Osi.ApplyStatus(pred, 'SP_Hunger', newhungerStacks * SecondsPerTurn, 1)
-                -- random switch to lethal
-                local lethalRandomSwitch = false
-                if newhungerStacks >= ConfigVars.Hunger.HungerBreakpoint3.value then
-                    lethalRandomSwitch = true
-                    Osi.ApplyStatus(pred, 'SP_HungerStage3', -1, 1)
-                elseif newhungerStacks >= ConfigVars.Hunger.HungerBreakpoint2.value then
-                    Osi.ApplyStatus(pred, 'SP_HungerStage2', -1, 1)
-                    if (not isLong and Osi.Random(2) == 1) or (isLong and Osi.Random(3) ~= 1) then
-                        lethalRandomSwitch = true
-                    end
-                elseif newhungerStacks >= ConfigVars.Hunger.HungerBreakpoint1.value then
-                    Osi.ApplyStatus(pred, 'SP_HungerStage1', -1, 1)
-                    if (not isLong and Osi.Random(3) == 1) or (isLong and Osi.Random(2) == 1) then
-                        lethalRandomSwitch = true
-                    end
-                end
-
-                --Randomly start digesting prey because of hunger
-                if VoreData[pred] ~= nil and lethalRandomSwitch then
-                    for i, j in pairs(VoreData[pred].Prey) do
-                        if ConfigVars.Hunger.LethalRandomSwitch.value then
-                            _P("Random lethal switch")
-                            SP_SwitchToDigestionType(pred, i, 0, 2)
-                            -- prey is digested if the switch happens during long rest
-                            if isLong then
-                                Osi.ApplyDamage(i, 100, "Acid", pred)
-                            end
-                        end
-                    end
-                    if ConfigVars.Hunger.LethalRandomSwitch.value then
-                        VoreData[pred].DigestItems = true
-                    end
-                end
-            end
-        end
-    end
 end
 
 ---Runs on session load
@@ -865,102 +791,21 @@ end
 ---@param level? string Name of new game region.
 function SP_OnBeforeLevelUnloaded(level)
     _P('LEVEL CHANGE')
-    _D(level)
-    _P('Level changed to ' .. level)
+    if type(level) == "string" then
+        _D(level)
+        _P('Level changed to ' .. level)
+    end
 
     for k, v in pairs(VoreData) do
         if next(v.Prey) ~= nil then
             SP_RegurgitatePrey(k, "All", -1, "LevelChange")
         end
     end
-    -- only keeps those with items in stomach, need to test how item ids are transferred between levels,
-    -- maybe remove this completely
     for k, v in pairs(VoreData) do
         VoreData[k].Prey = {}
         VoreData[k].Pred = ""
-        if v.Items == "" then
-            VoreData[k] = nil
-        end
+        SP_VoreDataEntry(k, false)
     end
-end
-
-function SP_ResetVore()
-    for k, v in pairs(VoreData or {}) do
-        if next(v.Prey) ~= nil or v.Items ~= "" then
-            SP_RegurgitatePrey(k, "All", -1, "ResetVore")
-        end
-    end
-    SP_DelayCallTicks(15, function ()
-        for k, v in pairs(VoreData or {}) do
-            v.AddWeight = 0
-            v.Fat = 0
-            v.Satiation = 0
-            SP_UpdateWeight(k)
-        end
-        SP_DelayCallTicks(10, function ()
-            VoreData = {}
-            _P("Vore reset complete")
-        end)
-    end)
-end
-
--- deletes every vore-related variable and possibly fixed broken saves
-function SP_KillVore()
-    PersistentVars['PreyTablePred'] = nil
-    PersistentVars['PreyWeightTable'] = nil
-    PersistentVars['FakePreyWeightTable'] = nil
-    PersistentVars['DisableDownedPreyTable'] = nil
-    VoreData = {}
-end
-
--- gives player all usable items from mod (to avoid using SummonTutorialChest)
-function SP_GiveMeVore()
-    local player = Osi.GetHostCharacter()
-    Osi.TemplateAddTo('b8d700d0-681f-4c38-b444-fe69b361d9b3', player, 1)
-    -- Osi.TemplateAddTo('91cb93c0-0e07-4b3a-a1e9-a836585146a9', player, 1)
-    -- Osi.TemplateAddTo('04987160-cb88-4d3e-b219-1843e5253d51', player, 1)
-    -- Osi.TemplateAddTo('f3914e54-2c48-426a-a338-8e1c86ebc7be', player, 1)
-    -- Osi.TemplateAddTo('92067c3c-547e-4451-9377-632391702de9', player, 1)
-    -- Osi.TemplateAddTo('04cbdeb4-a98e-44cd-b032-972df0ba3ca1', player, 1)
-    -- Osi.TemplateAddTo('69d2df14-6d8a-4f94-92b5-cc48bc60f132', player, 1)
-    -- Osi.TemplateAddTo('02ee5321-7bcd-4712-ba06-89eb1850c2e4', player, 1)
-    -- Osi.TemplateAddTo('319379c2-3627-4c26-b14d-3ce8abb676c3', player, 1)
-end
-
-function SP_DebugVore()
-    local party = Ext.Entity.Get(Osi.GetHostCharacter()).PartyMember.Party.PartyView.Characters
-    for k, v in pairs(party) do
-        local predData = v:GetAllComponents()
-        local pred = predData.ServerCharacter.Template.Name .. "_" .. predData.Uuid.EntityUuid
-        Osi.SetLevel(pred, 4)
-    end
-end
-
-function SP_DebugFeats()
-    local v = Osi.GetHostCharacter()
-    Osi.AddPassive(v, "SP_AsOne")
-    Osi.AddPassive(v, "SP_Improved_Stomach_Shelter")
-    Osi.AddPassive(v, "SP_Gastric_Bulwark")
-    Osi.AddPassive(v, "SP_BottomlessStomach")
-    Osi.AddPassive(v, "SP_Strength_From_Many")
-end
-
-function SP_DebugStatus()
-    local v = Osi.GetHostCharacter()
-    Osi.ApplyStatus(v, "SP_DebugActionStatus", -1)
-    Osi.ApplyStatus(v, "SP_DebugInitStatus", -1)
-    Osi.ApplyStatus(v, "SP_DebugSpellSaveStatus", -1)
-    Osi.ApplyStatus(v, "FEATHER_FALL", -1)
-end
-
-function SP_TestCustomRegurgitate()
-    local pred = Osi.GetHostCharacter()
-    local prey = SP_TableRandomVal(VoreData[pred].Prey, true)
-    SP_CreateCustomRegurgitate(v, prey)
-end
-
-function SP_DumpVore()
-    _D(VoreData)
 end
 
 -- If you know where to get type hints for this, please let me know.
@@ -991,19 +836,3 @@ Ext.Osiris.RegisterListener("UseFinished", 3, "after", SP_ItemUsed)
 
 Ext.Events.SessionLoaded:Subscribe(SP_OnSessionLoaded)
 Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
-
-Ext.RegisterConsoleCommand('DebugFeats', SP_DebugFeats)
-Ext.RegisterConsoleCommand('DebugStatus', SP_DebugStatus)
-Ext.RegisterConsoleCommand('TestCustomRegurgitate', SP_TestCustomRegurgitate)
-
--- Lets you config during runtime.
-Ext.RegisterConsoleCommand('VoreConfigOptions', VoreConfigOptions)
-Ext.RegisterConsoleCommand('VoreConfigReload', SP_LoadConfigFromFile)
-Ext.RegisterConsoleCommand('VoreConfigReset', SP_ResetAndSaveConfig)
-
-Ext.RegisterConsoleCommand("ResetVore", SP_ResetVore)
-Ext.RegisterConsoleCommand("KillVore", SP_KillVore)
-Ext.RegisterConsoleCommand("GiveMeVore", SP_GiveMeVore)
-Ext.RegisterConsoleCommand("DebugVore", SP_DebugVore)
-Ext.RegisterConsoleCommand("DumpVore", SP_DumpVore)
-

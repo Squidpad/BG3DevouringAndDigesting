@@ -12,21 +12,38 @@ CompanionsSet = {
     ["S_GLO_Halsin_7628bc0e-52b8-42a7-856a-13a6fd413323"] = true,
     ["S_GOB_DrowCommander_25721313-0c15-4935-8176-9f134385451b"] = true,
 }
--- Keys and Names of Digestion type statuses, keys are value of VoreData[character].Digestion
-DigestionTypes = {
-    [0] = "SP_Swallowed_Endo",
-    [1] = "SP_Swallowed_Dead",
-    [2] = "SP_Swallowed_Lethal",
-    [3] = "None",
+
+---table that stores all names of digestion statuses
+---@type table<string, table<integer, string>>
+DigestionStatuses = {
+    ['O'] = {
+        [0] = "SP_Swallowed_Endo_O",
+        [1] = "SP_Swallowed_Dead_O",
+        [2] = "SP_Swallowed_Lethal_O",
+    },
+    ['A'] = {
+        [0] = "SP_Swallowed_Endo_A",
+        [1] = "SP_Swallowed_Dead_A",
+        [2] = "SP_Swallowed_Lethal_A",
+    },
+    ['U'] = {
+        [0] = "SP_Swallowed_Endo_U",
+        [1] = "SP_Swallowed_Dead_U",
+        [2] = "SP_Swallowed_Lethal_U",
+    },
+    ['C'] = {
+        [0] = "SP_Swallowed_Endo_C",
+        [1] = "SP_Swallowed_Dead_C",
+        [2] = "SP_Swallowed_Lethal_C",
+    },
 }
 
-
--- Keys and Names of Locus type statuses, keys are values of VoreData[character].Prey
-VoreLoci = {
-    ['O'] = "SP_Swallowed_Oral",
-    ['A'] = "SP_Swallowed_Anal",
-    ['U'] = "SP_Swallowed_Unbirth",
-    ['C'] = "SP_Swallowed_Cock",
+---enum for digestion types
+DType = {
+    Endo = 0,
+    Dead = 1,
+    Lethal = 2,
+    None = 3,
 }
 
 -- List of gurgle sounds randomly played for stuffed preds
@@ -186,7 +203,7 @@ BellyTable = {
             },
         },
         Male = {
-            BodyShapes = true,
+            BodyShapes = false,
             [0] = {
                 [15] = "5d54a45f-38b7-459e-b892-e51fc32c6f87",
                 [30] = "5c21b0f0-2869-4f15-acad-f6ff02713a03",
@@ -236,7 +253,7 @@ BellyTable = {
             },
         },
         Male = {
-            BodyShapes = true,
+            BodyShapes = false,
             [0] = {
                 [15] = "90752779-7c70-4a6f-bebf-e8afe4639ac6",
                 [35] = "1fe0747f-cb0b-4c8f-9ea9-3b970d02f28f",
@@ -356,7 +373,7 @@ VoreDataEntry = {
     FixedWeight = 0,
     WeightReduction = 0,
     DisableDowned = false,
-    Digestion = 3,
+    Digestion = DType.None,
     DigestItems = false,
     Combat = "",
     Prey = {},
