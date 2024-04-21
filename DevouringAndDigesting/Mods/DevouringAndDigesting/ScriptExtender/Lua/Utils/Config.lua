@@ -187,24 +187,6 @@ local DEFAULT_VARS = {
         },
         HungerBreakpoint1 = {
             description = "Stacks of hunger at which a debuff is applied",
-            value = 8,
-            default = 8,
-            range = {1, 100, 1},
-            extras = {
-                slider = true,
-            },
-        },
-        HungerBreakpoint2 = {
-            description = "Stacks of hunger at which a second debuff is applied",
-            value = 12,
-            default = 12,
-            range = {1, 100, 1},
-            extras = {
-                slider = true,
-            },
-        },
-        HungerBreakpoint3 = {
-            description = "Stacks of hunger at which a third debuff is applied",
             value = 16,
             default = 16,
             range = {1, 100, 1},
@@ -212,10 +194,28 @@ local DEFAULT_VARS = {
                 slider = true,
             },
         },
+        HungerBreakpoint2 = {
+            description = "Stacks of hunger at which a second debuff is applied",
+            value = 24,
+            default = 24,
+            range = {1, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        HungerBreakpoint3 = {
+            description = "Stacks of hunger at which a third debuff is applied",
+            value = 32,
+            default = 32,
+            range = {1, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
         HungerLong = {
             description = "Hunger stacks gained on long rest.",
-            value = 3,
-            default = 3,
+            value = 6,
+            default = 6,
             range = {1, 100, 1},
             extras = {
                 slider = true,
@@ -223,8 +223,8 @@ local DEFAULT_VARS = {
         },
         HungerShort = {
             description = "Hunger stacks gained on short rest.",
-            value = 1,
-            default = 1,
+            value = 2,
+            default = 2,
             range = {1, 100, 1},
             extras = {
                 slider = true,
@@ -232,8 +232,8 @@ local DEFAULT_VARS = {
         },
         HungerSatiation = {
             description = "Satiation stacks needed to remove one hunger stack.",
-            value = 3,
-            default = 3,
+            value = 2,
+            default = 2,
             range = {1, 100, 1},
             extras = {
                 slider = true,
@@ -253,6 +253,12 @@ local DEFAULT_VARS = {
             "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
             value = false,
             default = false,
+        },
+        HungerUseFat = {
+            description =
+            "If set to true, fat will be used to reduce hunger gain by half if you don't have enough satiation stacks.",
+            value = true,
+            default = true,
         },
     },
     NPCVore = {

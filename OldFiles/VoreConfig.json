@@ -1,0 +1,444 @@
+{
+	"Debug" : 
+	{
+		"LockStomach" : 
+		{
+			"default" : true,
+			"description" : "Whether to lock the stomach object used for storing items during item vore or not. This is for you to be able to LOOK inside, actually removing the items will lead to unintended consequences.",
+			"value" : true
+		},
+		"TeleportPrey" : 
+		{
+			"default" : true,
+			"description" : "Determines if a living prey is teleported to their predator at the end of each turn (or every 6 seconds outside of turn-based mode). By default is on, should be only turned off in case of performance issues",
+			"value" : true
+		}
+	},
+	"Digestion" : 
+	{
+		"DigestItems" : 
+		{
+			"default" : false,
+			"description" : "When you start digesting prey, the items in your stomach might be digested. WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE",
+			"value" : true
+		},
+		"DigestionRateLong" : 
+		{
+			"default" : 60,
+			"description" : "Determines by how much the weight of a prey who is being digested is reduced after a long rest",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				0,
+				100,
+				1
+			],
+			"value" : 60
+		},
+		"DigestionRateShort" : 
+		{
+			"default" : 20,
+			"description" : "Determines by how much the weight of a prey who is being digested is reduced after each short rest",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				0,
+				100,
+				1
+			],
+			"value" : 20
+		},
+		"SlowDigestion" : 
+		{
+			"default" : true,
+			"description" : "If true, you will not lose weight until you rest. If false, you lose it immediately upon finishing digestion and you will be immediately able to absorb / dispose of prey",
+			"value" : true
+		}
+	},
+	"Hunger" : 
+	{
+		"Hunger" : 
+		{
+			"default" : false,
+			"description" : "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will receive debuffs. Setting this to false disables hunger completely.",
+			"value" : true
+		},
+		"HungerBreakpoint1" : 
+		{
+			"default" : 16,
+			"description" : "Stacks of hunger at which a debuff is applied",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				1,
+				100,
+				1
+			],
+			"value" : 16
+		},
+		"HungerBreakpoint2" : 
+		{
+			"default" : 24,
+			"description" : "Stacks of hunger at which a second debuff is applied",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				1,
+				100,
+				1
+			],
+			"value" : 24
+		},
+		"HungerBreakpoint3" : 
+		{
+			"default" : 32,
+			"description" : "Stacks of hunger at which a third debuff is applied",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				1,
+				100,
+				1
+			],
+			"value" : 32
+		},
+		"HungerLong" : 
+		{
+			"default" : 6,
+			"description" : "Hunger stacks gained on long rest.",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				1,
+				100,
+				1
+			],
+			"value" : 6
+		},
+		"HungerSatiation" : 
+		{
+			"default" : 2,
+			"description" : "Satiation stacks needed to remove one hunger stack.",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				1,
+				100,
+				1
+			],
+			"value" : 2
+		},
+		"HungerSatiationRate" : 
+		{
+			"default" : 25,
+			"description" : "% of digestion rate for satiation gain.",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				0,
+				100,
+				1
+			],
+			"value" : 25
+		},
+		"HungerShort" : 
+		{
+			"default" : 2,
+			"description" : "Hunger stacks gained on short rest.",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				1,
+				100,
+				1
+			],
+			"value" : 2
+		},
+		"HungerUseFat" : 
+		{
+			"default" : true,
+			"description" : "If set to true, fat will be used to reduce hunger gain by half if you don't have enough satiation stacks.",
+			"value" : true
+		},
+		"LethalRandomSwitch" : 
+		{
+			"default" : false,
+			"description" : "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
+			"value" : true
+		}
+	},
+	"Mechanics" : 
+	{
+		"AllowOverstuffing" : 
+		{
+			"default" : true,
+			"description" : "If true, devouring prey can push you over your maximum carrying capacity, but you'll take damage every round proportional to how overstuffed you are. If false, you'll be hard-capped by your carrying capacity.",
+			"value" : true
+		},
+		"BoilingInsidesFast" : 
+		{
+			"default" : false,
+			"description" : "Dead prey are digested twice as fast if you have 'Boiling insides' feat.",
+			"value" : false
+		},
+		"RequireProperAnatomy" : 
+		{
+			"default" : true,
+			"description" : "If true, special types of vore will require you to have a body part that would enable that type of vore.",
+			"value" : true
+		},
+		"StatusBonusLocus" : 
+		{
+			"choices" : 
+			[
+				"Oral",
+				"Anal",
+				"Unbirth",
+				"Cock"
+			],
+			"default" : 
+			[
+				"Oral",
+				"Anal",
+				"Unbirth",
+				"Cock"
+			],
+			"description" : "Prey in the following loci will receive benefits from feats.",
+			"value" : 
+			[
+				"Oral"
+			]
+		},
+		"SwallowDown" : 
+		{
+			"default" : true,
+			"description" : "Preds will need to use a 'Contine Swallowing' spell to fully swallow a prey.",
+			"value" : true
+		},
+		"SwitchEndoLethal" : 
+		{
+			"default" : true,
+			"description" : "When you start digesting prey, you will start digesting endo prey as well.",
+			"value" : true
+		},
+		"VoreDifficulty" : 
+		{
+			"choices" : 
+			[
+				"default",
+				"easy",
+				"cheat"
+			],
+			"default" : "default",
+			"description" : "Determines how hard it is to swallow non-consenting characters. \"default\" = checks rolled normally, \"easy\" = you make checks with advantage, \"cheat\" = you always succeed",
+			"value" : "default"
+		}
+	},
+	"NPCVore" : 
+	{
+		"ClampSmall" : 
+		{
+			"default" : 40,
+			"description" : "Limits the probability of a small character being chosen as a pred to this value. Set to some 10000 to disable.",
+			"value" : 40
+		},
+		"ClampTiny" : 
+		{
+			"default" : 0,
+			"description" : "Limits the probability of a tiny character being chosen as a pred to this value. Set to some 10000 to disable.",
+			"value" : 0
+		},
+		"CooldownMax" : 
+		{
+			"default" : 5,
+			"description" : "Maximum cooldown between NPC vore attempts (in turns).",
+			"value" : 6
+		},
+		"CooldownMin" : 
+		{
+			"default" : 2,
+			"description" : "Minimum cooldown between NPC vore attempts (in turns).",
+			"value" : 2
+		},
+		"ProbabilityCreature" : 
+		{
+			"default" : 25,
+			"description" : "The % of an NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
+			"value" : 25
+		},
+		"ProbabilityFemale" : 
+		{
+			"default" : 40,
+			"description" : "The % of an NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
+			"value" : 40
+		},
+		"ProbabilityMale" : 
+		{
+			"default" : 10,
+			"description" : "The % of an NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
+			"value" : 10
+		},
+		"SpecialNPCsOverridePreferences" : 
+		{
+			"default" : true,
+			"description" : "NPCs from the 'always become pred' list will become predators regardless of enabled genders.",
+			"value" : true
+		}
+	},
+	"Regurgitation" : 
+	{
+		"CooldownRegurgitate" : 
+		{
+			"default" : 0,
+			"description" : "Preds are unable to regurgitate prey for a number of turn after regurgitation. Set to 0 to disable",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				0,
+				100,
+				1
+			],
+			"value" : 100
+		},
+		"CooldownSwallow" : 
+		{
+			"default" : 2,
+			"description" : "Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				0,
+				100,
+				1
+			],
+			"value" : 2
+		},
+		"RegurgitationDistance" : 
+		{
+			"default" : 2,
+			"description" : "Determines how far prey spawn when regurgitated.",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				0,
+				5,
+				1
+			],
+			"value" : 2
+		}
+	},
+	"VisualsAndAudio" : 
+	{
+		"GurgleProbability" : 
+		{
+			"default" : 8,
+			"description" : "The % chance of a gurgle being played every 6 seconds (a turn). Set to 0 to disable.",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				0,
+				100,
+				1
+			],
+			"value" : 8
+		}
+	},
+	"WeightGain" : 
+	{
+		"WeightGain" : 
+		{
+			"default" : false,
+			"description" : "Stores and adds \"fat\" value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.",
+			"value" : true
+		},
+		"WeightGainRate" : 
+		{
+			"default" : 25,
+			"description" : "% of a prey's weight you gain as fat.",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				0,
+				100,
+				1
+			],
+			"value" : 25
+		},
+		"WeightLossLong" : 
+		{
+			"default" : 11,
+			"description" : "How much fat a character loses on long resting.",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				0,
+				100,
+				1
+			],
+			"value" : 11
+		},
+		"WeightLossShort" : 
+		{
+			"default" : 3,
+			"description" : "How much fat a character loses on short resting.",
+			"extras" : 
+			{
+				"slider" : true
+			},
+			"range" : 
+			[
+				0,
+				100,
+				1
+			],
+			"value" : 3
+		}
+	},
+	"__CephelosModConfigVersion" : 1,
+	"__Version" : 1
+}
