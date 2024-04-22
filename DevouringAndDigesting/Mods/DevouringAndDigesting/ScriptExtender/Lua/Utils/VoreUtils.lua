@@ -196,9 +196,11 @@ function SP_UpdateStuffed(pred)
         stacks["SP_Stuffed"] = 1
     end
     -- reduce the amount of stacks
-    if stacks["SP_Stuffed"] < VoreData[pred].StuffedStacks and stacks["SP_Stuffed"] > 0 then
+    if stacks["SP_Stuffed"] < VoreData[pred].StuffedStacks then
         Osi.RemoveStatus(pred, "SP_Stuffed")
-        Osi.ApplyStatus(pred, "SP_Stuffed", stacks["SP_Stuffed"] * SecondsPerTurn, 1, pred)
+        if stacks["SP_Stuffed"] > 0 then
+            Osi.ApplyStatus(pred, "SP_Stuffed", stacks["SP_Stuffed"] * SecondsPerTurn, 1, pred)
+        end
     -- increase the amount of stacks
     elseif stacks["SP_Stuffed"] > VoreData[pred].StuffedStacks then
         Osi.ApplyStatus(pred, "SP_Stuffed", (stacks["SP_Stuffed"] - VoreData[pred].StuffedStacks) * SecondsPerTurn, 1, pred)
