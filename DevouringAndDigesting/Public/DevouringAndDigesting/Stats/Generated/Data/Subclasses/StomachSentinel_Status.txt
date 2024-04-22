@@ -1,20 +1,3 @@
-
-new entry "SP_SC_StomachShelterStuffed"
-type "StatusData"
-data "StatusType" "BOOST"
-using "SP_Stuffed"
-data "Boosts" ""
-data "TickFunctors" "ApplyStatus(SP_Digesting, 100, 1)"
-data "StatusPropertyFlags" "FreezeDuration;IgnoreResting;DisableCombatlog"
-
-new entry "SP_SC_ImprovedStomachShelterStuffed"
-type "StatusData"
-data "StatusType" "BOOST"
-using "SP_Stuffed"
-data "Boosts" "AC(1);Advantage(Skill, Intimidation);DamageReduction(All,Flat,2)"
-data "TickFunctors" "ApplyStatus(SP_Digesting, 100, 1)"
-data "StatusPropertyFlags" "FreezeDuration;IgnoreResting;DisableCombatlog"
-
 new entry "SP_SC_GastricBulwark_Status"
 type "StatusData"
 data "StatusType" "BOOST"

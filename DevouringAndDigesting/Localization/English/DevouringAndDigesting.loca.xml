@@ -105,6 +105,7 @@
 	<content contentuid="h93d2df27g0d9fg49d0g9c2bgd2d71f414788" version="1">Cock Vored</content>
 	<content contentuid="h5261f7dbg585bg415ag8884g5dc0b1039cba" version="1">Inside of a [2].</content>
 
+	<content contentuid="h40855665cd08465a8be6ed1fa1e00064ag7e" version="1">Full</content>
 	<content contentuid="hcdefe4f0g5c06g4078gaaecgc566f24f38a9" version="1">Stuffed!</content>
 	<content contentuid="h4b237c03g75a6g4658gbc72g3f70fe82f658" version="1">The size of your belly slows you down.</content>
 
@@ -241,8 +242,10 @@
 	<content contentuid="hb6575320g69a5g4366gb0bbg32ea27d17eff" version="1">All damage dealt to you by creatures in your stomach is halved. You gain advantage against the struggles of your prey.</content>
 	
 	<content contentuid="h1aaf187ag5c9cg4f1cga013g294543b2e470" version="1">Musclegut</content>
-	<content contentuid="hd528fec9g01b9g4dcbgb2b6g406740be0ad3" version="1">You do not suffer negative consequences from being stuffed, regardless of prey amount. When you have 3 or more prey inside, you gain advantage on intimidation, 1 AC, and 2 damage reduction from all sources.</content>
+	<content contentuid="hd528fec9g01b9g4dcbgb2b6g406740be0ad3" version="1">You can devour significantly more prey without suffering debuffs. When you have 3 or more prey inside, you gain advantage on intimidation, 1 AC, and 2 damage reduction from all sources.</content>
 	
+	<content contentuid="hb1fec23c5750495683a10b59dc0e5eaf5fa5" version="1">Intimidating presence</content>
+
 	<content contentuid="" version="1">Frightening Gut</content>
 	<content contentuid="" version="1">You have Advantage on Intimidation checks, +[1] AC, and [2] damage reduction from all sources .</content>
 

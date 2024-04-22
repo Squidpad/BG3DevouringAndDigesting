@@ -266,11 +266,11 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             end
         elseif spell == 'AssignNPCPred' then
             _P(target)
-            if Osi.HasPassive(target, "SP_BlockGluttony") == 1 then
-                _P("Was prey")
-                Osi.RemovePassive(target, "SP_BlockGluttony")
-            end
             if Ext.Entity.Get(target).ServerCharacter.Temporary == false then
+                if Osi.HasPassive(target, "SP_BlockGluttony") == 1 then
+                    _P("Was prey")
+                    Osi.RemovePassive(target, "SP_BlockGluttony")
+                end
                 Osi.AddPassive(target, "SP_Gluttony")
             end
         elseif spell == 'AssignNPCPrey' then

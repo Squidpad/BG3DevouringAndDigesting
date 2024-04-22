@@ -164,44 +164,6 @@ function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
     end
 end
 
----applies the proper stuffed status to a pred
----@param pred CHARACTER pred to apply status to
----@param turns integer number of turns to apply
----@param prey CHARACTER|CHARACTER[]|ITEM|GUIDSTRING|string the thing that was eaten
----@return string stuffedStatus the status applied (usually can just be discarded)
-function SP_ApplyStuffed(pred, turns, prey)
-    if type(prey) == "table" and (Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 or Osi.HasPassive(pred, "SP_SC_StomachSanctuary") == 1) then
-        for _, v in ipairs(prey) do
-            if Osi.IsPartyMember(v, 0) == 1 then
-                Osi.ApplyStatus(pred, "SP_SC_StomachShelterStuffed", 1 * SecondsPerTurn, 1, prey)
-                turns = turns - 1
-            end
-        end
-        prey = SP_ArrayRemove(prey, function (prey, index) return Osi.isPartyMember(prey[index], 0) == 0 end)
-    end
-    local stacks = VoreData[pred].StuffedStacks
-    local stuffedStatus = "SP_Stuffed"
-    if Osi.HasPassive(pred, "SP_Musclegut") == 1 then
-        if stacks > 2 then
-            stuffedStatus = "SP_MusclegutIntimidate"
-        end
-        stuffedStatus = "SP_ImprovedStuffed"
-    end
-    Osi.ApplyStatus(pred, stuffedStatus, turns * SecondsPerTurn, 1)
-    return stuffedStatus
-end
-
-function SP_RemoveStuffed(pred)
-    local statusesRemoved = {}
-    for _, status in ipairs(StuffedStatuses) do
-        if Osi.HasActiveStatus(pred, status) then
-            Osi.RemoveStatus(pred, status)
-            statusesRemoved.insert(status)
-        end
-    end
-    return statusesRemoved
-end
-
 ---returns what swallowed status should be appled to a prey on swallow
 ---@param pred CHARACTER
 ---@param endo boolean
@@ -230,24 +192,6 @@ function SP_GetSwallowSkill(pred, prey)
         predStat = "Intimidation"
     end
     return predStat, preyStat
-end
-
----Gets the proper number of stuffed stacks based on prey size
----@param preySize number size of the prey
-function SP_GetStuffedStacksBySize(preySize)
-    preySize = preySize - 2
-    if preySize < 0 then
-        preySize = 0
-    elseif preySize == 0 then
-        preySize = 1
-    elseif preySize == 1 then
-        preySize = 8
-    elseif preySize == 2 then
-        preySize = 64
-    elseif preySize == 3 then
-        preySize = 512
-    end
-    return preySize
 end
 
 ---plays a random gurgle

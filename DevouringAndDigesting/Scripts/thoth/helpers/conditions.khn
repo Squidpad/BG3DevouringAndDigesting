@@ -25,7 +25,7 @@ end
 
 function SP_IsPred(entity)
     entity = entity or context.Target
-    return HasStatus('SP_Stuffed', entity) | HasStatus('SP_ImprovedStuffed', entity) | HasStatus('SP_SC_StomachShelterStuffed', entity)
+    return HasStatus('SP_Stuffed', entity)
 end
 
 function SP_SC_Get_GastricBulwark_TempHP_Status(entity)

@@ -13,11 +13,12 @@ CompanionsSet = {
     ["S_GOB_DrowCommander_25721313-0c15-4935-8176-9f134385451b"] = true,
 }
 
----table that stores all "stuffed" status variants
-StuffedStatuses = {
-    "SP_Stuffed",
-    "SP_ImprovedStuffed",
-    "SP_SC_StomachShelterStuffed",
+---table that stores all additional statuses that are applied when a character is stuffed under certain conditions
+---@type table<string, boolean> 
+StuffedAdditions = {
+    ["SP_StuffedDebuff"] = true,
+    ["SP_MusclegutIntimidate"] = true,
+    ["SP_SC_GastricBulwark_Status"] = true,
 }
 
 ---table that stores all names of digestion statuses
@@ -371,7 +372,6 @@ ComplexCustomSpells = false
 ---@field Satiation integer stores satiation that decreases hunger stacks
 ---@field Locus string Locus where this prey is stored "O" == Oral, "A" == Anal, "U" == Unbirth, "C" = pp
 ---@field Swallowed string what swallowed status is appled (prey only)
----@field Stuffed string what stuffed status is appled (pred only)
 ---@field StuffedStacks integer number of stuffed stacks
 ---@field SpellTargets table<CHARACTER, string> table of prey this character has cast a vore-related spell on
 VoreDataEntry = {
@@ -391,7 +391,6 @@ VoreDataEntry = {
     Satiation = 0,
     Locus = "",
     Swallowed = "",
-    Stuffed = "",
     StuffedStacks = 0,
     SpellTargets = {},
 }
