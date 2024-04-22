@@ -4,6 +4,7 @@
     <region id="Progressions">
         <node id="root">
             <children>
+            <!-- Great Hunger -->
                 <node id="Progression">
                     <attribute id="Boosts" type="LSString" value="Proficiency(MediumArmor);Proficiency(Shields)"/>
                     <attribute id="Level" type="uint8" value="1"/>
@@ -103,6 +104,35 @@
                     <attribute id="Selectors" type="LSString" value="SelectSpells(6d2edca9-71a7-4f3f-89f0-fccfff0bdee5,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
                     <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
                     <attribute id="UUID" type="guid" value="47e26ccb-9f93-4468-992d-c6ae4ce416a5"/>
+                </node>
+                <!-- Stomach Sentinel -->
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="3" />
+					<attribute id="Name" type="LSString" value="StomachSentinel" />
+                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_StomachShelter;SP_SC_GastricBulwark;SP_SC_KnowledgeWithin" />
+					<attribute id="PassivesRemoved" type="LSString" value="" />
+                    <attribute id="ProgressionType" type="uint8" value="1" />
+                    <attribute id="Selectors" type="LSString" value="" />
+                    <attribute id="TableUUID" type="guid" value="463e82a7-c792-4b93-8967-90d48170279b" />
+                    <attribute id="UUID" type="guid" value="e251385d-346e-4ecc-b758-7b4d731496fb" />  
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="6" />
+                    <attribute id="Name" type="LSString" value="StomachSentinel" />
+                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_StrengthFromMany" />
+                    <attribute id="PassivesRemoved" type="LSString" value="" />
+                    <attribute id="ProgressionType" type="uint8" value="1" />
+                    <attribute id="TableUUID" type="guid" value="463e82a7-c792-4b93-8967-90d48170279b" />
+                    <attribute id="UUID" type="guid" value="4173d3e3-495c-4a66-863d-896fc9fc2732" />  
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="10" />
+                    <attribute id="Name" type="LSString" value="StomachSentinel" />
+                    <attribute id="PassivesAdded" type="LSString" value="" />
+                    <attribute id="Selectors" type="LSString" value="" />
+                    <attribute id="ProgressionType" type="uint8" value="1" />
+                    <attribute id="TableUUID" type="guid" value="463e82a7-c792-4b93-8967-90d48170279b" />
+                    <attribute id="UUID" type="guid" value="3dfaa635-f11a-4ef6-b345-befbc3678a60" />  
                 </node>
             </children>
         </node>

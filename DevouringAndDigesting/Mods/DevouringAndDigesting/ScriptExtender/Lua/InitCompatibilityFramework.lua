@@ -26,6 +26,17 @@ local NewSubClasses = {
             },
         },
     },
+    StomachSentinel = {
+        subClassGuid = "d170fe00-f9f1-4814-b456-1dc8981c7f2f",
+        -- uuid of progression when subclass should be avalible
+        baseClassProgressionGuid = "0d4a6b4b-8162-414b-81ef-1838e36e778a",
+        -- for classes that select subclasses on level 1
+        -- lvl 1 multiclass progression uuid is different
+        -- nil for every other class
+        baseClassProgressionMulticlassGuid = nil,
+        class = "barbarian",
+        subClassName = "Stomach Sentinel",
+    },
 }
 
 if Ext.Mod.IsModLoaded("67fbbd53-7c7d-4cfa-9409-6d737b4d92a9") then

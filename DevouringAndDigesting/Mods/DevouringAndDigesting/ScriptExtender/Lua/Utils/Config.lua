@@ -12,7 +12,9 @@ local CURRENT_VERSION = 1
 ---@class SP_ConfigVars
 local DEFAULT_VARS = {
     VisualsAndAudio = {
+        name = "Visuals and Audio",
         GurgleProbability = {
+            name = "Gurgle Probability",
             description = "The % chance of a gurgle being played every 6 seconds (a turn). Set to 0 to disable.",
             value = 8,
             default = 8,
@@ -23,27 +25,40 @@ local DEFAULT_VARS = {
         },
     },
     Debug = {
+        name = "Debug",
         TeleportPrey = {
+            name = "Teleport Prey",
             description =
             "Determines if a living prey is teleported to their predator at the end of each turn (or every 6 seconds outside of turn-based mode). By default is on, should be only turned off in case of performance issues",
             value = true,
             default = true,
         },
         LockStomach = {
+            name = "Lock Stomach",
             description =
             "Whether to lock the stomach object used for storing items during item vore or not. This is for you to be able to LOOK inside, actually removing the items will lead to unintended consequences.",
             value = true,
             default = true,
         },
+        AlwaysSucceedVore = {
+            name = "Always Succeed Vore",
+            description =
+            "If true, all vore attempts will result in a success.",
+            value = false,
+            default = false,
+        },
     },
     WeightGain = {
+        name = "Weight Gain System",
         WeightGain = {
+            name = "Weight Gain",
             description =
             "Stores and adds \"fat\" value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.",
             value = false,
             default = false,
         },
         WeightGainRate = {
+            name = "Weight Gain Rate",
             description = "% of a prey's weight you gain as fat.",
             value = 25,
             default = 25,
@@ -53,6 +68,7 @@ local DEFAULT_VARS = {
             },
         },
         WeightLossLong = {
+            name = "Weight Loss Amount (Long Rest)",
             description = "How much fat a character loses on long resting.",
             value = 11,
             default = 11,
@@ -62,6 +78,7 @@ local DEFAULT_VARS = {
             },
         },
         WeightLossShort = {
+            name = "Weight Loss Amount (Short Rest)",
             description = "How much fat a character loses on short resting.",
             value = 3,
             default = 3,
@@ -72,49 +89,45 @@ local DEFAULT_VARS = {
         },
     },
     Mechanics = {
-        BoilingInsidesFast = {
-            description = "Dead prey are digested twice as fast if you have 'Boiling insides' feat.",
-            value = false,
-            default = false,
-        },
-        VoreDifficulty = {
-            description =
-            "Determines how hard it is to swallow non-consenting characters. \"default\" = checks rolled normally, \"easy\" = you make checks with advantage, \"cheat\" = you always succeed",
-            value = "default",
-            default = "default",
-            choices = {"default", "easy", "cheat"},
-        },
+        name = "Mechanics",
         StatusBonusLocus = {
+            name = "Status Bonus Locus",
             description = "Prey in the following loci will receive benefits from feats.",
             value = {"Oral", "Anal", "Unbirth", "Cock"},
             default = {"Oral", "Anal", "Unbirth", "Cock"},
             choices = {"Oral", "Anal", "Unbirth", "Cock"},
         },
         SwallowDown = {
-            description = "Preds will need to use a 'Contine Swallowing' spell to fully swallow a prey.",
+            name = "Slow Swallowing",
+            description = 'Succecssfully "swallowing" a creature requires 2 actions, not 1.',
             value = true,
             default = true,
         },
         AllowOverstuffing = {
+            name = "Allow Overstuffing",
             description =
             "If true, devouring prey can push you over your maximum carrying capacity, but you'll take damage every round proportional to how overstuffed you are. If false, you'll be hard-capped by your carrying capacity.",
             value = true,
             default = true,
         },
         RequireProperAnatomy = {
+            name = "Require Proper Anatomy",
             description =
             "If true, special types of vore will require you to have a body part that would enable that type of vore.",
             value = true,
             default = true,
         },
         SwitchEndoLethal = {
-            description = "When you start digesting prey, you will start digesting endo prey as well.",
+            name = "Switch Endo/Lethal",
+            description = "When you start digesting prey, you will start digesting endo prey in the same locus as well.",
             value = true,
             default = true,
         },
     },
     Regurgitation = {
+        name = "Regurgitation",
         RegurgitationDistance = {
+            name = "Regurgitation Distance",
             description = "Determines how far prey spawn when regurgitated.",
             value = 2,
             default = 2,
@@ -123,17 +136,8 @@ local DEFAULT_VARS = {
                 slider = true,
             },
         },
-        CooldownSwallow = {
-            description =
-            "Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable",
-            value = 2,
-            default = 2,
-            range = {0, 100, 1},
-            extras = {
-                slider = true,
-            },
-        },
         CooldownRegurgitate = {
+            name = "Regurgitation Cooldown",
             description =
             "Preds are unable to regurgitate prey for a number of turn after regurgitation. Set to 0 to disable",
             value = 0,
@@ -143,21 +147,36 @@ local DEFAULT_VARS = {
                 slider = true,
             },
         },
+        CooldownSwallow = {
+            name = "Swallow Cooldown",
+            description =
+            "Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable",
+            value = 2,
+            default = 2,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
     },
     Digestion = {
+        name = "Digestion",
         SlowDigestion = {
+            name = "Slow Digestion",
             description =
             "If true, you will not lose weight until you rest. If false, you lose it immediately upon finishing digestion and you will be immediately able to absorb / dispose of prey",
             value = true,
             default = true,
         },
         DigestItems = {
+            name = "Item Digestion",
             description =
             "When you start digesting prey, the items in your stomach might be digested. WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE",
             value = false,
             default = false,
         },
         DigestionRateLong = {
+            name = "Digestion Rate (Long Rest)",
             description =
             "Determines by how much the weight of a prey who is being digested is reduced after a long rest",
             value = 60,
@@ -168,6 +187,7 @@ local DEFAULT_VARS = {
             },
         },
         DigestionRateShort = {
+            name = "Digestion Rate (Short Rest)",
             description =
             "Determines by how much the weight of a prey who is being digested is reduced after each short rest",
             value = 20,
@@ -177,16 +197,25 @@ local DEFAULT_VARS = {
                 slider = true,
             },
         },
+        BoilingInsidesFast = {
+            name = "Boiling Insides Fast Digestion",
+            description = "Dead prey are digested twice as fast if you have \'Boiling insides\' feat.",
+            value = false,
+            default = false,
+        },
     },
     Hunger = {
+        name = "Hunger System",
         Hunger = {
+            name = "Hunger",
             description =
             "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will receive debuffs. Setting this to false disables hunger completely.",
             value = false,
             default = false,
         },
         HungerBreakpoint1 = {
-            description = "Stacks of hunger at which a debuff is applied",
+            name = "Hungry Stacks",
+            description = "Stacks of hunger at which you are hungry.",
             value = 16,
             default = 16,
             range = {1, 100, 1},
@@ -195,7 +224,8 @@ local DEFAULT_VARS = {
             },
         },
         HungerBreakpoint2 = {
-            description = "Stacks of hunger at which a second debuff is applied",
+            name = "Famished Stacks",
+            description = "Stacks of hunger at which you are extremely hungry.",
             value = 24,
             default = 24,
             range = {1, 100, 1},
@@ -204,7 +234,8 @@ local DEFAULT_VARS = {
             },
         },
         HungerBreakpoint3 = {
-            description = "Stacks of hunger at which a third debuff is applied",
+            name = "Starving Stacks",
+            description = "Stacks of hunger at which you are desperately hungry.",
             value = 32,
             default = 32,
             range = {1, 100, 1},
@@ -213,6 +244,7 @@ local DEFAULT_VARS = {
             },
         },
         HungerLong = {
+            name = "Hunger Stacks (Long Rest)",
             description = "Hunger stacks gained on long rest.",
             value = 6,
             default = 6,
@@ -222,6 +254,7 @@ local DEFAULT_VARS = {
             },
         },
         HungerShort = {
+            name = "Hunger Stacks (Short Rest)",
             description = "Hunger stacks gained on short rest.",
             value = 2,
             default = 2,
@@ -231,7 +264,8 @@ local DEFAULT_VARS = {
             },
         },
         HungerSatiation = {
-            description = "Satiation stacks needed to remove one hunger stack.",
+            name = "Satiation",
+            description = "The amount of satiation required to reduce your hunger by 1 stack. A bigger value means you require more prey to sastiate your hunger.",
             value = 2,
             default = 2,
             range = {1, 100, 1},
@@ -240,7 +274,8 @@ local DEFAULT_VARS = {
             },
         },
         HungerSatiationRate = {
-            description = "% of digestion rate for satiation gain.",
+            name = "Digestion Efficiency",
+            description = "How much satiation you get from digestion. This number is a percentage of the value of Digestion Rate (Long Rest)",
             value = 25,
             default = 25,
             range = {0, 100, 1},
@@ -249,12 +284,14 @@ local DEFAULT_VARS = {
             },
         },
         LethalRandomSwitch = {
+            name = "Accidental Digestion",
             description =
             "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
             value = false,
             default = false,
         },
         HungerUseFat = {
+            name = "Fat Digestion",
             description =
             "If set to true, fat will be used to reduce hunger gain by half if you don't have enough satiation stacks.",
             value = true,
@@ -262,8 +299,10 @@ local DEFAULT_VARS = {
         },
     },
     NPCVore = {
+        name = "NPCs",
         ProbabilityFemale = {
-            description = "The % of a female NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
+            name = "Predator Chance (Female)",
+            description = "The % of a female NPC becoming a predator. Female NPCs have Body Types 1 or 2, with some exceptions. This value is multiplied by the race's multiplier. Set to 0 to disable.",
             value = 30,
             default = 30,
             range = {0, 100, 1},
@@ -272,7 +311,8 @@ local DEFAULT_VARS = {
             },
         },
         ProbabilityMale = {
-            description = "The % of a male NPC becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
+            name = "Predator Chance (Male)",
+            description = "The % of a male NPC becoming a predator. Male NPCs have Body Types 3 or 4, with some exceptions. This value is multiplied by the race's multiplier. Set to 0 to disable.",
             value = 30,
             default = 30,
             range = {0, 100, 1},
@@ -281,7 +321,8 @@ local DEFAULT_VARS = {
             },
         },
         ProbabilityCreature = {
-            description = "The % of a monster becoming a predator. The actual value depends on the race of a character, this value reflects the chance of a standart human becoming a pred. Set to 0 to disable.",
+            name = "Predator Chance (Monster)",
+            description = "The % of a monster becoming a predator. Monsters are any creature that isn't internally considered Male or Female. This value is multiplied by the race's multiplier. Set to 0 to disable.",
             value = 20,
             default = 20,
             range = {0, 100, 1},
@@ -290,12 +331,14 @@ local DEFAULT_VARS = {
             },
         },
         SpecialNPCsOverridePreferences = {
+            name = "NPC Overrides",
             description = "NPCs from the 'always become pred' list will become predators regardless of enabled genders.",
             value = true,
             default = true,
         },
         ClampTiny = {
-            description = "Limits the probability of a tiny character being chosen as a pred to this value. Set to 100 or higher to disable.",
+            name = "Max Predator Chance (Tiny)",
+            description = "Limits the probability of a tiny creature being chosen as a pred to this value. Set to 100 or higher to disable.",
             value = 0,
             default = 0,
             range = {0, 100, 1},
@@ -304,7 +347,8 @@ local DEFAULT_VARS = {
             },
         },
         ClampSmall = {
-            description = "Limits the probability of a small character being chosen as a pred to this value. Set to 100 or higher to disable.",
+            name = "Max Predator Chance (Small)",
+            description = "Limits the probability of a small creature being chosen as a pred to this value. Set to 100 or higher to disable.",
             value = 40,
             default = 40,
             range = {0, 100, 1},
@@ -313,7 +357,8 @@ local DEFAULT_VARS = {
             },
         },
         ClampMedium = {
-            description = "Limits the probability of a medium character being chosen as a pred to this value. Set to 100 or higher to disable.",
+            name = "Max Predator Chance (Medium)",
+            description = "Limits the probability of a medium creature being chosen as a pred to this value. Set to 100 or higher to disable.",
             value = 100,
             default = 100,
             range = {0, 100, 1},
@@ -322,6 +367,7 @@ local DEFAULT_VARS = {
             },
         },
         CooldownMin = {
+            name = "Minimum Swallow Cooldown",
             description = "Minimum cooldown between NPC vore attempts (in turns).",
             value = 2,
             default = 2,
@@ -331,6 +377,7 @@ local DEFAULT_VARS = {
             },
         },
         CooldownMax = {
+            name = "Maximum Swallow Cooldown",
             description = "Maximum cooldown between NPC vore attempts (in turns).",
             value = 5,
             default = 5,
@@ -338,6 +385,15 @@ local DEFAULT_VARS = {
             extras = {
                 slider = true,
             },
+        },
+    },
+    ReadingCheck = {
+        name = "Reading Check",
+        IReadTheGuide = {
+            name = "Attestation of the Ability to Read",
+            description = "I hereby certify that I read all information given in the linked mod guide, and that before asking a question, I will review that guide before asking my question.",
+            value = false,
+            default = false,
         },
     },
     __Version = CURRENT_VERSION,

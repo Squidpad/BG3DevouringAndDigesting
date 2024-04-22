@@ -44,3 +44,11 @@ data "StatusPropertyFlags" "DisablePortraitIndicator;FreezeDuration;DisableOverh
 data "OnApplyFunctors" "IF(IsDowned()):RegainHitPoints(1)"
 data "StatusEffect" "ba55a11f-a411-4856-ad0f-731522c9f7f1"
 data "StatusGroups" ""
+
+new entry "SP_MusclegutIntimidate"
+type "StatusData"
+data "StatusType" "BOOST"
+data "Icon" "Action_IntimidatingPresence"
+data "Boosts" "AC(1);Advantage(Skill, Intimidation);DamageReduction(All,Flat,2)"
+data "SoundVocalStart" "SHOUT"
+data "StatusPropertyFlags" "FreezeDuration;IgnoreResting;DisableCombatlog"

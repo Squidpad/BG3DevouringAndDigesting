@@ -13,6 +13,13 @@ CompanionsSet = {
     ["S_GOB_DrowCommander_25721313-0c15-4935-8176-9f134385451b"] = true,
 }
 
+---table that stores all "stuffed" status variants
+StuffedStatuses = {
+    "SP_Stuffed",
+    "SP_ImprovedStuffed",
+    "SP_SC_StomachShelterStuffed",
+}
+
 ---table that stores all names of digestion statuses
 ---@type table<string, table<integer, string>>
 DigestionStatuses = {
@@ -344,7 +351,7 @@ AllBellies = {
 
 -- Instead of hacking together half-solutions to spell modification, we can just make new copies of spells with what we want!
 -- Will this create a huge bloat of files? Maybe. It'd be funny, though
-ComplexCustomSpells = true
+ComplexCustomSpells = false
 
 ---a template for a new entry in VoreData
 ---@class VoreDataEntry

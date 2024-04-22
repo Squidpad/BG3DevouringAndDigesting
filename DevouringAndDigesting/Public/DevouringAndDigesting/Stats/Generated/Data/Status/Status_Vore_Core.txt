@@ -173,16 +173,7 @@ type "StatusData"
 data "StatusType" "BOOST"
 using "SP_Stuffed"
 data "Boosts" ""
-data "TickFunctors" "ApplyStatus(SP_Digesting, 100, 1)"
-data "StatusPropertyFlags" "FreezeDuration;IgnoreResting;DisableCombatlog"
-
-new entry "SP_ImprovedStuffedIntimidate"
-type "StatusData"
-data "StatusType" "BOOST"
-using "SP_Stuffed"
-data "Boosts" "AC(1);Advantage(Skill, Intimidation);DamageReduction(All,Flat,2)"
-data "TickFunctors" "ApplyStatus(SP_Digesting, 100, 1)"
-data "StatusPropertyFlags" "FreezeDuration;IgnoreResting;DisableCombatlog"
+data "StatusPropertyFlags" "DisableOverhead;FreezeDuration;IgnoreResting;DisableCombatlog"
 
 
 new entry "SP_Indigestion"

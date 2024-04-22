@@ -76,7 +76,8 @@ function SP_UpdateBelly(pred, weight)
     end
     -- Delay is necessary, otherwise will not work.
     if bellyShape ~= "" then
-        SP_DelayCallTicks(2, function ()
+        SP_DelayCallTicks(8, function ()
+            _P("Belly Applied")
             Osi.AddCustomVisualOverride(pred, bellyShape)
         end)
     end
@@ -103,7 +104,7 @@ end
 ---@param prey CHARACTER
 function SP_CanFitPrey(pred, prey)
     local predData = Ext.Entity.Get(pred)
-    local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) / 1000
+    local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) // 1000
     if Osi.HasPassive(pred, "SP_BottomlessStomach") == 1 then
         predRoom = predRoom * 2
     end
@@ -163,20 +164,42 @@ function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
     end
 end
 
----returns what swallowed status should be appled to a pred
----@param pred CHARACTER
----@param stacks integer
----@return string
-function SP_GetStuffedVoreStatus(pred, stacks)
+---applies the proper stuffed status to a pred
+---@param pred CHARACTER pred to apply status to
+---@param turns integer number of turns to apply
+---@param prey CHARACTER|CHARACTER[]|ITEM|GUIDSTRING|string the thing that was eaten
+---@return string stuffedStatus the status applied (usually can just be discarded)
+function SP_ApplyStuffed(pred, turns, prey)
+    if type(prey) == "table" and (Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 or Osi.HasPassive(pred, "SP_SC_StomachSanctuary") == 1) then
+        for _, v in ipairs(prey) do
+            if Osi.IsPartyMember(v, 0) == 1 then
+                Osi.ApplyStatus(pred, "SP_SC_StomachShelterStuffed", 1 * SecondsPerTurn, 1, prey)
+                turns = turns - 1
+            end
+        end
+        prey = SP_ArrayRemove(prey, function (prey, index) return Osi.isPartyMember(prey[index], 0) == 0 end)
+    end
+    local stacks = VoreData[pred].StuffedStacks
+    local stuffedStatus = "SP_Stuffed"
     if Osi.HasPassive(pred, "SP_Musclegut") == 1 then
         if stacks > 2 then
-            return "SP_ImprovedStuffedIntimidate"
-        else
-            return "SP_ImprovedStuffed"
+            stuffedStatus = "SP_MusclegutIntimidate"
         end
-    else
-        return "SP_Stuffed"
+        stuffedStatus = "SP_ImprovedStuffed"
     end
+    Osi.ApplyStatus(pred, stuffedStatus, turns * SecondsPerTurn, 1)
+    return stuffedStatus
+end
+
+function SP_RemoveStuffed(pred)
+    local statusesRemoved = {}
+    for _, status in ipairs(StuffedStatuses) do
+        if Osi.HasActiveStatus(pred, status) then
+            Osi.RemoveStatus(pred, status)
+            statusesRemoved.insert(status)
+        end
+    end
+    return statusesRemoved
 end
 
 ---returns what swallowed status should be appled to a prey on swallow
@@ -258,20 +281,20 @@ function SP_AssignRoleRandom(character)
         return
     end
     local race = Osi.GetRace(character, 0)
-    if RACE_TABLE[race] == nil then
+    if RaceConfigVars[race] == nil then
         _P("Race not supported " .. race)
         Osi.AddPassive(character, "SP_BlockGluttony")
         return
     end
     local selectedPobability = 0
-    if RACE_TABLE[race] == nil then
+    if RaceConfigVars[race] == nil then
         selectedPobability = 0
     elseif SINGLE_GENDER_CREATURE[race] == true then
-        selectedPobability = ConfigVars.NPCVore.ProbabilityCreature.value * RACE_TABLE[race] // 100
+        selectedPobability = ConfigVars.NPCVore.ProbabilityCreature.value * RaceConfigVars[race]
     elseif Osi.GetBodyType(character, 0) == "Female" then
-        selectedPobability = ConfigVars.NPCVore.ProbabilityFemale.value * RACE_TABLE[race] // 100
+        selectedPobability = ConfigVars.NPCVore.ProbabilityFemale.value * RaceConfigVars[race]
     elseif Osi.GetBodyType(character, 0) == "Male" then
-        selectedPobability = ConfigVars.NPCVore.ProbabilityMale.value * RACE_TABLE[race] // 100
+        selectedPobability = ConfigVars.NPCVore.ProbabilityMale.value * RaceConfigVars[race]
     end
     local size = SP_GetCharacterSize(character)
     if size == 0 and selectedPobability > ConfigVars.NPCVore.ClampTiny.value then

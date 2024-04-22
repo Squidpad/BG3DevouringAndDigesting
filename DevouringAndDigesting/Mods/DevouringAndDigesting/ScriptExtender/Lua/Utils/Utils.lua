@@ -45,6 +45,29 @@ function SP_Deepcopy(table, copies)
     return copy
 end
 
+---Removes elements from an array based on a callback function
+---@generic T
+---@param t `T`[] Array of elements
+---@param fnKeep fun(a: `T`, b: integer): boolean function to determine what is kept
+---@return `T`[] # Array with elements that resolved false removed
+function SP_ArrayRemove(t, fnKeep)
+    local j, n = 1, #t
+    for i = 1, n do
+        if (fnKeep(t, i)) then
+            -- Move i's kept value to j's position, if it's not already there.
+            if (i ~= j) then
+                t[j] = t[i]
+                t[i] = nil
+            end
+            j = j + 1 -- Increment position of where we'll place the next kept value.
+        else
+            t[i] = nil
+        end
+    end
+
+    return t
+end
+
 ---Checks if an element is in the values of a table
 ---@param table table table to query
 ---@param element any element to query with
@@ -90,7 +113,7 @@ function SP_TableConcat(t1, t2)
 end
 
 ---returns all tables merged together
----@param tt table<table>
+---@param tt table[table]
 ---@return table all tables merged
 function SP_TableConcatMany(tt)
     local result = {}
@@ -129,7 +152,7 @@ end
 ---splits a string
 ---@param string string to split
 ---@param seperator string seperator
----@return table split string
+---@return string[] split string
 function SP_StringSplit(string, seperator)
     if seperator == nil then
         seperator = "%s"

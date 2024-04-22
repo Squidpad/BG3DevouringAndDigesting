@@ -17,17 +17,6 @@
             "dependsOn": [
                 "ModLoca",
                 "EMLSX",
-                "CheckStats"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "ConvertModFiles (No Check)",
-            "type": "shell",
-            "command": "echo Done.",
-            "dependsOn": [
-                "ModLoca",
-                "EMLSX",
             ],
             "problemMatcher": []
         },
@@ -87,7 +76,10 @@
                 "GustavDev",
                 "--mod",
                 "DevouringAndDigesting"
-            ]
+            ],
+            "dependsOn": [
+                "CopyToGameFolder"
+            ],
         },
         {
             "label": "CopyToGameFolder",
@@ -108,28 +100,6 @@
             },
             "dependsOn": [
                 "ConvertModFiles"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "CopyToGameFolder (No Check)",
-            "type": "shell",
-            "command": "python",
-            "args": [
-                "Tools\\CephsTools\\copy_folder_to.py",
-                "-f",
-                "${workspaceFolder}\\DevouringAndDigesting\\Public",
-                "-o",
-                "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data\\Public",
-                "-s",
-                "false",
-            ],
-            "group": "build",
-            "presentation": {
-                "reveal": "silent"
-            },
-            "dependsOn": [
-                "ConvertModFiles (No Check)"
             ],
             "problemMatcher": []
         },

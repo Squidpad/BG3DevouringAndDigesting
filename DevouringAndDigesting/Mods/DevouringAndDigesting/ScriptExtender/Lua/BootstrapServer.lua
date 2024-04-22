@@ -162,7 +162,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         return
     end
     local locus = spellParams[#spellParams]
-    if not SP_TableContainsKey(VoreLoci, locus) then
+    if not SP_TableContainsKey(DigestionStatuses, locus) then
         locus = nil
     end
     local spellName = spellParams[3]
@@ -302,7 +302,7 @@ end
 ---@param isActiveRoll? integer Whether or not the rolling GUI popped up. 0 == no, 1 == yes.
 ---@param criticality? CRITICALITYTYPE Whether or not it was a crit and what kind. 0 == no crit, 1 == crit success, 2 == crit fail.
 function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRoll, criticality)
-    if string.sub(eventName, 1, 20) == 'SwallowCheck_Lethal_' and (resultType ~= 0 or ConfigVars.Mechanics.VoreDifficulty.value == 'cheat') then
+    if string.sub(eventName, 1, 20) == 'SwallowCheck_Lethal_' and (resultType ~= 0 or ConfigVars.Debug.AlwaysSucceedVore.value) then
         _P('Lethal Swallow Success by ' .. roller)
         local voreLocus = string.sub(eventName, -1)
         local preyNotStolen = SP_SwallowPrey(roller, rollSubject, DType.Lethal, true, true, voreLocus)
@@ -317,7 +317,7 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
                 end
             end
         end
-    elseif string.sub(eventName, 1, 18) == 'SwallowCheck_Endo_' and (resultType ~= 0 or ConfigVars.Mechanics.VoreDifficulty.value == 'cheat') then
+    elseif string.sub(eventName, 1, 18) == 'SwallowCheck_Endo_' and (resultType ~= 0 or ConfigVars.Debug.AlwaysSucceedVore.value) then
         _P('Endo Swallow Success by ' .. roller)
         local voreLocus = string.sub(eventName, -1)
         SP_SwallowPrey(roller, rollSubject, DType.Endo, true, true, voreLocus)
@@ -444,7 +444,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
             end
         end
     elseif status == "SP_Hit_Bellyport" then
-        local pred = SP_GetPredFromGUID(causee)
+        local pred = SP_CharacterFromGUID(causee)
         _P(pred)
         if VoreData[pred] == nil then
             SP_VoreDataEntry(pred, true)
@@ -452,7 +452,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         VoreData[pred].SpellTargets[object] = "Bellyport"
         Osi.AddSpell(pred, "SP_Target_BellyportDestination")
     elseif status == 'SP_BellySlamStatus' then
-        local pred = SP_GetPredFromUUID(causee)
+        local pred = SP_CharacterFromGUID(causee)
         if VoreData[pred] ~= nil then
             local damage = 0
             for _ = 1, SP_Clamp(VoreData[pred].StuffedStacks * (Osi.GetLevel(pred) // 5 + 1), 1, 3) do

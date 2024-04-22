@@ -188,7 +188,7 @@ data "PrepareEffect" "813f3837-a027-49f6-8ab8-06917d2f80d3"
 data "CastEffect" ""
 data "TargetEffect" ""
 data "AIFlags" "CanNotUse"
-data "SpellContainerID" "SP_SwitchToLethal"
+data "SpellContainerID" "SP_Zone_SwitchToLethal"
 
 new entry "SP_Zone_SwitchToLethal_A"
 type "SpellData"

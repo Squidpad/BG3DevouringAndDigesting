@@ -22,6 +22,19 @@
                         </node>
                     </children>
                 </node>
+                <node id="ClassDescription">
+                    <attribute id="CharacterCreationPose" type="guid" value="0f07ec6e-4ef0-434e-9a51-1353260ccff8"/>
+                    <attribute id="Description" type="TranslatedString" handle="h76e18109gbc38g449dga82bgb7950d911b00" version="1"/>
+                    <attribute id="DisplayName" type="TranslatedString" handle="h9082f1a2g5c36g446egb3ceg32b71e80729a" version="1"/>
+                    <attribute id="LearningStrategy" type="uint8" value="1"/>
+                    <attribute id="Name" type="FixedString" value="StomachSentinel"/>
+                    <attribute id="ParentGuid" type="guid" value="d8cadb42-0ff9-4049-afaf-e5d78d06a399"/>
+                    <attribute id="PrimaryAbility" type="uint8" value="1"/>
+                    <attribute id="ProgressionTableUUID" type="guid" value="463e82a7-c792-4b93-8967-90d48170279b"/>
+                    <attribute id="SoundClassType" type="FixedString" value="Barbarian"/>
+                    <attribute id="SpellCastingAbility" type="uint8" value="6"/>
+                    <attribute id="UUID" type="guid" value="d170fe00-f9f1-4814-b456-1dc8981c7f2f"/>
+                </node>
             </children>
         </node>
     </region>

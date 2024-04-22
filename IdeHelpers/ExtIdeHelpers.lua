@@ -1,7 +1,4 @@
---- @meta
 ---@diagnostic disable
----@diagnostic disable: luadoc-miss-type-name
---- luacheck: push no
 
 --- Table that contains every ModTable entry for active mods.
 Mods = {}
@@ -847,7 +844,7 @@ Osi = {}
 --- @field Ability AbilityId
 --- @field DataType uint8
 --- @field Difficulty int32
---- @field Roll Variant<StatsRollType0,StatsRollType1,>
+--- @field Roll Variant<StatsRollType0,StatsRollType1>
 --- @field RollType ConditionRollType
 --- @field Skill SkillId
 --- @field field_120 Guid
@@ -879,7 +876,7 @@ Osi = {}
 
 
 --- @class DamageModifierMetadata
---- @field Argument Variant<DiceValues,int32,StatsRollType1,>
+--- @field Argument Variant<DiceValues,int32,StatsRollType1>
 --- @field DamageType DamageType
 --- @field Description TranslatedString
 --- @field Description2 FixedString
@@ -894,7 +891,7 @@ Osi = {}
 
 
 --- @class DamageReductionBoostComponent:BaseComponent
---- @field Amount Variant<int32,StatsExpressionParam,>
+--- @field Amount Variant<int32,StatsExpressionParam>
 --- @field DamageType DamageType
 --- @field Flat boolean
 --- @field Half boolean
@@ -1421,7 +1418,7 @@ Osi = {}
 
 
 --- @class IncreaseMaxHPComponent:BaseComponent
---- @field Amount Variant<int32,StatsExpressionParam,>
+--- @field Amount Variant<int32,StatsExpressionParam>
 --- @field field_30 int32
 
 
@@ -2083,12 +2080,12 @@ Osi = {}
 
 
 --- @class RulesetComponent:BaseComponent
---- @field Modifiers table<Guid, Variant<uint8,int32,float,FixedString,bool,>>
+--- @field Modifiers table<Guid, Variant<uint8,int32,float,FixedString,bool>>
 --- @field Rulesets Guid[]
 
 
 --- @class RulesetModifiersComponent:BaseComponent
---- @field Modifiers table<Guid, Variant<uint8,int32,float,FixedString,bool,>>
+--- @field Modifiers table<Guid, Variant<uint8,int32,float,FixedString,bool>>
 
 
 --- @class RuntimeStringHandle
@@ -2239,7 +2236,7 @@ Osi = {}
 
 --- @class StatsExpressionParam
 --- @field Code string
---- @field Params Variant<uint8,Variant<uint8,AbilityId,SkillId,uint8,STDString,>,uint8,uint8,DiceValues,ResourceRollDefinition,uint8,int32,bool,>[]
+--- @field Params Variant<uint8,Variant<uint8,AbilityId,SkillId,uint8,STDString>,uint8,uint8,DiceValues,ResourceRollDefinition,uint8,int32,bool>[]
 
 
 --- @class StatsExpressionParamEx:StatsExpressionParam
@@ -2478,7 +2475,7 @@ Osi = {}
 
 
 --- @class UnlockSpellVariantBoostComponent:BaseComponent
---- @field Modifications Variant<SpellModificationModifyAreaRadius,SpellModificationModifyMaximumTargets,SpellModificationModifyNumberOfTargets,SpellModificationModifySavingThrowDisadvantage,SpellModificationModifySpellFlags,SpellModificationModifySpellRoll,SpellModificationModifyStatusDuration,SpellModificationModifySummonDuration,SpellModificationModifySurfaceDuration,SpellModificationModifyTargetRadius,SpellModificationModifyUseCosts,SpellModificationModifyVisuals,SpellModificationModifyIconGlow,SpellModificationModifyTooltipDescription,>[]
+--- @field Modifications Variant<SpellModificationModifyAreaRadius,SpellModificationModifyMaximumTargets,SpellModificationModifyNumberOfTargets,SpellModificationModifySavingThrowDisadvantage,SpellModificationModifySpellFlags,SpellModificationModifySpellRoll,SpellModificationModifyStatusDuration,SpellModificationModifySummonDuration,SpellModificationModifySurfaceDuration,SpellModificationModifyTargetRadius,SpellModificationModifyUseCosts,SpellModificationModifyVisuals,SpellModificationModifyIconGlow,SpellModificationModifyTooltipDescription>[]
 --- @field Spell string
 
 
@@ -3713,7 +3710,7 @@ Osi = {}
 
 
 --- @class EsvSpellCastInterruptResult2
---- @field Roll Variant<StatsRollType0,StatsRollType1,>
+--- @field Roll Variant<StatsRollType0,StatsRollType1>
 --- @field _Pad uint32
 --- @field field_0 int64
 --- @field field_10 int64
@@ -3965,7 +3962,7 @@ Osi = {}
 --- @field Target EntityHandle
 --- @field TargetPos vec3|nil
 --- @field TargetProxy EntityHandle
---- @field Variant Variant<InterruptInterruptType0,InterruptInterruptType1,InterruptInterruptType2,InterruptInterruptType3,InterruptInterruptType4,InterruptInterruptType5,InterruptInterruptType6,InterruptInterruptType7,InterruptInterruptType8,>
+--- @field Variant Variant<InterruptInterruptType0,InterruptInterruptType1,InterruptInterruptType2,InterruptInterruptType3,InterruptInterruptType4,InterruptInterruptType5,InterruptInterruptType6,InterruptInterruptType7,InterruptInterruptType8>
 --- @field field_100 uint8
 --- @field field_D0 InterruptInterruptEntities[]
 
@@ -5011,8 +5008,8 @@ Osi = {}
 
 
 --- @class ResourceLevelMap:ResourceGuidResource
---- @field FallbackValue Variant<int32,ResourceLevelMapDiceRoll,>
---- @field LevelMaps Variant<int32,ResourceLevelMapDiceRoll,>[]
+--- @field FallbackValue Variant<int32,ResourceLevelMapDiceRoll>
+--- @field LevelMaps Variant<int32,ResourceLevelMapDiceRoll>[]
 --- @field Name FixedString
 --- @field PreferredClassUUID Guid
 
@@ -7038,7 +7035,7 @@ Osi = {}
 
 
 --- @class ResourceEffectsTimelineKeysSoundEventKey:ResourceEffectsTimelineKeysKeyBase
---- @field data Variant<ResourceEffectsTimelineKeysSoundEventKeyType1,ResourceEffectsTimelineKeysSoundEventKeyType2,ResourceEffectsTimelineKeysSoundEventKeyType2,ResourceEffectsTimelineKeysSoundEventKeyType2,ResourceEffectsTimelineKeysSoundEventKeyType4,ResourceEffectsTimelineKeysSoundEventKeyType5,>
+--- @field data Variant<ResourceEffectsTimelineKeysSoundEventKeyType1,ResourceEffectsTimelineKeysSoundEventKeyType2,ResourceEffectsTimelineKeysSoundEventKeyType2,ResourceEffectsTimelineKeysSoundEventKeyType2,ResourceEffectsTimelineKeysSoundEventKeyType4,ResourceEffectsTimelineKeysSoundEventKeyType5>
 
 
 --- @class ResourceEffectsTimelineKeysSoundEventKeyType1
@@ -7161,7 +7158,7 @@ Osi = {}
 
 
 --- @class SpellModification
---- @field Modification Variant<SpellModificationModifyAreaRadius,SpellModificationModifyMaximumTargets,SpellModificationModifyNumberOfTargets,SpellModificationModifySavingThrowDisadvantage,SpellModificationModifySpellFlags,SpellModificationModifySpellRoll,SpellModificationModifyStatusDuration,SpellModificationModifySummonDuration,SpellModificationModifySurfaceDuration,SpellModificationModifyTargetRadius,SpellModificationModifyUseCosts,SpellModificationModifyVisuals,SpellModificationModifyIconGlow,SpellModificationModifyTooltipDescription,>
+--- @field Modification Variant<SpellModificationModifyAreaRadius,SpellModificationModifyMaximumTargets,SpellModificationModifyNumberOfTargets,SpellModificationModifySavingThrowDisadvantage,SpellModificationModifySpellFlags,SpellModificationModifySpellRoll,SpellModificationModifyStatusDuration,SpellModificationModifySummonDuration,SpellModificationModifySurfaceDuration,SpellModificationModifyTargetRadius,SpellModificationModifyUseCosts,SpellModificationModifyVisuals,SpellModificationModifyIconGlow,SpellModificationModifyTooltipDescription>
 --- @field Spells Array_SpellId
 --- @field field_0 uint8
 --- @field field_4 FixedString

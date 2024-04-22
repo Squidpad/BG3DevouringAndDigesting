@@ -1,4 +1,4 @@
----@meta
+
 ---@diagnostic disable
 
 --#region Types
@@ -4704,4 +4704,3 @@ function Osi.UseSpellAtPosition(caster, spellID, x, y, z) end
 ---@param count integer
 function Osi.UserAddGold(character, count) end
 --#endregion
-    

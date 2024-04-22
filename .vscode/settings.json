@@ -1,7 +1,9 @@
 {
     "vscode-lua-format.configPath": "lua-format.config",
     "Lua.diagnostics.disable": [
-        "redundant-parameter"
+        "redundant-parameter",
+        "param-type-mismatch",
+        "cast-local-type"
     ],
     "Lua.format.enable": false,
     "Lua.codeLens.enable": true,
@@ -55,6 +57,31 @@
         "vore",
         "endo"
     ],
+    "emmylua.hint.paramHint": false,
+    "emmylua.typecheck.defineAnyTypeCanBeAssignedByAnyVariable": false,
+    "emmylua.typecheck.anyTypeCanAssignToAnyDefineType": false,
+    "emmylua.hint.varargHint": false,
+    "Lua.diagnostics.ignoredFiles": "Disable",
+    "Lua.diagnostics.globals": [
+        "Ext",
+        "Osi",
+        "ModuleUUID",
+        "_D",
+        "Mods"
+    ],
+    "Lua.workspace.useGitIgnore": false,
+    "Lua.diagnostics.ignore": [
+        "path/to/your/directory/"
+    ],
+    "Lua.runtime.builtin": {
+        "math": "enable",
+        "table": "enable",
+        "string": "enable",
+        "builtin": "enable",
+        "basic": "enable"
+    },
+    "Lua.type.weakNilCheck": true,
+    "Lua.type.weakUnionCheck": true
 
       
 }

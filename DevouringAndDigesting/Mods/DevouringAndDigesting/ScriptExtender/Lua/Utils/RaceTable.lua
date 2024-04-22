@@ -4,7 +4,7 @@ RaceConfigVars = {}
 local RACECONFIG_PATH = "DevouringAndDigesting\\RaceConfig.json"
 
 ---races that are considered creatures for config
----@type table<string, boolean>
+---@type table<string,boolean>
 SINGLE_GENDER_CREATURE = {
     ["Humanoid"] = false,
     ["Human"] = false,
@@ -162,7 +162,7 @@ SINGLE_GENDER_CREATURE = {
 }
 
 ---chance of a race being given pred passive
----@type table<string, integer>
+---@class SP_RaceConfigVars
 DEFAULT_RACE_TABLE = {
     ["Humanoid"] = 1.0,
     ["Human"] = 1.0,
@@ -316,7 +316,7 @@ DEFAULT_RACE_TABLE = {
     ["Aasimar"] = 1.0,
     ["Doppelganger"] = 1.0,
     ["Bat"] = 0.0,
-    ["Displacer Beast"] = 4.0,
+    ["Displacer Beast"] = 2.0,
 }
 
 ---these npcs will always become preds
