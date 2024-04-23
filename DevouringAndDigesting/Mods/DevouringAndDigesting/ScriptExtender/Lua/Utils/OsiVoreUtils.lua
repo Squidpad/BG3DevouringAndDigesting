@@ -76,7 +76,7 @@ function SP_UpdateBelly(pred, weight)
     end
     -- Delay is necessary, otherwise will not work.
     if bellyShape ~= "" then
-        SP_DelayCallTicks(8, function ()
+        SP_DelayCallTicks(2, function ()
             _P("Belly Applied")
             Osi.AddCustomVisualOverride(pred, bellyShape)
         end)

@@ -131,16 +131,12 @@ end
 function SP_UpdateStuffed(pred)
     -- turn weight into stacks; 70 seems like a good number for 1 stack aka 2 goblins or slightly less than 1 human
     local weightPerStack = 70
+    -- probability best to leave this as a constant
     local musclegutReduction = 4
 
-    -- removes all additional buffs/debuffs
-    for status, _ in pairs(StuffedAdditions) do
-        Osi.RemoveStatus(pred, status)
-    end
-
     local stuffedStacks = 0
-    local stuffedAdditionStacks = SP_Shallowcopy(StuffedAdditions)
-    _D(stuffedAdditionStacks)
+    local stacks = SP_Shallowcopy(StuffedAdditions)
+    _D(stacks)
     -- calculate the weight of all preys
     for prey, locus in pairs(VoreData[pred].Prey) do
         -- initial prey weight
@@ -150,21 +146,20 @@ function SP_UpdateStuffed(pred)
         local preyWeightReduction = 0
 
         -- handle passives here
-        if Osi.IsPartyMember(prey, 0) == 1 and (Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 or Osi.HasPassive(pred, "SP_SC_StomachSanctuary") == 1) then
+        if Osi.IsPartyMember(prey, 0) == 1 then
             if Osi.HasPassive(pred, "SP_SC_StomachSanctuary") == 1 then
                 -- how much stacks should be given by a single prey?
-                stuffedAdditionStacks.SP_SC_StomachSanctuaryStuffed = stuffedAdditionStacks
-                    .SP_SC_StomachSanctuaryStuffed + 1
+                stacks.SP_SC_StomachSanctuaryStuffed = stacks.SP_SC_StomachSanctuaryStuffed + 1
                 -- prey will weigh nothing
                 preyWeightReduction = preyWeightReduction + preyWeight
             elseif Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 then
                 -- how much stacks should be given by a single prey?
-                stuffedAdditionStacks.SP_SC_StomachShelterStuffed = stuffedAdditionStacks.SP_SC_StomachShelterStuffed + 1
+                stacks.SP_SC_StomachShelterStuffed = stacks.SP_SC_StomachShelterStuffed + 1
                 -- prey will weigh half
                 preyWeightReduction = preyWeightReduction + preyWeight / 2
             end
             if Osi.HasPassive(pred, "SP_SC_StrengthFromMany") == 1 then
-                stuffedAdditionStacks.SP_SC_StrengthFromMany_Status = stuffedAdditionStacks.SP_SC_StrengthFromMany_Status + 1
+                stacks.SP_SC_StrengthFromMany_Status = stacks.SP_SC_StrengthFromMany_Status + 1
             end
         end
         -- end of passives
@@ -172,8 +167,7 @@ function SP_UpdateStuffed(pred)
         -- total unmodified weight. Weight shouldn't be negative, but who knows
         stuffedStacks = stuffedStacks + math.max(preyWeight, 0)
         -- how much weight is counted for the debuff
-        stuffedAdditionStacks.SP_StuffedDebuff = stuffedAdditionStacks.SP_StuffedDebuff +
-            math.max(preyWeight - preyWeightReduction, 0)
+        stacks.SP_StuffedDebuff = stacks.SP_StuffedDebuff + math.max(preyWeight - preyWeightReduction, 0)
     end
 
     -- calculate the weight of items
@@ -181,23 +175,23 @@ function SP_UpdateStuffed(pred)
         local stomachWeight = Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // GramsPerKilo
 
         stuffedStacks = stuffedStacks + stomachWeight
-        stuffedAdditionStacks.SP_StuffedDebuff = stuffedAdditionStacks.SP_StuffedDebuff + stomachWeight
+        stacks.SP_StuffedDebuff = stacks.SP_StuffedDebuff + stomachWeight
     end
     -- also add AddWeight
     stuffedStacks = stuffedStacks + VoreData[pred].AddWeight
-    stuffedAdditionStacks.SP_StuffedDebuff = stuffedAdditionStacks.SP_StuffedDebuff + VoreData[pred].AddWeight
+    stacks.SP_StuffedDebuff = stacks.SP_StuffedDebuff + VoreData[pred].AddWeight
 
     
     stuffedStacks = stuffedStacks // weightPerStack
-    stuffedAdditionStacks.SP_StuffedDebuff = stuffedAdditionStacks.SP_StuffedDebuff // weightPerStack
+    stacks.SP_StuffedDebuff = stacks.SP_StuffedDebuff // weightPerStack
 
 
     -- here we handle passives that use the total amount of stacks
     if Osi.HasPassive(pred, "SP_Musclegut") == 1 then
         -- musclegut will now reduce the debuff stacks by flat 4
-        stuffedAdditionStacks.SP_StuffedDebuff = stuffedAdditionStacks.SP_StuffedDebuff - musclegutReduction
+        stacks.SP_StuffedDebuff = stacks.SP_StuffedDebuff - musclegutReduction
         if stuffedStacks > 2 then
-            stuffedAdditionStacks.SP_MusclegutIntimidate = 1
+            stacks.SP_MusclegutIntimidate = 1
         end
     end
     -- we handle SP_Stuffed separately because it activates Digestion ticks, so it's better not to remove it every time a prey is swallowed
@@ -219,15 +213,14 @@ function SP_UpdateStuffed(pred)
     -- save it to voredata
     VoreData[pred].StuffedStacks = stuffedStacks
 
-
+    -- removes all additional buffs/debuffs
+    for status, _ in pairs(StuffedAdditions) do
+        Osi.RemoveStatus(pred, status)
+    end
     -- now apply everything else
-    for k, v in pairs(stuffedAdditionStacks) do
-        if k ~= "SP_Stuffed" then
-            if v > 0 then
-                Osi.ApplyStatus(pred, k, v * SecondsPerTurn, 1, pred)
-            else
-                Osi.RemoveStatus(pred, k)
-            end
+    for k, v in pairs(stacks) do
+        if v > 0 then
+            Osi.ApplyStatus(pred, k, v * SecondsPerTurn, 1, pred)
         end
     end
     if Osi.HasPassive(pred, "SP_SC_KnowledgeWithin") == 1 then
@@ -607,7 +600,6 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
             if Osi.HasPassive(prey, 'SP_EscapeArtist') == 0 then
                 Osi.ApplyStatus(prey, "PRONE", 1 * SecondsPerTurn, 1, pred)
             end
-            -- 10 turns is a lot for a status as debilitating as Wet, changed to 2
             Osi.ApplyStatus(prey, "WET", 2 * SecondsPerTurn, 1, pred)
         end
         VoreData[prey].Weight = 0
@@ -804,7 +796,7 @@ function SP_UpdateWeight(pred, noVisual)
 
     if Osi.HasActiveStatus(pred, "SP_BellyCompressed") == 1 then
         newWeightVisual = 0
-        _P("compressed")
+        _P(pred .. "has compressed status")
     end
 
     _P("Changing weight of " .. pred .. " to " .. newWeightVisual)
@@ -819,7 +811,10 @@ function SP_UpdateWeight(pred, noVisual)
     end
     _P("weightvisual: " .. newWeightVisual)
     SP_UpdateBelly(pred, newWeightVisual)
-    SP_ApplyOverstuffing(pred)
+    -- the delay here is necessary because we wait until the potato is added
+    SP_DelayCallTicks(6, function ()
+        SP_ApplyOverstuffing(pred)
+    end)
 end
 
 ---Reduces weight of prey and their preds, do not use this for regurgitation during voreception,
@@ -1058,7 +1053,7 @@ function SP_GetTotalCharacterWeight(character)
     -- prey's inventory weight + character weight does not reflect the full weight of their prey
     if VoreData[character] ~= nil then
         for k, v in pairs(VoreData[character].Prey) do
-            weight = weight + VoreData[k].WeightReduction * 1000
+            weight = weight + VoreData[k].WeightReduction * GramsPerKilo
         end
     end
     if charData.Data ~= nil and charData.Data.Weight ~= nil then

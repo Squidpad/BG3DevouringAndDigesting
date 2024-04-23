@@ -1,6 +1,3 @@
-
-
-
 ---Returns a string with substring removed.
 ---@param string string
 ---@param substring string
@@ -98,6 +95,7 @@ function SP_TableContains(table, element)
 end
 
 ---Checks if an element is in the keys of a table
+---what's the point of this lol
 ---@param table table table to query
 ---@param element any element to query with
 function SP_TableContainsKey(table, element)
@@ -130,7 +128,7 @@ function SP_TableConcat(t1, t2)
 end
 
 ---returns all tables merged together
----@param tt table[table]
+---@param tt table<table>
 ---@return table all tables merged
 function SP_TableConcatMany(tt)
     local result = {}

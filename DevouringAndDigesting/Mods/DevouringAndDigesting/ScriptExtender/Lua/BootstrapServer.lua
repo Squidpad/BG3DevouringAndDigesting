@@ -57,7 +57,6 @@ Ext.Require("Utils/ExtEvents.lua")
 Ext.Require("Utils/ConsoleCommands.lua")
 
 -- subclasses
---this script is missing
 Ext.Require("Subclasses/StomachSentinel.lua")
 
 -- this file: osi event handling
@@ -68,6 +67,7 @@ Ext.Vars.RegisterModVariable(ModuleUUID, "ModVoreData", {})
 
 PersistentVars = {}
 
+-- for calculating short rest
 CalculateRest = true
 
 ---Triggers on spell cast.
@@ -172,7 +172,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         return
     end
     local locus = spellParams[#spellParams]
-    if not SP_TableContainsKey(DigestionStatuses, locus) then
+    if DigestionStatuses[locus] == nil then
         locus = nil
     end
     local spellName = spellParams[3]
