@@ -770,6 +770,7 @@ function SP_OnSessionLoaded()
     end
     VoreData = PersistentVars['VoreData']
     SP_MigratePersistentVars()
+    SP_OnStatsLoaded()
 end
 
 function SP_OnLevelLoaded(level)
@@ -779,26 +780,11 @@ end
 
 ---Runs when reset command is sent to console.
 function SP_OnResetCompleted()
-    if statFiles and #statFiles then
-        _P('Reloading stats!')
-        for _, filename in pairs(statFiles) do
-            if filename then
-                local filePath = string.format('%s%s', modPath, filename)
-                if string.len(filename) > 0 then
-                    _P(string.format('RELOADING %s', filePath))
-                    ---@diagnostic disable-next-line: undefined-field
-                    Ext.Stats.LoadStatsFile(filePath, 1)
-                else
-                    _P(string.format('Invalid file: %s', filePath))
-                end
-            end
-        end
-    end
-    VoreData = PersistentVars['VoreData']
-    
+    SP_OnStatsLoaded()
 end
 
 function SP_OnStatsLoaded()
+    if ConfigVars.Debug.ReloadStatsDisable.value then return end
     if statFiles and #statFiles then
         _P('Reloading stats!')
         for _, filename in pairs(statFiles) do
@@ -865,4 +851,3 @@ Ext.Osiris.RegisterListener("UseFinished", 3, "after", SP_ItemUsed)
 
 Ext.Events.SessionLoaded:Subscribe(SP_OnSessionLoaded)
 Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
-Ext.Events.SessionLoading:Subscribe(SP_OnStatsLoaded)
