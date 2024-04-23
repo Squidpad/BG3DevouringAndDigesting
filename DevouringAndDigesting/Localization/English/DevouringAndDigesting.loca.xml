@@ -213,22 +213,17 @@
 	<content contentuid="h76e18109gbc38g449dga82bgb7950d911b00" version="1">With your powerful, nearly indestructible body, there's no safer place for your allies than inside of you.</content>
 
 	<content contentuid="hd14e201bg9114g4a94g8fd5gfe10a576332b" version="1">Stomach Shelter</content>
-	<content contentuid="hd2bcff0ag3ac1g42e5gba97g8dd7f83fc391" version="1">Devoured allies are weightless, and do not hinder your defensive abilities.</content>
-
-	<content contentuid="h374a7d7cge69eg42a6g918eg4a0c8bb19089" version="1">Gastric Bulwark</content>
-	<content contentuid="hc1d7ee82g41b7g4769g9844g79c2cb361ffa" version="1">Devouring allies increases your defensive abilities, granting you a +[1] bonus to AC, a +[2] bonus to saving throws, and [3] at the start of your turn, for each ally you have inside of you (max 3).</content>
+	<content contentuid="hd2bcff0ag3ac1g42e5gba97g8dd7f83fc391" version="1">Devoured party members weight half as much, and increase your defensive abilities instead of hindering them. Each ally you carry safely inside of you grants a +[1] bonus to AC and Saving Throws, and [2] at the start of each of your turns.</content>
+	<content contentuid="h374a7d7cge69eg42a6g918eg4a0c8bb19089" version="1">Stomach Sanctuary</content>
+	<content contentuid="hc1d7ee82g41b7g4769g9844g79c2cb361ffa" version="1">Devoured allies are now weightless, and increase your defensive abilities even more.  Each ally you carry safely inside of you grants a +[1] bonus to AC and Saving Throws, and [2] at the start of each of your turns.</content>
+	<content contentuid="h52e08e96gdf42g425cg9161g17a8d95cb5f7" version="1">Protecting your allies inside you grants you a +[1] bonus to AC and Saving Throws, and [2] at the start of each of your turns for each one (max 3).</content>
 
 	<content contentuid="h7fb07d2bg1c8cg479cg9469g26ff2bbabde6" version="1">Knowledge Within</content>
 	<content contentuid="h06aa6c3cgc0deg484dgb60ega3cd69d437e7" version="1">When faced with trials, you may utilize the talents of your allies to assist you. When making an ability check, if an ally inside you has a higher bonus to that check, you may use their bonus instead.</content>
+	<content contentuid="ha0e07691g0cf5g4f93g819bg0be86770096a" version="1">[1] Checks increased.</content>
 
 	<content contentuid="h6d40a345gf2f4g443fg903bg246958b7e9ad" version="1">Strength from Many</content>
 	<content contentuid="h6e9c844cgc923g4f75ga6ddgfa235192b7eb" version="1">Your Strength and Constitution are increased by [1] each for each ally you have inside of you.</content>
-
-	<content contentuid="hed1716c6g8dc3g4f3dgb0dbg287ed05ab4da" version="1">Gastric Bulwark</content>
-	<content contentuid="h52e08e96gdf42g425cg9161g17a8d95cb5f7" version="1">You gain [1] Temporary HP at the start of your turn.</content>
-
-	<content contentuid="" version="1">As One</content>
-	<content contentuid="" version="1"></content>
 	
 
 	<!-- pred feats -->

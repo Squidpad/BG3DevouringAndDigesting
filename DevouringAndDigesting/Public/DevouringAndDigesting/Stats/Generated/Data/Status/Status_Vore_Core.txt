@@ -177,7 +177,6 @@ data "StackType" "Overwrite"
 data "Boosts" "AC(-1);RollBonus(SavingThrow,-1,Dexterity)"
 data "StatusPropertyFlags" "DisableOverhead;FreezeDuration;MultiplyEffectsByDuration;IgnoreResting;DisableCombatlog"
 
-
 new entry "SP_Indigestion"
 type "StatusData"
 data "StatusType" "BOOST"

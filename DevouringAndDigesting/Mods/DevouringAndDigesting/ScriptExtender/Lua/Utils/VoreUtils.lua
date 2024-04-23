@@ -129,20 +129,18 @@ end
 ---applies / removes the proper stuffed status to a pred
 ---@param pred CHARACTER pred to apply status to
 function SP_UpdateStuffed(pred)
+    -- turn weight into stacks; 70 seems like a good number for 1 stack aka 2 goblins or slightly less than 1 human
+    local weightPerStack = 70
+    local musclegutReduction = 4
 
     -- removes all additional buffs/debuffs
     for status, _ in pairs(StuffedAdditions) do
         Osi.RemoveStatus(pred, status)
     end
 
-    -- remember to add any new statuses here and in the StuffedAdditions table
-    local stacks = {
-        SP_Stuffed = 0,
-        SP_StuffedDebuff = 0,
-        SP_SC_GastricBulwark_Status = 0,
-        SP_MusclegutIntimidate = 0,
-    }
-
+    local stuffedStacks = 0
+    local stuffedAdditionStacks = SP_Shallowcopy(StuffedAdditions)
+    _D(stuffedAdditionStacks)
     -- calculate the weight of all preys
     for prey, locus in pairs(VoreData[pred].Prey) do
         -- initial prey weight
@@ -152,72 +150,89 @@ function SP_UpdateStuffed(pred)
         local preyWeightReduction = 0
 
         -- handle passives here
-        if (Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 or Osi.HasPassive(pred, "SP_SC_StomachSanctuary") == 1) and Osi.IsPartyMember(prey, 0) == 1 then
-            -- how much stacks should be given by a single prey?
-            stacks["SP_SC_GastricBulwark_Status"] = stacks["SP_SC_GastricBulwark_Status"] + 1
-            -- prey will weight nothing
-            preyWeightReduction = preyWeightReduction + preyWeight
+        if Osi.IsPartyMember(prey, 0) == 1 and (Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 or Osi.HasPassive(pred, "SP_SC_StomachSanctuary") == 1) then
+            if Osi.HasPassive(pred, "SP_SC_StomachSanctuary") == 1 then
+                -- how much stacks should be given by a single prey?
+                stuffedAdditionStacks.SP_SC_StomachSanctuaryStuffed = stuffedAdditionStacks
+                    .SP_SC_StomachSanctuaryStuffed + 1
+                -- prey will weigh nothing
+                preyWeightReduction = preyWeightReduction + preyWeight
+            elseif Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 then
+                -- how much stacks should be given by a single prey?
+                stuffedAdditionStacks.SP_SC_StomachShelterStuffed = stuffedAdditionStacks.SP_SC_StomachShelterStuffed + 1
+                -- prey will weigh half
+                preyWeightReduction = preyWeightReduction + preyWeight / 2
+            end
+            if Osi.HasPassive(pred, "SP_SC_StrengthFromMany") == 1 then
+                stuffedAdditionStacks.SP_SC_StrengthFromMany_Status = stuffedAdditionStacks.SP_SC_StrengthFromMany_Status + 1
+            end
         end
         -- end of passives
 
         -- total unmodified weight. Weight shouldn't be negative, but who knows
-        stacks["SP_Stuffed"] = stacks["SP_Stuffed"] + math.max(preyWeight, 0)
+        stuffedStacks = stuffedStacks + math.max(preyWeight, 0)
         -- how much weight is counted for the debuff
-        stacks["SP_StuffedDebuff"] = stacks["SP_StuffedDebuff"] + math.max(preyWeight - preyWeightReduction, 0)
+        stuffedAdditionStacks.SP_StuffedDebuff = stuffedAdditionStacks.SP_StuffedDebuff +
+            math.max(preyWeight - preyWeightReduction, 0)
     end
 
     -- calculate the weight of items
     if VoreData[pred].Items ~= "" and Osi.IsItem(VoreData[pred].Items) == 1 then
-        local stomachWeight = Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // 1000
+        local stomachWeight = Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // GramsPerKilo
 
-        stacks["SP_Stuffed"] = stacks["SP_Stuffed"] + stomachWeight
-        stacks["SP_StuffedDebuff"] = stacks["SP_StuffedDebuff"] + stomachWeight
+        stuffedStacks = stuffedStacks + stomachWeight
+        stuffedAdditionStacks.SP_StuffedDebuff = stuffedAdditionStacks.SP_StuffedDebuff + stomachWeight
     end
     -- also add AddWeight
-    stacks["SP_Stuffed"] = stacks["SP_Stuffed"] + VoreData[pred].AddWeight
-    stacks["SP_StuffedDebuff"] = stacks["SP_StuffedDebuff"] + VoreData[pred].AddWeight
+    stuffedStacks = stuffedStacks + VoreData[pred].AddWeight
+    stuffedAdditionStacks.SP_StuffedDebuff = stuffedAdditionStacks.SP_StuffedDebuff + VoreData[pred].AddWeight
 
-    -- turn weight into stacks; 70 seems like a good number for 1 stack aka 2 goblins or slightly less than 1 human
-    stacks["SP_Stuffed"] = stacks["SP_Stuffed"] // 70
-    stacks["SP_StuffedDebuff"] = stacks["SP_StuffedDebuff"] // 70
+    
+    stuffedStacks = stuffedStacks // weightPerStack
+    stuffedAdditionStacks.SP_StuffedDebuff = stuffedAdditionStacks.SP_StuffedDebuff // weightPerStack
 
 
     -- here we handle passives that use the total amount of stacks
     if Osi.HasPassive(pred, "SP_Musclegut") == 1 then
         -- musclegut will now reduce the debuff stacks by flat 4
-        stacks["SP_StuffedDebuff"] = stacks["SP_StuffedDebuff"] - 4
-        if stacks["SP_Stuffed"] > 2 then
-            stacks["SP_MusclegutIntimidate"] = 1
+        stuffedAdditionStacks.SP_StuffedDebuff = stuffedAdditionStacks.SP_StuffedDebuff - musclegutReduction
+        if stuffedStacks > 2 then
+            stuffedAdditionStacks.SP_MusclegutIntimidate = 1
         end
     end
     -- we handle SP_Stuffed separately because it activates Digestion ticks, so it's better not to remove it every time a prey is swallowed
     -- if 0 stacks but the character is still a pred
-    if stacks["SP_Stuffed"] == 0 and (VoreData[pred].Items ~= "" or next(VoreData[pred].Prey) ~= nil) then
-        stacks["SP_Stuffed"] = 1
+    if stuffedStacks == 0 and (VoreData[pred].Items ~= "" or next(VoreData[pred].Prey) ~= nil) then
+        stuffedStacks = 1
     end
+
     -- reduce the amount of stacks
-    if stacks["SP_Stuffed"] < VoreData[pred].StuffedStacks then
+    if stuffedStacks < VoreData[pred].StuffedStacks then
         Osi.RemoveStatus(pred, "SP_Stuffed")
-        if stacks["SP_Stuffed"] > 0 then
-            Osi.ApplyStatus(pred, "SP_Stuffed", stacks["SP_Stuffed"] * SecondsPerTurn, 1, pred)
+        if stuffedStacks > 0 then
+            Osi.ApplyStatus(pred, "SP_Stuffed", stuffedStacks * SecondsPerTurn, 1, pred)
         end
-    -- increase the amount of stacks
-    elseif stacks["SP_Stuffed"] > VoreData[pred].StuffedStacks then
-        Osi.ApplyStatus(pred, "SP_Stuffed", (stacks["SP_Stuffed"] - VoreData[pred].StuffedStacks) * SecondsPerTurn, 1, pred)
+        -- increase the amount of stacks
+    elseif stuffedStacks > VoreData[pred].StuffedStacks then
+        Osi.ApplyStatus(pred, "SP_Stuffed", (stuffedStacks - VoreData[pred].StuffedStacks) * SecondsPerTurn, 1, pred)
     end
     -- save it to voredata
-    VoreData[pred].StuffedStacks = stacks["SP_Stuffed"]
+    VoreData[pred].StuffedStacks = stuffedStacks
 
 
     -- now apply everything else
-    for k, v in pairs(stacks) do
+    for k, v in pairs(stuffedAdditionStacks) do
         if k ~= "SP_Stuffed" then
             if v > 0 then
                 Osi.ApplyStatus(pred, k, v * SecondsPerTurn, 1, pred)
+            else
+                Osi.RemoveStatus(pred, k)
             end
         end
     end
-
+    if Osi.HasPassive(pred, "SP_SC_KnowledgeWithin") == 1 then
+        SP_SC_UpdateKnowledgeWithin(pred)
+    end
     -- once everything is tested, SP_UpdateStuffed can be added to slow and fast digestion, so the amount of stacks changes as digestion progresses
 end
 
@@ -402,7 +417,7 @@ function SP_DigestItem(pred)
             if Osi.IsConsumable(uuid) == 1 then
                 Osi.Use(pred, uuid, "")
             else
-                VoreData[pred].AddWeight = VoreData[pred].AddWeight + Ext.Entity.Get(uuid).Data.Weight // 1000
+                VoreData[pred].AddWeight = VoreData[pred].AddWeight + Ext.Entity.Get(uuid).Data.Weight // GramsPerKilo
                 Osi.RequestDelete(uuid)
                 Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', VoreData[pred].Items, 1, 0)
                 SP_UpdateWeight(pred, true)
@@ -483,7 +498,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     if VoreData[pred].Items ~= "" and (preyState ~= 1 and preyString == 'All' or spell == "ResetVore") then
         regItems = true
         if VoreData[pred].Pred ~= "" then
-            local weightDiff = Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // 1000
+            local weightDiff = Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // GramsPerKilo
             VoreData[pred].Weight = VoreData[pred].Weight - weightDiff
             VoreData[pred].FixedWeight = VoreData[pred].FixedWeight - weightDiff
             SP_SwallowAllItems(VoreData[pred].Pred, VoreData[pred].Items)
@@ -748,8 +763,10 @@ function SP_UpdateWeight(pred, noVisual)
         -- reduces the weight of swallowed allies.
         local fullWeight = VoreData[k].Weight
         if VoreData[k].Digestion == DType.Endo and Osi.IsPartyMember(k, 0) == 1 then
-            if Osi.HasPassive(pred, "SP_StomachShelter") == 1 then
+            if Osi.HasPassive(pred, "SP_SC_StomachSanctuary") == 1 then
                 weightReduction = fullWeight
+            elseif Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 then
+                weightReduction = fullWeight / 2
             end
             fullWeight = fullWeight - weightReduction
         end
@@ -782,7 +799,7 @@ function SP_UpdateWeight(pred, noVisual)
     newWeightVisual = newWeightVisual + VoreData[pred].Fat + VoreData[pred].AddWeight
 
     if VoreData[pred].Items ~= "" then
-        newWeightVisual = newWeightVisual + Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // 1000
+        newWeightVisual = newWeightVisual + Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // GramsPerKilo
     end
 
     if Osi.HasActiveStatus(pred, "SP_BellyCompressed") == 1 then
@@ -1050,8 +1067,8 @@ function SP_GetTotalCharacterWeight(character)
             weight = weight + charData.InventoryWeight.Weight
         end
     end
-    _P("Total weight of " .. SP_GetDisplayNameFromGUID(character) .. " is " .. (weight // 1000) .. " kg")
-    return weight // 1000
+    _P("Total weight of " .. SP_GetDisplayNameFromGUID(character) .. " is " .. (weight // GramsPerKilo) .. " kg")
+    return weight // GramsPerKilo
 end
 
 ---Recursively generates a list of all nested prey

@@ -20,9 +20,26 @@ function SP_IsInt(value)
     return type(value) == "number" and math.floor(value) == value
 end
 
+---Returns a shallowcopy of a table.
+---@param table table<any, any> table to be copied
+---@return table<any, any>
+function SP_Shallowcopy(table)
+    local orig_type = type(table)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in pairs(table) do
+            copy[orig_key] = orig_value
+        end
+    else -- number, string, boolean, etc
+        copy = table
+    end
+    return copy
+end
+
 ---Returns a deepcopy of a table.
----@param table table table to be copied
----@param copies? table
+---@param table table<any, any> table to be copied
+---@return table<any, any>
 function SP_Deepcopy(table, copies)
     copies = copies or {}
     local origType = type(table)
@@ -172,5 +189,17 @@ end
 function SP_Clamp(val, lower, upper)
     if lower > upper then lower, upper = upper, lower end -- swap if boundaries supplied the wrong way
     return math.max(lower, math.min(upper, val))
+end
+
+---Applies a supplied function to every value in an array
+---@param tbl any[]
+---@param f function
+---@return any[]
+function SP_ArrayMap(tbl, f)
+    local t = {}
+    for k, v in ipairs(tbl) do
+        t[k] = f(v)
+    end
+    return t
 end
 

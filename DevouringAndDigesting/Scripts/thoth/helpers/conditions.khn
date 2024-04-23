@@ -28,16 +28,10 @@ function SP_IsPred(entity)
     return HasStatus('SP_Stuffed', entity)
 end
 
-function SP_SC_Get_GastricBulwark_TempHP_Status(entity)
-    entity = entity or context.Target
-    if StatusDurationEqualOrMoreThan(entity, 'SP_Stuffed', 3) then
-        return 'SP_SC_GastricBulwark_TempHP_3'
+function SP_SC_GetStomachShelterTempHPStatus(turns)
+
+    if StatusDurationEqualOrMoreThan(context.Source, 'SP_SC_StomachShelterStuffed', turns) then
+        return true
     end
-    if StatusDurationEqualOrMoreThan(entity, 'SP_SC_StomachShelterStuffed', 2) then
-        return 'SP_SC_GastricBulwark_TempHP_2'
-    end
-    if StatusDurationEqualOrMoreThan(entity, 'SP_SC_StomachShelterStuffed', 1) then
-        return 'SP_SC_GastricBulwark_TempHP_1'
-    end
-    return 'SP_SC_GastricBulwark_TempHP_0'
+    return false
 end

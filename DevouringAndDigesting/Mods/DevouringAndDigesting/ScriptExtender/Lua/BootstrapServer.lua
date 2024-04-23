@@ -1,20 +1,30 @@
 local statFiles = {
-    "Potions.txt",
-    "Items.txt",
-    "Spells_Projectile.txt",
-    "Spells_Target.txt",
-    "Spell_Vore_Core.txt",
-    "Regurgitate_Vore_Core.txt",
-    "Status_Vore_Core.txt",
-    "Passive_Status_Vore_Core.txt",
-    "Debug.txt",
-    "Status_Spells.txt",
-    "Status_Spells.txt",
-    "Passive.txt",
-    "Armor.txt",
+    'Armor.txt',
+    'Items.txt',
+    'Potions.txt',
+    'Passive.txt',
+    'Passive_Feat.txt',
+    'Regurgitate_Vore_Core.txt',
+    'Spells_Projectile.txt',
+    'Spells_Spellbook.txt',
+    'Spells_Target.txt',
+    'Spells_Upcasting.txt',
+    'Spell_Vore_Core.txt',
+    'Passive_Status.txt',
+    'Status_Debug.txt',
+    'Status_Spells_Spellbook.txt',
+    'Status_Vore_Core.txt',
+    'GreatHunger_Interrupt.txt',
+    'GreatHunger_Passive.txt',
+    'GreatHunger_Spell.txt',
+    'GreatHunger_Status.txt',
+    'StomachSentinel_Passive.txt',
+    'StomachSentinel_Status.txt',
+    'StomachSentinel_EveryonesStrength.txt',
+    'StomachSentinel_KnowledgeWithin.txt',
 }
 
-local modPath = "Public/DevouringAndDigesting/Stats/Generated/Data/"
+local modPath = "Public/"
 
 
 -- output
@@ -769,22 +779,41 @@ end
 
 ---Runs when reset command is sent to console.
 function SP_OnResetCompleted()
-    -- if statFiles and #statFiles then
-    --     for _, filename in pairs(statFiles) do
-    --         if filename then
-    --             local filePath = string.format('%s%s', modPath, filename)
-    --             if string.len(filename) > 0 then
-    --                 _P(string.format('RELOADING %s', filePath))
-    --                 ---@diagnostic disable-next-line: undefined-field
-    --                 Ext.Stats.LoadStatsFile(filePath, false)
-    --             else
-    --                 _P(string.format('Invalid file: %s', filePath))
-    --             end
-    --         end
-    --     end
-    -- end
+    if statFiles and #statFiles then
+        _P('Reloading stats!')
+        for _, filename in pairs(statFiles) do
+            if filename then
+                local filePath = string.format('%s%s', modPath, filename)
+                if string.len(filename) > 0 then
+                    _P(string.format('RELOADING %s', filePath))
+                    ---@diagnostic disable-next-line: undefined-field
+                    Ext.Stats.LoadStatsFile(filePath, 1)
+                else
+                    _P(string.format('Invalid file: %s', filePath))
+                end
+            end
+        end
+    end
     VoreData = PersistentVars['VoreData']
-    -- _P('Reloading stats!')
+    
+end
+
+function SP_OnStatsLoaded()
+    if statFiles and #statFiles then
+        _P('Reloading stats!')
+        for _, filename in pairs(statFiles) do
+            if filename then
+                local filePath = string.format('%s%s', modPath, filename)
+                if string.len(filename) > 0 then
+                    _P(string.format('RELOADING %s', filePath))
+                    ---@diagnostic disable-next-line: undefined-field
+                    Ext.Stats.LoadStatsFile(filePath, 1)
+                else
+                    _P(string.format('Invalid file: %s', filePath))
+                end
+            end
+        end
+    end
 end
 
 ---Runs whenever you change game regions.
@@ -836,3 +865,4 @@ Ext.Osiris.RegisterListener("UseFinished", 3, "after", SP_ItemUsed)
 
 Ext.Events.SessionLoaded:Subscribe(SP_OnSessionLoaded)
 Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
+Ext.Events.SessionLoading:Subscribe(SP_OnStatsLoaded)

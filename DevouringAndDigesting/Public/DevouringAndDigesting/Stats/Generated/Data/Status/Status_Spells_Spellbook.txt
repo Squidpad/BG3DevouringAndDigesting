@@ -34,7 +34,6 @@ data "Icon" "statIcons_WildMagic_gasCloud"
 data "DisplayName" "h8d173316g064cg43fdg8349gf3368097d635;1"
 data "Description" "haad0f231gd5abg405cga258g5915dee39709;1"
 
-
 new entry "SP_HealingAcid_U"
 type "StatusData"
 data "StatusType" "BOOST"

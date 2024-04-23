@@ -82,6 +82,30 @@
             ],
         },
         {
+            "label": "CheckStats (No Convert)",
+            "type": "process",
+            "command": "Tools\\ConverterApp\\Tools\\StatParser.exe",
+            "args": [
+                "--game-data-path",
+                "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data",
+                "--package-paths",
+                "${env:UserProfile}\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Mods",
+                "--dependency",
+                "Shared",
+                "--dependency",
+                "SharedDev",
+                "--dependency",
+                "Gustav",
+                "--dependency",
+                "GustavDev",
+                "--mod",
+                "DevouringAndDigesting"
+            ],
+            "dependsOn": [
+                "CopyToGameFolder (No Convert)"
+            ],
+        },
+        {
             "label": "CopyToGameFolder",
             "type": "shell",
             "command": "python",
@@ -90,7 +114,7 @@
                 "-f",
                 "${workspaceFolder}\\DevouringAndDigesting\\Public",
                 "-o",
-                "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data\\Public",
+                "${workspaceFolder}\\..\\..\\Public",
                 "-s",
                 "false",
             ],
@@ -101,6 +125,25 @@
             "dependsOn": [
                 "ConvertModFiles"
             ],
+            "problemMatcher": []
+        },
+        {
+            "label": "CopyToGameFolder (No Convert)",
+            "type": "shell",
+            "command": "python",
+            "args": [
+                "Tools\\CephsTools\\copy_folder_to.py",
+                "-f",
+                "${workspaceFolder}\\DevouringAndDigesting\\Public",
+                "-o",
+                "${workspaceFolder}\\..\\..\\Public",
+                "-s",
+                "false",
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
             "problemMatcher": []
         },
     ]

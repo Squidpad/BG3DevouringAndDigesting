@@ -109,7 +109,7 @@
                 <node id="Progression">
                     <attribute id="Level" type="uint8" value="3" />
 					<attribute id="Name" type="LSString" value="StomachSentinel" />
-                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_StomachShelter;SP_SC_GastricBulwark;SP_SC_KnowledgeWithin" />
+                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_StrengthFromMany;SP_SC_StomachShelter;SP_SC_KnowledgeWithin" />
 					<attribute id="PassivesRemoved" type="LSString" value="" />
                     <attribute id="ProgressionType" type="uint8" value="1" />
                     <attribute id="Selectors" type="LSString" value="" />
@@ -119,8 +119,8 @@
                 <node id="Progression">
                     <attribute id="Level" type="uint8" value="6" />
                     <attribute id="Name" type="LSString" value="StomachSentinel" />
-                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_StrengthFromMany" />
-                    <attribute id="PassivesRemoved" type="LSString" value="" />
+                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_StomachSanctuary" />
+                    <attribute id="PassivesRemoved" type="LSString" value="SP_SC_StomachShelter" />
                     <attribute id="ProgressionType" type="uint8" value="1" />
                     <attribute id="TableUUID" type="guid" value="463e82a7-c792-4b93-8967-90d48170279b" />
                     <attribute id="UUID" type="guid" value="4173d3e3-495c-4a66-863d-896fc9fc2732" />  

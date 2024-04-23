@@ -13,12 +13,15 @@ CompanionsSet = {
     ["S_GOB_DrowCommander_25721313-0c15-4935-8176-9f134385451b"] = true,
 }
 
+
 ---table that stores all additional statuses that are applied when a character is stuffed under certain conditions
----@type table<string, boolean> 
+---@type table<string,integer>
 StuffedAdditions = {
-    ["SP_StuffedDebuff"] = true,
-    ["SP_MusclegutIntimidate"] = true,
-    ["SP_SC_GastricBulwark_Status"] = true,
+    ["SP_StuffedDebuff"] = 0,
+    ["SP_MusclegutIntimidate"] = 0,
+    ["SP_SC_StomachShelterStuffed"] = 0,
+    ["SP_SC_StomachSanctuaryStuffed"] = 0,
+    ["SP_SC_StrengthFromMany_Status"] = 0
 }
 
 ---table that stores all names of digestion statuses
@@ -66,6 +69,9 @@ GurgleSounds = {
 -- ApplyStatus applies statuses for a number of seconds instead of turns.
 -- Multiply the duration by this.
 SecondsPerTurn = 6
+
+---for converting internal weight to be displayed
+GramsPerKilo = 1000
 
 -- CharacterCreationAppearanceVisuals table for women.
 ---@type table

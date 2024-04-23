@@ -104,7 +104,7 @@ end
 ---@param prey CHARACTER
 function SP_CanFitPrey(pred, prey)
     local predData = Ext.Entity.Get(pred)
-    local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) // 1000
+    local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) // GramsPerKilo
     if Osi.HasPassive(pred, "SP_BottomlessStomach") == 1 then
         predRoom = predRoom * 2
     end
