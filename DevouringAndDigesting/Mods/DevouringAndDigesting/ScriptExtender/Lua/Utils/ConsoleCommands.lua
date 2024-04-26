@@ -94,6 +94,7 @@ function SP_ResetVore()
         end
         SP_DelayCallTicks(10, function ()
             VoreData = {}
+            PersistentVars['VoreData'] = {}
             _P("Vore reset complete")
         end)
     end)
@@ -106,6 +107,7 @@ function SP_KillVore()
     PersistentVars['FakePreyWeightTable'] = nil
     PersistentVars['DisableDownedPreyTable'] = nil
     VoreData = {}
+    PersistentVars['VoreData'] = {}
 end
 
 -- gives player all usable items from mod (to avoid using SummonTutorialChest)

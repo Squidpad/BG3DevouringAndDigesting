@@ -64,6 +64,7 @@ Ext.Vars.RegisterModVariable(ModuleUUID, "ModVoreData", {})
 
 PersistentVars = {}
 
+-- for calculating short rest
 CalculateRest = true
 
 ---Triggers on spell cast.
@@ -168,7 +169,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         return
     end
     local locus = spellParams[#spellParams]
-    if not SP_TableContainsKey(DigestionStatuses, locus) then
+    if DigestionStatuses[locus] == nil then
         locus = nil
     end
     local spellName = spellParams[3]
@@ -773,6 +774,7 @@ function SP_OnSessionLoaded()
     end
     VoreData = PersistentVars['VoreData']
     SP_MigratePersistentVars()
+    SP_OnStatsLoaded()
 end
 
 function SP_OnLevelLoaded(level)
@@ -781,7 +783,12 @@ function SP_OnLevelLoaded(level)
 end
 
 ---Runs when reset command is sent to console.
-local function SP_OnResetCompleted()
+function SP_OnResetCompleted()
+    SP_OnStatsLoaded()
+end
+
+function SP_OnStatsLoaded()
+    if ConfigVars.Debug.ReloadStatsDisable.value then return end
     if statFiles and #statFiles then
         _P('Reloading stats!')
         for _, filename in pairs(statFiles) do
@@ -797,16 +804,7 @@ local function SP_OnResetCompleted()
             end
         end
     end
-    VoreData = PersistentVars['VoreData']
 end
-
-local function SP_OnStatsLoaded()
-    local stat = Ext.Stats.Create("SP_teststatus", "StatusData", "SP_DebugInitStatus")
-    stat.Boosts = "Ability(Constitution,100)"
-    stat:Sync()
-
-end
-
 
 ---Runs whenever you change game regions.
 ---@param level? string Name of new game region.
@@ -857,4 +855,3 @@ Ext.Osiris.RegisterListener("UseFinished", 3, "after", SP_ItemUsed)
 
 Ext.Events.SessionLoaded:Subscribe(SP_OnSessionLoaded)
 Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
-Ext.Events.StatsLoaded:Subscribe(SP_OnStatsLoaded)

@@ -47,6 +47,13 @@ local DEFAULT_VARS = {
             value = false,
             default = false,
         },
+        ReloadStatsDisable = {
+            name = "No stat reloading",
+            description =
+            "Disables stat reloading.",
+            value = true,
+            default = true,
+        },
     },
     WeightGain = {
         name = "Weight Gain System",
