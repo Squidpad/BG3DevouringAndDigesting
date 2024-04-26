@@ -1,4 +1,4 @@
-new entry "SP_Projectile_Mass_Bellyport"
+new entry "SP_Projectile_MassBellyport"
 type "SpellData"
 data "SpellType" "Projectile"
 data "Level" "4"

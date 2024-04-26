@@ -81,7 +81,10 @@
         "basic": "enable"
     },
     "Lua.type.weakNilCheck": true,
-    "Lua.type.weakUnionCheck": true
+    "Lua.type.weakUnionCheck": true,
+    "files.exclude": {
+        "DevouringAndDigesting\\Public\\DevouringAndDigesting\\Stats\\Generated\\Data\\*.txt": true
+    }
 
       
 }

@@ -18,7 +18,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
     if VoreData[caster] ~= nil then
 
         if spellName == 'Regurgitate' then
-            if Osi.HasActiveStatus(caster, "SP_RegurgitationCooldown2") ~= 0 then
+            if Osi.HasActiveStatus(caster, "SP_CooldownRegurgitate") ~= 0 then
                 return
             end
             local prey = table.concat({table.unpack(spellParams, 5, #spellParams)}, "_")
@@ -154,16 +154,17 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         -- other swallow-related spells
     elseif spellName == "BellyportDestination" then
         local predData = Ext.Entity.Get(caster)
-        local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) /
-            1000
+        local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) / 1000
         local preyTable = {}
         for prey, v in pairs(VoreData[caster].SpellTargets) do
             if v == "Bellyport" then
                 if Osi.IsCharacter(prey) == 1 and Osi.HasActiveStatus(prey, "SP_HitBellyport") == 1 then
                     -- this will teleport the exact amount of prey that fit inside pred
-                    if (SP_GetTotalCharacterWeight(prey) <= predRoom or
-                            ConfigVars.Mechanics.AllowOverstuffing.value) and SP_VorePossible(target, prey) then
-                        predRoom = predRoom - SP_GetTotalCharacterWeight(prey)
+                    if SP_VorePossible(target, prey) then
+                        if SP_GetTotalCharacterWeight(prey) <= predRoom and not ConfigVars.Mechanics.AllowOverstuffing.value then
+                            predRoom = predRoom - SP_GetTotalCharacterWeight(prey)
+
+                        end
                         table.insert(preyTable, prey)
                     end
                 end

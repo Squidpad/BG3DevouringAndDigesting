@@ -30,7 +30,7 @@ end
 ---@param prey CHARACTER
 ---@return boolean
 function SP_VorePossible(pred, prey)
-    if Osi.HasPassive(prey, "SP_Inedible") ~= 0 or Osi.HasActiveStatus(pred, "SP_RegurgitationCooldown") ~= 0 or
+    if Osi.HasPassive(prey, "SP_Inedible") ~= 0 or Osi.HasActiveStatus(pred, "SP_CooldownSwallow") ~= 0 or
         Osi.HasActiveStatus(pred, "SP_SC_BlockVoreTotal") ~= 0 then
         return false
     end
@@ -102,7 +102,7 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
             VoreData[prey].SwallowProcess = math.max(VoreData[prey].SwallowProcess, 0)
         end
         if VoreData[prey].SwallowProcess > 0 then
-            local pswallow = SP_GetSwallowVoreStatus(pred, digestionType == DType.Endo)
+            local pswallow = SP_GetSwallowedVoreStatus(pred, prey, digestionType == DType.Endo, locus)
             VoreData[prey].Swallowed = pswallow
             Osi.ApplyStatus(prey, pswallow, (VoreData[prey].SwallowProcess + 1) * SecondsPerTurn, 1, pred)
             Osi.AddSpell(pred, 'SP_Zone_SwallowDown', 0, 0)
@@ -636,11 +636,11 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
 
     -- add swallow cooldown after regurgitation
     if locus ~= "A" and (preyString == "All" or spell == "SwallowFail") and ConfigVars.Regurgitation.CooldownSwallow.value > 0 then
-        Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown', ConfigVars.Regurgitation.CooldownSwallow.value * SecondsPerTurn,
+        Osi.ApplyStatus(pred, 'SP_CooldownSwallow', ConfigVars.Regurgitation.CooldownSwallow.value * SecondsPerTurn,
                         1)
     end
     if locus ~= "A" and (preyString == "All" or spell == "SwallowFail") and ConfigVars.Regurgitation.CooldownRegurgitate.value > 0 then
-        Osi.ApplyStatus(pred, 'SP_RegurgitationCooldown2',
+        Osi.ApplyStatus(pred, 'SP_CooldownRegurgitate',
                         ConfigVars.Regurgitation.CooldownRegurgitate.value * SecondsPerTurn, 1)
     end
 

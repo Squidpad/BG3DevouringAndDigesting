@@ -50,7 +50,12 @@ data "Description" "h7e60efadgd577g4416gba59gc4a6ffbe7104;1"
 data "Icon" "statIcons_Bloated"
 data "Boosts" "Tag(Inedible)"
 
+new entry "SP_HasVoreSpells"
+type "PassiveData"
+data "Icon" "statIcons_Bloated"
+data "Boosts" "UnlockSpell(SP_Target_Bellyport);UnlockSpell(SP_Projectile_MassBellyport)"
+
 new entry "SP_HasDebugSpells"
 type "PassiveData"
 data "Icon" "statIcons_Bloated"
-data "Boosts" "UnlockSpell(SP_Target_Bellyport);UnlockSpell(SP_Projectile_Mass_Bellyport);UnlockSpell(SP_Target_Lick);UnlockSpell(SP_Target_BellySlam);UnlockSpell(SP_Target_FlavorDisgust);UnlockSpell(SP_Target_Compress);UnlockSpell(SP_Target_Tongue);UnlockSpell(SP_Target_Ravenous);UnlockSpell(SP_Target_Acidify);UnlockSpell(SP_Target_Heave);UnlockSpell(SP_Target_StillPrey);UnlockSpell(SP_Target_PowerWordSwallow);UnlockSpell(SP_Target_Rebirth);UnlockSpell(SP_Target_Churn);UnlockSpell(SP_Target_LeechingAcid);UnlockSpell(SP_Target_HealingAcid);UnlockSpell(SP_Zone_SuperBelch);UnlockSpell(SP_Shout_ResistAcid);UnlockSpell(SP_Zone_Burping);UnlockSpell(SP_Target_Rescue);"
+data "Boosts" "UnlockSpell(SP_Target_Lick);UnlockSpell(SP_Target_BellySlam);UnlockSpell(SP_Target_FlavorDisgust);UnlockSpell(SP_Target_Compress);UnlockSpell(SP_Target_Tongue);UnlockSpell(SP_Target_Ravenous);UnlockSpell(SP_Target_Acidify);UnlockSpell(SP_Target_Heave);UnlockSpell(SP_Target_StillPrey);UnlockSpell(SP_Target_PowerWordSwallow);UnlockSpell(SP_Target_Rebirth);UnlockSpell(SP_Target_Churn);UnlockSpell(SP_Target_LeechingAcid);UnlockSpell(SP_Target_HealingAcid);UnlockSpell(SP_Zone_SuperBelch);UnlockSpell(SP_Shout_ResistAcid);UnlockSpell(SP_Zone_Burping);UnlockSpell(SP_Target_Rescue);"

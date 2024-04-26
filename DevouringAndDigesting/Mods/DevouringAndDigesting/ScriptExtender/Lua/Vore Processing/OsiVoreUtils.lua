@@ -164,18 +164,6 @@ function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
     end
 end
 
----returns what swallowed status should be appled to a prey on swallow
----@param pred CHARACTER
----@param endo boolean
----@return string
-function SP_GetSwallowVoreStatus(pred, endo)
-    if Osi.HasPassive(pred, "SP_MuscleControl") == 1 and endo then
-        return "SP_PartiallySwallowedGentle"
-    else
-        return "SP_PartiallySwallowed"
-    end
-end
-
 ---@param pred CHARACTER
 ---@param prey CHARACTER
 ---@return string, string

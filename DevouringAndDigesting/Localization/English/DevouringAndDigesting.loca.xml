@@ -377,8 +377,13 @@
 	<content contentuid="h8d173316g064cg43fdg8349gf3368097d635" version="1">Compressed prey</content>
 	<content contentuid="haad0f231gd5abg405cga258g5915dee39709" version="1">It appears as if this predator has no prey inside them.</content>
 	
-	<content contentuid="h55709b76gd90eg43f1g9186g03c7058f3197" version="1">Healing acid (Unbirth)</content>
+	<content contentuid="h55709b76gd90eg43f1g9186g03c7058f3197" version="1">Healing Acid</content>
+	<content contentuid="h21f66aacgd695g4a50g8f85g6c196274cdd3" version="1">Healing Acid (Stomach)</content>
+	<content contentuid="h46597bf8gdfa8g4095gb343gd3efcc39ffc7" version="1">Healing Acid (Ass)</content>
+	<content contentuid="h1dee0359gb1c5g404ag9677geb26ca22e383" version="1">Healing Acid (Cock)</content>
+	<content contentuid="h815cc7c0g2fc7g425eg8dabg4da289efcb8a" version="1">Healing Acid (Womb)</content>
 	<content contentuid="h6c3c3ddegc688g437ega730gaf4e3fcb4ff7" version="1">You heal prey inside you.</content>
+	<content contentuid="h239dce28g2d11g4626g98f6ge330f44daf5b" version="1">You heal prey inside your [1].</content>
 
 	<content contentuid="he2898dfag40b1g43e8g853fg7803160c6db5" version="1">Bellyport Target</content>
 	<content contentuid="h166b23cdg5899g432eg868dgb0af9238c567" version="1">Targeted by a bellyport spell; it's too late for them...</content>

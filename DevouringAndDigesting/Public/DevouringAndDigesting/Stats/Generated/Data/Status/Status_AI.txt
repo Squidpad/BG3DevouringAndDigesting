@@ -1,0 +1,13 @@
+new entry "SP_AI_HELPER_BLOCKVORE"
+type "StatusData"
+data "StatusType" "BOOST"
+data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
+data "StackType" "Overwrite"
+
+new entry "SP_AI_HELPER_ENDO"
+type "StatusData"
+data "StatusType" "BOOST"
+data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
+data "StackType" "Overwrite"
+data "Boosts" "AC(6);ActionResourceBlock(Movement);ActionResourceBlock(ReactionActionPoint);ActionResourceBlock(ActionPoint);ActionResourceBlock(BonusActionPoint)"
+data "OnApplyFunctors" "IF(IsDowned()):RegainHitPoints(30)"
