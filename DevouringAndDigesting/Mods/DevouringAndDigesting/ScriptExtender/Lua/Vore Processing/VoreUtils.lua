@@ -677,6 +677,7 @@ end
 ---@param prey CHARACTER
 ---@param eventName string Name that RollResult should look for. No predetermined values, can be whatever.
 function SP_VoreCheck(pred, prey, eventName)
+    local eventParams = SP_StringSplit(eventName, '_')
     local advantage = 0
     local preyAdvantage = 0
     if eventName == 'StruggleCheck' then
@@ -689,7 +690,7 @@ function SP_VoreCheck(pred, prey, eventName)
         end
         Osi.RequestPassiveRollVersusSkill(prey, pred, "SkillCheck", "Strength", "Constitution", preyAdvantage, advantage,
                                           eventName)
-    elseif string.sub(eventName, 1, 13) == 'SwallowCheck_' then
+    elseif eventParams[1] == 'SwallowCheck' then
         _P('Rolling to resist swallow')
         if Osi.HasPassive(pred, 'SP_StretchyMaw') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Charmed') == 1 or
             Osi.HasActiveStatusWithGroup(prey, 'SG_Restrained') == 1 or Osi.HasActiveStatusWithGroup(prey, 'SG_Unconscious') == 1 or

@@ -47,13 +47,6 @@ local DEFAULT_VARS = {
             value = false,
             default = false,
         },
-        ReloadStatsDisable = {
-            name = "No stat reloading",
-            description =
-            "Disables stat reloading.",
-            value = true,
-            default = true,
-        },
     },
     WeightGain = {
         name = "Weight Gain System",
@@ -117,6 +110,13 @@ local DEFAULT_VARS = {
             value = true,
             default = true,
         },
+        FeatsAddLoci = {
+            name = "Feats Add Loci",
+            description =
+            "If true, certain feats will unlock new loci for vore. Otherwise, they can only be added through the starting potions.",
+            value = true,
+            default = true,
+        },
         RequireProperAnatomy = {
             name = "Require Proper Anatomy",
             description =
@@ -174,6 +174,17 @@ local DEFAULT_VARS = {
             "If true, you will not lose weight until you rest. If false, you lose it immediately upon finishing digestion and you will be immediately able to absorb / dispose of prey",
             value = true,
             default = true,
+        },
+        GradualDigestion = {
+            name = "Gradual Digestion Rate",
+            description =
+            "You will passively digest dead prey this much per in-game minute. Set to 0 to disable. Setting this too high can result in bugs!",
+            value = 0.5,
+            default = 0.5,
+            range = {0, 10, 0.1},
+            extras = {
+                slider = true,
+            },
         },
         DigestItems = {
             name = "Item Digestion",

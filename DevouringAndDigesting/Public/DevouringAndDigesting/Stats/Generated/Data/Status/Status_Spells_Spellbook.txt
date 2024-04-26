@@ -59,11 +59,11 @@ data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
 data "OnApplyFunctors" "RegainHitPoints(LevelMapValue(D6Cantrip) + ProficiencyBonus)"
 
 
-new entry "SP_Hit_Bellyport"
+new entry "SP_HitBellyport"
 type "StatusData"
 data "StatusType" "BOOST"
 data "StatusPropertyFlags" "FreezeDuration;IgnoreResting"
-data "StackId" "SP_Hit_Bellyport"
+data "StackId" "SP_HitBellyport"
 data "StackType" "Overwrite"
 data "DisplayName" "he2898dfag40b1g43e8g853fg7803160c6db5;1"
 data "Description" "h166b23cdg5899g432eg868dgb0af9238c567;6"

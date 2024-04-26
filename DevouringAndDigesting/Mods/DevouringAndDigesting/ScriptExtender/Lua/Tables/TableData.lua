@@ -70,6 +70,12 @@ GurgleSounds = {
 -- Multiply the duration by this.
 SecondsPerTurn = 6
 
+-- when gradual digestion can reduce your weight by this much, do digestion
+GradualDigestionUpdateInterval = 5
+
+-- should stats be reloaded on reset
+ReloadStats = false
+
 ---for converting internal weight to be displayed
 GramsPerKilo = 1000
 
@@ -417,6 +423,7 @@ ComplexCustomSpells = false
 ---@field Locus string Locus where this prey is stored "O" == Oral, "A" == Anal, "U" == Unbirth, "C" = pp
 ---@field Swallowed string what swallowed status is appled (prey only)
 ---@field StuffedStacks integer number of stuffed stacks
+---@field GradualDigestionTimer integer how close this pred is to removing a point of AddWeight
 ---@field SpellTargets table<CHARACTER, string> table of prey this character has cast a vore-related spell on
 VoreDataEntry = {
     Pred = "",
@@ -436,5 +443,6 @@ VoreDataEntry = {
     Locus = "",
     Swallowed = "",
     StuffedStacks = 0,
+    GradualDigestionTimer = 0,
     SpellTargets = {},
 }
