@@ -5,1116 +5,1153 @@
 		<node id="VisualBank">
 			<children>
 				<!-- normal female -->
-                                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="0a7eaa06-0c0a-42a2-a195-2bbaa0511b09" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_1" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_1.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_1.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_1.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 2 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="7500d4c5-0e7a-4c02-ac14-c69b88dbb6ca" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_2" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_2.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_2.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_2.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 3 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="0e9848d8-dc4a-40dc-aa36-11e89eb47011" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_3" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_3.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_3.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_3.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 4 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="e178e4e6-e732-421c-8493-8ef82c92bb21" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_4" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_4.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_4.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_4.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 5 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="b6ee80ce-a54c-4482-8070-8865a1b81017" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_5" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_5.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_5.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_5.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 6 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="4a071ec4-3b8a-4911-8188-dcf8e69923dc" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_6" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_6.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_6.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_6.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 7 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="c6b5f9d6-7fcf-443b-8526-4cf831a62781" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_7" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_7.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_7.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_7.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 8 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="93158aeb-c485-428f-9e9c-af29bb04c065" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_8" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_8.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_8.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_8.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 9 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="2f060a42-be2e-4af7-afa9-3b11da72b93b" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_9" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_9.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_9.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_9.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 10 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="3b55a056-1441-44ce-a302-ffcea320a49c" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_10" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_10.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_10.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_10.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 11 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="0fce2c40-83eb-403c-b0b1-d1acb7304081" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_11" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_11.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_11.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_11.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 12 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="6021b3df-0a7a-4ea3-bd29-54046ce09991" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_12" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_12.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_12.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_12.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 13 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="d4f3fa01-393c-435b-8c70-e149b39ec251" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_13" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_13.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_13.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_13.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 14 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="71b80d00-b08b-48a3-a80c-451470588bf6" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_14" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_14.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_14.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_14.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 15 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="b798ff96-2b10-47c9-b137-5d6345fdb160" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_15" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_15.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_15.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_15.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 16 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="753392ce-209b-4d75-8f3a-7c9b68bdae16" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_16" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_16.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_16.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_16.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 17 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="be2e0acb-9e03-41ad-b641-0a4261776344" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_17" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_17.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_17.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_17.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 18 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="2f0a7578-1bae-444f-8cda-e931dcfeacba" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_18" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_18.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_18.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_18.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 19 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="d1bb2e1c-d0b8-4c2d-b8ee-493b4f69f597" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_19" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_19.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_19.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_19.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 20 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="8ed53a41-c955-4a4d-8f65-f4790d6f0a20" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_20" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_20.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_20.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_20.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 21 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="512ca595-02ba-4e67-ac94-740a926b8f58" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_21" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_21.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_21.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_21.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 22 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="0fb9992b-415e-4799-a78a-c3ce82bfeb36" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_22" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_22.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_22.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_22.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 23 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="00f66d57-3258-4b86-a01a-20a310468c23" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_23" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_23.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_23.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_23.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 24 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="f15c028a-d01d-4791-9139-fd6e626d1bd1" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_24" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_24.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_24.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_24.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 25 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="b9b03f7b-47fa-4c2e-9488-6b6a1b2079cf" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_25" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_25.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_25.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_25.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 26 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="133f2e35-ceba-475b-8a87-14f54715a51e" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_26" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_26.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_26.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_26.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 27 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="de854cf8-c54e-42c8-adc4-7a13bb4c7e59" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_27" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_27.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_27.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_27.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 28 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="840cd919-bc0e-45ff-b3e6-a248ff0e6ce8" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_28" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_28.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_28.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_28.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 29 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="162587c1-16d7-4940-a1ca-c3c100ef8ab0" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_29" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_29.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_29.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_29.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                <!-- 30 -->
-                <node id="Resource">
-                    <attribute id="AttachBone" type="FixedString" value="" />
-                    <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
-                    <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
-                    <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
-                    <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
-                    <attribute id="ClothColliderResourceID" type="FixedString" value="" />
-                    <attribute id="HairPresetResourceId" type="FixedString" value="" />
-                    <attribute id="HairType" type="uint8" value="0" />
-                    <attribute id="ID" type="FixedString" value="e1646e44-c157-4dc8-be55-28772bf95dbe" />
-                    <attribute id="MaterialType" type="uint8" value="0" />
-                    <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_30" />
-                    <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
-                    <attribute id="RemapperSlotId" type="FixedString" value="" />
-                    <attribute id="ScalpMaterialId" type="FixedString" value="" />
-                    <attribute id="SkeletonResource" type="FixedString" value="" />
-                    <attribute id="SkeletonSlot" type="FixedString" value="" />
-                    <attribute id="Slot" type="FixedString" value="DragonbornTop" />
-                    <attribute id="SoftbodyResourceID" type="FixedString" value="" />
-                    <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_30.GR2" />
-                    <attribute id="SupportsVertexColorMask" type="bool" value="False" />
-                    <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_30.Dummy_Root.0" />
-                    <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
-                    <children>
-                        <node id="AnimationWaterfall">
-                            <attribute id="Object" type="FixedString" value="" />
-                        </node>
-                        <node id="Base" />
-                        <node id="ClothProxyMapping" />
-                        <node id="Objects">
-                            <attribute id="LOD" type="uint8" value="0" />
-                            <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
-                            <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_30.HUM_F_NKD_Body_A_Mesh.0" />
-                        </node>
-                    </children>
-                </node>
-                    
+        			<!-- 1 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="2f0ff0bd-955b-4b1e-a7e3-95ae5490fe42" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_1" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_1.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_1.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_1.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 2 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="6c38f29a-8a60-425a-b351-815365a0c258" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_2" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_2.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_2.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_2.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 3 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="400bf0ee-b954-4692-8ea0-07cff09708b8" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_3" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_3.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_3.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_3.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 4 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="411e97b7-a1a2-4ac7-b33b-b52ab252ad75" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_4" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_4.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_4.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_4.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 5 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="eff70e76-c1cd-49a2-bba4-7bcf333ea173" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_5" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_5.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_5.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_5.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 6 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="907d18e8-47c8-45fc-8e4c-0336a135c5a8" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_6" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_6.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_6.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_6.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 7 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="f47709be-1805-4749-911b-f99b284fbf92" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_7" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_7.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_7.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_7.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 8 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="af9a17c3-f958-47b8-aad4-976e475bec63" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_8" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_8.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_8.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_8.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 9 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="35fb0912-5d2f-4ed1-882f-4ae11e986cab" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_9" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_9.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_9.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_9.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 10 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="cc37bd4d-d618-4f91-bb4e-189897b7a1dc" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_10" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_10.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_10.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_10.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 11 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="4a36de0c-5284-49dc-9459-a45f103c2bad" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_11" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_11.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_11.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_11.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 12 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="b4c3d54a-e87a-4036-8948-1b32ba70d772" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_12" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_12.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_12.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_12.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 13 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="91fc4916-798b-4308-a8d9-1be7924afd74" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_13" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_13.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_13.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_13.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 14 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="08de328a-71b8-45c5-b129-fcf6a5a86e44" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_14" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_14.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_14.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_14.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 15 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="a1edc52c-bb57-46e4-9522-d923794d1c75" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_15" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_15.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_15.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_15.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 16 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="594529a0-35d5-408f-883d-c7f819b43e0f" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_16" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_16.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_16.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_16.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 17 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="bdeeb4d3-e43c-44d4-8a32-fe2eb9288a52" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_17" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_17.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_17.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_17.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 18 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="fc65e8aa-e11a-4a35-9f4d-cccf8c1553ad" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_18" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_18.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_18.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_18.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 19 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="6af7f105-32f8-4cca-acc6-1270d450f42a" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_19" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_19.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_19.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_19.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 20 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="564804f8-f2bc-43fc-b6b6-29f8af65ee41" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_20" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_20.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_20.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_20.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 21 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="bc39e72a-bb51-4cc8-b390-03ad08257afb" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_21" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_21.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_21.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_21.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 22 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="be64ce90-6bec-448d-ab0d-e82d61f201e3" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_22" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_22.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_22.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_22.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 23 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="a57631fc-fd16-44c9-9793-bdc00c69eb94" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_23" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_23.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_23.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_23.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 24 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="097af349-0a40-403a-bfe7-7db314389c42" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_24" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_24.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_24.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_24.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 25 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="afeac210-36d2-4395-b65d-b8cef2315780" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_25" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_25.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_25.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_25.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 26 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="946deb24-8bb1-4da3-b071-446a4d4f968e" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_26" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_26.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_26.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_26.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 27 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="00fccc1c-31f1-4333-9fff-2c564564d10e" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_27" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_27.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_27.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_27.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 28 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="21a75021-9d38-487e-b7e4-f98a1777441d" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_28" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_28.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_28.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_28.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 29 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="b609d9da-65c6-461a-87da-0383bd0be557" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_29" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_29.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_29.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_29.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 30 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="a54270fa-539d-4e87-89c5-29da9ce0fe3c" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_30" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_30.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_30.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_30.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>
+        			<!-- 31 -->
+    				<node id="Resource">
+                        <attribute id="AttachBone" type="FixedString" value="" />
+                        <attribute id="AttachmentSkeletonResource" type="FixedString" value="" />
+                        <attribute id="BlueprintInstanceResourceID" type="FixedString" value="" />
+                        <attribute id="BoundsMax" type="fvec3" value="0.04660766 1.031223 0.05886364" />
+                        <attribute id="BoundsMin" type="fvec3" value="-0.04640537 0.8961504 -0.1221507" />
+                        <attribute id="ClothColliderResourceID" type="FixedString" value="" />
+                        <attribute id="HairPresetResourceId" type="FixedString" value="" />
+                        <attribute id="HairType" type="uint8" value="0" />
+                        <attribute id="ID" type="FixedString" value="848ecbe7-15d4-4732-aba6-d893504ba02d" />
+                        <attribute id="MaterialType" type="uint8" value="0" />
+                        <attribute id="Name" type="LSString" value="SP_HUM_F_Belly_31" />
+                        <attribute id="NeedsSkeletonRemap" type="bool" value="False" />
+                        <attribute id="RemapperSlotId" type="FixedString" value="" />
+                        <attribute id="ScalpMaterialId" type="FixedString" value="" />
+                        <attribute id="SkeletonResource" type="FixedString" value="" />
+                        <attribute id="SkeletonSlot" type="FixedString" value="" />
+                        <attribute id="Slot" type="FixedString" value="DragonbornTop" />
+                        <attribute id="SoftbodyResourceID" type="FixedString" value="" />
+                        <attribute id="SourceFile" type="LSString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_31.GR2" />
+                        <attribute id="SupportsVertexColorMask" type="bool" value="False" />
+                        <attribute id="Template" type="FixedString" value="Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_31.Dummy_Root.0" />
+                        <attribute id="_OriginalFileVersion_" type="int64" value="144115207403209033" />
+                        <children>
+                            <node id="AnimationWaterfall">
+                                <attribute id="Object" type="FixedString" value="" />
+                            </node>
+                            <node id="Base" />
+                            <node id="ClothProxyMapping" />
+                            <node id="Objects">
+                                <attribute id="LOD" type="uint8" value="0" />
+                                <attribute id="MaterialID" type="FixedString" value="5e46e917-0c94-44ae-a41e-96428aa5ea32" />
+                                <attribute id="ObjectID" type="FixedString" value="SP_HUM_F_Belly_31.HUM_F_NKD_Body_A_Mesh.0" />
+                            </node>
+                        </children>
+                    </node>   
 				<!-- strong female -->
 				        			<!-- 1 -->
     				<node id="Resource">

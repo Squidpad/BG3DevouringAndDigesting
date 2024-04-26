@@ -1,30 +1,30 @@
 local statFiles = {
-    'Armor.txt',
-    'Items.txt',
-    'Potions.txt',
-    'Passive.txt',
-    'Passive_Feat.txt',
-    'Regurgitate_Vore_Core.txt',
-    'Spells_Projectile.txt',
-    'Spells_Spellbook.txt',
-    'Spells_Target.txt',
-    'Spells_Upcasting.txt',
-    'Spell_Vore_Core.txt',
-    'Passive_Status.txt',
+    -- 'Armor.txt',
+    -- 'Items.txt',
+    -- 'Potions.txt',
+    -- 'Passive.txt',
+    -- 'Passive_Feat.txt',
+    -- 'Regurgitate_Vore_Core.txt',
+    -- 'Spells_Projectile.txt',
+    -- 'Spells_Spellbook.txt',
+    -- 'Spells_Target.txt',
+    -- 'Spells_Upcasting.txt',
+    -- 'Spell_Vore_Core.txt',
+    -- 'Passive_Status.txt',
     'Status_Debug.txt',
-    'Status_Spells_Spellbook.txt',
-    'Status_Vore_Core.txt',
-    'GreatHunger_Interrupt.txt',
-    'GreatHunger_Passive.txt',
-    'GreatHunger_Spell.txt',
-    'GreatHunger_Status.txt',
-    'StomachSentinel_Passive.txt',
-    'StomachSentinel_Status.txt',
-    'StomachSentinel_EveryonesStrength.txt',
-    'StomachSentinel_KnowledgeWithin.txt',
+    -- 'Status_Spells_Spellbook.txt',
+    -- 'Status_Vore_Core.txt',
+    -- 'GreatHunger_Interrupt.txt',
+    -- 'GreatHunger_Passive.txt',
+    -- 'GreatHunger_Spell.txt',
+    -- 'GreatHunger_Status.txt',
+    -- 'StomachSentinel_Passive.txt',
+    -- 'StomachSentinel_Status.txt',
+    -- 'StomachSentinel_EveryonesStrength.txt',
+    -- 'StomachSentinel_KnowledgeWithin.txt',
 }
 
-local modPath = "Public/"
+local modPath = "Public/DevouringAndDigesting/Stats/Generated/Data/"
 
 
 -- output
@@ -57,13 +57,9 @@ Ext.Require("Utils/ExtEvents.lua")
 Ext.Require("Utils/ConsoleCommands.lua")
 
 -- subclasses
---this script is missing
 Ext.Require("Subclasses/StomachSentinel.lua")
 
--- this file: osi event handling
-
 Ext.Vars.RegisterModVariable(ModuleUUID, "ModVoreData", {})
-
 
 
 PersistentVars = {}
@@ -415,10 +411,17 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
                 local predX, predY, predZ = Osi.GetPosition(object)
                 Osi.TeleportToPosition(k, predX, predY, predZ, "", 0, 0, 0, 0, 0)
             end
+            if VoreData[k].Digestion == DType.Endo then
+                local shelterTurns = Osi.GetStatusTurns(object, "SP_SC_StomachShelterStuffed")
+                local sanctuaryTurns = Osi.GetStatusTurns(object, "SP_SC_StomachSanctuaryStuffed")
+                
+                Osi.ApplyStatus(object, "SP_SC_StomachShelterStuffed_TempHP", (shelterTurns + sanctuaryTurns) * SecondsPerTurn, 1, object)
+            end
             if lethalRandomSwitch and ConfigVars.Hunger.LethalRandomSwitch.value then
                 _P("Random lethal switch")
-                SP_SwitchToDigestionType(object, k, 0, 2)
+                SP_SwitchToDigestionType(object, k, DType.Endo, DType.Lethal)
             end
+
         end
         if lethalRandomSwitch and ConfigVars.Hunger.LethalRandomSwitch.value then
             VoreData[object].DigestItems = true
@@ -448,7 +451,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
                 end
                 for k, v in pairs(VoreData[pred].Prey) do
                     if VoreData[object].Locus == v then
-                        SP_SwitchToDigestionType(pred, k, 0, 2)
+                        SP_SwitchToDigestionType(pred, k, DType.Endo, DType.Lethal)
                     end
                 end
             end
@@ -778,7 +781,7 @@ function SP_OnLevelLoaded(level)
 end
 
 ---Runs when reset command is sent to console.
-function SP_OnResetCompleted()
+local function SP_OnResetCompleted()
     if statFiles and #statFiles then
         _P('Reloading stats!')
         for _, filename in pairs(statFiles) do
@@ -795,26 +798,15 @@ function SP_OnResetCompleted()
         end
     end
     VoreData = PersistentVars['VoreData']
-    
 end
 
-function SP_OnStatsLoaded()
-    if statFiles and #statFiles then
-        _P('Reloading stats!')
-        for _, filename in pairs(statFiles) do
-            if filename then
-                local filePath = string.format('%s%s', modPath, filename)
-                if string.len(filename) > 0 then
-                    _P(string.format('RELOADING %s', filePath))
-                    ---@diagnostic disable-next-line: undefined-field
-                    Ext.Stats.LoadStatsFile(filePath, 1)
-                else
-                    _P(string.format('Invalid file: %s', filePath))
-                end
-            end
-        end
-    end
+local function SP_OnStatsLoaded()
+    local stat = Ext.Stats.Create("SP_teststatus", "StatusData", "SP_DebugInitStatus")
+    stat.Boosts = "Ability(Constitution,100)"
+    stat:Sync()
+
 end
+
 
 ---Runs whenever you change game regions.
 ---@param level? string Name of new game region.
@@ -865,4 +857,4 @@ Ext.Osiris.RegisterListener("UseFinished", 3, "after", SP_ItemUsed)
 
 Ext.Events.SessionLoaded:Subscribe(SP_OnSessionLoaded)
 Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
-Ext.Events.SessionLoading:Subscribe(SP_OnStatsLoaded)
+Ext.Events.StatsLoaded:Subscribe(SP_OnStatsLoaded)
