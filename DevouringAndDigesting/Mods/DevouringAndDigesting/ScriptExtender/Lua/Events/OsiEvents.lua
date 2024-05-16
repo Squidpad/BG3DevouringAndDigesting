@@ -198,7 +198,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         end
         -- non swallow-related spells
     else
-        if spell == 'Massage_Pred' then
+        if spellName == 'Massage_Pred' then
             if VoreData[target] ~= nil then
                 Osi.RemoveStatus(target, 'SP_Indigestion')
                 for k, v in pairs(VoreData[target].Prey) do
@@ -207,7 +207,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                     end
                 end
             end
-        elseif spell == 'AssignNPCPred' then
+        elseif spellName == 'AssignNPCPred' then
             _P(target)
             if Ext.Entity.Get(target).ServerCharacter.Temporary == false then
                 if Osi.HasPassive(target, "SP_BlockGluttony") == 1 then
@@ -216,7 +216,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                 end
                 Osi.AddPassive(target, "SP_Gluttony")
             end
-        elseif spell == 'AssignNPCPrey' then
+        elseif spellName == 'AssignNPCPrey' then
             _P(target)
             if Osi.HasPassive(target, "SP_Gluttony") == 1 then
                 _P("Was predator")
@@ -225,7 +225,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             if Ext.Entity.Get(target).ServerCharacter.Temporary == false then
                 Osi.AddPassive(target, "SP_BlockGluttony")
             end
-        elseif spell == 'Acidify' then
+        elseif spellName == 'Acidify' then
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
                     if VoreData[k].Digestion == DType.Lethal then
