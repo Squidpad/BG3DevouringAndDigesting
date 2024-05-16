@@ -1,6 +1,18 @@
 -- A new way to store data about every character that is involved in vore
----@type table<string, VoreDataEntry>
+---@type table<CHARACTER, VoreDataEntry>
 VoreData = {}
+
+--- bellies that will be updated on next tick
+---@type table<CHARACTER, boolean>
+WeightQueue = {}
+
+--- bellies that are currently being updated
+---@type table<CHARACTER, boolean>
+WeightQueueRunning = {}
+
+--- bellies that we need to update again after they are finished being updated
+---@type table<CHARACTER, boolean>
+WeightQueueWaiting = {}
 
 ---Adds or deletes VoreData of a character
 ---@param character CHARACTER
@@ -257,6 +269,10 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested, swallowStages, locus
     Osi.AddSpell(pred, 'SP_Zone_SpeedUpDigestion', 0, 0)
     Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
 
+    if ConfigVars.VisualsAndAudio.SweatyVore.value == true then
+        Osi.ApplyStatus(pred, "SWEATY", 5 * SecondsPerTurn)
+    end
+
     SP_UpdateWeight(pred)
     SP_UpdateStuffed(pred)
 
@@ -305,6 +321,10 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested, swallowStag
     Osi.AddSpell(pred, 'SP_Zone_Regurgitate', 0, 0)
     Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
     Osi.AddSpell(pred, 'SP_Zone_SpeedUpDigestion', 0, 0)
+
+    if ConfigVars.VisualsAndAudio.SweatyVore.value == true then
+        Osi.ApplyStatus(pred, "SWEATY", 5 * SecondsPerTurn)
+    end
 
     SP_UpdateWeight(pred)
     SP_UpdateStuffed(pred)
@@ -488,7 +508,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
 
     -- item regurigitation
     local regItems = false
-    if VoreData[pred].Items ~= "" and (preyState ~= 1 and preyString == 'All' or spell == "ResetVore") then
+    if VoreData[pred].Items ~= "" and (preyState ~= 1 and preyString == 'All' or spell == "ResetVore") and spell ~= "LevelChangeParty" then
         regItems = true
         if VoreData[pred].Pred ~= "" then
             local weightDiff = Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // GramsPerKilo
@@ -735,14 +755,20 @@ function SP_VoreCheck(pred, prey, eventName)
 end
 
 ---Changes the amount of Weight Placeholders by looking for weights of all prey in pred.
----Remember to save VoreData after calling this
+---Do not call manually call this
 ---@param pred CHARACTER
----@param noVisual? boolean when we need to change the amount of weight placeholders but not the actual weight
-function SP_UpdateWeight(pred, noVisual)
+---@param noVisual boolean when we need to change the amount of weight placeholders but not the actual size of belly
+function SP_DoUpdateWeight(pred, noVisual)
+    WeightQueue[pred] = nil
+    WeightQueueRunning[pred] = true
     if VoreData[pred] == nil then
         Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
         Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
         SP_UpdateBelly(pred, 0)
+        SP_DelayCallTicks(6, function ()
+            WeightQueueRunning[pred] = nil
+            WeightQueueWaiting[pred] = nil
+        end)
         return
     end
     local newWeight = 0
@@ -791,6 +817,9 @@ function SP_UpdateWeight(pred, noVisual)
     -- add weight that does not belong to a prey
     newWeightVisual = newWeightVisual + VoreData[pred].Fat + VoreData[pred].AddWeight
 
+    -- fat can be a float, so we round it
+    newWeightVisual = math.floor(newWeightVisual)
+
     if VoreData[pred].Items ~= "" then
         newWeightVisual = newWeightVisual + Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // GramsPerKilo
     end
@@ -807,15 +836,52 @@ function SP_UpdateWeight(pred, noVisual)
     -- This is the only solution that worked. 8d3b74d4-0fe6-465f-9e96-36b416f4ea6f is removed
     -- immediately after being added (in the main script).
     Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
-    if noVisual == true then
-        return
+    if noVisual ~= true then
+        SP_UpdateBelly(pred, newWeightVisual)
     end
     _P("weightvisual: " .. newWeightVisual)
-    SP_UpdateBelly(pred, newWeightVisual)
     -- the delay here is necessary because we wait until the potato is added
     SP_DelayCallTicks(6, function ()
         SP_ApplyOverstuffing(pred)
+        -- once the belly update fully finishes, we update it again if necessary
+        WeightQueueRunning[pred] = nil
+        if WeightQueueWaiting[pred] ~= nil then
+            local t = WeightQueueWaiting[pred]
+            WeightQueueWaiting[pred] = nil
+            SP_UpdateWeight(pred, t)
+        end
     end)
+end
+
+---Enqueues this pred for weight update
+---@param pred CHARACTER
+---@param noVisual? boolean when we need to change the amount of weight placeholders but not the actual size of belly
+function SP_UpdateWeight(pred, noVisual)
+    -- _P("Queues")
+    -- _P(WeightQueue)
+    -- _P(WeightQueueWaiting)
+    -- _P(WeightQueueRunning)
+    if noVisual == nil then
+        noVisual = false
+    end
+    -- if the belly needs to be updated but it's currently being updated, we queue it
+    if WeightQueueRunning[pred] == true then
+        if WeightQueueWaiting[pred] ~= false then
+            WeightQueueWaiting[pred] = noVisual
+        end
+    -- otherwise we update it immediately
+    elseif WeightQueue[pred] ~= false then
+        WeightQueue[pred] = noVisual
+    end
+end
+
+---updates all waiting bellies each tick
+function SP_BellyQueueUpdate()
+    if next(WeightQueue) ~= nil then
+        for k, v in pairs(WeightQueue) do
+            SP_DoUpdateWeight(k, v)
+        end
+    end
 end
 
 ---Reduces weight of prey and their preds, do not use this for regurgitation during voreception,
@@ -852,12 +918,12 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                 thisAddDiff = thisAddDiff * 2
             end
             thisAddDiff = math.min(v.AddWeight, thisAddDiff)
-            VoreData[k].AddWeight = v.AddWeight - thisAddDiff
+            VoreData[k].AddWeight = math.max(0, v.AddWeight - thisAddDiff)
             if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(k, 0) == 1 and v.Digestion ~= DType.Dead then
-                VoreData[k].Satiation = v.Satiation + thisAddDiff * ConfigVars.Hunger.HungerSatiationRate.value // 100
+                VoreData[k].Satiation = v.Satiation + thisAddDiff * ConfigVars.Hunger.HungerSatiationRate.value / 100
             end
             if ConfigVars.WeightGain.WeightGain.value and v.Digestion ~= DType.Dead then
-                VoreData[k].Fat = v.Fat + thisAddDiff * ConfigVars.WeightGain.WeightGainRate.value // 100
+                VoreData[k].Fat = v.Fat + thisAddDiff * ConfigVars.WeightGain.WeightGainRate.value / 100
             end
             --since addweight is a part of character's weight if character with addweight is prey
             --we need to reduce weight of the character and all their preds
@@ -878,7 +944,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
             thisDiff = math.min(v.Weight - v.FixedWeight // 5, thisDiff)
             if ConfigVars.WeightGain.WeightGain.value then
                 VoreData[v.Pred].Fat = VoreData[v.Pred].Fat +
-                    thisDiff * ConfigVars.WeightGain.WeightGainRate.value // 100
+                    thisDiff * ConfigVars.WeightGain.WeightGainRate.value / 100
             end
             -- if prey is not aberration or elemental or pred has boilinginsides, add satiation
             if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and
@@ -888,14 +954,14 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                     Osi.IsTagged(k, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                     Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1) then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
-                    thisDiff * ConfigVars.Hunger.HungerSatiationRate.value // 100
+                    thisDiff * ConfigVars.Hunger.HungerSatiationRate.value / 100
             end
             SP_ReduceWeightRecursive(k, thisDiff, false)
             -- if prey is endoed and pred has soothing stomach, add satiation
         elseif v.Digestion == 0 then
             if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and Osi.HasPassive(v.Pred, "SP_SoothingStomach") == 1 then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
-                    weightDiff * ConfigVars.Hunger.HungerSatiationRate.value // 100
+                    weightDiff * ConfigVars.Hunger.HungerSatiationRate.value / 100
             end
         end
     end
@@ -927,8 +993,7 @@ function SP_HungerSystem(stacks, isLong)
                 local satiationDiff = VoreData[pred].Satiation // ConfigVars.Hunger.HungerSatiation.value
                 newhungerStacks = hungerStacks - satiationDiff
                 if newhungerStacks > 0 then
-                    VoreData[pred].Satiation = VoreData[pred].Satiation -
-                        satiationDiff * ConfigVars.Hunger.HungerSatiation.value
+                    VoreData[pred].Satiation = 0
                 else
                     VoreData[pred].Satiation = VoreData[pred].Satiation -
                         hungerStacks * ConfigVars.Hunger.HungerSatiation.value
@@ -940,8 +1005,7 @@ function SP_HungerSystem(stacks, isLong)
                     satiationDiff = VoreData[pred].Fat // ConfigVars.Hunger.HungerSatiation.value
                     local newHungerCompensation = hungerCompensation - satiationDiff
                     if newHungerCompensation > 0 then
-                        VoreData[pred].Fat = VoreData[pred].Fat -
-                            satiationDiff * ConfigVars.Hunger.HungerSatiation.value
+                        VoreData[pred].Fat = 0
                     else
                         VoreData[pred].Fat = VoreData[pred].Fat -
                             hungerCompensation * ConfigVars.Hunger.HungerSatiation.value
@@ -1018,7 +1082,7 @@ function SP_FastDigestion(pred, allPrey, force)
             end
             if ConfigVars.WeightGain.WeightGain.value then
                 VoreData[pred].Fat = VoreData[pred].Fat +
-                    preyWeightDiff * ConfigVars.WeightGain.WeightGainRate.value // 100
+                    preyWeightDiff * ConfigVars.WeightGain.WeightGainRate.value / 100
             end
             if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(pred, 0) == 1 and
                 (Osi.IsTagged(prey, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 and
@@ -1027,7 +1091,7 @@ function SP_FastDigestion(pred, allPrey, force)
                     Osi.IsTagged(prey, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                     Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
                 VoreData[pred].Satiation = VoreData[pred].Satiation +
-                    preyWeightDiff * ConfigVars.Hunger.HungerSatiationRate.value // 100
+                    preyWeightDiff * ConfigVars.Hunger.HungerSatiationRate.value / 100
             end
             -- remembers all characters whose weight we need to update
             local t = prey

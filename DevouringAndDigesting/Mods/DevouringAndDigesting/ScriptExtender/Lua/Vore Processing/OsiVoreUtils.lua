@@ -2,6 +2,11 @@
 ---@param pred CHARACTER
 ---@param weight integer How many weight placeholders in inventory.
 function SP_UpdateBelly(pred, weight)
+
+    -- 160 (0.16) volume ~ 80 weight
+    -- 30 is to account for some empty space inside the pred, which allows the pred to swallow light items without belly sticking out
+    local volume = (weight * 160 / 80 - 30) * (ConfigVars.VisualsAndAudio.BellyScale.value / 100)
+
     local predRace = Osi.GetRace(pred, 1)
     -- These races use the same or similar model.
     if string.find(predRace, 'Drow') ~= nil or string.find(predRace, 'Elf') ~= nil or string.find(predRace, 'Human') ~= nil or
@@ -49,35 +54,34 @@ function SP_UpdateBelly(pred, weight)
 
     if predSizeCategory ~= nil then
         if predSizeCategory > BellyTable[predRace].DefaultSize then
-            weight = weight // (predSizeCategory - BellyTable[predRace].DefaultSize + 1)
+            volume = volume / (predSizeCategory - BellyTable[predRace].DefaultSize + 1)
         elseif predSizeCategory < BellyTable[predRace].DefaultSize then
-            weight = weight * (BellyTable[predRace].DefaultSize - predSizeCategory + 1)
+            volume = volume * (BellyTable[predRace].DefaultSize - predSizeCategory + 1)
         end
     end
 
     local bellySize = 0
     local bellyShape = ""
     for k, v in pairs(BellyTable[predRace][sex][bodyShape]) do
-        if weight > k and k > bellySize then
+        if volume > k and k > bellySize then
             bellySize = k
             bellyShape = v
         end
     end
-    _P("Updating belly visual; Race: " .. predRace .. " Sex: " .. sex .. " Belly: " .. bellyShape)
+    
 
     -- Clears overrides. Changed this so it will remove all belly-related visual overrides, meaning it should not break on polymorph
     for k, v in pairs(predData.CharacterCreationAppearance.Visuals) do
         if AllBellies[v] == true and bellyShape ~= v then
             Osi.RemoveCustomVisualOvirride(pred, v)
         elseif bellyShape == v then
-            _P("No need to change belly for " .. pred)
             bellyShape = ""
         end
     end
     -- Delay is necessary, otherwise will not work.
     if bellyShape ~= "" then
         SP_DelayCallTicks(2, function ()
-            _P("Belly Applied")
+            _P("Updating belly visual; Race: " .. predRace .. " Sex: " .. sex .. " Belly: " .. bellyShape)
             Osi.AddCustomVisualOverride(pred, bellyShape)
         end)
     end
@@ -184,14 +188,20 @@ end
 
 ---plays a random gurgle
 ---@param pred GUIDSTRING
-function SP_PlayGurgle(pred)
+---@param preyLethal integer
+---@param preyDigestion integer how many prey are dead and being digested
+function SP_PlayGurgle(pred, preyLethal, preyDigestion)
     local basePercentage = ConfigVars.VisualsAndAudio.GurgleProbability.value
+
+    -- base percentage is increased based on the number of preys of certain types
+    basePercentage = basePercentage * (1 + preyLethal + preyDigestion * 0.5)
+
     if basePercentage > 100 then
         basePercentage = 100
     elseif basePercentage == 0 or #GurgleSounds == 0 then
         return
     end
-    ---convert the percentage
+    -- convert the percentage
     basePercentage = 100 * #GurgleSounds // basePercentage
     local randomResult = Osi.Random(basePercentage) + 1
     if randomResult <= #GurgleSounds then
@@ -222,11 +232,11 @@ function SP_AssignRoleRandom(character)
     if RaceConfigVars[race] == nil then
         selectedPobability = 0
     elseif SINGLE_GENDER_CREATURE[race] == true then
-        selectedPobability = ConfigVars.NPCVore.ProbabilityCreature.value * RaceConfigVars[race]
+        selectedPobability = ConfigVars.NPCVore.ProbabilityCreature.value * RaceConfigVars[race] // 100
     elseif Osi.GetBodyType(character, 0) == "Female" then
-        selectedPobability = ConfigVars.NPCVore.ProbabilityFemale.value * RaceConfigVars[race]
+        selectedPobability = ConfigVars.NPCVore.ProbabilityFemale.value * RaceConfigVars[race] // 100
     elseif Osi.GetBodyType(character, 0) == "Male" then
-        selectedPobability = ConfigVars.NPCVore.ProbabilityMale.value * RaceConfigVars[race]
+        selectedPobability = ConfigVars.NPCVore.ProbabilityMale.value * RaceConfigVars[race] // 100
     end
     local size = SP_GetCharacterSize(character)
     if size == 0 and selectedPobability > ConfigVars.NPCVore.ClampTiny.value then

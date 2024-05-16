@@ -321,16 +321,20 @@ end
 ---@param storyActionID? integer
 function SP_OnStatusApplied(object, status, causee, storyActionID)
     local statusArgs = SP_StringSplit(status, '_')
-    if statusArgs[1] ~= 'SP_' then
+    
+    if statusArgs[1] ~= 'SP' then
         return
     end
     if statusArgs[2] == 'Digesting' then
         local pred = object
         --Randomly start digesting prey because of hunger
         local lethalRandomSwitch = false
+        local gradualCount = 0
+        local lethalCount = 0
         if VoreData[pred] == nil then
             return
         end
+        -- hunger
         if ConfigVars.Hunger.Hunger.value then
             local hungerStacks = Osi.GetStatusTurns(pred, "SP_Hunger")
             if hungerStacks >= ConfigVars.Hunger.HungerBreakpoint1.value then
@@ -347,28 +351,22 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
                 end
             end
         end
-        local gradualDigestArray = {}
-        local gradualDigestAmount = 0
+        -- iterate through prey
         for prey, locus in pairs(VoreData[pred].Prey) do
             if VoreData[prey].Digestion ~= DType.Dead and (ConfigVars.Debug.TeleportPrey.value == true or VoreData[prey].Combat ~= "") then
                 local predX, predY, predZ = Osi.GetPosition(pred)
                 Osi.TeleportToPosition(prey, predX, predY, predZ, "", 0, 0, 0, 0, 0)
             end
-            if ConfigVars.Digestion.GradualDigestion.value > 0 and VoreData[prey].Digestion == DType.Dead then
-                VoreData[pred].GradualDigestionTimer = VoreData[pred].GradualDigestionTimer + ConfigVars.Digestion.GradualDigestion.value
-                if VoreData[pred].GradualDigestionTimer >= GradualDigestionUpdateInterval then
-                    gradualDigestAmount = math.floor(VoreData[pred].GradualDigestionTimer)
-                    VoreData[pred].GradualDigestionTimer = VoreData[pred].GradualDigestionTimer % GradualDigestionUpdateInterval
-                    table.insert(gradualDigestArray, prey)
-                end
-            end
             if lethalRandomSwitch and ConfigVars.Hunger.LethalRandomSwitch.value then
                 _P("Random lethal switch")
                 SP_SwitchToDigestionType(pred, prey, DType.Endo, DType.Lethal)
             end
-        end
-        if gradualDigestArray[1] ~= nil then
-            SP_FastDigestion(pred, gradualDigestArray, gradualDigestAmount)
+            if VoreData[prey].Digestion == DType.Dead and VoreData[prey].Weight > VoreData[prey].FixedWeight // 5 then
+                gradualCount = gradualCount + 1
+            elseif VoreData[prey].Digestion == DType.Lethal then
+                lethalCount = lethalCount + 1
+            end
+
         end
         if lethalRandomSwitch and ConfigVars.Hunger.LethalRandomSwitch.value then
             VoreData[pred].DigestItems = true
@@ -376,8 +374,21 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         if VoreData[pred].DigestItems and VoreData[pred].Items ~= "" then
             SP_DigestItem(pred)
         end
-        SP_PlayGurgle(pred)
-        --add random role to characters around host
+        -- gradual digestion
+        if ConfigVars.Digestion.GradualDigestionAmount.value > 0 and ConfigVars.Digestion.GradualDigestionTurns.value > 0 then
+            VoreData[pred].GradualDigestionTimer = VoreData[pred].GradualDigestionTimer + 1
+            if VoreData[pred].GradualDigestionTimer >= ConfigVars.Digestion.GradualDigestionTurns.value then
+                VoreData[pred].GradualDigestionTimer = 0
+                if gradualCount > 0 then
+                    SP_FastDigestion(pred, VoreData[pred].Prey, ConfigVars.Digestion.GradualDigestionAmount.value)
+                end
+            end
+        end
+        SP_PlayGurgle(pred, lethalCount, gradualCount)
+
+
+
+    --add random role to characters around host
     elseif statusArgs[2] == "ROLESELECTOR" and statusArgs[3] == 'AURA' then
         SP_AssignRoleRandom(object)
     elseif statusArgs[2] == 'Struggle' then
@@ -404,7 +415,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
                 end
             end
         end
-    elseif statusArgs[2] == "SP_HitBellyport" then
+    elseif statusArgs[2] == "HitBellyport" then
         local prey = object
         local caster = SP_CharacterFromGUID(causee)
         _P(caster)
@@ -456,7 +467,7 @@ end
 ---@param success integer
 function SP_OnItemUsed(character, item, success)
     local itemParams = SP_StringSplit(item, '_')
-    if itemParams[1] == 'SP_' then
+    if itemParams[1] == 'SP' then
         local template = Osi.GetTemplate(item)
         _P(template)
         -- item name + map key
@@ -739,14 +750,22 @@ function SP_OnBeforeLevelUnloaded(level)
     end
 
     for k, v in pairs(VoreData) do
-        if next(v.Prey) ~= nil then
-            SP_RegurgitatePrey(k, "All", -1, "LevelChange")
+        if next(v.Prey) ~= nil or v.Items ~= "" then
+            -- party members should not regurgitate items
+            if Osi.IsPartyMember(k, 1) == 1 then
+                SP_RegurgitatePrey(k, "All", -1, "LevelChangeParty")
+            else
+                SP_RegurgitatePrey(k, "All", -1, "LevelChange")
+            end
         end
     end
     for k, v in pairs(VoreData) do
         VoreData[k].Prey = {}
         VoreData[k].Pred = ""
         SP_VoreDataEntry(k, false)
+        if Osi.IsPartyMember(k, 1) == 0 then
+            VoreData[k] = nil
+        end
     end
 end
 

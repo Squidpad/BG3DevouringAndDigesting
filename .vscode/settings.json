@@ -84,7 +84,8 @@
     "Lua.type.weakUnionCheck": true,
     "files.exclude": {
         "DevouringAndDigesting\\Public\\DevouringAndDigesting\\Stats\\Generated\\Data\\*.txt": true
-    }
+    },
+    "bg3ModHelper.rootModPath": "c:\\Games\\BG3Mods\\temp_mod\\new\\BG3DevouringAndDigesting"
 
       
 }

@@ -16,12 +16,28 @@ local DEFAULT_VARS = {
         GurgleProbability = {
             name = "Gurgle Probability",
             description = "The % chance of a gurgle being played every 6 seconds (a turn). Set to 0 to disable.",
-            value = 8,
-            default = 8,
+            value = 5,
+            default = 5,
             range = {0, 100, 1},
             extras = {
                 slider = true,
             },
+        },
+        BellyScale = {
+            name = "Belly Scale",
+            description = "Increases / reduces the size of all bellies. Default is 100%",
+            value = 100,
+            default = 100,
+            range = {0, 1000, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        SweatyVore = {
+            name = "Sweaty Vore",
+            description = "Swallowing a prey will make the predator sweaty for a couple of turns",
+            value = true,
+            default = true,
         },
     },
     Debug = {
@@ -175,13 +191,24 @@ local DEFAULT_VARS = {
             value = true,
             default = true,
         },
-        GradualDigestion = {
-            name = "Gradual Digestion Rate",
+        GradualDigestionAmount = {
+            name = "Gradual Digestion Amount",
             description =
-            "You will passively digest dead prey this much per in-game minute. Set to 0 to disable. Setting this too high can result in bugs!",
-            value = 0.5,
-            default = 0.5,
-            range = {0, 10, 0.1},
+            "You will passively digest dead prey by this much per X turns (set with Gradual Digestion Turns option). Set to 0 to disable.",
+            value = 5,
+            default = 5,
+            range = {0, 100, 1},
+            extras = {
+                slider = true,
+            },
+        },
+        GradualDigestionTurns = {
+            name = "Gradual Digestion Turns",
+            description =
+            "How often passive digestion happens. 1 turn = 6 real seconds. Set to 0 to disable.",
+            value = 10,
+            default = 10,
+            range = {0, 600, 1},
             extras = {
                 slider = true,
             },

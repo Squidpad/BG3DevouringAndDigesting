@@ -31,6 +31,8 @@ Ext.Require("Tables/DCTable.lua")
 Ext.Require("Tables/RaceTable.lua")
 -- all global tables except for VoreData
 Ext.Require("Tables/TableData.lua")
+-- all global tables except for VoreData
+Ext.Require("Tables/BellyTable.lua")
 
 -- utils that use osi but are not vore-related
 Ext.Require("Utils/OsiUtils.lua")
