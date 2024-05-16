@@ -16,6 +16,8 @@ function SP_UpdateBelly(pred, weight)
         predRace = 'Gith'
     elseif string.find(predRace, 'Orc') ~= nil then
         predRace = 'Orc'
+    elseif string.find(predRace, 'Dragonborn') ~= nil then
+        predRace = 'Dragonborn'
     end
     if BellyTable[predRace] == nil then
         _P("Race " .. predRace .. " does not support bellies")

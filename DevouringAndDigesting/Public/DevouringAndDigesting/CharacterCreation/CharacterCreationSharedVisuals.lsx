@@ -2219,6 +2219,1106 @@
                     </node>
                     </children>
                 </node>
+                <!-- 1 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="03bfafdb-7e2e-490f-9259-b966dc2e056c" />
+                    <attribute id="VisualResource" type="guid" value="5dc7bbae-3691-49ff-b8ff-45361ec55f5a" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 2 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="5a55e860-b222-4752-9b94-7605c8304ddb" />
+                    <attribute id="VisualResource" type="guid" value="d5ae6561-0e99-4724-8704-8657f9e87a33" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 3 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="8dbf03fd-a72f-4c31-96b0-d2c74030bdd3" />
+                    <attribute id="VisualResource" type="guid" value="6172178b-d2cf-48f7-a382-44baf177264a" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 4 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="e706a623-2b1e-4338-b187-5f83d85faef9" />
+                    <attribute id="VisualResource" type="guid" value="d4a055e0-178c-45d4-b4fd-fbd1fc052bf2" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 5 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="b330dd7a-3fe8-4ba0-8d69-9afa5ab19243" />
+                    <attribute id="VisualResource" type="guid" value="d21ee500-7e37-4e7a-9259-55e057d8f753" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 6 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="4589ae59-a0f5-4a08-be3d-ec35703d3c3b" />
+                    <attribute id="VisualResource" type="guid" value="e6e80ce1-9c64-4014-90cc-e0e5f17a463d" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 7 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="1d82be17-f4ae-4701-bd9f-65d394aa9633" />
+                    <attribute id="VisualResource" type="guid" value="5ea844af-641e-427a-b6bb-4ff809b6b7e5" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 8 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="6b1ac3b1-12d2-48d5-95bd-5fc11c0ba31e" />
+                    <attribute id="VisualResource" type="guid" value="a70c05db-d473-4f22-b81f-b3d2dd7e63d9" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 9 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="86cba42b-504e-4459-8077-cc9520072c6b" />
+                    <attribute id="VisualResource" type="guid" value="b0f69929-bf62-4956-86c4-974ac2e54fb2" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 10 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="bd5ca730-2b28-4593-9588-2203ba91416a" />
+                    <attribute id="VisualResource" type="guid" value="f77f6ef6-5fd6-48e3-b505-4b920d95f102" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 11 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="78b035a2-4c32-4a54-9f6c-be8c35be6994" />
+                    <attribute id="VisualResource" type="guid" value="aaef01bb-f082-4f47-89e5-88ab0d7cbca7" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 12 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="71989360-0c4d-478f-bc2e-22b21a26427a" />
+                    <attribute id="VisualResource" type="guid" value="f198a063-2646-4cc7-801b-2e9a3e0c5da1" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 13 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="d3819087-20f9-40cb-ace8-70b5e23c138b" />
+                    <attribute id="VisualResource" type="guid" value="72a81f6e-c86d-49ff-9fb3-a2d5af11f9d6" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 14 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="3a573c92-58ae-4c72-b5b0-f9bb28718627" />
+                    <attribute id="VisualResource" type="guid" value="47460a65-874b-49e1-92cf-3b6619dbe6b5" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 15 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="5ca75551-2c02-4507-bf07-2d89b9c6a60b" />
+                    <attribute id="VisualResource" type="guid" value="9d998010-5b2e-45aa-a5fd-13b919eb2179" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 16 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="82d9fdf4-c981-4fa0-8c13-70e171e88af3" />
+                    <attribute id="VisualResource" type="guid" value="791a89df-16b9-49f7-9a3e-48e3922f0cf1" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 17 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="5a6127ec-0a0f-4bfb-9bee-fdf5f2594d8b" />
+                    <attribute id="VisualResource" type="guid" value="9dc3f215-283d-4222-9210-2bc267745795" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 18 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="9576e28f-2c13-49e5-98a4-de295edf1a46" />
+                    <attribute id="VisualResource" type="guid" value="122f93c1-4499-42f8-9115-47b80ce35443" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 19 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="11a4383a-83c9-4aa6-9959-a8580be2baa7" />
+                    <attribute id="VisualResource" type="guid" value="e779186d-1e90-4855-a56d-eac47f559028" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 20 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="1c511051-5b81-4d23-8493-13565e771ebc" />
+                    <attribute id="VisualResource" type="guid" value="ee12d35e-464e-4e65-b87a-4457956d3612" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 21 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="4427a4fb-6df0-46d2-9646-6e8462082c34" />
+                    <attribute id="VisualResource" type="guid" value="6d9c5096-47bd-4b35-80d8-662085dbe657" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 22 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="fefce8b0-0526-4538-a34d-ae51c34e1eb0" />
+                    <attribute id="VisualResource" type="guid" value="d87737db-0a75-4699-bf91-be566ef94bc6" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 23 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="08159e58-c2d9-43e6-a382-d1287ffa16a9" />
+                    <attribute id="VisualResource" type="guid" value="d6dbbab9-f090-4640-8e6d-4cab1340fb06" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 24 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="41762393-a4a4-43c6-bc44-3b033413e6ca" />
+                    <attribute id="VisualResource" type="guid" value="78cf852d-2f30-44c4-b696-b809fb699ec7" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 25 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="bc3c7661-33df-49e7-ae5a-e9d87c4eed85" />
+                    <attribute id="VisualResource" type="guid" value="f9037d43-82d3-4740-8512-097b03bda547" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 26 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="ed897b85-3134-4803-8405-4fed5e0ca3a6" />
+                    <attribute id="VisualResource" type="guid" value="7c29d2d9-48a7-45ec-9397-00078d3ea09b" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 27 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="b8a42248-9204-438c-ac04-719c9c8dc38b" />
+                    <attribute id="VisualResource" type="guid" value="e4a0955e-9673-486d-b789-39a9e8fe9ceb" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 28 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="7b5d8cd8-1c3d-4d08-8bbc-f84528522f3e" />
+                    <attribute id="VisualResource" type="guid" value="c4d6e6f6-6fd8-4876-b3d4-435e009593ae" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 29 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="bd1a80f8-2ffd-429d-a20f-ad23cf6915a8" />
+                    <attribute id="VisualResource" type="guid" value="f9b215ec-47a9-4cb2-b0ac-dea3fa7a2f9b" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 30 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="37f09b62-1ea4-4400-96f2-4a348910365d" />
+                    <attribute id="VisualResource" type="guid" value="67b67514-5186-4542-aaa9-aa668df546b0" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 31 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="4118e0b0-76ed-4d6b-81fa-0316b694b546" />
+                    <attribute id="VisualResource" type="guid" value="2abee0bd-e32e-4fcf-9c9a-587fc8ffc6de" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 32 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="d75eda39-4815-4616-bbf7-8d2459fbffe1" />
+                    <attribute id="VisualResource" type="guid" value="3a0d9245-72ed-454d-9a96-9715a34de2b0" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 33 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="875a13aa-79f0-44f8-9306-8a835e6c0250" />
+                    <attribute id="VisualResource" type="guid" value="45f60078-16c9-45e5-99b8-b167cf04ed71" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 34 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="2c391818-d6ed-4707-99dc-a9b5a518c4f8" />
+                    <attribute id="VisualResource" type="guid" value="eebd808d-f80d-4452-8da5-c7a0ee955c52" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 35 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="fb1ccba3-2fe8-4a33-8707-8dc87cc45372" />
+                    <attribute id="VisualResource" type="guid" value="e9e138fa-de17-4596-b6d7-55f5f3fb88fc" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 36 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="f41d080c-d371-4406-b587-bbe723b99be1" />
+                    <attribute id="VisualResource" type="guid" value="ac9eb51c-8dc1-4109-b7ee-7e81df6330cd" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 37 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="a8f44f11-0c62-4819-ba45-179e36ba6bb1" />
+                    <attribute id="VisualResource" type="guid" value="d123be2e-b53a-40d4-ad90-7e326e42ee70" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 38 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="7a24a3eb-cbff-468d-b2a7-3eb8b101fa6e" />
+                    <attribute id="VisualResource" type="guid" value="26757f5f-13b8-4cc2-a738-06c6a3892b3f" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 39 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="4c258bef-28ea-4c9c-80d2-ca8ae3ef049a" />
+                    <attribute id="VisualResource" type="guid" value="cbdb0342-007d-4942-8234-2f32c211ef15" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 40 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="1d884292-25f9-4826-a5b8-23e7ee819576" />
+                    <attribute id="VisualResource" type="guid" value="b7b8b889-e953-4dee-8ef2-4b21c88ab8b5" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 41 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="d0dd5cc5-c598-41b1-aa69-06829797ca96" />
+                    <attribute id="VisualResource" type="guid" value="ea78fed0-3adb-4716-8352-e2b28f809590" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 42 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="b3674055-10b1-4e4d-8961-7f46e2397480" />
+                    <attribute id="VisualResource" type="guid" value="95ea04f9-c609-4cc3-88af-1c5f837e9c2e" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 43 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="d3e72c39-3d44-4a45-a7c4-8c7f804dbcef" />
+                    <attribute id="VisualResource" type="guid" value="9d61c2c8-ecf7-414c-b1e4-ef8e33008f9a" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 44 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="aa0c0b4c-3bf0-4a2d-887e-f31db8112ce4" />
+                    <attribute id="VisualResource" type="guid" value="54f5025b-80ba-4d23-9c12-47ed08368209" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 45 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="7094fbc2-a9ed-4a55-9fcf-1f6d5c553b47" />
+                    <attribute id="VisualResource" type="guid" value="ffafc260-12dc-4c72-b592-a60086402e19" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 46 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="52dd9d60-2074-492c-8194-1faec59f1242" />
+                    <attribute id="VisualResource" type="guid" value="34edd1d6-e767-4243-90ec-063f5fe15739" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 47 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="e68f4fcd-1534-482d-89fb-db3c058b6ef4" />
+                    <attribute id="VisualResource" type="guid" value="14b7292d-7b34-402e-b052-a73f5334fac8" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 48 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="8a76f776-732e-432b-8a57-bcb24c247362" />
+                    <attribute id="VisualResource" type="guid" value="79d724cd-abc2-4adf-8a6e-7c7043731ac9" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 49 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="5ce04fa9-6efd-416f-ac4a-f20cda580d42" />
+                    <attribute id="VisualResource" type="guid" value="d0fdbef0-320c-4f29-93d2-0af3759bf6a5" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 50 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="138e61a3-ca39-4f87-9aa2-1f711a95bba4" />
+                    <attribute id="VisualResource" type="guid" value="2fb0b4ce-90db-4940-957f-c19c8fd4e55a" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 1 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="f1576531-9c20-4b95-9c36-da6e3f28a86f" />
+                    <attribute id="VisualResource" type="guid" value="18f92f24-188c-42a7-b1b3-c92d5bb210dd" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 2 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="c9cfc306-2d10-40b8-987c-3cca186446fe" />
+                    <attribute id="VisualResource" type="guid" value="a0b60686-48c4-492f-9b7d-c84a03949312" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 3 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="30275811-a276-4f0d-8428-e7ca98bcad2a" />
+                    <attribute id="VisualResource" type="guid" value="de524ca2-5dff-49bb-9524-556091aba9f2" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 4 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="0d60838d-a35b-4774-9daa-d41b20385c2d" />
+                    <attribute id="VisualResource" type="guid" value="d39e3a78-8be1-4012-9541-2976f987f4d3" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 5 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="79ed92bd-4eac-4c75-9de5-1b2a3c7540aa" />
+                    <attribute id="VisualResource" type="guid" value="70969a8a-f3d4-434a-bd4b-a3ae7fe2cad5" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 6 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="5594e326-03f3-4066-a324-c23f0b874582" />
+                    <attribute id="VisualResource" type="guid" value="dedd619b-5836-4562-8a2a-1ed8133f4fdd" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 7 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="130a0fc6-8d85-4fb3-8863-ad4165b70b4d" />
+                    <attribute id="VisualResource" type="guid" value="8546046b-3202-4acc-a11a-418bea84595c" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 8 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="528b750d-c819-4e5a-ac60-067dab3b8fa5" />
+                    <attribute id="VisualResource" type="guid" value="1f4b19ca-0985-4fb6-b952-0286bdf3718b" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 9 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="7ca7d81e-63a3-4cc5-8def-c32892d31d8a" />
+                    <attribute id="VisualResource" type="guid" value="6dd406f3-29e3-476c-91ce-c0d0f23f6e28" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 10 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="2c1e774f-1ad6-4623-ad83-a037ef02d991" />
+                    <attribute id="VisualResource" type="guid" value="2b5975ae-f06c-4237-90b4-7a74a7c113af" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 11 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="daab83b3-c488-4cf4-8372-eb0212978dcc" />
+                    <attribute id="VisualResource" type="guid" value="0f1b1ca9-f493-4395-96b4-134cf4aaae53" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 12 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="3425f003-fb59-46ca-9d6f-f7af5845f2b8" />
+                    <attribute id="VisualResource" type="guid" value="3d612311-bb0c-43b2-9684-7afc49a2b5c5" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 13 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="ffd45e1f-110c-4878-934d-e39a8b0d31df" />
+                    <attribute id="VisualResource" type="guid" value="70a60bf9-8791-4a0b-b733-45080195b649" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 14 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="2197649b-e8a4-42f9-8483-2f2781eadc62" />
+                    <attribute id="VisualResource" type="guid" value="4fe6e4aa-8558-4a55-81a9-3bc19e5e2f61" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 15 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="02ab9bd6-a9be-4a94-850e-173301e74cde" />
+                    <attribute id="VisualResource" type="guid" value="705c5fe6-b051-49bb-986d-3899adcdf549" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 16 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="6ca297ef-469f-400a-8d34-4a9618fef05f" />
+                    <attribute id="VisualResource" type="guid" value="05463d63-b892-4c3a-8ce1-8b75554ea533" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 17 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="25804202-2702-443a-be10-162b4e35370d" />
+                    <attribute id="VisualResource" type="guid" value="5c1f7c49-e861-4590-8baf-3704fa6c4e80" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 18 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="11234202-cff8-4748-b628-6ff74784bb34" />
+                    <attribute id="VisualResource" type="guid" value="b0ec5f1c-94dd-4f47-9c0e-1f72f8a478f3" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 19 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="77f40c86-9091-4810-a831-0ea525aac2ae" />
+                    <attribute id="VisualResource" type="guid" value="0674a290-cd16-43f1-bb1f-74c302b8f60c" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 20 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="1d350ca1-91be-4995-8ebd-22fd2b923592" />
+                    <attribute id="VisualResource" type="guid" value="5f6e0fa9-e498-4371-9384-b7d26bd70307" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 21 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="4dfd5833-7af9-4891-b40c-b8546ea39b74" />
+                    <attribute id="VisualResource" type="guid" value="b3af8390-0854-41c8-a3c3-2be4fa7a242d" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 22 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="97225f82-b59e-46de-808a-5fea7f910bbd" />
+                    <attribute id="VisualResource" type="guid" value="2f54e414-40e5-4d71-a8d8-1cab008aa8e8" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 23 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="3d603a27-e616-4c37-b8f7-3f5cc4b138f8" />
+                    <attribute id="VisualResource" type="guid" value="176b2286-eee6-4702-a3da-999a5d473198" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 24 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="65765e87-bfa4-4dc6-a6b0-b41f5d87226b" />
+                    <attribute id="VisualResource" type="guid" value="07d7ac64-37c0-446d-97ef-da9d1602b607" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 25 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="7a290bd5-7343-423d-aba5-bb22e24b191a" />
+                    <attribute id="VisualResource" type="guid" value="df984818-ce22-44e5-9a30-6c2c631b2c5c" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 26 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="63b36be7-e393-4e43-8902-c067e2004d26" />
+                    <attribute id="VisualResource" type="guid" value="d39264e1-7d00-49ba-9c5b-23f917499328" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 27 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="2c66b92e-6d9a-475c-a380-86b6c82e3da5" />
+                    <attribute id="VisualResource" type="guid" value="4de8ccb9-511f-466b-84e9-032a4111edb9" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 28 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="2c6329d1-3eea-47b3-a9af-3735bf3919de" />
+                    <attribute id="VisualResource" type="guid" value="7774359b-f643-42cf-9f83-a190f374bd2c" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 29 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="f87f99aa-b2cc-4d6a-8555-f536e33d689f" />
+                    <attribute id="VisualResource" type="guid" value="25f4631f-e785-4dfa-9419-f6fe5354c0aa" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 30 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="d1259c3e-fb10-423d-a71e-2c3b19f6cfa6" />
+                    <attribute id="VisualResource" type="guid" value="fc22ea6d-29c2-4b67-b6b4-871757478634" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 31 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="60ac4081-acdc-4f79-8884-0c4b387d0311" />
+                    <attribute id="VisualResource" type="guid" value="9aea74c9-eaf7-4808-a991-38f06747a0b9" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 32 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="5826ed67-55ff-4e4d-b20e-98a4e77996d2" />
+                    <attribute id="VisualResource" type="guid" value="f80dc767-8a1f-4ced-9372-c7346692e0ca" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 33 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="33e0c7ab-ff0b-410f-8c00-fc57aa5b9695" />
+                    <attribute id="VisualResource" type="guid" value="a9845186-02cc-4954-a637-0b4c9b6aed1d" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 34 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="d7d7a80c-6409-4ecb-8922-b872da0c0da1" />
+                    <attribute id="VisualResource" type="guid" value="72a54ad1-b24c-4062-991e-facbb0cc7784" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 35 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="81bfdd48-0247-4762-b780-08427e1c0fc6" />
+                    <attribute id="VisualResource" type="guid" value="952bbc90-9b8c-419c-ae43-6151d7e4a108" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 36 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="01af5dc4-d393-4c8a-be01-da74bebb8915" />
+                    <attribute id="VisualResource" type="guid" value="ba2dafbd-6f35-4d29-8bd6-3deb6e06ad87" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 37 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="9ef27675-19c2-43c4-a3c6-0892f2f6d9c8" />
+                    <attribute id="VisualResource" type="guid" value="a53ac146-5d73-4bb5-8972-3c3703da4283" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 38 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="8a1e92f1-2e76-4dc9-950c-5968207d5035" />
+                    <attribute id="VisualResource" type="guid" value="19341419-2527-43e9-8a73-b2607a1cfeaf" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 39 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="eeb7dcc4-ad9c-49c9-b4e0-d939088509bf" />
+                    <attribute id="VisualResource" type="guid" value="fc79e655-7456-4e5c-bb09-9289a0bf5d8e" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 40 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="09a88eca-71e2-48c9-b931-0f42f6498756" />
+                    <attribute id="VisualResource" type="guid" value="3619d35f-77c1-4333-a650-cef044a0630f" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 41 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="bca5d216-09b8-42d2-b427-561ddfd8e9f3" />
+                    <attribute id="VisualResource" type="guid" value="26b89058-da82-4a45-8d41-35a087087c72" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 42 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="ea1eab27-2e59-49d0-b2b5-c93ac3b6b966" />
+                    <attribute id="VisualResource" type="guid" value="571e069f-469e-4d41-bbf1-f4003ae92736" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 43 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="6aabc8dc-b42d-4ef7-a4f6-c7dddaf5f1c8" />
+                    <attribute id="VisualResource" type="guid" value="0222af19-ccab-4e59-9064-7c444e735f0a" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 44 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="89b84be6-987e-4a88-b5d2-eb3f7633bce3" />
+                    <attribute id="VisualResource" type="guid" value="1bb7dc21-d2b6-4db2-a2de-833d4d7a6d61" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 45 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="db4f72a8-abc6-4bce-9e73-26a292c08567" />
+                    <attribute id="VisualResource" type="guid" value="4745f698-3378-4ed7-aab0-df802f4e4fb0" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 46 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="18c25bb1-8238-4dac-a63f-6b3491099122" />
+                    <attribute id="VisualResource" type="guid" value="0521c8b6-c498-4669-a5e2-835823633ec7" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 47 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="3f8b29ac-9e92-400d-b244-a2d6e9a0a9ee" />
+                    <attribute id="VisualResource" type="guid" value="c417f5eb-707b-4d9f-9604-5ec8f9483f73" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 48 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="465377da-9ddb-4188-909a-191f63225184" />
+                    <attribute id="VisualResource" type="guid" value="58816488-f445-4ee1-ad45-1ab846b805bc" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 49 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="f8c2e19f-15d9-4e66-b431-b561f1f01565" />
+                    <attribute id="VisualResource" type="guid" value="004a34d6-194e-4b9d-910f-ec8f33c5df30" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
+                <!-- 50 -->
+                <node id="CharacterCreationSharedVisual">
+                    <attribute id="DisplayName" type="TranslatedString" handle="h3e21526aga300g458cgb359gff46cedfb300" version="1" />
+                    <attribute id="SlotName" type="FixedString" value="Beard" />
+                    <attribute id="UUID" type="guid" value="e3a64f99-369a-4bf3-a7c6-1fd3fdd0e01d" />
+                    <attribute id="VisualResource" type="guid" value="05270f85-e89f-4314-8737-09246a331366" />
+                    <children>
+                        <node id="Tags">
+                    </node>
+                    </children>
+                </node>
             </children>
         </node>
     </region>
