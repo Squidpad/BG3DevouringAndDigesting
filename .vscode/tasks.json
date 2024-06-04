@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "options": {
         "env": {
-            "BG3_PATH": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3",
+            "BG3_PATH": "C:\\Games\\Steam\\steamapps\\common\\Baldurs Gate 3",
             "LSLIB_PATH": "${workspaceFolder}\\Tools\\ConverterApp\\Tools",
             "BG3_EXTRACTED": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Extracted"
         }
@@ -63,7 +63,7 @@
             "command": "Tools\\ConverterApp\\Tools\\StatParser.exe",
             "args": [
                 "--game-data-path",
-                "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data",
+                "C:\\Games\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data",
                 "--package-paths",
                 "${env:UserProfile}\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Mods",
                 "--dependency",
@@ -77,74 +77,6 @@
                 "--mod",
                 "DevouringAndDigesting"
             ],
-            "dependsOn": [
-                "CopyToGameFolder"
-            ],
-        },
-        {
-            "label": "CheckStats (No Convert)",
-            "type": "process",
-            "command": "Tools\\ConverterApp\\Tools\\StatParser.exe",
-            "args": [
-                "--game-data-path",
-                "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data",
-                "--package-paths",
-                "${env:UserProfile}\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Mods",
-                "--dependency",
-                "Shared",
-                "--dependency",
-                "SharedDev",
-                "--dependency",
-                "Gustav",
-                "--dependency",
-                "GustavDev",
-                "--mod",
-                "DevouringAndDigesting"
-            ],
-            "dependsOn": [
-                "CopyToGameFolder (No Convert)"
-            ],
-        },
-        {
-            "label": "CopyToGameFolder",
-            "type": "shell",
-            "command": "python",
-            "args": [
-                "Tools\\CephsTools\\copy_folder_to.py",
-                "-f",
-                "${workspaceFolder}\\DevouringAndDigesting\\Public",
-                "-o",
-                "${workspaceFolder}\\..\\..\\Public",
-                "-s",
-                "false",
-            ],
-            "group": "build",
-            "presentation": {
-                "reveal": "silent"
-            },
-            "dependsOn": [
-                "ConvertModFiles"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "CopyToGameFolder (No Convert)",
-            "type": "shell",
-            "command": "python",
-            "args": [
-                "Tools\\CephsTools\\copy_folder_to.py",
-                "-f",
-                "${workspaceFolder}\\DevouringAndDigesting\\Public",
-                "-o",
-                "${workspaceFolder}\\..\\..\\Public",
-                "-s",
-                "false",
-            ],
-            "group": "build",
-            "presentation": {
-                "reveal": "silent"
-            },
-            "problemMatcher": []
         },
     ]
 }

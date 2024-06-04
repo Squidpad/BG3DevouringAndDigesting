@@ -8,15 +8,6 @@ function SP_DebugStatus()
     Osi.ApplyStatus(v, "FEATHER_FALL", -1)
 end
 
-function SP_DebugTest()
-    local v = Osi.GetHostCharacter()
-    Osi.AddCustomVisualOverride(v, "895fcd5b-dc72-4926-811f-c4c2e12903e9")
-end
-
-function SP_DebugTest2()
-    local v = Osi.GetHostCharacter()
-    Osi.RemoveCustomVisualOvirride(v, "895fcd5b-dc72-4926-811f-c4c2e12903e9")
-end
 
 --- Removes spells from Host
 function SP_RemoveBrokenSpells()
@@ -66,18 +57,6 @@ function SP_RemoveBrokenSpells()
     end
 end
 
-
----Console command for printing config options and states.
-function VoreConfigOptions()
-    _P("Vore Mod Configuration Options: ")
-    for k, v in pairs(ConfigVars) do
-        _P(k .. ": ")
-        for i, j in pairs(v) do
-            _P(i .. ": " .. j.description)
-            _P("Currently set to " .. tostring(j.value))
-        end
-    end
-end
 
 function SP_ResetVore()
     for k, v in pairs(VoreData or {}) do
@@ -135,17 +114,12 @@ end
 
 
 Ext.RegisterConsoleCommand('DebugStatus', SP_DebugStatus)
-Ext.RegisterConsoleCommand('Test', SP_DebugTest)
-Ext.RegisterConsoleCommand('Test2', SP_DebugTest2)
 
 Ext.RegisterConsoleCommand('FixSpell', SP_RemoveBrokenSpells)
 
--- Lets you config during runtime.
-Ext.RegisterConsoleCommand('VoreConfigOptions', VoreConfigOptions)
-Ext.RegisterConsoleCommand('VoreConfigReload', SP_LoadConfigFromFile)
-Ext.RegisterConsoleCommand('VoreConfigReset', SP_ResetAndSaveConfig)
 
 Ext.RegisterConsoleCommand("ResetVore", SP_ResetVore)
 Ext.RegisterConsoleCommand("KillVore", SP_KillVore)
 Ext.RegisterConsoleCommand("GiveMeVore", SP_GiveMeVore)
 Ext.RegisterConsoleCommand("DebugVore", SP_DebugVore)
+

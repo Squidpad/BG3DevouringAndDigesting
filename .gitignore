@@ -14,3 +14,7 @@ DevouringAndDigesting/Public/DevouringAndDigesting/Content/Assets/Characters/Hum
 DevouringAndDigesting/Public/DevouringAndDigesting/CharacterCreation/CharacterCreationSharedVisuals.lsx
 DevouringAndDigesting/Mods/DevouringAndDigesting/ScriptExtender/Lua/Subclasses/StomachSentinelBootlegBullshit.lua
 DevouringAndDigesting/Public/DevouringAndDigesting/Stats/Generated/Data/*.txt
+DevouringAndDigesting/Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_5[1-9].GR2
+DevouringAndDigesting/Generated/Public/DevouringAndDigesting/Assets/Characters/Humans/SP_HUM_F_Belly_[67][0-9].GR2
+DevouringAndDigesting/Public/DevouringAndDigesting/CharacterCreation/CharacterCreationSharedVisuals.lsx
+DevouringAndDigesting/Public/DevouringAndDigesting/Content/Assets/Characters/Humans/[PAK]_Female_Belly/_merged.lsx

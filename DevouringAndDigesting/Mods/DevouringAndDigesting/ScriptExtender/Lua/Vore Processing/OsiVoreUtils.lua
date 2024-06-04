@@ -4,8 +4,11 @@
 function SP_UpdateBelly(pred, weight)
 
     -- 160 (0.16) volume ~ 80 weight
-    -- 30 is to account for some empty space inside the pred, which allows the pred to swallow light items without belly sticking out
-    local volume = (weight * 160 / 80 - 30) * (ConfigVars.VisualsAndAudio.BellyScale.value / 100)
+    -- offset is to account for some empty space inside the pred, which allows the pred to swallow light items without belly sticking out
+    local baseVolume = 160
+    local baseWeight = 80
+    local offset = 5
+    local volume = (weight * baseVolume / baseWeight - offset) * (SP_MCMGet("BellyScale") / 100)
 
     local predRace = Osi.GetRace(pred, 1)
     -- These races use the same or similar model.
@@ -145,12 +148,12 @@ end
 ---@param locus string
 ---@return string
 function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
-    local correctlocus = false
-    for k, v in pairs(ConfigVars.Mechanics.StatusBonusLocus.value) do
-        if string.sub(v, 1, 1) == locus then
-            correctlocus = true
-        end
-    end
+    local correctlocus = true
+    -- for k, v in pairs(SP_MCMGet("StatusBonusLocus")) do
+    --     if string.sub(v, 1, 1) == locus then
+    --         correctlocus = true
+    --     end
+    -- end
     if correctlocus then
         if endo then
             if Osi.HasPassive(prey, "SP_Gastronaut") == 1 or Osi.HasPassive(pred, "SP_MuscleControl") == 1 then
@@ -188,12 +191,26 @@ function SP_GetSwallowSkill(pred, prey)
     return predStat, preyStat
 end
 
+function SP_GetPredLoci(pred)
+    local s = 'O'
+    if Osi.HasPassive(pred, "SP_CanAnalVore") then
+        s = s .. 'A'
+    end
+    if Osi.HasPassive(pred, "SP_CanUnbirth") then
+        s = s .. 'U'
+    end
+    if Osi.HasPassive(pred, "SP_CanCockVore") then
+        s = s .. 'C'
+    end
+    return "SP_Zone_RegurgitateContainer_" .. s
+end
+
 ---plays a random gurgle
 ---@param pred GUIDSTRING
 ---@param preyLethal integer
 ---@param preyDigestion integer how many prey are dead and being digested
 function SP_PlayGurgle(pred, preyLethal, preyDigestion)
-    local basePercentage = ConfigVars.VisualsAndAudio.GurgleProbability.value
+    local basePercentage = SP_MCMGet("GurgleProbability")
 
     -- base percentage is increased based on the number of preys of certain types
     basePercentage = basePercentage * (1 + preyLethal + preyDigestion * 0.5)
@@ -234,19 +251,19 @@ function SP_AssignRoleRandom(character)
     if RaceConfigVars[race] == nil then
         selectedPobability = 0
     elseif SINGLE_GENDER_CREATURE[race] == true then
-        selectedPobability = ConfigVars.NPCVore.ProbabilityCreature.value * RaceConfigVars[race] // 100
+        selectedPobability = SP_MCMGet("ProbabilityCreature") * RaceConfigVars[race] // 100
     elseif Osi.GetBodyType(character, 0) == "Female" then
-        selectedPobability = ConfigVars.NPCVore.ProbabilityFemale.value * RaceConfigVars[race] // 100
+        selectedPobability = SP_MCMGet("ProbabilityFemale") * RaceConfigVars[race] // 100
     elseif Osi.GetBodyType(character, 0) == "Male" then
-        selectedPobability = ConfigVars.NPCVore.ProbabilityMale.value * RaceConfigVars[race] // 100
+        selectedPobability = SP_MCMGet("ProbabilityMale") * RaceConfigVars[race] // 100
     end
     local size = SP_GetCharacterSize(character)
-    if size == 0 and selectedPobability > ConfigVars.NPCVore.ClampTiny.value then
-        selectedPobability = ConfigVars.NPCVore.ClampTiny.value
-    elseif size == 1 and selectedPobability > ConfigVars.NPCVore.ClampSmall.value then
-        selectedPobability = ConfigVars.NPCVore.ClampSmall.value
+    if size == 0 and selectedPobability > SP_MCMGet("ClampTiny") then
+        selectedPobability = SP_MCMGet("ClampTiny")
+    elseif size == 1 and selectedPobability > SP_MCMGet("ClampSmall") then
+        selectedPobability = SP_MCMGet("ClampSmall")
     end
-    if PRED_NPC_TABLE[character] ~= nil and (selectedPobability > 0 or ConfigVars.NPCVore.SpecialNPCsOverridePreferences.value) then
+    if PRED_NPC_TABLE[character] ~= nil and (selectedPobability > 0 or SP_MCMGet("SpecialNPCsOverridePreferences")) then
         Osi.AddPassive(character, "SP_Gluttony")
     elseif selectedPobability > 0 then
         local randomRoll = Osi.Random(100) + 1

@@ -83,6 +83,7 @@ function SP_OnSessionLoaded()
     end
     VoreData = PersistentVars['VoreData']
     SP_MigratePersistentVars()
+    
 end
 
 function SP_Tick()
@@ -93,3 +94,5 @@ Ext.Events.BeforeDealDamage:Subscribe(spHandleBeforeDealDamage)
 Ext.Events.SessionLoaded:Subscribe(SP_OnSessionLoaded)
 Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
 Ext.Events.Tick:Subscribe(SP_Tick)
+
+

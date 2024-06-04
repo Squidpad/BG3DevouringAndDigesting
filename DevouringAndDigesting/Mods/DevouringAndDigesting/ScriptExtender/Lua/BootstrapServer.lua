@@ -9,9 +9,11 @@ Ext.Require("Events/EventUtils.lua")
 Ext.Require("Events/ExtEvents.lua")
 -- for Osiris events (but not Ext events)
 Ext.Require("Events/OsiEvents.lua")
+-- for events involving the MCM (Split into Server and Client)
+Ext.Require("Events/MCMEventsServer.lua")
 
 -- config, it's saving and loading
-Ext.Require("IO/Config.lua")
+Ext.Require("IO/MCMConfig.lua")
 -- for console commands
 Ext.Require("IO/ConsoleCommands.lua")
 -- output

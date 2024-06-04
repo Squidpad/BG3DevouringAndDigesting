@@ -50,7 +50,7 @@ function SP_VorePossible(pred, prey)
         return false
     end
     local isItem = Osi.IsItem(prey) == 1
-    if not ConfigVars.Mechanics.AllowOverstuffing.value and ((isItem and not SP_CanFitItem(pred, prey)) or
+    if not SP_MCMGet("AllowOverstuffing") and ((isItem and not SP_CanFitItem(pred, prey)) or
             (not isItem and not SP_CanFitPrey(pred, prey))) then
         Osi.ApplyStatus(pred, "SP_Cant_Fit_Prey", SecondsPerTurn * 6, 1, prey)
         return false
@@ -105,7 +105,7 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
             VoreData[prey].DisableDowned = true
         end
 
-        if ConfigVars.Mechanics.SwallowDown.value and swallowStages then
+        if SP_MCMGet("SwallowDown") and swallowStages then
             VoreData[prey].SwallowProcess = preySize - predSize + 1
             --handle stretchy maw
             if Osi.HasPassive(pred, "SP_StretchyMaw") == 1 then
@@ -265,11 +265,11 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested, swallowStages, locus
 
     SP_AddPrey(pred, prey, swallowType, notNested, swallowStages, locus)
 
-    Osi.AddSpell(pred, 'SP_Zone_Regurgitate', 0, 0)
+    Osi.AddSpell(pred, SP_GetPredLoci(pred), 0, 0)
     Osi.AddSpell(pred, 'SP_Zone_SpeedUpDigestion', 0, 0)
     Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
 
-    if ConfigVars.VisualsAndAudio.SweatyVore.value == true then
+    if SP_MCMGet("SweatyVore") == true then
         Osi.ApplyStatus(pred, "SWEATY", 5 * SecondsPerTurn)
     end
 
@@ -318,11 +318,11 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested, swallowStag
         SP_AddPrey(pred, v, swallowType, notNested, swallowStages, locus)
     end
 
-    Osi.AddSpell(pred, 'SP_Zone_Regurgitate', 0, 0)
+    Osi.AddSpell(pred, SP_GetPredLoci(pred), 0, 0)
     Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
     Osi.AddSpell(pred, 'SP_Zone_SpeedUpDigestion', 0, 0)
 
-    if ConfigVars.VisualsAndAudio.SweatyVore.value == true then
+    if SP_MCMGet("SweatyVore") == true then
         Osi.ApplyStatus(pred, "SWEATY", 5 * SecondsPerTurn)
     end
 
@@ -359,7 +359,7 @@ function SP_SwallowItem(pred, item)
 
     if Osi.TemplateIsInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred) == 1 then
         if VoreData[pred].StuffedStacks == 0 then
-            Osi.AddSpell(pred, 'SP_Zone_Regurgitate', 0, 0)
+            Osi.AddSpell(pred, SP_GetPredLoci(pred), 0, 0)
             Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
         end
         VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
@@ -388,7 +388,7 @@ function SP_SwallowAllItems(pred, container)
     if Osi.TemplateIsInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred) == 1 then
         if VoreData[pred].StuffedStacks == 0 then
 
-            Osi.AddSpell(pred, 'SP_Zone_Regurgitate', 0, 0)
+            Osi.AddSpell(pred, SP_GetPredLoci(pred), 0, 0)
             Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
         end
         VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
@@ -410,7 +410,7 @@ end
 ---digests a random item in pred's inventory
 ---@param pred CHARACTER
 function SP_DigestItem(pred)
-    if not ConfigVars.Digestion.DigestItems.value then
+    if not SP_MCMGet("DigestItems") then
         return
     end
     -- the chance of an item being digested is 1/10 per Digestion tick
@@ -531,9 +531,9 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
                     -- Osi.GetRotation() returns degrees for some ungodly reason, let's fix that :)
                     predYRotation = (predYRotation + rotationOffset) * math.pi / 180
                     -- Equation for rotating a vector in the X dimension.
-                    local newX = predX + ConfigVars.Regurgitation.RegurgitationDistance.value * math.cos(predYRotation)
+                    local newX = predX + SP_MCMGet("RegurgitationDistance") * math.cos(predYRotation)
                     -- Equation for rotating a vector in the Z dimension.
-                    local newZ = predZ + ConfigVars.Regurgitation.RegurgitationDistance.value * math.sin(predYRotation)
+                    local newZ = predZ + SP_MCMGet("RegurgitationDistance") * math.sin(predYRotation)
                     -- Places prey at pred's location, vaguely in front of them.
                     Osi.ItemMoveToPosition(uuid, newX, predY, newZ, 100000, 100000)
                     _P("Moved Item " .. uuid)
@@ -613,8 +613,8 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
             local predX, predY, predZ = Osi.getPosition(pred)
             local predXRotation, predYRotation, predZRotation = Osi.GetRotation(pred)
             predYRotation = (predYRotation + rotationOffsetDisosal) * math.pi / 180
-            local newX = predX + ConfigVars.Regurgitation.RegurgitationDistance.value * math.cos(predYRotation)
-            local newZ = predZ + ConfigVars.Regurgitation.RegurgitationDistance.value * math.sin(predYRotation)
+            local newX = predX + SP_MCMGet("RegurgitationDistance") * math.cos(predYRotation)
+            local newZ = predZ + SP_MCMGet("RegurgitationDistance") * math.sin(predYRotation)
             Osi.TeleportToPosition(prey, newX, predY, newZ, "", 0, 0, 0, 0, 1)
             rotationOffsetDisosal = rotationOffsetDisosal + rotationOffsetDisosal1
             if Osi.HasPassive(prey, 'SP_EscapeArtist') == 0 then
@@ -643,7 +643,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
 
     -- If pred has no more prey inside.
     if next(VoreData[pred].Prey) == nil and VoreData[pred].Items == "" then
-        Osi.RemoveSpell(pred, 'SP_Zone_Regurgitate', 1)
+        Osi.RemoveSpell(pred, SP_GetPredLoci(pred), 1)
         Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown')
         Osi.RemoveSpell(pred, 'SP_Zone_SwitchToLethal', 1)
         Osi.RemoveSpell(pred, 'SP_Zone_SpeedUpDigestion', 1)
@@ -655,13 +655,13 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     end
 
     -- add swallow cooldown after regurgitation
-    if locus ~= "A" and (preyString == "All" or spell == "SwallowFail") and ConfigVars.Regurgitation.CooldownSwallow.value > 0 then
-        Osi.ApplyStatus(pred, 'SP_CooldownSwallow', ConfigVars.Regurgitation.CooldownSwallow.value * SecondsPerTurn,
+    if locus ~= "A" and (preyString == "All" or spell == "SwallowFail") and SP_MCMGet("CooldownSwallow") > 0 then
+        Osi.ApplyStatus(pred, 'SP_CooldownSwallow', SP_MCMGet("CooldownSwallow") * SecondsPerTurn,
                         1)
     end
-    if locus ~= "A" and (preyString == "All" or spell == "SwallowFail") and ConfigVars.Regurgitation.CooldownRegurgitate.value > 0 then
+    if locus ~= "A" and (preyString == "All" or spell == "SwallowFail") and SP_MCMGet("CooldownRegurgitate") > 0 then
         Osi.ApplyStatus(pred, 'SP_CooldownRegurgitate',
-                        ConfigVars.Regurgitation.CooldownRegurgitate.value * SecondsPerTurn, 1)
+                        SP_MCMGet("CooldownRegurgitate") * SecondsPerTurn, 1)
     end
 
 
@@ -914,16 +914,16 @@ function SP_SlowDigestion(weightDiff, fatDiff)
         if v.AddWeight > 0 then
             local thisAddDiff = weightDiff
 
-            if ConfigVars.Mechanics.BoilingInsidesFast.value and Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1 then
+            if SP_MCMGet("BoilingInsidesFast") and Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1 then
                 thisAddDiff = thisAddDiff * 2
             end
             thisAddDiff = math.min(v.AddWeight, thisAddDiff)
             VoreData[k].AddWeight = math.max(0, v.AddWeight - thisAddDiff)
-            if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(k, 0) == 1 and v.Digestion ~= DType.Dead then
-                VoreData[k].Satiation = v.Satiation + thisAddDiff * ConfigVars.Hunger.HungerSatiationRate.value / 100
+            if SP_MCMGet("Hunger") and Osi.IsPartyMember(k, 0) == 1 and v.Digestion ~= DType.Dead then
+                VoreData[k].Satiation = v.Satiation + thisAddDiff * SP_MCMGet("HungerSatiationRate") / 100
             end
-            if ConfigVars.WeightGain.WeightGain.value and v.Digestion ~= DType.Dead then
-                VoreData[k].Fat = v.Fat + thisAddDiff * ConfigVars.WeightGain.WeightGainRate.value / 100
+            if SP_MCMGet("WeightGain") and v.Digestion ~= DType.Dead then
+                VoreData[k].Fat = v.Fat + thisAddDiff * SP_MCMGet("WeightGainRate") / 100
             end
             --since addweight is a part of character's weight if character with addweight is prey
             --we need to reduce weight of the character and all their preds
@@ -937,31 +937,31 @@ function SP_SlowDigestion(weightDiff, fatDiff)
     for k, v in pairs(VoreData) do
         if v.Digestion == 1 then
             local thisDiff = weightDiff
-            if ConfigVars.Mechanics.BoilingInsidesFast.value and Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1 then
+            if SP_MCMGet("BoilingInsidesFast") and Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1 then
                 thisDiff = thisDiff * 2
             end
             -- Prey's weight after digestion should not be smaller then 1/5th of their original (fake) weight.
             thisDiff = math.min(v.Weight - v.FixedWeight // 5, thisDiff)
-            if ConfigVars.WeightGain.WeightGain.value then
+            if SP_MCMGet("WeightGain") then
                 VoreData[v.Pred].Fat = VoreData[v.Pred].Fat +
-                    thisDiff * ConfigVars.WeightGain.WeightGainRate.value / 100
+                    thisDiff * SP_MCMGet("WeightGainRate") / 100
             end
             -- if prey is not aberration or elemental or pred has boilinginsides, add satiation
-            if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and
+            if SP_MCMGet("Hunger") and Osi.IsPartyMember(v.Pred, 0) == 1 and
                 (Osi.IsTagged(k, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 and
                     Osi.IsTagged(k, "196351e2-ff25-4e2b-8560-222ac6b94a54") == 0 and
                     Osi.IsTagged(k, "22e5209c-eaeb-40dc-b6ef-a371794110c2") == 0 and
                     Osi.IsTagged(k, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                     Osi.HasPassive(v.Pred, "SP_BoilingInsides") == 1) then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
-                    thisDiff * ConfigVars.Hunger.HungerSatiationRate.value / 100
+                    thisDiff * SP_MCMGet("HungerSatiationRate") / 100
             end
             SP_ReduceWeightRecursive(k, thisDiff, false)
             -- if prey is endoed and pred has soothing stomach, add satiation
         elseif v.Digestion == 0 then
-            if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(v.Pred, 0) == 1 and Osi.HasPassive(v.Pred, "SP_SoothingStomach") == 1 then
+            if SP_MCMGet("Hunger") and Osi.IsPartyMember(v.Pred, 0) == 1 and Osi.HasPassive(v.Pred, "SP_SoothingStomach") == 1 then
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
-                    weightDiff * ConfigVars.Hunger.HungerSatiationRate.value / 100
+                    weightDiff * SP_MCMGet("HungerSatiationRate") / 100
             end
         end
     end
@@ -978,7 +978,7 @@ end
 ---@param isLong boolean is long rest
 function SP_HungerSystem(stacks, isLong)
     -- hunger system
-    if not ConfigVars.Hunger.Hunger.value then
+    if not SP_MCMGet("Hunger") then
         return
     end
     local party = Ext.Entity.Get(Osi.GetHostCharacter()).PartyMember.Party.PartyView.Characters
@@ -990,25 +990,25 @@ function SP_HungerSystem(stacks, isLong)
             local hungerStacks = stacks + Osi.GetStatusTurns(pred, "SP_Hunger")
             local newhungerStacks = hungerStacks
             if VoreData[pred] ~= nil then
-                local satiationDiff = VoreData[pred].Satiation // ConfigVars.Hunger.HungerSatiation.value
+                local satiationDiff = VoreData[pred].Satiation // SP_MCMGet("HungerSatiation")
                 newhungerStacks = hungerStacks - satiationDiff
                 if newhungerStacks > 0 then
                     VoreData[pred].Satiation = 0
                 else
                     VoreData[pred].Satiation = VoreData[pred].Satiation -
-                        hungerStacks * ConfigVars.Hunger.HungerSatiation.value
+                        hungerStacks * SP_MCMGet("HungerSatiation")
                     newhungerStacks = 0
                 end
                 -- half of hunger stacks (rounded up) are removed with fat
-                if newhungerStacks > 1 and ConfigVars.Hunger.HungerUseFat.value then
+                if newhungerStacks > 1 and SP_MCMGet("HungerUseFat") then
                     local hungerCompensation = (newhungerStacks + 1) // 2
-                    satiationDiff = VoreData[pred].Fat // ConfigVars.Hunger.HungerSatiation.value
+                    satiationDiff = VoreData[pred].Fat // SP_MCMGet("HungerSatiation")
                     local newHungerCompensation = hungerCompensation - satiationDiff
                     if newHungerCompensation > 0 then
                         VoreData[pred].Fat = 0
                     else
                         VoreData[pred].Fat = VoreData[pred].Fat -
-                            hungerCompensation * ConfigVars.Hunger.HungerSatiation.value
+                            hungerCompensation * SP_MCMGet("HungerSatiation")
                         newHungerCompensation = 0
                     end
                     newhungerStacks = newhungerStacks + newHungerCompensation - hungerCompensation
@@ -1022,15 +1022,15 @@ function SP_HungerSystem(stacks, isLong)
                 Osi.ApplyStatus(pred, 'SP_Hunger', newhungerStacks * SecondsPerTurn, 1)
                 -- random switch to lethal
                 local lethalRandomSwitch = false
-                if newhungerStacks >= ConfigVars.Hunger.HungerBreakpoint3.value then
+                if newhungerStacks >= SP_MCMGet("HungerBreakpoint3") then
                     lethalRandomSwitch = true
                     Osi.ApplyStatus(pred, 'SP_HungerStage3', -1, 1)
-                elseif newhungerStacks >= ConfigVars.Hunger.HungerBreakpoint2.value then
+                elseif newhungerStacks >= SP_MCMGet("HungerBreakpoint2") then
                     Osi.ApplyStatus(pred, 'SP_HungerStage2', -1, 1)
                     if (not isLong and Osi.Random(2) == 1) or (isLong and Osi.Random(3) ~= 1) then
                         lethalRandomSwitch = true
                     end
-                elseif newhungerStacks >= ConfigVars.Hunger.HungerBreakpoint1.value then
+                elseif newhungerStacks >= SP_MCMGet("HungerBreakpoint1") then
                     Osi.ApplyStatus(pred, 'SP_HungerStage1', -1, 1)
                     if (not isLong and Osi.Random(3) == 1) or (isLong and Osi.Random(2) == 1) then
                         lethalRandomSwitch = true
@@ -1040,7 +1040,7 @@ function SP_HungerSystem(stacks, isLong)
                 --Randomly start digesting prey because of hunger
                 if VoreData[pred] ~= nil and lethalRandomSwitch then
                     for i, j in pairs(VoreData[pred].Prey) do
-                        if ConfigVars.Hunger.LethalRandomSwitch.value then
+                        if SP_MCMGet("LethalRandomSwitch") then
                             _P("Random lethal switch")
                             SP_SwitchToDigestionType(pred, i, 0, 2)
                             -- prey is digested if the switch happens during long rest
@@ -1049,7 +1049,7 @@ function SP_HungerSystem(stacks, isLong)
                             end
                         end
                     end
-                    if ConfigVars.Hunger.LethalRandomSwitch.value then
+                    if SP_MCMGet("LethalRandomSwitch") then
                         VoreData[pred].DigestItems = true
                     end
                 end
@@ -1080,18 +1080,18 @@ function SP_FastDigestion(pred, allPrey, force)
             else
                 preyWeightDiff = math.min(VoreData[prey].Weight - VoreData[prey].FixedWeight // 5, force)
             end
-            if ConfigVars.WeightGain.WeightGain.value then
+            if SP_MCMGet("WeightGain") then
                 VoreData[pred].Fat = VoreData[pred].Fat +
-                    preyWeightDiff * ConfigVars.WeightGain.WeightGainRate.value / 100
+                    preyWeightDiff * SP_MCMGet("WeightGainRate") / 100
             end
-            if ConfigVars.Hunger.Hunger.value and Osi.IsPartyMember(pred, 0) == 1 and
+            if SP_MCMGet("Hunger") and Osi.IsPartyMember(pred, 0) == 1 and
                 (Osi.IsTagged(prey, "f6fd70e6-73d3-4a12-a77e-f24f30b3b424") == 0 and
                     Osi.IsTagged(prey, "196351e2-ff25-4e2b-8560-222ac6b94a54") == 0 and
                     Osi.IsTagged(prey, "22e5209c-eaeb-40dc-b6ef-a371794110c2") == 0 and
                     Osi.IsTagged(prey, "33c625aa-6982-4c27-904f-e47029a9b140") == 0 or
                     Osi.HasPassive(pred, "SP_BoilingInsides") == 1) then
                 VoreData[pred].Satiation = VoreData[pred].Satiation +
-                    preyWeightDiff * ConfigVars.Hunger.HungerSatiationRate.value / 100
+                    preyWeightDiff * SP_MCMGet("HungerSatiationRate") / 100
             end
             -- remembers all characters whose weight we need to update
             local t = prey
@@ -1134,7 +1134,7 @@ end
 ---Recursively generates a list of all nested prey
 ---@param pred GUIDSTRING
 function SP_PlayGurgle(pred)
-    local basePercentage = ConfigVars.VisualsAndAudio.GurgleProbability.value
+    local basePercentage = SP_MCMGet("GurgleProbability")
     if basePercentage > 100 then
         basePercentage = 100
     elseif basePercentage == 0 or #GurgleSounds == 0 then
