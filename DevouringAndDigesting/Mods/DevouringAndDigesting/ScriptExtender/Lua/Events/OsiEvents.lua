@@ -250,9 +250,9 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
         local voreLocus = eventArgs[3]
         if eventArgs[2] == 'Lethal' and (resultType ~= 0 or SP_MCMGet("AlwaysSucceedVore")) then
             _P('Lethal Swallow Success by ' .. roller)         
-            local preyNotStolen = SP_SwallowPrey(roller, rollSubject, DType.Lethal, true, true, voreLocus)
+            SP_SwallowPrey(roller, rollSubject, DType.Lethal, true, true, voreLocus)
 
-            if SP_MCMGet("SwitchEndoLethal") and preyNotStolen and Osi.HasPassive(roller, 'SP_MuscleControl') == 0 then
+            if SP_MCMGet("SwitchEndoLethal") and Osi.HasPassive(roller, 'SP_MuscleControl') == 0 then
                 if voreLocus == 'O' then
                     VoreData[roller].DigestItems = true
                 end

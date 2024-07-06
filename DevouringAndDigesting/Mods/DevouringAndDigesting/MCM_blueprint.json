@@ -242,6 +242,16 @@
                     "Default": true,
                     "Description": "When you start digesting prey, you will start digesting endo prey in the same locus as well.",
                     "Type": "checkbox"
+                },
+                {
+                    "Id": "StatusBonusLocus",
+                    "Name": "Loci with bonuses",
+                    "Default": true,
+                    "Description": "These loci will receive bonuses from feats (like prey being able to cast spells while inside this locus)",
+                    "Type": "radio",
+                    "Options":{
+                        "Choices": ["All", "Stomach"]
+                    }
                 }
             ]
         },
@@ -318,7 +328,7 @@
                 {
                     "Id": "ProbabilityFemale",
                     "Name": "Predator Chance (Female)",
-                    "Default": 30,
+                    "Default": 40,
                     "Description": "The % of a female NPC becoming a predator. Female NPCs have Body Types 1 or 2, with some exceptions. This value is multiplied by the race's multiplier. Set to 0 to disable.",
                     "Type": "slider_int",
                     "Options": {
@@ -340,7 +350,7 @@
                 {
                     "Id": "SpecialNPCsOverridePreferences",
                     "Name": "NPC Overrides",
-                    "Default": false,
+                    "Default": true,
                     "Description": "NPCs from the 'always become pred' list will become predators regardless of enabled genders.",
                     "Type": "checkbox"
                 }

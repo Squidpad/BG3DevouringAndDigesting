@@ -5,9 +5,9 @@ function SP_UpdateBelly(pred, weight)
 
     -- 160 (0.16) volume ~ 80 weight
     -- offset is to account for some empty space inside the pred, which allows the pred to swallow light items without belly sticking out
-    local baseVolume = 160
+    local baseVolume = 170
     local baseWeight = 80
-    local offset = 5
+    local offset = 10
     local volume = (weight * baseVolume / baseWeight - offset) * (SP_MCMGet("BellyScale") / 100)
 
     local predRace = Osi.GetRace(pred, 1)
@@ -148,7 +148,7 @@ end
 ---@param locus string
 ---@return string
 function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
-    local correctlocus = true
+    local correctlocus = locus == 'O' or SP_MCMGet("StatusBonusLocus") == 'All';
     -- for k, v in pairs(SP_MCMGet("StatusBonusLocus")) do
     --     if string.sub(v, 1, 1) == locus then
     --         correctlocus = true
@@ -189,6 +189,18 @@ function SP_GetSwallowSkill(pred, prey)
         predStat = "Intimidation"
     end
     return predStat, preyStat
+end
+
+---removes all regurgitation containers, in case pred's avalible types of vore were changed
+---@param pred CHARACTER
+function SP_RemoveAllRegurgitate(pred)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_O", 1)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OA", 1)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAU", 1)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 1)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OU", 1)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OUC", 1)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OC", 1)
 end
 
 function SP_GetPredLoci(pred)
@@ -262,6 +274,8 @@ function SP_AssignRoleRandom(character)
         selectedPobability = SP_MCMGet("ClampTiny")
     elseif size == 1 and selectedPobability > SP_MCMGet("ClampSmall") then
         selectedPobability = SP_MCMGet("ClampSmall")
+    elseif size == 2 and selectedPobability > SP_MCMGet("ClampMedium") then
+        selectedPobability = SP_MCMGet("ClampMedium")
     end
     if PRED_NPC_TABLE[character] ~= nil and (selectedPobability > 0 or SP_MCMGet("SpecialNPCsOverridePreferences")) then
         Osi.AddPassive(character, "SP_Gluttony")

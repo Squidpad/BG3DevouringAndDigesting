@@ -643,8 +643,8 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
 
     -- If pred has no more prey inside.
     if next(VoreData[pred].Prey) == nil and VoreData[pred].Items == "" then
-        Osi.RemoveSpell(pred, SP_GetPredLoci(pred), 1)
-        Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown')
+        SP_RemoveAllRegurgitate(pred)
+        Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown', 1)
         Osi.RemoveSpell(pred, 'SP_Zone_SwitchToLethal', 1)
         Osi.RemoveSpell(pred, 'SP_Zone_SpeedUpDigestion', 1)
         Osi.RemoveStatus(pred, "SP_Indigestion")
