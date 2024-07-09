@@ -3,7 +3,7 @@ local BootStrap = {}
 
 -- add new subclasses to this table and it should work
 local NewSubClasses = {
-    GreatHunger = {
+    SP_GreatHunger = {
         subClassGuid = "a63af398-f070-4ecd-a1ec-e2ad9fbeab32",
         -- uuid of progression when subclass should be avalible
         baseClassProgressionGuid = "a7767dc5-e6ab-4e05-96fd-f0424256121c",
@@ -26,7 +26,7 @@ local NewSubClasses = {
             },
         },
     },
-    StomachSentinel = {
+    SP_StomachSentinel = {
         subClassGuid = "d170fe00-f9f1-4814-b456-1dc8981c7f2f",
         -- uuid of progression when subclass should be avalible
         baseClassProgressionGuid = "0d4a6b4b-8162-414b-81ef-1838e36e778a",

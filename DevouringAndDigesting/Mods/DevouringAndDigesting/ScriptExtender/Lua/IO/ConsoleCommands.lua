@@ -8,6 +8,9 @@ function SP_DebugStatus()
     Osi.ApplyStatus(v, "FEATHER_FALL", -1)
 end
 
+function SP_DebugTestFunc()
+    SP_TeleportToPred("ALL")
+end
 
 --- Removes spells from Host
 function SP_RemoveBrokenSpells()
@@ -89,18 +92,11 @@ function SP_KillVore()
     PersistentVars['VoreData'] = {}
 end
 
--- gives player all usable items from mod (to avoid using SummonTutorialChest)
-function SP_GiveMeVore()
+-- gives player debug items
+function SP_GiveDebugItems()
     local player = Osi.GetHostCharacter()
-    Osi.TemplateAddTo('b8d700d0-681f-4c38-b444-fe69b361d9b3', player, 1)
     Osi.TemplateAddTo('91cb93c0-0e07-4b3a-a1e9-a836585146a9', player, 1)
-    Osi.TemplateAddTo('04987160-cb88-4d3e-b219-1843e5253d51', player, 1)
-    Osi.TemplateAddTo('f3914e54-2c48-426a-a338-8e1c86ebc7be', player, 1)
-    Osi.TemplateAddTo('92067c3c-547e-4451-9377-632391702de9', player, 1)
-    Osi.TemplateAddTo('04cbdeb4-a98e-44cd-b032-972df0ba3ca1', player, 1)
     Osi.TemplateAddTo('69d2df14-6d8a-4f94-92b5-cc48bc60f132', player, 1)
-    Osi.TemplateAddTo('02ee5321-7bcd-4712-ba06-89eb1850c2e4', player, 1)
-    Osi.TemplateAddTo('319379c2-3627-4c26-b14d-3ce8abb676c3', player, 1)
 end
 
 function SP_DebugVore()
@@ -120,6 +116,7 @@ Ext.RegisterConsoleCommand('FixSpell', SP_RemoveBrokenSpells)
 
 Ext.RegisterConsoleCommand("ResetVore", SP_ResetVore)
 Ext.RegisterConsoleCommand("KillVore", SP_KillVore)
-Ext.RegisterConsoleCommand("GiveMeVore", SP_GiveMeVore)
+Ext.RegisterConsoleCommand("GiveDebugItems", SP_GiveDebugItems)
 Ext.RegisterConsoleCommand("DebugVore", SP_DebugVore)
+Ext.RegisterConsoleCommand("DebugFunc", SP_DebugTestFunc)
 

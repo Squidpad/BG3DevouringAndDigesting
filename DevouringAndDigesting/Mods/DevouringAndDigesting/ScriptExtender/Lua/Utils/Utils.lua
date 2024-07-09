@@ -36,6 +36,7 @@ end
 
 ---Returns a deepcopy of a table.
 ---@param table table<any, any> table to be copied
+---@param copies? table<any, any>
 ---@return table<any, any>
 function SP_Deepcopy(table, copies)
     copies = copies or {}
@@ -162,7 +163,7 @@ function SP_TableRandomVal(table, key)
         index = index - 1
     end
 end
-            
+       
 
 ---splits a string
 ---@param string string to split

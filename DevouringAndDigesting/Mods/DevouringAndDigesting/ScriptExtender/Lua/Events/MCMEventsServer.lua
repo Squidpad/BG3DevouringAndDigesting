@@ -17,6 +17,12 @@ Ext.RegisterNetListener("MCM_Saved_Setting", function(call, payload)
                 _P("Update Complete")
             end)
         end
+    elseif data.settingId == "AddVoreItems" and data.value == true then
+        SP_GiveVoreItems()
+        SP_MCMSet("AddVoreItems", false)
+    elseif data.settingId == "PrintVoreData" and data.value == true then
+        _D(VoreData)
+        SP_MCMSet("PrintVoreData", false)
     end
 end)
 

@@ -5,7 +5,7 @@
         <node id="root">
             <children>
                 <node id="PassiveList">
-                    <attribute id="Passives" type="LSString" value="SP_SC_BoundPrey,SP_SC_Inescapable"/>
+                    <attribute id="Passives" type="LSString" value="SP_SC_BoundPrey,SP_SC_EldritchPrison"/>
                     <attribute id="UUID" type="guid" value="fd2c7e00-95a5-444a-a63a-5cccb38c7f11"/>
                 </node>
             </children>

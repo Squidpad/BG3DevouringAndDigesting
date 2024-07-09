@@ -6,8 +6,8 @@
       <children>
         <node id="Feat">
           <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
-          <attribute id="Name" type="FixedString" value="Bottomless Stomach"/>
-          <attribute id="PassivesAdded" type="LSString" value="SP_BottomlessStomach"/>
+          <attribute id="Name" type="FixedString" value="Cavernous"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_Cavernous"/>
           <attribute id="PassivesRemoved" type="LSString" value=""/>
           <attribute id="Requirements" type="LSString" value=""/>
           <attribute id="UUID" type="guid" value="13130d6d-9137-4b2c-aef2-deaa69076186"/>

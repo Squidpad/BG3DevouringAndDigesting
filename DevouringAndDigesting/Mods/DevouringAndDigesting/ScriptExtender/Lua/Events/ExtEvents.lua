@@ -52,31 +52,16 @@ end
 
 ---Runs when reset command is sent to console.
 local function SP_OnResetCompleted()
-    if not ReloadStats then return end
-    if statFiles and #statFiles then
-        _P('Reloading stats!')
-        for _, filename in pairs(statFiles) do
-            if filename then
-                local filePath = string.format('%s%s', modPath, filename)
-                if string.len(filename) > 0 then
-                    _P(string.format('RELOADING %s', filePath))
-                    ---@diagnostic disable-next-line: undefined-field
-                    Ext.Stats.LoadStatsFile(filePath, 1)
-                else
-                    _P(string.format('Invalid file: %s', filePath))
-                end
-            end
-        end
-    end
+
 end
 
 ---Runs on session load
 function SP_OnSessionLoaded()
     -- Persistent variables are only available after SessionLoaded is triggered!
     _D(PersistentVars)
-    SP_ResetConfig()
+    -- SP_ResetConfig()
     SP_ResetRaceWeightsConfig()
-    SP_LoadConfigFromFile()
+    --SP_LoadConfigFromFile()
     SP_LoadRaceWeightsConfigFromFile()
     if PersistentVars['VoreData'] == nil then
         PersistentVars['VoreData'] = {}
@@ -92,7 +77,7 @@ end
 
 Ext.Events.BeforeDealDamage:Subscribe(spHandleBeforeDealDamage)
 Ext.Events.SessionLoaded:Subscribe(SP_OnSessionLoaded)
-Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
+-- Ext.Events.ResetCompleted:Subscribe(SP_OnResetCompleted)
 Ext.Events.Tick:Subscribe(SP_Tick)
 
 

@@ -7,7 +7,7 @@
         <node id="FeatDescription">
           <attribute id="DisplayName" type="TranslatedString" handle="h54388124gd369g4a55gb75dg89cf37ad12e2" version="1"/>
           <attribute id="Description" type="TranslatedString" handle="h3becb8d4gbb8cg40b4g9384gc7b70bc1e34a" version="1"/>
-          <attribute id="ExactMatch" type="FixedString" value="Bottomless Stomach"/>
+          <attribute id="ExactMatch" type="FixedString" value="Cavernous"/>
           <attribute id="FeatId" type="guid" value="13130d6d-9137-4b2c-aef2-deaa69076186"/>
           <attribute id="UUID" type="guid" value="b8f73b67-9ce3-4502-a34e-834ff0e37f32"/>
         </node>

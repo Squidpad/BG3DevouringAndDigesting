@@ -105,12 +105,13 @@
                     <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
                     <attribute id="UUID" type="guid" value="47e26ccb-9f93-4468-992d-c6ae4ce416a5"/>
                 </node>
+
                 <!-- Stomach Sentinel -->
                 <node id="Progression">
                     <attribute id="Level" type="uint8" value="3" />
 					<attribute id="Name" type="LSString" value="StomachSentinel" />
-                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_StrengthFromMany;SP_SC_StomachShelter;SP_SC_KnowledgeWithin" />
-					<attribute id="PassivesRemoved" type="LSString" value="" />
+                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_SentinelsStillnessUnlock;SP_SC_StomachShelter;SP_SC_KnowledgeWithin" />
+					<attribute id="PassivesRemoved" type="LSString" value="RageUnlock" />
                     <attribute id="ProgressionType" type="uint8" value="1" />
                     <attribute id="Selectors" type="LSString" value="" />
                     <attribute id="TableUUID" type="guid" value="463e82a7-c792-4b93-8967-90d48170279b" />
@@ -119,7 +120,7 @@
                 <node id="Progression">
                     <attribute id="Level" type="uint8" value="6" />
                     <attribute id="Name" type="LSString" value="StomachSentinel" />
-                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_StomachSanctuary" />
+                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_StrengthFromMany;SP_SC_StomachSanctuary" />
                     <attribute id="PassivesRemoved" type="LSString" value="SP_SC_StomachShelter" />
                     <attribute id="ProgressionType" type="uint8" value="1" />
                     <attribute id="TableUUID" type="guid" value="463e82a7-c792-4b93-8967-90d48170279b" />
@@ -134,6 +135,10 @@
                     <attribute id="TableUUID" type="guid" value="463e82a7-c792-4b93-8967-90d48170279b" />
                     <attribute id="UUID" type="guid" value="3dfaa635-f11a-4ef6-b345-befbc3678a60" />  
                 </node>
+
+                <!-- Paladin and Cleric subclasses for me and Joe -->
+                <!-- Belly Healer Cleric -->
+                
             </children>
         </node>
     </region>

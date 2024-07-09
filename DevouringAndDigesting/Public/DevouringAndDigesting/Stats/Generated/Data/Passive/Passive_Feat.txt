@@ -1,4 +1,4 @@
-new entry "SP_BottomlessStomach"
+new entry "SP_Cavernous"
 type "PassiveData"
 data "Boosts" ""
 data "DisplayName" "h54388124gd369g4a55gb75dg89cf37ad12e2;1"

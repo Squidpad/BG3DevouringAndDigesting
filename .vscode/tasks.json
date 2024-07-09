@@ -17,6 +17,7 @@
             "dependsOn": [
                 "ModLoca",
                 "EMLSX",
+                "MassLink"
             ],
             "problemMatcher": []
         },
@@ -58,6 +59,14 @@
             "problemMatcher": []
         },
         {
+            "label": "MassLink",
+            "type": "shell",
+            "command": "Tools\\PythonVEnvs\\BG3ModdingTools\\Scripts\\python.exe",
+            "args": [
+                "Tools/CephsTools/mass_link.py"
+            ],
+        },
+        {
             "label": "CheckStats",
             "type": "process",
             "command": "Tools\\ConverterApp\\Tools\\StatParser.exe",
@@ -78,5 +87,6 @@
                 "DevouringAndDigesting"
             ],
         },
+        
     ]
 }

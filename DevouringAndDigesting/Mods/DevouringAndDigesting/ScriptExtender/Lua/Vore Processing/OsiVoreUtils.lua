@@ -98,7 +98,7 @@ end
 function SP_CanFitItem(pred, item)
     local predData = Ext.Entity.Get(pred)
     local predRoom = predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight
-    -- bottomless stomach passive does not reduce the weight of items because of how it works
+    -- Cavernous passive does not reduce the weight of items because of how it works
     local itemData = Ext.Entity.Get(item).Data.Weight
     if predRoom > itemData then
         return true
@@ -108,13 +108,30 @@ function SP_CanFitItem(pred, item)
     end
 end
 
+---Checks if any of the pred's prey are still alive
+---@param pred CHARACTER the pred to querey
+---@param endoOkay? boolean if true, only check prey being digested
+---@return boolean
+function SP_HasLivingPrey(pred, endoOkay)
+    for prey, _ in pairs(VoreData[pred].Prey) do
+        if VoreData[prey].Digestion ~= DType.Dead and (VoreData[prey].Digestion ~= DType.Endo or not endoOkay) then
+            return true
+        end
+    end
+    return false
+end
+
+
 ---Checks if eating a character would exceed pred's carry limit.
 ---@param pred CHARACTER
 ---@param prey CHARACTER
 function SP_CanFitPrey(pred, prey)
+    if Osi.HasActiveStatus(pred, "SP_Bottomless") == 1 then
+        return true
+    end
     local predData = Ext.Entity.Get(pred)
     local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) // GramsPerKilo
-    if Osi.HasPassive(pred, "SP_BottomlessStomach") == 1 then
+    if Osi.HasPassive(pred, "SP_Cavernous") == 1 then
         predRoom = predRoom * 2
     end
     if Osi.HasPassive(prey, "SP_Dense") == 1 then
@@ -129,12 +146,13 @@ function SP_CanFitPrey(pred, prey)
     end
 end
 
+--TODO: Reevaluate formula
 ---Determines how overstuffed a pred is and applies the proper status stacks
 ---@param pred CHARACTER
 function SP_ApplyOverstuffing(pred)
     local mediumCharacterWeight = 75000
     local predData = Ext.Entity.Get(pred)
-    local overStuff = (predData.InventoryWeight.Weight - predData.EncumbranceStats["HeavilyEncumberedWeight"]) // mediumCharacterWeight
+    local overStuff = math.ceil((predData.InventoryWeight.Weight - predData.EncumbranceStats["HeavilyEncumberedWeight"]) / mediumCharacterWeight)
     Osi.RemoveStatus(pred, "SP_OverstuffedDamage")
     if overStuff > 0 then
         Osi.ApplyStatus(pred, "SP_OverstuffedDamage", overStuff * SecondsPerTurn)
@@ -156,7 +174,7 @@ function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
     -- end
     if correctlocus then
         if endo then
-            if Osi.HasPassive(prey, "SP_Gastronaut") == 1 or Osi.HasPassive(pred, "SP_MuscleControl") == 1 then
+            if Osi.HasPassive(prey, "SP_Gastronaut") == 1 or Osi.HasPassive(pred, "SP_MuscleControl") == 1 or Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 then
                 return "SP_SwallowedXray"
             elseif Osi.HasPassive(prey, "SP_BellyDiver") == 1 then
                 return "SP_SwallowedDiver"
@@ -191,18 +209,41 @@ function SP_GetSwallowSkill(pred, prey)
     return predStat, preyStat
 end
 
+---Teleports a prey to a pred. If prey is "ALL", teleports all prey to their respective preds.
+---@param prey CHARACTER | string
+function SP_TeleportToPred(prey)
+    if prey == "ALL" then
+        for k, v in pairs(VoreData) do
+            _D(v)
+            -- _P(v.Pred)
+            if v.Pred ~= "" then
+                local predX, predY, predZ = Osi.GetPosition(v.Pred)
+                Osi.TeleportToPosition(k, predX, predY, predZ, "", 0, 0, 0, 0, 1)
+            end
+        end
+    elseif VoreData[prey] ~= nil and VoreData[prey].Pred ~= nil then
+        local predX, predY, predZ = Osi.GetPosition(VoreData[prey].Pred)
+        Osi.TeleportToPosition(prey, predX, predY, predZ, "", 0, 0, 0, 0, 1)
+    end
+
+end
+
 function SP_GetPredLoci(pred)
-    local s = 'O'
-    if Osi.HasPassive(pred, "SP_CanAnalVore") then
-        s = s .. 'A'
+    local loci = ''
+    if Osi.HasPassive(pred, "SP_CanOralVore") == 1 then
+        loci = loci .. 'O'
     end
-    if Osi.HasPassive(pred, "SP_CanUnbirth") then
-        s = s .. 'U'
+    if Osi.HasPassive(pred, "SP_CanAnalVore") == 1 then
+        loci = loci .. 'A'
     end
-    if Osi.HasPassive(pred, "SP_CanCockVore") then
-        s = s .. 'C'
+    if Osi.HasPassive(pred, "SP_CanUnbirth") == 1 then
+        loci = loci .. 'U'
     end
-    return "SP_Zone_RegurgitateContainer_" .. s
+    if Osi.HasPassive(pred, "SP_CanCockVore") == 1 then
+        loci = loci .. 'C'
+    end
+    _P("Pred Loci are: " .. loci)
+    return loci
 end
 
 ---plays a random gurgle
@@ -230,24 +271,25 @@ end
 
 ---@param character CHARACTER
 function SP_AssignRoleRandom(character)
-    if Osi.HasPassive(character, "SP_BlockGluttony") == 1 or Osi.HasPassive(character, "SP_Gluttony") == 1 then
+    if Osi.HasPassive(character, "SP_NotPred") == 1 or Osi.HasPassive(character, "SP_IsPred") == 1 then
         return
     end
     if Ext.Entity.Get(character).ServerCharacter.Temporary == true then
-        Osi.AddPassive(character, "SP_BlockGluttony")
+        Osi.AddPassive(character, "SP_NotPred")
         return
     end
     if Osi.IsTagged(character, "ee978587-6c68-4186-9bfc-3b3cc719a835") == 1 then
-        Osi.AddPassive(character, "SP_BlockGluttony")
+        Osi.AddPassive(character, "SP_NotPred")
         return
     end
     local race = Osi.GetRace(character, 0)
     if RaceConfigVars[race] == nil then
         _P("Race not supported " .. race)
-        Osi.AddPassive(character, "SP_BlockGluttony")
+        Osi.AddPassive(character, "SP_NotPred")
         return
     end
     local selectedPobability = 0
+    selectedPobability = SP_MCMGet("ProbabilityFemale")
     if RaceConfigVars[race] == nil then
         selectedPobability = 0
     elseif SINGLE_GENDER_CREATURE[race] == true then
@@ -263,16 +305,14 @@ function SP_AssignRoleRandom(character)
     elseif size == 1 and selectedPobability > SP_MCMGet("ClampSmall") then
         selectedPobability = SP_MCMGet("ClampSmall")
     end
-    if PRED_NPC_TABLE[character] ~= nil and (selectedPobability > 0 or SP_MCMGet("SpecialNPCsOverridePreferences")) then
-        Osi.AddPassive(character, "SP_Gluttony")
-    elseif selectedPobability > 0 then
+    if selectedPobability > 0 then
         local randomRoll = Osi.Random(100) + 1
         if randomRoll <= selectedPobability then
             _P("Adding PRED to " .. character)
-            Osi.AddPassive(character, "SP_Gluttony")
+            Osi.AddPassive(character, "SP_IsPred")
         else
             _P("Adding PREY to " .. character)
-            Osi.AddPassive(character, "SP_BlockGluttony")
+            Osi.AddPassive(character, "SP_NotPred")
         end
     end
 end

@@ -31,7 +31,7 @@ data "Icon" "Spell_Evocation_OtilukesResilientSphere"
 data "Boosts" "UnlockSpell(SP_SC_BoundPrey_Spell)"
 data "Properties" "Highlighted"
 
-new entry "SP_SC_Inescapable"
+new entry "SP_SC_EldritchPrison"
 type "PassiveData"
 data "DisplayName" "h99adabe8279342b4845d3358a30042d05bd1;1"
 data "Description" "hbecad382f3e645d98b5eb76e6a058d372506;1"

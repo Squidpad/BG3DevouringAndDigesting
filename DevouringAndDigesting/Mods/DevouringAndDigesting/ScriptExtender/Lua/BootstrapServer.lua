@@ -1,8 +1,4 @@
 
-
-
-
-
 -- utils for handling events
 Ext.Require("Events/EventUtils.lua")
 -- for Ext events (but not Osiris events)

@@ -9,6 +9,7 @@ local calculateRest = true
 ---@param spellElement string Like fire, lightning, etc I think.
 ---@param storyActionID integer
 function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
+    --_P("SpellCast")
     local spellParams = SP_StringSplit(spell, "_")
     if spellParams[1] ~= 'SP' then
         return
@@ -21,7 +22,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
             if Osi.HasActiveStatus(caster, "SP_CooldownRegurgitate") ~= 0 then
                 return
             end
-            local prey = table.concat({table.unpack(spellParams, 5, #spellParams)}, "_")
+            local prey = table.concat({table.unpack(spellParams, 6, #spellParams)}, "_")
             local locus = spellParams[4]
             if locus == "X" then
                 locus = nil
@@ -58,11 +59,11 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                 end
             end
             -- deal small amount of damage to prey
-        elseif spellName == 'SpeedUpDigestion' then
+        elseif spellName == 'FlexBelly' then
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
                     if VoreData[k].Digestion == DType.Lethal then
-                        Osi.ApplyStatus(k, 'SP_SpeedUpDigestion_Status', 0, 1, caster)
+                        Osi.ApplyStatus(k, 'SP_FlexBelly_Status', 0, 1, caster)
                     end
                 end
             end
@@ -83,6 +84,8 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                     end
                 end
             end
+        elseif spell == "SP_Zone_MoveToPred" then
+            SP_TeleportToPred(caster)
         end
     end
 end
@@ -96,11 +99,9 @@ end
 ---@param spellElement? string Like fire, lightning, etc I think.
 ---@param storyActionID? integer
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
+    --_P("SpellCastTarget")
     local spellParams = SP_StringSplit(spell, "_")
     if spellParams[1] ~= "SP" then
-        return
-    end
-    if spellParams[2] ~= "Target" and spellParams[2] ~= "Projectile" then
         return
     end
     local locus = spellParams[#spellParams]
@@ -124,9 +125,11 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         -- spell type check
         if digestionType == 'Endo' then
             if Osi.IsItem(target) == 1 then
-                SP_DelayCallTicks(12, function ()
-                    SP_SwallowItem(caster, target)
-                end)
+                return
+                -- Item Vore
+                -- SP_DelayCallTicks(12, function ()
+                --     SP_SwallowItem(caster, target)
+                -- end)
             else
                 _P("Ally: " .. Osi.IsAlly(caster, target))
                 if Osi.IsAlly(caster, target) == 1 then
@@ -141,12 +144,14 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             end
         elseif digestionType == 'Lethal' then
             if Osi.IsItem(target) == 1 then
-                SP_DelayCallTicks(12, function ()
-                    SP_SwallowItem(caster, target)
-                    VoreData[caster].DigestItems = true
-                end)
+                return
+                -- Item Vore
+                -- SP_DelayCallTicks(12, function ()
+                --     SP_SwallowItem(caster, target)
+                --     VoreData[caster].DigestItems = true
+                -- end)
             else
-                SP_DelayCallTicks(6, function ()
+                SP_DelayCallTicks(2, function ()
                     SP_VoreCheck(caster, target, "SwallowCheck_Lethal_" .. locus)
                 end)
             end
@@ -198,7 +203,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         end
         -- non swallow-related spells
     else
-        if spellName == 'Massage_Pred' then
+        if spellName == 'MassagePred' then
             if VoreData[target] ~= nil then
                 Osi.RemoveStatus(target, 'SP_Indigestion')
                 for k, v in pairs(VoreData[target].Prey) do
@@ -210,20 +215,20 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         elseif spellName == 'AssignNPCPred' then
             _P(target)
             if Ext.Entity.Get(target).ServerCharacter.Temporary == false then
-                if Osi.HasPassive(target, "SP_BlockGluttony") == 1 then
+                if Osi.HasPassive(target, "SP_NotPred") == 1 then
                     _P("Was prey")
-                    Osi.RemovePassive(target, "SP_BlockGluttony")
+                    Osi.RemovePassive(target, "SP_NotPred")
                 end
-                Osi.AddPassive(target, "SP_Gluttony")
+                Osi.AddPassive(target, "SP_IsPred")
             end
         elseif spellName == 'AssignNPCPrey' then
             _P(target)
-            if Osi.HasPassive(target, "SP_Gluttony") == 1 then
+            if Osi.HasPassive(target, "SP_IsPred") == 1 then
                 _P("Was predator")
-                Osi.RemovePassive(target, "SP_Gluttony")
+                Osi.RemovePassive(target, "SP_IsPred")
             end
             if Ext.Entity.Get(target).ServerCharacter.Temporary == false then
-                Osi.AddPassive(target, "SP_BlockGluttony")
+                Osi.AddPassive(target, "SP_NotPred")
             end
         elseif spellName == 'Acidify' then
             if VoreData[caster] ~= nil then
@@ -245,11 +250,12 @@ end
 ---@param isActiveRoll? integer Whether or not the rolling GUI popped up. 0 == no, 1 == yes.
 ---@param criticality? CRITICALITYTYPE Whether or not it was a crit and what kind. 0 == no crit, 1 == crit success, 2 == crit fail.
 function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRoll, criticality)
+    --_P("Roll")
     local eventArgs = SP_StringSplit(eventName, '_')
     if eventArgs[1] == 'SwallowCheck' then
         local voreLocus = eventArgs[3]
         if eventArgs[2] == 'Lethal' and (resultType ~= 0 or SP_MCMGet("AlwaysSucceedVore")) then
-            _P('Lethal Swallow Success by ' .. roller)         
+            _P('Lethal Swallow Success by ' .. roller)
             local preyNotStolen = SP_SwallowPrey(roller, rollSubject, DType.Lethal, true, true, voreLocus)
 
             if SP_MCMGet("SwitchEndoLethal") and preyNotStolen and Osi.HasPassive(roller, 'SP_MuscleControl') == 0 then
@@ -270,7 +276,7 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
         _P('Struggle Success by ' .. roller .. ' against ' .. rollSubject)
         _P("rollresult: " .. tostring(resultType))
         -- Warlock passive
-        if Osi.HasPassive(rollSubject, "SP_SC_Inescapable") == 0 then
+        if Osi.HasPassive(rollSubject, "SP_SC_EldritchPrison") == 0 then
             Osi.ApplyStatus(rollSubject, "SP_Indigestion", 1 * SecondsPerTurn)
         end
         if Osi.HasPassive(roller, 'SP_Dense') == 1 then
@@ -320,6 +326,7 @@ end
 ---@param causee GUIDSTRING Thing that caused status to be applied.
 ---@param storyActionID? integer
 function SP_OnStatusApplied(object, status, causee, storyActionID)
+    --_P("StatusApplied")
     local statusArgs = SP_StringSplit(status, '_')
     
     if statusArgs[1] ~= 'SP' then
@@ -354,8 +361,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         -- iterate through prey
         for prey, locus in pairs(VoreData[pred].Prey) do
             if VoreData[prey].Digestion ~= DType.Dead and (SP_MCMGet("TeleportPrey") == true or VoreData[prey].Combat ~= "") then
-                local predX, predY, predZ = Osi.GetPosition(pred)
-                Osi.TeleportToPosition(prey, predX, predY, predZ, "", 0, 0, 0, 0, 0)
+                SP_TeleportToPred(prey)
             end
             if lethalRandomSwitch and SP_MCMGet("LethalRandomSwitch") then
                 _P("Random lethal switch")
@@ -384,9 +390,10 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
                 end
             end
         end
+        if not SP_HasLivingPrey(pred, true) then
+            Osi.RemoveStatus(pred, "SP_Indigestion")
+        end
         SP_PlayGurgle(pred, lethalCount, gradualCount)
-
-
 
     --add random role to characters around host
     elseif statusArgs[2] == "ROLESELECTOR" and statusArgs[3] == 'AURA' then
@@ -458,6 +465,8 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         local shelterTurns = Osi.GetStatusTurns(pred, "SP_SC_StomachShelterStuffed")
         local sanctuaryTurns = Osi.GetStatusTurns(pred, "SP_SC_StomachSanctuaryStuffed")
         Osi.ApplyStatus(pred, "SP_SC_StomachShelterStuffed_TempHP", (shelterTurns + sanctuaryTurns * 2) * SecondsPerTurn, 1, pred)
+    elseif statusArgs[2] == "TryingToEnterCombatTick" then
+        SP_TeleportToPred(object)
     end
 end
 
@@ -466,16 +475,27 @@ end
 ---@param item ITEM
 ---@param success integer
 function SP_OnItemUsed(character, item, success)
+    --_P("ItemUsed")
     local itemParams = SP_StringSplit(item, '_')
     if itemParams[1] == 'SP' then
         local template = Osi.GetTemplate(item)
+        -- check if a character lost a locus, to see if they are still a pred
+        local lociLost = false
         _P(template)
         -- item name + map key
-        if template == 'SP_PotionOfAnalVore_04987160-cb88-4d3e-b219-1843e5253d51' then
+        if template == 'SP_PotionOfOralVore_1219e0c2-e893-4de0-8a92-6212d1348223' then
+            if Osi.HasPassive(character, "SP_CanOralVore") == 0 then
+                Osi.AddPassive(character, "SP_CanOralVore")
+            else
+                Osi.RemovePassive(character, "SP_CanOralVore")
+                lociLost = true
+            end
+        elseif template == 'SP_PotionOfAnalVore_04987160-cb88-4d3e-b219-1843e5253d51' then
             if Osi.HasPassive(character, "SP_CanAnalVore") == 0 then
                 Osi.AddPassive(character, "SP_CanAnalVore")
             else
                 Osi.RemovePassive(character, "SP_CanAnalVore")
+                lociLost = true
             end
         elseif template == 'SP_PotionOfUnbirth_92067c3c-547e-4451-9377-632391702de9' then
             if Osi.HasPassive(character, "SP_CanUnbirth") == 0 and (Osi.IsTagged(character, 'a0738fdf-ca0c-446f-a11d-6211ecac3291') == 1 or not
@@ -483,6 +503,7 @@ function SP_OnItemUsed(character, item, success)
                 Osi.AddPassive(character, "SP_CanUnbirth")
             else
                 Osi.RemovePassive(character, "SP_CanUnbirth")
+                lociLost = true
             end
         elseif template == 'SP_PotionOfCockVore_04cbdeb4-a98e-44cd-b032-972df0ba3ca1' then
             if Osi.HasPassive(character, "SP_CanCockVore") == 0 and (Osi.IsTagged(character, 'd27831df-2891-42e4-b615-ae555404918b') == 1 or not
@@ -490,13 +511,14 @@ function SP_OnItemUsed(character, item, success)
                 Osi.AddPassive(character, "SP_CanCockVore")
             else
                 Osi.RemovePassive(character, "SP_CanCockVore")
+                lociLost = true
             end
-        elseif template == 'SP_PotionOfGluttony_f3914e54-2c48-426a-a338-8e1c86ebc7be' then
-            if Osi.HasPassive(character, "SP_Gluttony") == 0 then
-                Osi.AddPassive(character, "SP_Gluttony")
-            else
-                Osi.RemovePassive(character, "SP_Gluttony")
-            end
+        -- elseif template == 'SP_PotionOfGluttony_f3914e54-2c48-426a-a338-8e1c86ebc7be' then
+        --     if Osi.HasPassive(character, "SP_IsPred") == 0 then
+        --         Osi.AddPassive(character, "SP_IsPred")
+        --     else
+        --         Osi.RemovePassive(character, "SP_IsPred")
+        --     end
         elseif template == 'SP_PotionOfPrey_02ee5321-7bcd-4712-ba06-89eb1850c2e4' then
             if Osi.HasPassive(character, "SP_IsPrey") == 0 then
                 Osi.AddPassive(character, "SP_IsPrey")
@@ -522,6 +544,15 @@ function SP_OnItemUsed(character, item, success)
                 Osi.RemovePassive(character, "SP_Assigner")
             end
         end
+        -- if no loci left, remove pred status
+        SP_DelayCallTicks(2, function ()
+            if lociLost and SP_GetPredLoci(character) == "" then
+                
+                Osi.RemovePassive(character, "SP_IsPred")
+            elseif Osi.HasPassive(character, "SP_IsPred") == 0 then
+                Osi.AddPassive(character, "SP_IsPred")
+            end
+        end)
     end
 end
 
@@ -529,7 +560,7 @@ end
 function SP_OnLevelUp(character)
     if SP_MCMGet("FeatsAddLoci") then
         SP_DelayCallTicks(10, function ()
-            if Osi.HasPassive(character, 'SP_BottomlessStomach') == 1 then
+            if Osi.HasPassive(character, 'SP_Cavernous') == 1 then
                 if Osi.HasPassive(character, "SP_CanAnalVore") == 0 then
                     Osi.AddPassive(character, "SP_CanAnalVore")
                 end
@@ -568,6 +599,7 @@ end
 ---@param causee? GUIDSTRING Thing that caused status to be applied.
 ---@param storyActionID? integer
 function SP_OnStatusRemoved(object, status, causee, storyActionID)
+    --_P("StatusRemoved")
     -- regurgitates prey it they are not fully swallowed
     if status == 'SP_PartiallySwallowed' or status == 'SP_PartiallySwallowedGentle' then
         if VoreData[object] ~= nil then
@@ -593,23 +625,44 @@ end
 ---@param object GUIDSTRING
 ---@param combatGuid GUIDSTRING
 function SP_OnCombatEnter(object, combatGuid)
-    if VoreData[object] ~= nil then
-        VoreData[object].Combat = combatGuid
+    SP_DelayCallTicks(6, function ()
+        if Osi.HasActiveStatus(object, "SP_TryingToEnterCombat") == 1 then
+            Osi.RemoveStatus(object, "SP_TryingToEnterCombat")
+            Osi.SetVisible(object, 0)
+        elseif VoreData[object] ~= nil then
+            VoreData[object].Combat = combatGuid
+            if VoreData[object].Prey then
+                _P(object .. " is in combat")
+                for prey, _ in pairs(VoreData[object].Prey) do
+                    Osi.ApplyStatus(prey, "SP_TryingToEnterCombat", -1, 1, object)
+                    Osi.SetVisible(prey, 1)
+                end
+            end
+        end
     end
+    )
 end
 
 ---Runs when character leaves combat
 ---@param object GUIDSTRING
 ---@param combatGuid GUIDSTRING
 function SP_OnCombatLeave(object, combatGuid)
+    --_P("CombatLeave")
     if VoreData[object] ~= nil then
         VoreData[object].Combat = ""
     end
 end
 
+---@param character CHARACTER
+function SP_OnTurnStarted(character)
+    _P(character .. "'s turn started")
+    SP_TeleportToPred("ALL")
+end
+
 ---Runs when someone dies.
 ---@param character CHARACTER
 function SP_OnBeforeDeath(character)
+    --_P("BeforeDeath")
     if VoreData[character] == nil then
         return
     end
@@ -658,6 +711,9 @@ function SP_OnBeforeDeath(character)
                 SP_FastDigestion(pred, preyToDigest, 0)
             end
         end
+        if not SP_HasLivingPrey(pred, true) then
+            Osi.RemoveStatus(pred, "SP_Indigestion")
+        end
     end
 end
 
@@ -667,6 +723,7 @@ end
 ---@param inventoryHolder GUIDSTRING
 ---@param addType string
 function SP_OnItemAdded(objectTemplate, object, inventoryHolder, addType)
+    --_P("ItemAdded")
     -- weight
     if objectTemplate == 'SP_Prey_Weight_f80c2fd2-5222-44aa-a68e-b2faa808171b' then
         Osi.ApplyStatus(object, 'SP_Item_Bound', -1)
@@ -711,7 +768,7 @@ end
 
 ---Fires once after long rest.
 function SP_OnLongRest()
-    _P('SP_OnLongRest')
+    --_P('SP_OnLongRest')
     SP_SlowDigestion(SP_MCMGet("DigestionRateLong"), SP_MCMGet("WeightLossLong"))
 
     SP_HungerSystem(SP_MCMGet("HungerLong"), true)
@@ -734,6 +791,7 @@ end
 
 
 function SP_OnLevelLoaded(level)
+    --_P("LevelLoaded")
     SP_CheckVoreData()
     Osi.ApplyStatus(Osi.GetHostCharacter(), "SP_ROLESELECTOR", -1)
 end
@@ -777,6 +835,7 @@ Ext.Osiris.RegisterListener("ShapeshiftChanged", 4, "after", SP_OnTransform)
 
 Ext.Osiris.RegisterListener("EnteredCombat", 2, "after", SP_OnCombatEnter)
 Ext.Osiris.RegisterListener("LeftCombat", 2, "after", SP_OnCombatLeave)
+Ext.Osiris.RegisterListener("TurnStarted", 1, "after", SP_OnTurnStarted)
 
 Ext.Osiris.RegisterListener("RollResult", 6, "after", SP_OnRollResults)
 Ext.Osiris.RegisterListener("LevelLoaded", 1, "after", SP_OnLevelLoaded)
