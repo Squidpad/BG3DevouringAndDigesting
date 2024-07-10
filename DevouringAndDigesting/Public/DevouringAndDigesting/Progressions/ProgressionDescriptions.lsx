@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<save>
+    <version major="4" minor="0" revision="9" build="322"/>
+    <region id="ProgressionDescriptions">
+        <node id="root">
+            <children>
+                <node id="ProgressionDescription">
+                    <attribute id="Description" type="TranslatedString" handle="h80ddca1ab04949bf978761b87606e75d64f8" version="1"/>
+                    <attribute id="DisplayName" type="TranslatedString" handle="h7833d904a8af4731a2207c6ef1ec049ce4cb" version="1"/>
+                    <attribute id="ProgressionTableId" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2" />
+                    <attribute id="SelectorId" type="FixedString" value="HungerBoon" />
+                    <attribute id="UUID" type="guid" value="2181b66e-8348-4379-80d1-1fc877d64fb4" />
+                </node>
+            </children>
+            <children>
+                <node id="ProgressionDescription">
+                    <attribute id="Description" type="TranslatedString" handle="h76e18109gbc38g449dga82bgb7950d911b00" version="1" />
+                    <attribute id="DisplayName" type="TranslatedString" handle="h9082f1a2g5c36g446egb3ceg32b71e80729a" version="1" />
+                    <attribute id="ExactMatch" type="FixedString" value="StomachSentinel" />
+                    <attribute id="Hidden" type="bool" value="false" />
+                    <attribute id="ParamMatch" type="FixedString" value="" />
+                    <attribute id="PassivePrototype" type="FixedString" value="" />
+                    <attribute id="ProgressionTableId" type="guid" value="9e3e88a0-90f6-45dc-a545-b1c0bd4d7873" />
+                    <attribute id="SelectorId" type="FixedString" value="" />
+                    <attribute id="Type" type="FixedString" value="StomachSentinel" />
+                    <attribute id="UUID" type="guid" value="29cedaad-9ec4-4334-8d52-1bb0ab5a725b" />
+                </node>
+            </children>
+        </node>
+    </region>
+</save>

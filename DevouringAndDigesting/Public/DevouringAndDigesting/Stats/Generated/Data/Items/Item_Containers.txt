@@ -1,0 +1,8 @@
+new entry "SP_VoreAssignmentItemsBag"
+type "Object"
+using "_Container"
+data "RootTemplate" "68dc579e-d3aa-4277-ab1f-5ccd6f78d113"
+data "ValueOverride" "1"
+data "Weight" "0.01"
+data "Rarity" "VeryRare"
+

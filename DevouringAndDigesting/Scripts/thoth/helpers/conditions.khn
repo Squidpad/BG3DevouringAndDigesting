@@ -21,3 +21,17 @@ function SP_BulkRemoveStatus(entity, statuses)
     end
   end
 end
+
+
+function SP_IsPred(entity)
+    entity = entity or context.Target
+    return HasStatus('SP_Stuffed', entity)
+end
+
+function SP_SC_GetStomachShelterTempHPStatus(turns)
+
+    if StatusDurationEqualOrMoreThan(context.Source, 'SP_SC_StomachShelterStuffed', turns) then
+        return true
+    end
+    return false
+end

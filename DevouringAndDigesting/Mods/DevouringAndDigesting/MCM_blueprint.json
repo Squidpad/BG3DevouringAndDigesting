@@ -1,0 +1,498 @@
+{
+    "SchemaVersion": 1,
+    "ModName": "Devouring and Digesting",
+    "Tabs": [
+        {
+            "TabId": "aStartHere",
+            "TabName": "Start Here",
+            "Settings": [
+                {
+                    "Id": "AddVoreItems",
+                    "Name": "Add Vore Items",
+                    "Default": false,
+                    "Description": "Adds vore-enabling items to the currently controlled character",
+                    "Type": "checkbox"
+                }
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
+        },
+        {
+            "TabId": "Digestion",
+            "TabName": "Digestion",
+            "Settings": [
+                {
+                    "Id": "BoilingInsidesFast",
+                    "Name": "Boiling Insides Fast Digestion",
+                    "Default": false,
+                    "Description": "Dead prey are digested twice as fast if you have 'Boiling insides' feat.",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "DigestItems",
+                    "Name": "Item Digestion",
+                    "Default": false,
+                    "Description": "When you start digesting prey, the items in your stomach might be digested. WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "DigestionRateLong",
+                    "Name": "Digestion Rate (Long Rest)",
+                    "Default": 60,
+                    "Description": "Determines by how much the weight of a prey who is being digested is reduced after a long rest",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "DigestionRateShort",
+                    "Name": "Digestion Rate (Short Rest)",
+                    "Default": 20,
+                    "Description": "Determines by how much the weight of a prey who is being digested is reduced after each short rest",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "GradualDigestionAmount",
+                    "Name": "Gradual Digestion Amount",
+                    "Default": 5,
+                    "Description": "You will passively digest dead prey by this much per X turns (set with Gradual Digestion Turns option). Set to 0 to disable.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "GradualDigestionTurns",
+                    "Name": "Gradual Digestion Turns",
+                    "Default": 10,
+                    "Description": "How often passive digestion happens. 1 turn = 6 real seconds. Set to 0 to disable.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 600
+                    }
+                },
+                {
+                    "Id": "InstantDigestion",
+                    "Name": "Instant Digestion",
+                    "Default": false,
+                    "Description": "If true, you lose weight immediately upon finishing digestion, and you will be immediately able to absorb / dispose of prey",
+                    "Type": "checkbox"
+                }
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
+        },
+        {
+            "TabId": "Hunger",
+            "TabName": "Hunger System",
+            "Settings": [
+                {
+                    "Id": "Hunger",
+                    "Name": "Hunger",
+                    "Default": false,
+                    "Description": "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will receive debuffs. Setting this to false disables hunger completely.",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "HungerBreakpoint1",
+                    "Name": "Hungry Stacks",
+                    "Default": 16,
+                    "Description": "Stacks of hunger at which you are hungry.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 1,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "HungerBreakpoint2",
+                    "Name": "Famished Stacks",
+                    "Default": 24,
+                    "Description": "Stacks of hunger at which you are extremely hungry.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 1,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "HungerBreakpoint3",
+                    "Name": "Starving Stacks",
+                    "Default": 32,
+                    "Description": "Stacks of hunger at which you are desperately hungry.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 1,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "HungerLong",
+                    "Name": "Hunger Stacks (Long Rest)",
+                    "Default": 6,
+                    "Description": "Hunger stacks gained on long rest.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 1,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "HungerSatiation",
+                    "Name": "Satiation",
+                    "Default": 2,
+                    "Description": "The amount of satiation required to reduce your hunger by 1 stack. A bigger value means you require more prey to sastiate your hunger.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 1,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "HungerSatiationRate",
+                    "Name": "Digestion Efficiency",
+                    "Default": 25,
+                    "Description": "How much satiation you get from digestion. This number is a percentage of the value of Digestion Rate (Long Rest)",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "HungerShort",
+                    "Name": "Hunger Stacks (Short Rest)",
+                    "Default": 2,
+                    "Description": "Hunger stacks gained on short rest.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 1,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "HungerUseFat",
+                    "Name": "Fat Digestion",
+                    "Default": true,
+                    "Description": "If set to true, fat will be used to reduce hunger gain by half if you don't have enough satiation stacks.",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "LethalRandomSwitch",
+                    "Name": "Accidental Digestion",
+                    "Default": false,
+                    "Description": "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
+                    "Type": "checkbox"
+                }
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
+        },
+        {
+            "TabId": "Mechanics",
+            "TabName": "Mechanics",
+            "Settings": [
+                {
+                    "Id": "AllowOverstuffing",
+                    "Name": "Allow Overstuffing (WIP)",
+                    "Default": false,
+                    "Description": "If true, devouring prey can push you over your maximum carrying capacity, but you'll take damage every round proportional to how overstuffed you are. If false, you'll be hard-capped by your carrying capacity.",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "FeatsAddLoci",
+                    "Name": "Feats Add Loci",
+                    "Default": true,
+                    "Description": "If true, certain feats will unlock new loci for vore. Otherwise, they can only be added through the potions.",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "RequireProperAnatomy",
+                    "Name": "Require Proper Anatomy",
+                    "Default": true,
+                    "Description": "If true, special types of vore will require you to have a body part that would enable that type of vore.",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "SwitchEndoLethal",
+                    "Name": "Switch Endo/Lethal",
+                    "Default": true,
+                    "Description": "When you start digesting prey, you will start digesting any endo prey in the same locus as well.",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "SwallowDown",
+                    "Name": "Slow Swallowing",
+                    "Default": false,
+                    "Description": "Succecssfully \"swallowing\" a creature requires 2 actions, not 1. (WIP)",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "IndigestionLimit",
+                    "Name": "IndigestionLimit",
+                    "Default": 3,
+                    "Description": "Number of levels of \"Indigestion\" at which a pred will be forced to regurgitate all of their prey. Set to 0 to disable.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 10
+                    }
+                }
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
+        },
+        {
+            "TabId": "NPCVore",
+            "TabName": "NPCs",
+            "Settings": [
+                {
+                    "Id": "ClampMedium",
+                    "Name": "Max Predator Chance (Medium)",
+                    "Default": 100,
+                    "Description": "Limits the probability of a medium creature being chosen as a pred to this value. Set to 100 or higher to disable.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "ClampSmall",
+                    "Name": "Max Predator Chance (Small)",
+                    "Default": 40,
+                    "Description": "Limits the probability of a small creature being chosen as a pred to this value. Set to 100 or higher to disable.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "ClampTiny",
+                    "Name": "Max Predator Chance (Tiny)",
+                    "Default": 0,
+                    "Description": "Limits the probability of a tiny creature being chosen as a pred to this value. Set to 100 or higher to disable.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "CooldownMax",
+                    "Name": "Maximum Swallow Cooldown",
+                    "Default": 5,
+                    "Description": "Maximum cooldown between NPC vore attempts (in turns).",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 10
+                    }
+                },
+                {
+                    "Id": "CooldownMin",
+                    "Name": "Minimum Swallow Cooldown",
+                    "Default": 2,
+                    "Description": "Minimum cooldown between NPC vore attempts (in turns).",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 10
+                    }
+                },
+                {
+                    "Id": "ProbabilityCreature",
+                    "Name": "Predator Chance (Monster)",
+                    "Default": 20,
+                    "Description": "The % of a monster becoming a predator. Monsters are any creature that isn't internally considered Male or Female. This value is multiplied by the race's multiplier. Set to 0 to disable.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "ProbabilityFemale",
+                    "Name": "Predator Chance (Female)",
+                    "Default": 40,
+                    "Description": "The % of a female NPC becoming a predator. Female NPCs have Body Types 1 or 2, with some exceptions. This value is multiplied by the race's multiplier. Set to 0 to disable.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "ProbabilityMale",
+                    "Name": "Predator Chance (Male)",
+                    "Default": 30,
+                    "Description": "The % of a male NPC becoming a predator. Male NPCs have Body Types 3 or 4, with some exceptions. This value is multiplied by the race's multiplier. Set to 0 to disable.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                }
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
+        },
+        
+        {
+            "TabId": "Regurgitation",
+            "TabName": "Regurgitation",
+            "Settings": [
+                {
+                    "Id": "CooldownRegurgitate",
+                    "Name": "Regurgitation Cooldown",
+                    "Default": 0,
+                    "Description": "Preds are unable to regurgitate prey for a number of turn after regurgitation. Set to 0 to disable",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "CooldownSwallow",
+                    "Name": "Swallow Cooldown",
+                    "Default": 2,
+                    "Description": "Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                },
+                {
+                    "Id": "RegurgitationDistance",
+                    "Name": "Regurgitation Distance",
+                    "Default": 2,
+                    "Description": "Determines how far prey spawn when regurgitated.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 5
+                    }
+                }
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
+        },
+        {
+            "TabId": "VisualsAndAudio",
+            "TabName": "Visuals and Audio",
+            "Settings": [
+                {
+                    "Id": "BellyScale",
+                    "Name": "Belly Scale",
+                    "Default": 100,
+                    "Description": "Increases / reduces the size of all bellies. Default is 100%",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 1000
+                    }
+                },
+                {
+                    "Id": "UpdateBellyVisuals",
+                    "Name": "Update Belly Visuals",
+                    "Default": "Ready",
+                    "Description": "Immediately update belly visuals",
+                    "Type": "radio",
+                    "Options":{
+                        "Choices": ["Ready", "Update"]
+                    }
+                },
+                {
+                    "Id": "GurgleProbability",
+                    "Name": "Gurgle Probability",
+                    "Default": 5,
+                    "Description": "The % chance of a gurgle being played every 6 seconds (a turn). Set to 0 to disable.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    }
+                }
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
+        },
+        {
+            "TabId": "zDebug",
+            "TabName": "Debug",
+            "Settings": [
+                {
+                    "Id": "DebugEnable",
+                    "Name": "Enable Debug Options",
+                    "Default": false,
+                    "Description": "Access debug options. Do not check this unless you know what you're doing.",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "AlwaysSucceedVore",
+                    "Name": "Always Succeed Vore",
+                    "Default": false,
+                    "Description": "If true, all vore attempts will result in a success.",
+                    "Type": "checkbox",
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "DebugEnable", "ExpectedValue": "true", "Operator": "=="}]
+                    }
+                },
+                {
+                    "Id": "TeleportPrey",
+                    "Name": "Teleport Prey",
+                    "Default": true,
+                    "Description": "Determines if a living prey is teleported to their predator at the end of each turn (or every 6 seconds outside of turn-based mode). By default is on, should be only turned off in case of performance issues",
+                    "Type": "checkbox",
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "DebugEnable", "ExpectedValue": "true", "Operator": "=="}]
+                    }
+                },
+                {
+                    "Id": "PrintVoreData",
+                    "Name": "Print Vore Data",
+                    "Default": false,
+                    "Description": "Prints VoreData to the console",
+                    "Type": "checkbox",
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "DebugEnable", "ExpectedValue": "true", "Operator": "=="}]
+                    }
+                }
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
+        },
+        {
+            "TabId": "zReadingCheck",
+            "TabName": "Reading Check",
+            "Settings": [
+                {
+                    "Id": "ICanRead",
+                    "Name": "I have read the wiki",
+                    "Default": false,
+                    "Description": "By checking this, you assert that you have read any and all information available on the wiki.",
+                    "Type": "checkbox"
+                }
+            ]
+        }
+    ]
+}

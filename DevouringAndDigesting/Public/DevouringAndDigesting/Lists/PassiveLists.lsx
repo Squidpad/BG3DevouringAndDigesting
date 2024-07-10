@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<save>
+    <version major="4" minor="0" revision="9" build="307"/>
+    <region id="PassiveLists">
+        <node id="root">
+            <children>
+                <node id="PassiveList">
+                    <attribute id="Passives" type="LSString" value="SP_SC_BoundPrey,SP_SC_EldritchPrison"/>
+                    <attribute id="UUID" type="guid" value="fd2c7e00-95a5-444a-a63a-5cccb38c7f11"/>
+                </node>
+            </children>
+        </node>
+    </region>
+</save>

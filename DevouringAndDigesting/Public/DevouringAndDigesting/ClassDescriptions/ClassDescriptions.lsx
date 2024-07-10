@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<save>
+    <version major="4" minor="0" revision="9" build="314"/>
+    <region id="ClassDescriptions">
+        <node id="root">
+            <children>
+                <node id="ClassDescription">
+                    <attribute id="CharacterCreationPose" type="guid" value="0f07ec6e-4ef0-434e-9a51-1353260ccff8"/>
+                    <attribute id="Description" type="TranslatedString" handle="hf17875f4abe242a6bdd473e6134d2c530fa1" version="1"/>
+                    <attribute id="DisplayName" type="TranslatedString" handle="hf56e80b984fe487dbe031007019a3665f06b" version="1"/>
+                    <attribute id="LearningStrategy" type="uint8" value="1"/>
+                    <attribute id="Name" type="FixedString" value="GreatHunger"/>
+                    <attribute id="ParentGuid" type="guid" value="b4225a4b-4bbe-4d97-9e3c-4719dbd1487c"/>
+                    <attribute id="PrimaryAbility" type="uint8" value="6"/>
+                    <attribute id="ProgressionTableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
+                    <attribute id="SoundClassType" type="FixedString" value="Warlock"/>
+                    <attribute id="SpellCastingAbility" type="uint8" value="6"/>
+                    <attribute id="UUID" type="guid" value="a63af398-f070-4ecd-a1ec-e2ad9fbeab32"/>
+                    <children>
+                        <node id="Tags">
+                            <attribute id="Object" type="guid" value="cdad1fc1-352b-4441-82f2-73d8433e42ea"/>
+                        </node>
+                    </children>
+                </node>
+                <node id="ClassDescription">
+                    <attribute id="CharacterCreationPose" type="guid" value="0f07ec6e-4ef0-434e-9a51-1353260ccff8"/>
+                    <attribute id="Description" type="TranslatedString" handle="h76e18109gbc38g449dga82bgb7950d911b00" version="1"/>
+                    <attribute id="DisplayName" type="TranslatedString" handle="h9082f1a2g5c36g446egb3ceg32b71e80729a" version="1"/>
+                    <attribute id="LearningStrategy" type="uint8" value="1"/>
+                    <attribute id="Name" type="FixedString" value="StomachSentinel"/>
+                    <attribute id="ParentGuid" type="guid" value="d8cadb42-0ff9-4049-afaf-e5d78d06a399"/>
+                    <attribute id="PrimaryAbility" type="uint8" value="1"/>
+                    <attribute id="ProgressionTableUUID" type="guid" value="463e82a7-c792-4b93-8967-90d48170279b"/>
+                    <attribute id="SoundClassType" type="FixedString" value="Barbarian"/>
+                    <attribute id="SpellCastingAbility" type="uint8" value="6"/>
+                    <attribute id="UUID" type="guid" value="d170fe00-f9f1-4814-b456-1dc8981c7f2f"/>
+                </node>
+            </children>
+        </node>
+    </region>
+</save>

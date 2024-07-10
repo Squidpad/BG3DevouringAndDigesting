@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "options": {
         "env": {
-            "BG3_PATH": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3",
+            "BG3_PATH": "C:\\Games\\Steam\\steamapps\\common\\Baldurs Gate 3",
             "LSLIB_PATH": "${workspaceFolder}\\Tools\\ConverterApp\\Tools",
             "BG3_EXTRACTED": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Extracted"
         }
@@ -16,18 +16,7 @@
             "command": "echo Done.",
             "dependsOn": [
                 "ModLoca",
-                "EMLSX",
-                "CheckStats"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "ConvertModFiles (No Check)",
-            "type": "shell",
-            "command": "echo Done.",
-            "dependsOn": [
-                "ModLoca",
-                "EMLSX",
+                "EMLSX"
             ],
             "problemMatcher": []
         },
@@ -69,12 +58,20 @@
             "problemMatcher": []
         },
         {
+            "label": "MassLink",
+            "type": "shell",
+            "command": "Tools\\PythonVEnvs\\BG3ModdingTools\\Scripts\\python.exe",
+            "args": [
+                "Tools/CephsTools/mass_link.py"
+            ],
+        },
+        {
             "label": "CheckStats",
             "type": "process",
             "command": "Tools\\ConverterApp\\Tools\\StatParser.exe",
             "args": [
                 "--game-data-path",
-                "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data",
+                "C:\\Games\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data",
                 "--package-paths",
                 "${env:UserProfile}\\AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Mods",
                 "--dependency",
@@ -87,51 +84,8 @@
                 "GustavDev",
                 "--mod",
                 "DevouringAndDigesting"
-            ]
+            ],
         },
-        {
-            "label": "CopyToGameFolder",
-            "type": "shell",
-            "command": "python",
-            "args": [
-                "Tools\\CephsTools\\copy_folder_to.py",
-                "-f",
-                "${workspaceFolder}\\DevouringAndDigesting\\Public",
-                "-o",
-                "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data\\Public",
-                "-s",
-                "false",
-            ],
-            "group": "build",
-            "presentation": {
-                "reveal": "silent"
-            },
-            "dependsOn": [
-                "ConvertModFiles"
-            ],
-            "problemMatcher": []
-        },
-        {
-            "label": "CopyToGameFolder (No Check)",
-            "type": "shell",
-            "command": "python",
-            "args": [
-                "Tools\\CephsTools\\copy_folder_to.py",
-                "-f",
-                "${workspaceFolder}\\DevouringAndDigesting\\Public",
-                "-o",
-                "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Baldurs Gate 3\\Data\\Public",
-                "-s",
-                "false",
-            ],
-            "group": "build",
-            "presentation": {
-                "reveal": "silent"
-            },
-            "dependsOn": [
-                "ConvertModFiles (No Check)"
-            ],
-            "problemMatcher": []
-        },
+        
     ]
 }

@@ -1,0 +1,16 @@
+
+new entry "SP_Projectile_MassBellyport_5"
+type "SpellData"
+using "SP_Projectile_MassBellyport"
+data "TargetRadius" "24"
+data "UseCosts" "ActionPoint:1;SpellSlotsGroup:1:1:5"
+data "RootSpellID" "SP_Projectile_MassBellyport"
+data "PowerLevel" "5"
+
+new entry "SP_Projectile_MassBellyport_6"
+type "SpellData"
+using "SP_Projectile_MassBellyport"
+data "TargetRadius" "30"
+data "UseCosts" "ActionPoint:1;SpellSlotsGroup:1:1:6"
+data "RootSpellID" "SP_Projectile_MassBellyport"
+data "PowerLevel" "6"

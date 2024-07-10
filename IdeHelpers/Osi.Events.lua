@@ -1,5 +1,4 @@
----@meta
----@diagnostics disable
+---@diagnostic disable
 
 if Osi == nil then Osi = {} end
 	

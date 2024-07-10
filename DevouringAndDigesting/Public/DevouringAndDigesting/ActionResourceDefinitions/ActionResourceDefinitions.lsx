@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<save>
+	<version major="4" minor="0" revision="9" build="328" />
+	<region id="ActionResourceDefinitions">
+		<node id="root">
+			<children>
+				<node id="ActionResourceDefinition">
+					<attribute id="DisplayName" type="TranslatedString" handle="h5688d507d8e94c33973017997662e8fabd75" version="1" />
+					<attribute id="Name" type="FixedString" value="SP_SC_MaddeningSight_Charge" />
+					<attribute id="ReplenishType" type="FixedString" value="ShortRest" />
+					<attribute id="IsHidden" type="bool" value="true" />
+					<attribute id="UUID" type="guid" value="df6dcb6c-9187-4345-97b9-4a168ef6b125" />
+				</node>
+				<node id="ActionResourceDefinition">
+					<attribute id="DisplayName" type="TranslatedString" handle="h338df11c43b144cf935095e1433e6d5d00fa" version="1" />
+					<attribute id="Name" type="FixedString" value="SP_SC_HungerShield_Charge" />
+					<attribute id="ReplenishType" type="FixedString" value="ShortRest" />
+					<attribute id="IsHidden" type="bool" value="true" />
+					<attribute id="UUID" type="guid" value="8848973e-79fd-450c-a0cf-2d10fcc3621b" />
+				</node>
+			</children>
+		</node>
+	</region>
+</save>
