@@ -1,8 +1,3 @@
-new treasuretable "TUT_Chest_Potions"
-CanMerge 1
-new subtable "1,1"
-object category "I_SP_VoreAssignmentItemsBag",1,0,0,0,0,0,0,0
-
 new treasuretable "SP_VoreAssignmentItemsBag_Treasure"
 new subtable "1,1"
 object category "I_SP_PotionOfPrey",1,0,0,0,0,0,0,0

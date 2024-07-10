@@ -10,6 +10,10 @@ local calculateRest = true
 ---@param storyActionID integer
 function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
     --_P("SpellCast")
+    if not SP_MCMGet("ICanRead") then
+        _P("Please read the mod wiki!")
+        return
+    end
     local spellParams = SP_StringSplit(spell, "_")
     if spellParams[1] ~= 'SP' then
         return
@@ -84,7 +88,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                     end
                 end
             end
-        elseif spell == "SP_Zone_MoveToPred" then
+        elseif spell == "SP_Shout_MoveToPred" then
             SP_TeleportToPred(caster)
         end
     end
@@ -100,6 +104,10 @@ end
 ---@param storyActionID? integer
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
     --_P("SpellCastTarget")
+    if not SP_MCMGet("ICanRead") then
+        _P("Please read the mod wiki!")
+        return
+    end
     local spellParams = SP_StringSplit(spell, "_")
     if spellParams[1] ~= "SP" then
         return
@@ -133,11 +141,11 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             else
                 _P("Ally: " .. Osi.IsAlly(caster, target))
                 if Osi.IsAlly(caster, target) == 1 then
-                    SP_DelayCallTicks(12, function ()
+                    SP_DelayCallTicks(2, function ()
                         SP_SwallowPrey(caster, target, DType.Endo, true, true, locus)
                     end)
                 else
-                    SP_DelayCallTicks(6, function ()
+                    SP_DelayCallTicks(2, function ()
                         SP_VoreCheck(caster, target, "SwallowCheck_Endo_" .. locus)
                     end)
                 end
@@ -151,9 +159,16 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                 --     VoreData[caster].DigestItems = true
                 -- end)
             else
-                SP_DelayCallTicks(2, function ()
-                    SP_VoreCheck(caster, target, "SwallowCheck_Lethal_" .. locus)
-                end)
+                _P("Ally: " .. Osi.IsAlly(caster, target))
+                if Osi.IsAlly(caster, target) == 1 then
+                    SP_DelayCallTicks(2, function ()
+                        SP_SwallowPrey(caster, target, DType.Lethal, true, true, locus)
+                    end)
+                else
+                    SP_DelayCallTicks(2, function ()
+                        SP_VoreCheck(caster, target, "SwallowCheck_Lethal_" .. locus)
+                    end)
+                end
             end
         end
         -- other swallow-related spells
@@ -255,10 +270,10 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
     if eventArgs[1] == 'SwallowCheck' then
         local voreLocus = eventArgs[3]
         if eventArgs[2] == 'Lethal' and (resultType ~= 0 or SP_MCMGet("AlwaysSucceedVore")) then
-            _P('Lethal Swallow Success by ' .. roller)
-            local preyNotStolen = SP_SwallowPrey(roller, rollSubject, DType.Lethal, true, true, voreLocus)
+            _P('Lethal Swallow Success by ' .. roller)         
+            SP_SwallowPrey(roller, rollSubject, DType.Lethal, true, true, voreLocus)
 
-            if SP_MCMGet("SwitchEndoLethal") and preyNotStolen and Osi.HasPassive(roller, 'SP_MuscleControl') == 0 then
+            if SP_MCMGet("SwitchEndoLethal") and Osi.HasPassive(roller, 'SP_MuscleControl') == 0 then
                 if voreLocus == 'O' then
                     VoreData[roller].DigestItems = true
                 end
@@ -275,20 +290,22 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
     elseif eventArgs[1] == "StruggleCheck" and resultType ~= 0 then
         _P('Struggle Success by ' .. roller .. ' against ' .. rollSubject)
         _P("rollresult: " .. tostring(resultType))
-        -- Warlock passive
-        if Osi.HasPassive(rollSubject, "SP_SC_EldritchPrison") == 0 then
+        
+        if Osi.HasPassive(rollSubject, "SP_SC_EldritchPrison") == 0 and SP_MCMGet("IndigestionLimit") ~= 0 then
             Osi.ApplyStatus(rollSubject, "SP_Indigestion", 1 * SecondsPerTurn)
+        
+            if Osi.GetStatusTurns(rollSubject, "SP_Indigestion") >= SP_MCMGet("IndigestionLimit") then
+                Osi.RemoveStatus(rollSubject, "SP_Indigestion")
+                -- evey prey will be regurgitated
+                SP_RegurgitatePrey(rollSubject, "All", 0, "", VoreData[roller].Locus)
+                -- preds will not try to vore anyone after forced regurgitation
+                Osi.ApplyStatus(rollSubject, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * 10, 1, rollSubject)
+            end
         end
         if Osi.HasPassive(roller, 'SP_Dense') == 1 then
             Osi.ApplyStatus(rollSubject, "PRONE", 1 * SecondsPerTurn, 1, roller)
         end
-        if Osi.GetStatusTurns(rollSubject, "SP_Indigestion") >= 5 then
-            Osi.RemoveStatus(rollSubject, "SP_Indigestion")
-            -- evey prey will be regurgitated
-            SP_RegurgitatePrey(rollSubject, "All", 0, "", VoreData[roller].Locus)
-            -- preds will not try to vore anyone after forced regurgitation
-            Osi.ApplyStatus(rollSubject, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * 10, 1, rollSubject)
-        end
+
     elseif eventArgs[1] == "SwallowDownCheck" then
         _P("event: " .. eventName)
         _P("rollresult: " .. tostring(resultType))
@@ -313,7 +330,7 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
     elseif eventArgs[1] == "ReleaseMeCheck" then
         _P("event: " .. eventName)
         _P("rollresult: " .. tostring(resultType))
-        if resultType == 0 and VoreData[roller] ~= nil and VoreData[rollSubject] ~= nil then
+        if resultType == 1 and VoreData[roller] ~= nil and VoreData[rollSubject] ~= nil then
             -- add animation here
             SP_RegurgitatePrey(roller, "All", 0, "", VoreData[rollSubject].Locus)
         end
@@ -629,6 +646,7 @@ function SP_OnCombatEnter(object, combatGuid)
         if Osi.HasActiveStatus(object, "SP_TryingToEnterCombat") == 1 then
             Osi.RemoveStatus(object, "SP_TryingToEnterCombat")
             Osi.SetVisible(object, 0)
+            -- Osi.SetDetached(object, 1)
         elseif VoreData[object] ~= nil then
             VoreData[object].Combat = combatGuid
             if VoreData[object].Prey then
@@ -636,6 +654,7 @@ function SP_OnCombatEnter(object, combatGuid)
                 for prey, _ in pairs(VoreData[object].Prey) do
                     Osi.ApplyStatus(prey, "SP_TryingToEnterCombat", -1, 1, object)
                     Osi.SetVisible(prey, 1)
+                    
                 end
             end
         end
@@ -649,13 +668,16 @@ end
 function SP_OnCombatLeave(object, combatGuid)
     --_P("CombatLeave")
     if VoreData[object] ~= nil then
+        if VoreData[object].Pred ~= nil then
+            -- Osi.SetDetached(object, 0)
+        end
         VoreData[object].Combat = ""
     end
 end
 
 ---@param character CHARACTER
 function SP_OnTurnStarted(character)
-    _P(character .. "'s turn started")
+    -- _P(character .. "'s turn started")
     SP_TeleportToPred("ALL")
 end
 
@@ -705,7 +727,7 @@ function SP_OnBeforeDeath(character)
             -- investigate if teleporting char out of bounds and reloading breaks them
             Osi.TeleportToPosition(character, -100000, 0, -100000, "", 0, 0, 0, 1, 0)
             -- Implementation for fast digestion.
-            if SP_MCMGet("SlowDigestion") == false then
+            if SP_MCMGet("InstantDigestion") == true then
                 local preyToDigest = {}
                 preyToDigest[character] = VoreData[character].Locus
                 SP_FastDigestion(pred, preyToDigest, 0)

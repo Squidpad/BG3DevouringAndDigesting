@@ -41,3 +41,12 @@ data "Icon" "Action_Barbarian_Rage_BearTotem"
 data "Boosts" ""
 data "Properties" "Highlighted"
 
+new entry "SP_SC_GuardiansGift"
+type "PassiveData"
+data "DisplayName" "hb77896a0g2acbg40b0g8660gb57675fb9eed;1"
+data "Description" "h06f5e8a4g751ag4dc6ga37fgb7321778e541;1"
+data "Icon" "Action_Cleric_PreserveLife"
+data "Boosts" ""
+data "Properties" "Highlighted"
+
+

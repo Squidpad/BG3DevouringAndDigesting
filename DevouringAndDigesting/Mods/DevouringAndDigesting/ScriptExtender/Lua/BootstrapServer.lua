@@ -42,10 +42,14 @@ Ext.Require("Vore Processing/OsiVoreUtils.lua")
 -- VoreData management
 Ext.Require("Vore Processing/VoreUtils.lua")
 
+local deps = {
+    MCMModuleUUID = "755a8a72-407f-4f0d-9a33-274ac0f0b53d"
+}
 
-
-
-
+if not Ext.Mod.IsModLoaded(deps.MCMModuleUUID) then
+    Ext.Utils.Print(
+        "BG3 Mod Configuration Menu is missing! This mod will not work properly without it. PLEASE MAKE SURE IT IS ENABLED IN YOUR MOD MANAGER.")
+end
 
 
 Ext.Vars.RegisterModVariable(ModuleUUID, "ModVoreData", {})

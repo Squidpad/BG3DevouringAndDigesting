@@ -87,6 +87,7 @@ ComplexCustomSpells = false
 ---@field FixedWeight integer weight of this character, only for prey, 0 for preds. This is stored to keep the track of digestion process
 ---@field WeightReduction integer by how much preys weight was reduced by preds perks
 ---@field DisableDowned boolean if a tag that disables downed state was appled on swallow. Should be false for non-prey
+---@field Unpreferred boolean if a tag that makes AI prefer attacking other targets was applied on swallow. Should be false for non-prey
 ---@field Digestion integer dygestion types 0 == endo, 1 == dead, 2 == lethal, 3 == none. for prey only
 ---@field DigestItems boolean if the items are being digested
 ---@field Combat string guid of combat character is in
@@ -100,13 +101,14 @@ ComplexCustomSpells = false
 ---@field Swallowed string what swallowed status is appled (prey only)
 ---@field StuffedStacks integer number of stuffed stacks
 ---@field GradualDigestionTimer integer how close this pred is to doing gradual digestion
----@field SpellTargets table<CHARACTER, string> table of prey this character has cast a vore-related spell on
+---@field SpellTargets table<CHARACTER, string> table of prey this character has cast a vore-related spell on. Used for multi-stage spells
 VoreDataEntry = {
     Pred = "",
     Weight = 0,
     FixedWeight = 0,
     WeightReduction = 0,
     DisableDowned = false,
+    Unpreferred = false,
     Digestion = DType.None,
     DigestItems = false,
     Combat = "",

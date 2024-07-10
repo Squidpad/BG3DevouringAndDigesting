@@ -8,6 +8,7 @@ function SP_DebugStatus()
     Osi.ApplyStatus(v, "FEATHER_FALL", -1)
 end
 
+
 function SP_DebugTestFunc()
     SP_TeleportToPred("ALL")
 end
@@ -119,4 +120,3 @@ Ext.RegisterConsoleCommand("KillVore", SP_KillVore)
 Ext.RegisterConsoleCommand("GiveDebugItems", SP_GiveDebugItems)
 Ext.RegisterConsoleCommand("DebugVore", SP_DebugVore)
 Ext.RegisterConsoleCommand("DebugFunc", SP_DebugTestFunc)
-

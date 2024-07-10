@@ -5,9 +5,9 @@ function SP_UpdateBelly(pred, weight)
 
     -- 160 (0.16) volume ~ 80 weight
     -- offset is to account for some empty space inside the pred, which allows the pred to swallow light items without belly sticking out
-    local baseVolume = 160
+    local baseVolume = 170
     local baseWeight = 80
-    local offset = 5
+    local offset = 10
     local volume = (weight * baseVolume / baseWeight - offset) * (SP_MCMGet("BellyScale") / 100)
 
     local predRace = Osi.GetRace(pred, 1)
@@ -214,7 +214,7 @@ end
 function SP_TeleportToPred(prey)
     if prey == "ALL" then
         for k, v in pairs(VoreData) do
-            _D(v)
+            
             -- _P(v.Pred)
             if v.Pred ~= "" then
                 local predX, predY, predZ = Osi.GetPosition(v.Pred)
@@ -226,6 +226,19 @@ function SP_TeleportToPred(prey)
         Osi.TeleportToPosition(prey, predX, predY, predZ, "", 0, 0, 0, 0, 1)
     end
 
+end
+
+---removes all regurgitation containers, in case pred's avalible types of vore were changed
+---@param pred CHARACTER
+function SP_RemoveAllRegurgitate(pred)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_O", 1)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OA", 1)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAU", 1)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 1)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OU", 1)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OUC", 1)
+    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OC", 1)
+    
 end
 
 function SP_GetPredLoci(pred)
@@ -304,6 +317,8 @@ function SP_AssignRoleRandom(character)
         selectedPobability = SP_MCMGet("ClampTiny")
     elseif size == 1 and selectedPobability > SP_MCMGet("ClampSmall") then
         selectedPobability = SP_MCMGet("ClampSmall")
+    elseif size == 2 and selectedPobability > SP_MCMGet("ClampMedium") then
+        selectedPobability = SP_MCMGet("ClampMedium")
     end
     if selectedPobability > 0 then
         local randomRoll = Osi.Random(100) + 1

@@ -89,13 +89,18 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
     VoreData[prey].Locus = locus
     VoreData[prey].Swallowed = SP_GetSwallowedVoreStatus(pred, prey, digestionType == DType.Endo, locus)
 
+    if digestionType == DType.Endo and Osi.HasPassive(pred, "SP_SC_GuardiansGift") == 1 then
+        Osi.ApplyStatus(prey, "SP_SC_GuardiansGift_Status", -1, 1, pred)
+    else
+        Osi.RemoveStatus(prey, "SP_SC_GuardiansGift_Status")
+    end
+
     VoreData[pred].Prey[prey] = locus
     local predSize = SP_GetCharacterSize(pred)
     local preySize = SP_GetCharacterSize(prey)
     if notNested then
         Osi.AddSpell(prey, 'SP_Zone_ReleaseMe', 0, 0)
-        Osi.AddSpell(prey, "SP_Zone_MoveToPred", 0, 0)
-        Osi.SetDetached(prey, 1)
+        Osi.AddSpell(prey, "SP_Shout_MoveToPred", 0, 0)
         Osi.SetVisible(prey, 0)
 
         VoreData[prey].Weight = weight
@@ -104,6 +109,11 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
         if Osi.IsTagged(prey, '7095912e-fcb9-41dd-aec3-3cf7803e4b22') ~= 1 then
             Osi.SetTag(prey, '7095912e-fcb9-41dd-aec3-3cf7803e4b22')
             VoreData[prey].DisableDowned = true
+        end
+        -- Tag that makes AI less likely to target prey, for edge cases
+        if Osi.IsTagged(prey, '9787450d-f34d-43bd-be88-d2bac00bb8ee') ~= 1 then
+            Osi.SetTag(prey, '9787450d-f34d-43bd-be88-d2bac00bb8ee')
+            VoreData[prey].Unpreferred = true
         end
 
         if SP_MCMGet("SwallowDown") and swallowStages then
@@ -264,6 +274,7 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested, swallowStages, locus
     SP_AddPrey(pred, prey, swallowType, notNested, swallowStages, locus)
     _P("SP_Zone_RegurgitateContainer_" .. SP_GetPredLoci(pred))
     Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_" .. SP_GetPredLoci(pred), 0, 0)
+    Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
     Osi.AddSpell(pred, 'SP_Zone_FlexBelly', 0, 0)
     Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
 
@@ -325,6 +336,7 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested, swallowStag
     end
 
     Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_" .. SP_GetPredLoci(pred), 0, 0)
+    Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
     Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
     Osi.AddSpell(pred, 'SP_Zone_FlexBelly', 0, 0)
 
@@ -366,6 +378,7 @@ function SP_SwallowItem(pred, item)
     if Osi.TemplateIsInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred) == 1 then
         if VoreData[pred].StuffedStacks == 0 then
             Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_" .. SP_GetPredLoci(pred), 0, 0)
+            Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
             Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
         end
         VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
@@ -395,6 +408,7 @@ function SP_SwallowAllItems(pred, container)
         if VoreData[pred].StuffedStacks == 0 then
 
             Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_" .. SP_GetPredLoci(pred), 0, 0)
+            Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
             Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
         end
         VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
@@ -635,11 +649,15 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
             Osi.ClearTag(prey, '7095912e-fcb9-41dd-aec3-3cf7803e4b22')
             VoreData[prey].DisableDowned = false
         end
+        if VoreData[prey].Unpreferred then
+            Osi.ClearTag(prey, "9787450d-f34d-43bd-be88-d2bac00bb8ee")
+            VoreData[prey].Unpreferred = false
+        end
         Osi.RemoveSpell(prey, 'SP_Zone_ReleaseMe')
-        Osi.SetDetached(prey, 0)
         Osi.SetVisible(prey, 1)
         Osi.RemoveStatus(prey, DigestionStatuses[VoreData[prey].Locus][VoreData[prey].Digestion], pred)
         Osi.RemoveStatus(prey, VoreData[prey].Swallowed, pred)
+        Osi.RemoveStatus(prey, "SP_SC_GuardiansGift_Status")
         VoreData[prey].Digestion = DType.None
         VoreData[prey].Locus = ""
         VoreData[prey].Swallowed = ""
@@ -649,8 +667,9 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
 
     -- If pred has no more prey inside.
     if next(VoreData[pred].Prey) == nil and VoreData[pred].Items == "" then
-        Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_" .. SP_GetPredLoci(pred), 1)
-        Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown')
+        SP_RemoveAllRegurgitate(pred)
+        Osi.RemoveSpell(pred, 'SP_Zone_Absorb_All')
+        Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown', 1)
         Osi.RemoveSpell(pred, 'SP_Zone_SwitchToLethal', 1)
         Osi.RemoveSpell(pred, 'SP_Zone_FlexBelly', 1)
         
@@ -751,13 +770,14 @@ function SP_VoreCheck(pred, prey, eventName)
                                           eventName)
     elseif eventName == 'ReleaseMeCheck' then
         _P('Rolling to free me')
+        local checkDC = 15
+        local preyAdvantage = 0
         if VoreData[prey].Digestion == DType.Lethal then
-            advantage = 1
-        else
-            preyAdvantage = 1
+            checkDC = checkDC + 5
         end
-        Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", "Wisdom", "Charisma", advantage, preyAdvantage,
-                                          eventName)
+        Osi.RequestPassiveRoll(prey, pred, "SkillCheck", "Persuasion", DCTable[checkDC], preyAdvantage, eventName)
+        -- Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", "Wisdom", "Charisma", advantage, preyAdvantage,
+        --                                   eventName)
     end
 end
 

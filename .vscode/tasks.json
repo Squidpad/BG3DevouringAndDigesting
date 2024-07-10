@@ -16,8 +16,7 @@
             "command": "echo Done.",
             "dependsOn": [
                 "ModLoca",
-                "EMLSX",
-                "MassLink"
+                "EMLSX"
             ],
             "problemMatcher": []
         },

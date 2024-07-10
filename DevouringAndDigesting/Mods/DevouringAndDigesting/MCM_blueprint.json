@@ -81,13 +81,16 @@
                     }
                 },
                 {
-                    "Id": "SlowDigestion",
-                    "Name": "Slow Digestion",
-                    "Default": true,
-                    "Description": "If true, you will not lose weight until you rest. If false, you lose it immediately upon finishing digestion and you will be immediately able to absorb / dispose of prey",
+                    "Id": "InstantDigestion",
+                    "Name": "Instant Digestion",
+                    "Default": false,
+                    "Description": "If true, you lose weight immediately upon finishing digestion, and you will be immediately able to absorb / dispose of prey",
                     "Type": "checkbox"
                 }
-            ]
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
         },
         {
             "TabId": "Hunger",
@@ -191,7 +194,10 @@
                     "Description": "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
                     "Type": "checkbox"
                 }
-            ]
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
         },
         {
             "TabId": "Mechanics",
@@ -199,7 +205,7 @@
             "Settings": [
                 {
                     "Id": "AllowOverstuffing",
-                    "Name": "Allow Overstuffing",
+                    "Name": "Allow Overstuffing (WIP)",
                     "Default": false,
                     "Description": "If true, devouring prey can push you over your maximum carrying capacity, but you'll take damage every round proportional to how overstuffed you are. If false, you'll be hard-capped by your carrying capacity.",
                     "Type": "checkbox"
@@ -222,10 +228,31 @@
                     "Id": "SwitchEndoLethal",
                     "Name": "Switch Endo/Lethal",
                     "Default": true,
-                    "Description": "When you start digesting prey, you will start digesting endo prey in the same locus as well.",
+                    "Description": "When you start digesting prey, you will start digesting any endo prey in the same locus as well.",
                     "Type": "checkbox"
+                },
+                {
+                    "Id": "SwallowDown",
+                    "Name": "Slow Swallowing",
+                    "Default": false,
+                    "Description": "Succecssfully \"swallowing\" a creature requires 2 actions, not 1. (WIP)",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "IndigestionLimit",
+                    "Name": "IndigestionLimit",
+                    "Default": 3,
+                    "Description": "Number of levels of \"Indigestion\" at which a pred will be forced to regurgitate all of their prey. Set to 0 to disable.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 10
+                    }
                 }
-            ]
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
         },
         {
             "TabId": "NPCVore",
@@ -300,7 +327,7 @@
                 {
                     "Id": "ProbabilityFemale",
                     "Name": "Predator Chance (Female)",
-                    "Default": 30,
+                    "Default": 40,
                     "Description": "The % of a female NPC becoming a predator. Female NPCs have Body Types 1 or 2, with some exceptions. This value is multiplied by the race's multiplier. Set to 0 to disable.",
                     "Type": "slider_int",
                     "Options": {
@@ -319,7 +346,10 @@
                         "Max": 100
                     }
                 }
-            ]
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
         },
         
         {
@@ -359,7 +389,10 @@
                         "Max": 5
                     }
                 }
-            ]
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
         },
         {
             "TabId": "VisualsAndAudio",
@@ -397,7 +430,10 @@
                         "Max": 100
                     }
                 }
-            ]
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
         },
         {
             "TabId": "zDebug",
@@ -440,7 +476,10 @@
                         "Conditions": [{"SettingId": "DebugEnable", "ExpectedValue": "true", "Operator": "=="}]
                     }
                 }
-            ]
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
         },
         {
             "TabId": "zReadingCheck",
@@ -448,9 +487,9 @@
             "Settings": [
                 {
                     "Id": "ICanRead",
-                    "Name": "I Can Read",
+                    "Name": "I have read the wiki",
                     "Default": false,
-                    "Description": "By checking this, you assert that you have read any and all information available.",
+                    "Description": "By checking this, you assert that you have read any and all information available on the wiki.",
                     "Type": "checkbox"
                 }
             ]

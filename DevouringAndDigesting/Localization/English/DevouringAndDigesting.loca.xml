@@ -11,6 +11,7 @@
 	<content contentuid="h31c7c480g72c9g44ebg9b2eg80f5f0f9e78d" version="1">Default config has been loaded.</content>
 	<content contentuid="h86742a8fga59cg4597g8b7dg30e4788a1ed0" version="1">Your config has been reset.</content>
 	<content contentuid="h79032db6g7469g4f1cgaca2g743d89c7b335" version="1">Type !VoreConfigReset in the console or&#x3C;br&#x3E;delete your config manually to reset your config&#x3C;br&#x3E;and stop this popup from appearing.</content>
+
 	<!-- loot -->
 	<content contentuid="hc5942267gf430g4ea1g8cefg256f1fa726a5" version="1">Potion of Role Selection</content>
 	<content contentuid="hc0531247g62e4g42fagaf57g9e5cf2ca1ddd" version="1">Allows you to give or take predator abilities from others.</content>
@@ -142,7 +143,7 @@
 	<content contentuid="h03fcfe03gaa2bg474ag9c87g7c0ad7aa5e25" version="1">Switch to Lethal (Womb)</content>
 	<content contentuid="h007134a2gbbdeg4dc1gb1a5gc082e0f90980" version="1">Switch to Lethal (Balls)</content>
 	<content contentuid="hbcd23c49gcca8g4b2aga982g9218f8672684" version="1">Switch to Lethal (All)</content>
-	<content contentuid="h14e840a3ga7d0g46fcg85b0g8e107ea5efc6" version="1">Fill [1] with acid. You will start digesting all your living prey, including items!</content>
+	<content contentuid="h14e840a3ga7d0g46fcg85b0g8e107ea5efc6" version="1">Fill [1] with acid. You will start digesting all your living prey!</content>
 
 	<content contentuid="h5a9e44b8g8d89g4291ga046ge4eb60b93ee2" version="1">Exhausted</content>
 	<content contentuid="h5ca5300fg470ag489bgbb48g5581b2148888" version="1">You you just got one down, it'd be a struggle to get another. Wait a bit before swallowing new prey.</content>
@@ -218,7 +219,7 @@
 
 
 
-	<!-- Subclass Paladin Stomach Sentinel -->
+	<!-- Subclass Barbarian Stomach Sentinel -->
 
 	<content contentuid="h9082f1a2g5c36g446egb3ceg32b71e80729a" version="1">Stomach Sentinel</content>
 	<content contentuid="h76e18109gbc38g449dga82bgb7950d911b00" version="1">You made an oath to protect the ones you care about, and to keep them close. What could be closer than inside of you?</content>
@@ -234,7 +235,7 @@
 	<content contentuid="hf8ac28e2g540cg46f3gb399g7f582b12bc2f" version="1">Rage becomes Sentinel's Stillness</content>
 	<content contentuid="hed5fc488gf2d1g4298gab1fg18f59cd1c1c3" version="1">You quell the rage within you to better protect your allies.</content>
 	<content contentuid="h31869550gd185g4998gab43g60dd67d291bb" version="1">Still</content>
-	<content contentuid="h32cfd1d2gc17bg4f19gb9ffg13b6762c5997" version="1">Deals an additional [1] damage with melee and improvised weapons, and while throwing objects. Resistance to all damage.&#x3C;br&#x3E;&#x3C;br&#x3E;Also has Resistance to physical damage, and Advantage on Strength &lt;LSTag Tooltip="AbilityCheck"&gt;Checks&lt;/LSTag&gt; and &lt;LSTag Tooltip="SavingThrow"&gt;Saving Throws&lt;/LSTag&gt;.&#x3C;br&#x3E;&#x3C;br&#x3E;Cannot cast or concentrate on spells.</content>
+	<content contentuid="h32cfd1d2gc17bg4f19gb9ffg13b6762c5997" version="1">Deals an additional [1] damage with melee and improvised weapons, and while throwing objects. &#x3C;br&#x3E;&#x3C;br&#x3E;Also has Resistance to all damage, and Advantage on Strength &lt;LSTag Tooltip="AbilityCheck"&gt;Checks&lt;/LSTag&gt; and &lt;LSTag Tooltip="SavingThrow"&gt;Saving Throws&lt;/LSTag&gt;.&#x3C;br&#x3E;&#x3C;br&#x3E;Cannot cast or concentrate on spells.</content>
 
 	<content contentuid="h7fb07d2bg1c8cg479cg9469g26ff2bbabde6" version="1">Knowledge Within</content>
 	<content contentuid="h06aa6c3cgc0deg484dgb60ega3cd69d437e7" version="1">When faced with trials, you may utilize the talents of your allies to assist you. When making an ability check, if an ally inside you has a higher bonus to that check, you may use their bonus instead.</content>
@@ -245,7 +246,10 @@
 
 	<content contentuid="h17e0796fgc6fdg468bgac8cgf7cf03065ca9" version="1">Protection From Within</content>
 	<content contentuid="h676364eag4a85g4bdfg9e88g983150e3e136" version="1">You have [1] temporary HP for each ally inside of you.</content>
-	
+
+	<content contentuid="hb77896a0g2acbg40b0g8660gb57675fb9eed" version="1">Guardian's Gift</content>
+	<content contentuid="h06f5e8a4g751ag4dc6ga37fgb7321778e541" version="1">Allies inside you have a +2 to attack rolls and their spall save DC.</content>
+	<content contentuid="hf55eab9fg3700g47d9gad76g30b6074de23a" version="1">You have a +2 to attack rolls and their spall save DC.</content>
 
 	<!-- pred feats -->
 	<content contentuid="h54388124gd369g4a55gb75dg89cf37ad12e2" version="1">Cavernous</content>
