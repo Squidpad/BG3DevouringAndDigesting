@@ -13,5 +13,12 @@ function SP_MigratePersistentVars()
                 end
             end
         end
+        for i, _ in pairs(v) do
+            if VoreDataEntry[i] == nil then
+                _F('Character: ' .. k)
+                _F('Unknown value: ' .. i)
+                VoreData[k][i] = nil
+            end
+        end
     end
 end

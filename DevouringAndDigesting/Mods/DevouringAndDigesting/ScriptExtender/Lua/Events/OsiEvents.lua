@@ -10,10 +10,6 @@ local calculateRest = true
 ---@param storyActionID integer
 function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
     --_P("SpellCast")
-    if not SP_MCMGet("ICanRead") then
-        _P("Please read the mod wiki!")
-        return
-    end
     local spellParams = SP_StringSplit(spell, "_")
     if spellParams[1] ~= 'SP' then
         return
@@ -88,7 +84,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                     end
                 end
             end
-        elseif spell == "SP_Shout_MoveToPred" then
+        elseif spell == "SP_Zone_MoveToPred" then
             SP_TeleportToPred(caster)
         end
     end
@@ -104,10 +100,6 @@ end
 ---@param storyActionID? integer
 function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, storyActionID)
     --_P("SpellCastTarget")
-    if not SP_MCMGet("ICanRead") then
-        _P("Please read the mod wiki!")
-        return
-    end
     local spellParams = SP_StringSplit(spell, "_")
     if spellParams[1] ~= "SP" then
         return
@@ -132,40 +124,40 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         -- vore check end
         -- spell type check
         if digestionType == 'Endo' then
+            -- why remove the delays here?
+            -- they made it look better
             if Osi.IsItem(target) == 1 then
-                return
                 -- Item Vore
-                -- SP_DelayCallTicks(12, function ()
-                --     SP_SwallowItem(caster, target)
-                -- end)
+                SP_DelayCallTicks(12, function ()
+                    SP_SwallowItem(caster, target)
+                end)
             else
                 _P("Ally: " .. Osi.IsAlly(caster, target))
                 if Osi.IsAlly(caster, target) == 1 then
-                    SP_DelayCallTicks(2, function ()
+                    SP_DelayCallTicks(12, function ()
                         SP_SwallowPrey(caster, target, DType.Endo, true, true, locus)
                     end)
                 else
-                    SP_DelayCallTicks(2, function ()
+                    SP_DelayCallTicks(6, function ()
                         SP_VoreCheck(caster, target, "SwallowCheck_Endo_" .. locus)
                     end)
                 end
             end
         elseif digestionType == 'Lethal' then
             if Osi.IsItem(target) == 1 then
-                return
                 -- Item Vore
-                -- SP_DelayCallTicks(12, function ()
-                --     SP_SwallowItem(caster, target)
-                --     VoreData[caster].DigestItems = true
-                -- end)
+                SP_DelayCallTicks(12, function ()
+                    SP_SwallowItem(caster, target)
+                    VoreData[caster].DigestItems = true
+                end)
             else
                 _P("Ally: " .. Osi.IsAlly(caster, target))
                 if Osi.IsAlly(caster, target) == 1 then
-                    SP_DelayCallTicks(2, function ()
+                    SP_DelayCallTicks(12, function ()
                         SP_SwallowPrey(caster, target, DType.Lethal, true, true, locus)
                     end)
                 else
-                    SP_DelayCallTicks(2, function ()
+                    SP_DelayCallTicks(6, function ()
                         SP_VoreCheck(caster, target, "SwallowCheck_Lethal_" .. locus)
                     end)
                 end
@@ -233,16 +225,25 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                 if Osi.HasPassive(target, "SP_NotPred") == 1 then
                     _P("Was prey")
                     Osi.RemovePassive(target, "SP_NotPred")
+                    if Osi.HasPassive(target, "SP_IsPred") == 0 then
+                        Osi.AddPassive(target, "SP_IsPred")
+                        if Osi.HasPassive(target, "SP_CanOralVore") == 0 then
+                            Osi.AddPassive(target, "SP_CanOralVore")
+                        end
+                    end
                 end
-                Osi.AddPassive(target, "SP_IsPred")
             end
         elseif spellName == 'AssignNPCPrey' then
             _P(target)
             if Osi.HasPassive(target, "SP_IsPred") == 1 then
                 _P("Was predator")
+                Osi.RemovePassive(target, "SP_CanOralVore")
+                Osi.RemovePassive(target, "SP_CanAnalVore")
+                Osi.RemovePassive(target, "SP_CanUnbirth")
+                Osi.RemovePassive(target, "SP_CanCockVore")
                 Osi.RemovePassive(target, "SP_IsPred")
             end
-            if Ext.Entity.Get(target).ServerCharacter.Temporary == false then
+            if Osi.HasPassive(target, "SP_NotPred") == 0 then
                 Osi.AddPassive(target, "SP_NotPred")
             end
         elseif spellName == 'Acidify' then
@@ -407,9 +408,9 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
                 end
             end
         end
-        if not SP_HasLivingPrey(pred, true) then
-            Osi.RemoveStatus(pred, "SP_Indigestion")
-        end
+        --if not SP_HasLivingPrey(pred, true) then
+        --    Osi.RemoveStatus(pred, "SP_Indigestion")
+        --end
         SP_PlayGurgle(pred, lethalCount, gradualCount)
 
     --add random role to characters around host
@@ -482,8 +483,6 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         local shelterTurns = Osi.GetStatusTurns(pred, "SP_SC_StomachShelterStuffed")
         local sanctuaryTurns = Osi.GetStatusTurns(pred, "SP_SC_StomachSanctuaryStuffed")
         Osi.ApplyStatus(pred, "SP_SC_StomachShelterStuffed_TempHP", (shelterTurns + sanctuaryTurns * 2) * SecondsPerTurn, 1, pred)
-    elseif statusArgs[2] == "TryingToEnterCombatTick" then
-        SP_TeleportToPred(object)
     end
 end
 
@@ -497,50 +496,42 @@ function SP_OnItemUsed(character, item, success)
     if itemParams[1] == 'SP' then
         local template = Osi.GetTemplate(item)
         -- check if a character lost a locus, to see if they are still a pred
-        local lociLost = false
+        local changedLoci = 0
         _P(template)
         -- item name + map key
         if template == 'SP_PotionOfOralVore_1219e0c2-e893-4de0-8a92-6212d1348223' then
             if Osi.HasPassive(character, "SP_CanOralVore") == 0 then
                 Osi.AddPassive(character, "SP_CanOralVore")
+                changedLoci = 1
             else
                 Osi.RemovePassive(character, "SP_CanOralVore")
-                lociLost = true
+                changedLoci = -1
             end
         elseif template == 'SP_PotionOfAnalVore_04987160-cb88-4d3e-b219-1843e5253d51' then
             if Osi.HasPassive(character, "SP_CanAnalVore") == 0 then
                 Osi.AddPassive(character, "SP_CanAnalVore")
+                changedLoci = 1
             else
                 Osi.RemovePassive(character, "SP_CanAnalVore")
-                lociLost = true
+                changedLoci = -1
             end
         elseif template == 'SP_PotionOfUnbirth_92067c3c-547e-4451-9377-632391702de9' then
             if Osi.HasPassive(character, "SP_CanUnbirth") == 0 and (Osi.IsTagged(character, 'a0738fdf-ca0c-446f-a11d-6211ecac3291') == 1 or not
                     SP_MCMGet("RequireProperAnatomy") or Osi.GetBodyType(character, 1) == "Female") then
                 Osi.AddPassive(character, "SP_CanUnbirth")
-            else
+                changedLoci = 1
+            elseif Osi.HasPassive(character, "SP_CanUnbirth") == 1 then
                 Osi.RemovePassive(character, "SP_CanUnbirth")
-                lociLost = true
+                changedLoci = -1
             end
         elseif template == 'SP_PotionOfCockVore_04cbdeb4-a98e-44cd-b032-972df0ba3ca1' then
             if Osi.HasPassive(character, "SP_CanCockVore") == 0 and (Osi.IsTagged(character, 'd27831df-2891-42e4-b615-ae555404918b') == 1 or not
                     SP_MCMGet("RequireProperAnatomy")) then
                 Osi.AddPassive(character, "SP_CanCockVore")
-            else
+                changedLoci = 1
+            elseif Osi.HasPassive(character, "SP_CanCockVore") == 1 then
                 Osi.RemovePassive(character, "SP_CanCockVore")
-                lociLost = true
-            end
-        -- elseif template == 'SP_PotionOfGluttony_f3914e54-2c48-426a-a338-8e1c86ebc7be' then
-        --     if Osi.HasPassive(character, "SP_IsPred") == 0 then
-        --         Osi.AddPassive(character, "SP_IsPred")
-        --     else
-        --         Osi.RemovePassive(character, "SP_IsPred")
-        --     end
-        elseif template == 'SP_PotionOfPrey_02ee5321-7bcd-4712-ba06-89eb1850c2e4' then
-            if Osi.HasPassive(character, "SP_IsPrey") == 0 then
-                Osi.AddPassive(character, "SP_IsPrey")
-            else
-                Osi.RemovePassive(character, "SP_IsPrey")
+                changedLoci = -1
             end
         elseif template == 'SP_PotionOfInedibility_319379c2-3627-4c26-b14d-3ce8abb676c3' then
             if Osi.HasPassive(character, "SP_Inedible") == 0 then
@@ -563,10 +554,12 @@ function SP_OnItemUsed(character, item, success)
         end
         -- if no loci left, remove pred status
         SP_DelayCallTicks(2, function ()
-            if lociLost and SP_GetPredLoci(character) == "" then
+            if changedLoci < 0 and SP_GetPredLoci(character) == "" then
                 
                 Osi.RemovePassive(character, "SP_IsPred")
-            elseif Osi.HasPassive(character, "SP_IsPred") == 0 then
+                Osi.AddPassive(character, "SP_NotPred")
+            elseif changedLoci > 0 and Osi.HasPassive(character, "SP_IsPred") == 0 then
+                Osi.RemovePassive(character, "SP_NotPred")
                 Osi.AddPassive(character, "SP_IsPred")
             end
         end)
@@ -577,20 +570,28 @@ end
 function SP_OnLevelUp(character)
     if SP_MCMGet("FeatsAddLoci") then
         SP_DelayCallTicks(10, function ()
+            local addedLoci = 0
             if Osi.HasPassive(character, 'SP_Cavernous') == 1 then
                 if Osi.HasPassive(character, "SP_CanAnalVore") == 0 then
                     Osi.AddPassive(character, "SP_CanAnalVore")
+                    addedLoci = 1
                 end
             elseif Osi.HasPassive(character, 'SP_BoilingInsides') == 1 then
                 if Osi.HasPassive(character, "SP_CanCockVore") == 0 and (Osi.IsTagged(character, 'd27831df-2891-42e4-b615-ae555404918b') == 1 or not
                         SP_MCMGet("RequireProperAnatomy")) then
                     Osi.AddPassive(character, "SP_CanCockVore")
+                    addedLoci = 1
                 end
             elseif Osi.HasPassive(character, 'SP_SoothingStomach') == 1 then
                 if Osi.HasPassive(character, "SP_CanUnbirth") == 0 and (Osi.IsTagged(character, 'a0738fdf-ca0c-446f-a11d-6211ecac3291') == 1 or not
                         SP_MCMGet("RequireProperAnatomy") or Osi.GetBodyType(character, 1) == "Female") then
                     Osi.AddPassive(character, "SP_CanUnbirth")
+                    addedLoci = 1
                 end
+            end
+            if addedLoci > 0 and Osi.HasPassive(character, "SP_IsPred") == 0 then
+                Osi.RemovePassive(character, "SP_NotPred")
+                Osi.AddPassive(character, "SP_IsPred")
             end
         end)
     end
@@ -642,24 +643,20 @@ end
 ---@param object GUIDSTRING
 ---@param combatGuid GUIDSTRING
 function SP_OnCombatEnter(object, combatGuid)
-    SP_DelayCallTicks(6, function ()
-        if Osi.HasActiveStatus(object, "SP_TryingToEnterCombat") == 1 then
-            Osi.RemoveStatus(object, "SP_TryingToEnterCombat")
-            Osi.SetVisible(object, 0)
-            -- Osi.SetDetached(object, 1)
-        elseif VoreData[object] ~= nil then
-            VoreData[object].Combat = combatGuid
-            if VoreData[object].Prey then
-                _P(object .. " is in combat")
-                for prey, _ in pairs(VoreData[object].Prey) do
-                    Osi.ApplyStatus(prey, "SP_TryingToEnterCombat", -1, 1, object)
-                    Osi.SetVisible(prey, 1)
-                    
-                end
+    if VoreData[object] ~= nil then
+        _P("Adding " .. object .. " to combat")
+        VoreData[object].Combat = combatGuid
+        if next(VoreData[object].Prey) ~= nil then
+            for prey, _ in pairs(VoreData[object].Prey) do
+                SP_TeleportToPred(prey)
+                SP_DelayCallTicks(10, function ()
+                    _P("Adding prey " .. prey .. " to combat")
+                    VoreData[prey].Combat = combatGuid
+                    Osi.EnterCombat(prey, object)
+                end)
             end
         end
     end
-    )
 end
 
 ---Runs when character leaves combat
@@ -668,9 +665,7 @@ end
 function SP_OnCombatLeave(object, combatGuid)
     --_P("CombatLeave")
     if VoreData[object] ~= nil then
-        if VoreData[object].Pred ~= nil then
-            -- Osi.SetDetached(object, 0)
-        end
+        _P("Removing " .. object .. " from combat")
         VoreData[object].Combat = ""
     end
 end
@@ -678,7 +673,8 @@ end
 ---@param character CHARACTER
 function SP_OnTurnStarted(character)
     -- _P(character .. "'s turn started")
-    SP_TeleportToPred("ALL")
+    -- replaced all with character to improve performance
+    SP_TeleportToPred(character)
 end
 
 ---Runs when someone dies.
@@ -699,10 +695,7 @@ function SP_OnBeforeDeath(character)
     -- If character was prey (both can be true at the same time)
     if VoreData[character] ~= nil and VoreData[character].Pred ~= "" then
         local pred = VoreData[character].Pred
-        VoreData[character].Digestion = DType.Dead
-        if VoreData[character].Locus == 'O' then
-            SP_SwitchToLocus(pred, character, 'A')
-        end
+
         _P(character .. " was digested by " .. pred .. " and DIED")
 
         -- Warlock slot recovery
@@ -722,7 +715,12 @@ function SP_OnBeforeDeath(character)
                 SP_RegurgitatePrey(pred, character, -1, "Absorb", VoreData[character].Locus)
             end)
         else
-            SP_SwitchToDigestionType(pred, character, 1, 1)
+            --the first line is necessary to properly switch to a locus
+            VoreData[character].Digestion = DType.Dead
+            if VoreData[character].Locus == 'O' then
+                SP_SwitchToLocus(pred, character, 'A')
+            end
+            SP_SwitchToDigestionType(pred, character, DType.Dead, DType.Dead)
             -- Digested but not released prey will be stored out of bounds.
             -- investigate if teleporting char out of bounds and reloading breaks them
             Osi.TeleportToPosition(character, -100000, 0, -100000, "", 0, 0, 0, 1, 0)
@@ -733,9 +731,8 @@ function SP_OnBeforeDeath(character)
                 SP_FastDigestion(pred, preyToDigest, 0)
             end
         end
-        if not SP_HasLivingPrey(pred, true) then
-            Osi.RemoveStatus(pred, "SP_Indigestion")
-        end
+        -- it's not applied to dead characters by default
+        -- Osi.RemoveStatus(pred, "SP_Indigestion")
     end
 end
 

@@ -23,7 +23,7 @@ function SP_BulkRemoveStatus(entity, statuses)
 end
 
 
-function SP_IsPred(entity)
+function SP_IsActivePred(entity)
     entity = entity or context.Target
     return HasStatus('SP_Stuffed', entity)
 end

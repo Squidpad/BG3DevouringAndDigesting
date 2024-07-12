@@ -1,7 +1,7 @@
 ---@type SP_RaceConfigVars
 RaceConfigVars = {}
 
-local RACECONFIG_PATH = "DevouringAndDigesting\\RaceConfig.json"
+local RACECONFIG_PATH = "RaceConfig.json"
 
 ---races that are considered creatures for config
 ---@type table<string,boolean>
@@ -93,7 +93,8 @@ SINGLE_GENDER_CREATURE = {
     ["Badger"] = true,
     ["Merregon"] = false,
     ["Wolf"] = true,
-    ["Raven"] = true,
+    -- this is not a typo
+    ["|Raven|"] = true,
     ["Bear"] = true,
     ["Boar"] = true,
     ["Hyena"] = true,
@@ -252,7 +253,7 @@ DEFAULT_RACE_TABLE = {
     ["Badger"] = 100,
     ["Merregon"] = 100,
     ["Wolf"] = 100,
-    ["Raven"] = 100,
+    ["|Raven|"] = 100,
     ["Bear"] = 100,
     ["Boar"] = 100,
     ["Hyena"] = 100,
@@ -353,4 +354,27 @@ function SP_LoadRaceWeightsConfigFromFile()
         SP_ResetAndSaveRaceWeightsConfig()
     end
 
+    local needResave = false
+
+    -- if any races are missing
+    for k, v in pairs(DEFAULT_RACE_TABLE) do
+        if RaceConfigVars[k] == nil then
+            RaceConfigVars[k] = v
+            needResave = true
+        end
+    end
+
+    -- if there are any extra races in the saved file
+    for k, _ in pairs(RaceConfigVars) do
+        if DEFAULT_RACE_TABLE[k] == nil then
+            RaceConfigVars[k] = nil
+            needResave = true
+        end
+    end
+
+
+
+    if needResave then
+        SP_SaveRaceWeightsConfig()
+    end
 end

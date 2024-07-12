@@ -32,6 +32,7 @@ data "ContainerSpells" ""
 data "DisplayName" "heb67e082g2f04g4e5agbc2bg8af24a4ee1ec;2"
 data "Description" "hf0a97b33g7572g44f8g9537g13a08e9112cd;4"
 data "DescriptionParams" "stomach"
+data "CastEffect" "dbb69154-0834-4ae7-b438-b831ba7cab45"
 data "SpellFlags" "Temporary"
 
 new entry "SP_Zone_Regurgitate_A_All"

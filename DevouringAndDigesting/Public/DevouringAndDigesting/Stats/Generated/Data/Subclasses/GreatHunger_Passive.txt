@@ -20,7 +20,7 @@ type "PassiveData"
 data "DisplayName" "hcf1fb4ed3fd042cf966496bb5181dddb182g;1"
 data "Description" "he1da6be5dc2a4353bbc2ad90f52e161e9f21;1"
 data "Icon" "Spell_Illusion_HypnoticPattern"
-data "Boosts" "IF(SP_IsPred()):DamageReduction(All,Flat,2);IF(SP_IsPred()):AC(1)"
+data "Boosts" "IF(SP_IsActivePred()):DamageReduction(All,Flat,2);IF(SP_IsActivePred()):AC(1)"
 data "Properties" "Highlighted"
 
 new entry "SP_SC_BoundPrey"
