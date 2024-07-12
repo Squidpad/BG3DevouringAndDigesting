@@ -75,9 +75,10 @@ function SP_ResetVore()
             v.Satiation = 0
             SP_UpdateWeight(k)
         end
-        SP_DelayCallTicks(10, function ()
+        SP_DelayCallTicks(30, function ()
             VoreData = {}
             PersistentVars['VoreData'] = {}
+            SP_MCMSet("ResetVore", "Ready")
             _P("Vore reset complete")
         end)
     end)
