@@ -269,10 +269,20 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested, swallowStages, locus
     SP_VoreDataEntry(pred, true)
 
     SP_AddPrey(pred, prey, swallowType, notNested, swallowStages, locus)
-    Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_" .. SP_GetPredLoci(pred, true), 0, 0)
-    Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
-    Osi.AddSpell(pred, 'SP_Zone_FlexBelly', 0, 0)
-    Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
+    --start combat
+    if (swallowType == DType.Lethal or Osi.IsAlly(prey, pred) ~= 1) and not Osi.IsPartyMember(prey, 1) ~= 1 then
+        Osi.SetRelationTemporaryHostile(prey, pred)
+        _P("Set hostile relationship")
+    end
+
+    -- if it's nested vore, pred should already have prey inside his stomach (unless we're talking about preyStolen, but it's not implemented yet)
+    -- one preyStolen is done, add a check here
+    if notNested then
+        Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_" .. SP_GetPredLoci(pred, true), 0, 0)
+        Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
+        Osi.AddSpell(pred, 'SP_Zone_FlexBelly', 0, 0)
+        Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
+    end
 
     if SP_MCMGet("SweatyVore") == true then
         Osi.ApplyStatus(pred, "SWEATY", 5 * SecondsPerTurn)
@@ -283,10 +293,7 @@ function SP_SwallowPrey(pred, prey, swallowType, notNested, swallowStages, locus
 
     _D(VoreData)
 
-    if (swallowType == DType.Lethal or Osi.IsAlly(prey, pred) ~= 1) and not Osi.IsPartyMember(prey, 1) ~= 1 then
-        Osi.SetRelationTemporaryHostile(prey, pred)
-        _P("Set hostile relationship")
-    end
+
     _P('Swallowing END')
 end
 
@@ -302,14 +309,21 @@ function SP_SwallowPreyMultiple(pred, preys, swallowType, notNested, swallowStag
 
     SP_VoreDataEntry(pred, true)
 
-    for _, v in ipairs(preys) do
-        SP_AddPrey(pred, v, swallowType, notNested, swallowStages, locus)
+    for _, prey in ipairs(preys) do
+        SP_AddPrey(pred, prey, swallowType, notNested, swallowStages, locus)
+        --start combat (should trigger on bellyport)
+        if notNested and (swallowType == DType.Lethal or Osi.IsAlly(prey, pred) ~= 1) and not Osi.IsPartyMember(prey, 1) ~= 1 then
+            Osi.SetRelationTemporaryHostile(prey, pred)
+            _P("Set hostile relationship")
+        end
     end
 
-    Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_" .. SP_GetPredLoci(pred, true), 0, 0)
-    Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
-    Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
-    Osi.AddSpell(pred, 'SP_Zone_FlexBelly', 0, 0)
+    if notNested then
+        Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_" .. SP_GetPredLoci(pred, true), 0, 0)
+        Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
+        Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
+        Osi.AddSpell(pred, 'SP_Zone_FlexBelly', 0, 0)
+    end
 
     if SP_MCMGet("SweatyVore") == true then
         Osi.ApplyStatus(pred, "SWEATY", 5 * SecondsPerTurn)
