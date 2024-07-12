@@ -50,6 +50,9 @@ function SP_VorePossible(pred, prey)
         return false
     end
     local isItem = Osi.IsItem(prey) == 1
+    if isItem and not SP_MCMGet("ItemVore") then
+        return false
+    end
     if not SP_MCMGet("AllowOverstuffing") and ((isItem and not SP_CanFitItem(pred, prey)) or
             (not isItem and not SP_CanFitPrey(pred, prey))) then
         Osi.ApplyStatus(pred, "SP_Cant_Fit_Prey", SecondsPerTurn * 6, 1, prey)

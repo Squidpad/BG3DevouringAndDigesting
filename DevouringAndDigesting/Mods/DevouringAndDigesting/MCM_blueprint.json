@@ -30,13 +30,6 @@
                     "Type": "checkbox"
                 },
                 {
-                    "Id": "DigestItems",
-                    "Name": "Item Digestion",
-                    "Default": false,
-                    "Description": "When you start digesting prey, the items in your stomach might be digested.\nWARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE",
-                    "Type": "checkbox"
-                },
-                {
                     "Id": "DigestionRateLong",
                     "Name": "Digestion Rate (Long Rest)",
                     "Default": 60,
@@ -495,6 +488,16 @@
                     }
                 },
                 {
+                    "Id": "LockStomach",
+                    "Name": "Locks Stomach Item",
+                    "Default": true,
+                    "Description": "Locks 'stomach item' that is used to store items during item vore.",
+                    "Type": "checkbox",
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "DebugEnable", "ExpectedValue": "true", "Operator": "=="}]
+                    }
+                },
+                {
                     "Id": "TeleportPrey",
                     "Name": "Teleport Prey",
                     "Default": true,
@@ -529,6 +532,26 @@
                     "Default": false,
                     "Description": "Shows a tab with some WIP options. Most of them work just fine, but use them at your own risk.",
                     "Type": "checkbox"
+                },
+                {
+                    "Id": "ItemVore",
+                    "Name": "Item Vore",
+                    "Default": false,
+                    "Description": "Enables you to swallow items. They will be stored inside a locked container in your inventory.\nItems can be digested is your stomach start digesting prey. Digested items are permanently lost!",
+                    "Type": "checkbox",
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
+                    }
+                },
+                {
+                    "Id": "DigestItems",
+                    "Name": "Item Digestion",
+                    "Default": false,
+                    "Description": "When you start digesting prey, the items in your stomach might be digested.\nWARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE",
+                    "Type": "checkbox",
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
+                    }
                 },
                 {
                     "Id": "WeightGain",
