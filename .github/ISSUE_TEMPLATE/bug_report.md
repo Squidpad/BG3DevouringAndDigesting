@@ -12,6 +12,7 @@ A clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
+(for example)
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
@@ -33,7 +34,7 @@ Mod Configuration Menu:
 
 
 **Load Order**
-In Baldur's Gate 3 Mod Manager, select File then Export Order to Text File. Add the file to this report.
+In Baldur's Gate 3 Mod Manager, select File then Save Order As. Add the file to this report using the button at the bottom. (A link to the file will appear at the cursor location).
 
 **Additional context**
 Add any other context about the problem here.
