@@ -33,7 +33,7 @@
                     "Id": "DigestItems",
                     "Name": "Item Digestion",
                     "Default": false,
-                    "Description": "When you start digesting prey, the items in your stomach might be digested. WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE",
+                    "Description": "When you start digesting prey, the items in your stomach might be digested.\nWARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE",
                     "Type": "checkbox"
                 },
                 {
@@ -100,7 +100,7 @@
                     "Id": "Hunger",
                     "Name": "Hunger",
                     "Default": false,
-                    "Description": "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will receive debuffs. Setting this to false disables hunger completely.",
+                    "Description": "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will receive debuffs.\nSetting this to false disables hunger completely.",
                     "Type": "checkbox"
                 },
                 {
@@ -184,7 +184,7 @@
                     "Id": "LethalRandomSwitch",
                     "Name": "Accidental Digestion",
                     "Default": false,
-                    "Description": "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey. Works independently from SwitchEndoLethal.",
+                    "Description": "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey.\nWorks independently from SwitchEndoLethal.",
                     "Type": "checkbox"
                 }
             ],
@@ -200,7 +200,7 @@
                     "Id": "AllowOverstuffing",
                     "Name": "Allow Overstuffing (WIP)",
                     "Default": false,
-                    "Description": "If true, devouring prey can push you over your maximum carrying capacity, but you'll take damage every round proportional to how overstuffed you are. If false, you'll be hard-capped by your carrying capacity.",
+                    "Description": "If true, devouring prey can push you over your maximum carrying capacity, but you'll take damage every round proportional to how overstuffed you are.\nIf false, you'll be hard-capped by your carrying capacity.",
                     "Type": "checkbox"
                 },
                 {
@@ -253,7 +253,7 @@
                     "Id": "IndigestionRest",
                     "Name": "Indigestion is removed only on rest",
                     "Default": false,
-                    "Description": "Instead of being removed when there is no living prey inside of a pred, indigestion will ONLY be removed on long rest. Use with high indigestion limit.",
+                    "Description": "Instead of being removed when there is no living prey inside of a pred, indigestion will ONLY be removed on long rest.\nUse with high indigestion limit.",
                     "Type": "checkbox"
                 }
             ],
@@ -324,7 +324,7 @@
                     "Id": "ProbabilityCreature",
                     "Name": "Predator Chance (Monster)",
                     "Default": 20,
-                    "Description": "The % of a monster becoming a predator. Monsters are any creature that isn't internally considered Male or Female. This value is multiplied by the race's multiplier. Set to 0 to disable.",
+                    "Description": "The % of a monster becoming a predator. Monsters are any creature that isn't internally considered Male or Female.\nThis value is multiplied by the race's multiplier. Set to 0 to disable.",
                     "Type": "slider_int",
                     "Options": {
                         "Min": 0,
@@ -335,7 +335,7 @@
                     "Id": "ProbabilityFemale",
                     "Name": "Predator Chance (Female)",
                     "Default": 40,
-                    "Description": "The % of a female NPC becoming a predator. Female NPCs have Body Types 1 or 2, with some exceptions. This value is multiplied by the race's multiplier. Set to 0 to disable.",
+                    "Description": "The % of a female NPC becoming a predator. Female NPCs have Body Types 1 or 2, with some exceptions.\nThis value is multiplied by the race's multiplier. Set to 0 to disable.",
                     "Type": "slider_int",
                     "Options": {
                         "Min": 0,
@@ -346,12 +346,33 @@
                     "Id": "ProbabilityMale",
                     "Name": "Predator Chance (Male)",
                     "Default": 30,
-                    "Description": "The % of a male NPC becoming a predator. Male NPCs have Body Types 3 or 4, with some exceptions. This value is multiplied by the race's multiplier. Set to 0 to disable.",
+                    "Description": "The % of a male NPC becoming a predator. Male NPCs have Body Types 3 or 4, with some exceptions.\nThis value is multiplied by the race's multiplier. Set to 0 to disable.",
                     "Type": "slider_int",
                     "Options": {
                         "Min": 0,
                         "Max": 100
                     }
+                },
+                {
+                    "Id": "rResetRaceConfig",
+                    "Name": "Reset Race Config",
+                    "Default": false,
+                    "Description": "RaceConfig.json is located in 'AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Script Extender'\nRace Config stores the % of an NPC of every race becoming a pred.\nThe final chance is 'Race Probability * Sex Probability / 100'%\nThis Resets RaceConfig.json to 100 for every race.",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "rLoadExample",
+                    "Name": "Load Example Race Config",
+                    "Default": false,
+                    "Description": "This loads an example race config.\nUse this if you're too lazy to customize the probabilities yourself, or as a starting point\nBack up you RaceConfig.json, because this will overwrite it!",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "rReloadRaceConfig",
+                    "Name": "Reload Race Config",
+                    "Default": false,
+                    "Description": "Reloads the RaceConfig from the currently saved RaceConfig.json (if it exists)\nNormally it's loaded when you load a save, but this option allows you to manually reload it.",
+                    "Type": "checkbox"
                 }
             ],
             "VisibleIf": {
@@ -423,7 +444,7 @@
                     "Description": "Immediately update belly visuals",
                     "Type": "radio",
                     "Options":{
-                        "Choices": ["Ready", "Update"]
+                        "Choices": ["Ready", "Updating"]
                     }
                 },
                 {
@@ -452,6 +473,16 @@
                     "Default": false,
                     "Description": "Access debug options. Do not check this unless you know what you're doing.",
                     "Type": "checkbox"
+                },
+                {
+                    "Id": "ResetVore",
+                    "Name": "Reset Vore",
+                    "Default": "Ready",
+                    "Description": "Check this to reset vore. All preds will regurgitate everything and the stored data will be cleared. Wait until it's ready before clicking again.\nIf it's not switching back to Ready after 2-3 seconds, check Console for errors.",
+                    "Type": "radio",
+                    "Options":{
+                        "Choices": ["Ready", "Running"]
+                    }
                 },
                 {
                     "Id": "AlwaysSucceedVore",
@@ -503,7 +534,7 @@
                     "Id": "WeightGain",
                     "Name": "Weight Gain",
                     "Default": false,
-                    "Description": "Stores and adds fat value to belly size. Fat is increased during digestion of dead prey and reduced upon resting. This is here, because it ONLY affects the belly size, so some people found it confusing.",
+                    "Description": "Stores and adds fat value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.\nThis is here, because it ONLY affects the belly size, so some people found it confusing.",
                     "Type": "checkbox",
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]

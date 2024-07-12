@@ -6,7 +6,7 @@ Ext.RegisterNetListener("MCM_Saved_Setting", function(call, payload)
     end
 
     if data.settingId == "UpdateBellyVisuals" then
-        if data.value == "Update" then
+        if data.value == "Updating" then
             _P("Updating Visuals")
             
             for pred, _ in pairs(VoreData) do
@@ -23,6 +23,19 @@ Ext.RegisterNetListener("MCM_Saved_Setting", function(call, payload)
     elseif data.settingId == "PrintVoreData" and data.value == true then
         _D(VoreData)
         SP_MCMSet("PrintVoreData", false)
+    elseif data.settingId == "ResetVore" then
+        if data.value == "Running" then
+            SP_ResetVore()
+        end
+    elseif data.settingId == "rResetRaceConfig" and data.value == true then
+        SP_ResetAndSaveRaceWeightsConfig()
+        SP_MCMSet("rResetRaceConfig", false)
+    elseif data.settingId == "rLoadExample" and data.value == true then
+        SP_LoadExampleRaceConfig()
+        SP_MCMSet("rLoadExample", false)
+    elseif data.settingId == "rReloadRaceConfig" and data.value == true then
+        SP_LoadRaceWeightsConfigFromFile()
+        SP_MCMSet("rReloadRaceConfig", false)
     end
 end)
 
