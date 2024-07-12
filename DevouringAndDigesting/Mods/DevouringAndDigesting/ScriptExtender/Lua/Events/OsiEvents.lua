@@ -81,10 +81,11 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                         Osi.ApplyStatus(k, "SP_SC_BoundPrey_Prey", -1, 1, caster)
 
                         Osi.ApplyStatus(caster, "SP_SC_BlockVoreTotal", -1, 1, k)
+                        return
                     end
                 end
             end
-        elseif spell == "SP_Zone_MoveToPred" then
+        elseif spellName == "MoveToPred" then
             SP_TeleportToPred(caster)
         end
     end
