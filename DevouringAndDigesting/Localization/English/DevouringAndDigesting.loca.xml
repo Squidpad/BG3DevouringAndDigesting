@@ -266,8 +266,9 @@
 	
 	<content contentuid="hb1fec23c5750495683a10b59dc0e5eaf5fa5" version="1">Intimidating presence</content>
 
-	<content contentuid="" version="1">Frightening Gut</content>
-	<content contentuid="" version="1">You have Advantage on Intimidation checks, +[1] AC, and [2] damage reduction from all sources .</content>
+	<!--leaving handle empty breaks MCM descriptions-->
+	<content contentuid="he6eb5c7ccf864bf98f03b51f5cbb26809db5" version="1">Frightening Gut</content>
+	<content contentuid="h13eb41b309a24f699f211f7199802ba9f877" version="1">You have Advantage on Intimidation checks, +[1] AC, and [2] damage reduction from all sources .</content>
 
 	<content contentuid="hf451da9cgbc97g464agb95cg4ead7bb1e6ec" version="1">Comfortable Embrace</content>
 	<content contentuid="hd4bb28a5g97e3g40ecg89eeg454d8797b456" version="1">Endoed prey are not blinded and can use spells. You do not break concentration of willing prey when you swallow them. You can digest lethally-swallowed prey and keep an endoed swallow prey safe at the same time.</content>

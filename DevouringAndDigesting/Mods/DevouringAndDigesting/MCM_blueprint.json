@@ -181,13 +181,6 @@
                     }
                 },
                 {
-                    "Id": "HungerUseFat",
-                    "Name": "Fat Digestion",
-                    "Default": true,
-                    "Description": "If set to true, fat will be used to reduce hunger gain by half if you don't have enough satiation stacks.",
-                    "Type": "checkbox"
-                },
-                {
                     "Id": "LethalRandomSwitch",
                     "Name": "Accidental Digestion",
                     "Default": false,
@@ -239,6 +232,13 @@
                     "Type": "checkbox"
                 },
                 {
+                    "Id": "DetachPrey",
+                    "Name": "Detach prey",
+                    "Default": true,
+                    "Description": "Prey will be detached from the world grid when swallowed. This means they will be unaffected by AoEs and surfaces, but unable to cast shout spells.",
+                    "Type": "checkbox"
+                },
+                {
                     "Id": "IndigestionLimit",
                     "Name": "IndigestionLimit",
                     "Default": 3,
@@ -246,8 +246,15 @@
                     "Type": "slider_int",
                     "Options": {
                         "Min": 0,
-                        "Max": 10
+                        "Max": 20
                     }
+                },
+                {
+                    "Id": "IndigestionRest",
+                    "Name": "Indigestion is removed only on rest",
+                    "Default": false,
+                    "Description": "Instead of being removed when there is no living prey inside of a pred, indigestion will ONLY be removed on long rest. Use with high indigestion limit.",
+                    "Type": "checkbox"
                 }
             ],
             "VisibleIf": {
@@ -474,6 +481,107 @@
                     "Type": "checkbox",
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "DebugEnable", "ExpectedValue": "true", "Operator": "=="}]
+                    }
+                }
+            ],
+            "VisibleIf": {
+                "Conditions": [{"SettingId": "ICanRead", "ExpectedValue": "true", "Operator": "=="}]
+            }
+        },
+        {
+            "TabId": "zTest",
+            "TabName": "WIP",
+            "Settings": [
+                {
+                    "Id": "ShowWIP",
+                    "Name": "Shows WIP functionality",
+                    "Default": false,
+                    "Description": "Shows a tab with some WIP options. Most of them work just fine, but use them at your own risk.",
+                    "Type": "checkbox"
+                },
+                {
+                    "Id": "WeightGain",
+                    "Name": "Weight Gain",
+                    "Default": false,
+                    "Description": "Stores and adds fat value to belly size. Fat is increased during digestion of dead prey and reduced upon resting. This is here, because it ONLY affects the belly size, so some people found it confusing.",
+                    "Type": "checkbox",
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
+                    }
+                },
+                {
+                    "Id": "WeightGainRate",
+                    "Name": "Weight Gain Rate",
+                    "Default": 25,
+                    "Description": "% of a prey's weight you gain as fat.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    },
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
+                    }
+                },
+                {
+                    "Id": "WeightLossLong",
+                    "Name": "Weight Loss Amount (Long Rest)",
+                    "Default": 11,
+                    "Description": "How much fat a character loses on long resting.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    },
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
+                    }
+                },
+                {
+                    "Id": "WeightLossShort",
+                    "Name": "Weight Loss Amount (Short Rest)",
+                    "Default": 3,
+                    "Description": "How much fat a character loses on short resting.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    },
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
+                    }
+                },
+                {
+                    "Id": "HungerUseFat",
+                    "Name": "Hunger uses fat",
+                    "Default": false,
+                    "Description": "If set to true, fat will be used to reduce hunger gain by half, if you don't have enough satiation stacks.",
+                    "Type": "checkbox",
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
+                    }
+                },
+                {
+                    "Id": "SweatyVore",
+                    "Name": "Sweaty Vore",
+                    "Default": false,
+                    "Description": "Swallowing a prey will make the predator sweaty for a couple of turns. IDK why this has been removed from the main options.",
+                    "Type": "checkbox",
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
+                    }
+                },
+                {
+                    "Id": "StatusBonusLocus",
+                    "Name": "Loci with bonuses",
+                    "Default": "All",
+                    "Description": "These loci will receive bonuses from feats (like prey being able to cast spells while inside this locus)",
+                    "Type": "radio",
+                    "Options":{
+                        "Choices": ["All", "Stomach"]
+                    },
+                    "VisibleIf": {
+                        "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
                     }
                 }
             ],
