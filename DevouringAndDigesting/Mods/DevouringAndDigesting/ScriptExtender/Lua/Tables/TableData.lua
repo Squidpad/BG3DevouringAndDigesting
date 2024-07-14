@@ -51,10 +51,19 @@ DigestionStatuses = {
 
 ---enum for digestion types
 DType = {
+    Any = -1,
     Endo = 0,
     Dead = 1,
     Lethal = 2,
     None = 3,
+}
+
+---enum for loci
+EnumLoci = {
+    ["O"] = true,
+    ["A"] = true,
+    ["U"] = true,
+    ["C"] = true
 }
 
 -- List of gurgle sounds randomly played for stuffed preds
@@ -89,7 +98,6 @@ ComplexCustomSpells = false
 ---@field DisableDowned boolean if a tag that disables downed state was appled on swallow. Should be false for non-prey
 ---@field Unpreferred boolean if a tag that makes AI prefer attacking other targets was applied on swallow. Should be false for non-prey
 ---@field Digestion integer dygestion types 0 == endo, 1 == dead, 2 == lethal, 3 == none. for prey only
----@field DigestItems boolean if the items are being digested
 ---@field Combat string guid of combat character is in
 ---@field Prey table<CHARACTER, string> value of the prey is the locus they are in
 ---@field Items GUIDSTRING id of stomach item that contains swallowed items in preds inventory
@@ -110,7 +118,6 @@ VoreDataEntry = {
     DisableDowned = false,
     Unpreferred = false,
     Digestion = DType.None,
-    DigestItems = false,
     Combat = "",
     Prey = {},
     Items = "",

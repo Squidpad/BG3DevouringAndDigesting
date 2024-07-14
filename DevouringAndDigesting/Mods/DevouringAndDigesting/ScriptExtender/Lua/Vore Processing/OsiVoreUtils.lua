@@ -246,26 +246,30 @@ end
 ---removes all regurgitation containers, in case pred's avalible types of vore were changed
 ---@param pred CHARACTER
 function SP_RemoveAllRegurgitate(pred)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_O", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_A", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_U", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_C", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OA", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OU", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OC", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_AU", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_AC", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_UC", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAU", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAC", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OUC", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_AUC", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_O", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_A", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_U", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_C", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OA", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OU", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OC", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_AU", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_AC", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_UC", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAU", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAC", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OUC", 1)
+    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_AUC", 1)
     Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 1)
 end
 
 ---@param pred CHARACTER
 ---@param forRegurgitate? boolean set this to true if this function is used to get loci for regurgitation spells
 function SP_GetPredLoci(pred, forRegurgitate)
+
+    if forRegurgitate then
+        return 'OAUC'
+    end
     local loci = ''
     local skipA = false
     if Osi.HasPassive(pred, "SP_CanOralVore") == 1 then

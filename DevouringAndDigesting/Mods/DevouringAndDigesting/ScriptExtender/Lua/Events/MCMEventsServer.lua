@@ -36,6 +36,16 @@ Ext.RegisterNetListener("MCM_Saved_Setting", function(call, payload)
     elseif data.settingId == "rReloadRaceConfig" and data.value == true then
         SP_LoadRaceWeightsConfigFromFile()
         SP_MCMSet("rReloadRaceConfig", false)
+    elseif data.settingId == "DetachPrey" then
+        for k, v in pairs(VoreData) do
+            if v.Pred ~= "" then
+                if data.value == true then
+                    Osi.SetDetached(k, 1)
+                else
+                    Osi.SetDetached(k, 0)
+                end
+            end
+        end
     end
 end)
 
