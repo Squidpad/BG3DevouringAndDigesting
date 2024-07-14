@@ -211,10 +211,10 @@
                     "Type": "checkbox"
                 },
                 {
-                    "Id": "SwitchEndoLethal",
-                    "Name": "Switch Endo/Lethal",
+                    "Id": "SwitchLethalEndo",
+                    "Name": "Switch Lethal to Endo",
                     "Default": true,
-                    "Description": "When you start digesting prey, you will start digesting any endo prey in the same locus as well.",
+                    "Description": "You are able to stop digesting prey with Toggle Lethal spell or by Endoing another prey.\nIf this is off, you will only be able to switch back to endo if no prey are being digested in this locus.",
                     "Type": "checkbox"
                 },
                 {

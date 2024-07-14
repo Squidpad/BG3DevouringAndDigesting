@@ -137,13 +137,13 @@
 	<content contentuid="heb677badg9415g4b58g909cgf1e4784ce210" version="1">Indigestion</content>
 	<content contentuid="h1de3d398g8e38g42eegb96cg6288e15a0506" version="1">Your stomach's feeling agitated. If this reaches [1], you'll regurgitate everything that's still moving!</content>
 
-	<content contentuid="h033e9e7ag25eeg487dg8fbege45b644127e4" version="1">Switch to Lethal</content>
-	<content contentuid="hbbe07e5eg88e3g4163ga28bge22018546c55" version="1">Switch to Lethal (Stomach)</content>
-	<content contentuid="h05ea72b7g1134g4b48gaf40g7f6c4f66f76a" version="1">Switch to Lethal (Ass)</content>
-	<content contentuid="h03fcfe03gaa2bg474ag9c87g7c0ad7aa5e25" version="1">Switch to Lethal (Womb)</content>
-	<content contentuid="h007134a2gbbdeg4dc1gb1a5gc082e0f90980" version="1">Switch to Lethal (Balls)</content>
-	<content contentuid="hbcd23c49gcca8g4b2aga982g9218f8672684" version="1">Switch to Lethal (All)</content>
-	<content contentuid="h14e840a3ga7d0g46fcg85b0g8e107ea5efc6" version="1">Fill [1] with acid. You will start digesting all your living prey!</content>
+	<content contentuid="h033e9e7ag25eeg487dg8fbege45b644127e4" version="1">Toggle Lethal</content>
+	<content contentuid="hbbe07e5eg88e3g4163ga28bge22018546c55" version="1">Toggle Lethal (Stomach)</content>
+	<content contentuid="h05ea72b7g1134g4b48gaf40g7f6c4f66f76a" version="1">Toggle Lethal (Ass)</content>
+	<content contentuid="h03fcfe03gaa2bg474ag9c87g7c0ad7aa5e25" version="1">Toggle Lethal (Womb)</content>
+	<content contentuid="h007134a2gbbdeg4dc1gb1a5gc082e0f90980" version="1">Toggle Lethal (Balls)</content>
+	<content contentuid="hbcd23c49gcca8g4b2aga982g9218f8672684" version="1">Toggle Lethal (All)</content>
+	<content contentuid="h14e840a3ga7d0g46fcg85b0g8e107ea5efc6" version="1">Fill [1] with acid. You will start digesting all your living prey! Using this again will stop the lethal digestion.</content>
 
 	<content contentuid="h5a9e44b8g8d89g4291ga046ge4eb60b93ee2" version="1">Exhausted</content>
 	<content contentuid="h5ca5300fg470ag489bgbb48g5581b2148888" version="1">You you just got one down, it'd be a struggle to get another. Wait a bit before swallowing new prey.</content>
@@ -271,7 +271,7 @@
 	<content contentuid="h13eb41b309a24f699f211f7199802ba9f877" version="1">You have Advantage on Intimidation checks, +[1] AC, and [2] damage reduction from all sources .</content>
 
 	<content contentuid="hf451da9cgbc97g464agb95cg4ead7bb1e6ec" version="1">Comfortable Embrace</content>
-	<content contentuid="hd4bb28a5g97e3g40ecg89eeg454d8797b456" version="1">Endoed prey are not blinded and can use spells. You do not break concentration of willing prey when you swallow them. You can digest lethally-swallowed prey and keep an endoed swallow prey safe at the same time.</content>
+	<content contentuid="hd4bb28a5g97e3g40ecg89eeg454d8797b456" version="1">Endoed prey are not blinded and can use spells. You do not break concentration of willing prey when you swallow them.</content>
 	
 	<content contentuid="h51e3b020g60c6g4345g8afcgf0442a6ebc02" version="1">Stretchy Maw</content>
 	<content contentuid="hb0d6a564g4ba4g46adga24eg2baf1ae14c34" version="1">You gain advantage for swallowing prey. You can fully swallow your prey with one less use of &lt;LSTag Type="Spell" Tooltip="SP_SwallowDown"&gt;Continue swallowing&lt;/LSTag&gt; (minimum 0).</content>
@@ -345,7 +345,7 @@
 	<content contentuid="h2a50023dgfef2g4d53g9c97g3505b6e19538" version="1">You touch one target creature. For the duration of the spell, any prey inside of them have their weight halved.</content>
 	
 	<content contentuid="hf45e56e3g4370g49a7g8ea2gd0877db3edaa" version="1">Frog's Tongue</content>
-	<content contentuid="h7c8cb1adg00ecg43bcg826ag78afe85dfcd9" version="1">Your tongue flies out like a whip, entangling and dragging a creature towards you. A creature in range must make a Strength Saving throw or be pulled up closer to the spellcaster. If the creature is moved within your melee range, you automatically make an attempt to swallow it.</content>
+	<content contentuid="h7c8cb1adg00ecg43bcg826ag78afe85dfcd9" version="1">Your tongue flies out like a whip, entangling and dragging a creature towards you. A creature in range must make a Strength Saving throw or be pulled up closer to the spellcaster. On success, you automatically make an attempt to swallow it. If the target is not an enemy, you will try to endo it.</content>
 	
 	<content contentuid="hf3d9c0fcg3c63g4fa1g807cga054d4e8d0ad" version="1">Ravenous</content>
 	<content contentuid="heef31140gf100g4975g9e62g2bc58d3f6d21" version="1">You choose a creature, fooling their body into thinking that they are starving. For the duration of the spell, they have advantage on all checks made to grapple or devour another creature.</content>
@@ -362,9 +362,13 @@
 	<content contentuid="h228697f0gb2cbg4a33g8136gbfa1eadf946b" version="1">Fill a target's stomach with burning acid, dealing [1] damage to all of the prey they are digesting.</content>
 	
 	<content contentuid="h695df312g8840g44eag99acga040cea80b82" version="1">Heave</content>
-	<content contentuid="h67d0b2afgdc83g4887ga3a0g2ba512d4c97b" version="1">Your magic forces a predator to disgorge their prey. When you cast this spell against a target that has prey in its stomach, the target must make a Wisdom saving throw. On a failure, they regurgitate all creatures from their stomach. If the target has not swallowed any prey, they are instead poisoned until the start of your next turn.</content>
+	<content contentuid="h67d0b2afgdc83g4887ga3a0g2ba512d4c97b" version="1">Your magic forces a predator to disgorge their prey. When you cast this spell against a target that has prey in its stomach, the target must make a Wisdom saving throw. On a failure, they regurgitate all creatures from their stomach. If the target has not swallowed any prey, they are instead poisoned for 1 turn.</content>
 	
 	<content contentuid="hec0450e4g5353g4c7dgbff5g294c40d38bf9" version="1">Medicinal Acids</content>
+	<content contentuid="hd3d72e35956a44a8b4a70b35e3f873f3ag4a" version="1">Medicinal Acid (Stomach)</content>
+    <content contentuid="hd61e024883824b74adf22eea5103fea7b4bb" version="1">Medicinal Acid (Ass)</content>
+    <content contentuid="h06e20c9eb6d2468d8ac648430b83d65a70ca" version="1">Medicinal Acid (Womb)</content>
+    <content contentuid="hc409656db8f244d1a3d27f94941af0799f85" version="1">Medicinal Acid (Balls)</content>
 	<content contentuid="hf92f1d17g9736g4c44gb2fcg1d925f48af5d" version="1">You touch 1 friendly creature with another creature inside it, granting the predator the ability to excrete healing acids. The predator stops digesting their prey, and each round, all prey within the predator regain [1].</content>
 	
 	<content contentuid="hc31b81f2g17f6g4f49ga1b0g20b59d8907c4" version="1">Medicinal Acids (Unbirth)</content>
@@ -374,7 +378,7 @@
 	<content contentuid="h8c36b9b8g94a8g4f38g9f1aga8862541ec2a" version="1">You touch a creature. For the duration of the spell, whenever they inflict digestion damage, they regain hit points equal to half the damage dealt.</content>
 	
 	<content contentuid="hc9477ec6g7799g4dcdg94ceg55c3415732eb" version="1">Still Prey</content>
-	<content contentuid="h5f6de038g2739g43d2gaf3bgb0d42ebac35a" version="1">You touch a creature, willing the creatures inside of them into stillness. All prey are incapacitated and immune to all digestion damage for the duration of the spell.</content>
+	<content contentuid="h5f6de038g2739g43d2gaf3bgb0d42ebac35a" version="1">You touch a creature, willing the creatures inside of them into stillness. All prey are incapacitated and immune to all digestion damage for the duration of the spell. Does not affect prey who are swallowed after this spell is cast.</content>
 	
 	<content contentuid="hcb1ec43eg8d73g4d60gb9f7g604eac3c430e" version="1">Power Word Swallow</content>
 	<content contentuid="hbf91528dgc00fg49c8g8977g3b5e000ab543" version="1">Your speak a word of power that can transport a creature of your choice. They are instantly teleported to the stomach of another creature of your choice within range. That creature is unable to meaningfully struggle for the next hour.</content>
@@ -430,4 +434,22 @@
 
 	<content contentuid="he2898dfag40b1g43e8g853fg7803160c6db5" version="1">Bellyport Target</content>
 	<content contentuid="h166b23cdg5899g432eg868dgb0af9238c567" version="1">Targeted by a bellyport spell; it's too late for them...</content>
+    <content contentuid="h46b24cffb10b48a49061e7b40cd721f683c7" version="1">Ravenous</content>
+    <content contentuid="h34446071c0044841917cdc3140f4bd618789" version="1">You have advantage on all swallow checks</content>
+    <content contentuid="hac6e4b1e2f3c41298b1e81fa6a8f7162c9af" version="1">Leeching Acid</content>
+    <content contentuid="hf85358ecef6b4ce6bb636f029e263328g9ac" version="1">You heal for half of the digestion damage you deal</content>
+    <content contentuid="h15e446e26fdd4c26873cef04494c75f0ecfb" version="1">Has Stilled Prey</content>
+    <content contentuid="h130a02227cab4c87a012aed66a33ba6a7b6b" version="1">One prey inside this character is stilled</content>
+    <content contentuid="h639bf8eafb5642d3be3e47b4ab8a3d9cf9bf" version="1">All preys inside this character are stilled</content>
+    <content contentuid="hbfa5b1967f30410d9dc050c8134b4bb7af55" version="1">Still Prey (Single)</content>
+    <content contentuid="haa7325212a3f47b1a428cc7344b744757d2a" version="1">Stilled</content>
+    <content contentuid="h41aa1c26354e4ff0ba1ca83a2db4c948g529" version="1">This prey is incapacitated and cannot act</content>
+    <content contentuid="hc94479e7a10b404f9a4ffae93636849d222d" version="1">Overstuffed!</content>
+    <content contentuid="hf56776344351490c9b2b7676d7634b76f1fg" version="1">It feels like you're about to burst! Tou take [1] every turn</content>
+
+    <content contentuid="hc96ae46aaa02493bb98d55c02c7768a50734" version="1">Characters in this locus will take digestion damage</content>
+    <content contentuid="h4f640bb8e33a42a1b8f54dd1138433b69c89" version="1">Lethal Digestion (Stomach)</content>
+    <content contentuid="h412beff706a9499a8831e9e7ee8c07509312" version="1">Lethal Digestion (Womb)</content>
+    <content contentuid="h41b4f57909ad4f54aa0bcee0e4bf1842g81f" version="1">Lethal Digestion (Ass)</content>
+    <content contentuid="hfabeb05e075f475e99b9daa28900b72b8d92" version="1">Lethal Digestion (Balls)</content>
 </contentList>
