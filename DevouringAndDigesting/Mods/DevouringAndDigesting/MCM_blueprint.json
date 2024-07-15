@@ -245,7 +245,7 @@
                 {
                     "Id": "ExhaustionLimit",
                     "Name": "Exhaustion Limit",
-                    "Default": 10,
+                    "Default": 6,
                     "Description": "Number of levels of \"Exhaustion\" at which a prey will be exhausted and stop struggling. Set to 0 to disable.",
                     "Type": "slider_int",
                     "Options": {

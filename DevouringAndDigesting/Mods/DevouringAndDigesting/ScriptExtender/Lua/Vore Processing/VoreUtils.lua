@@ -47,6 +47,7 @@ function SP_VorePossible(pred, prey)
         return false
     end
     if VoreData[pred] ~= nil and VoreData[pred].Pred == prey then
+        Osi.ApplyStatus(pred, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * SP_MCMGet("CooldownMax"), 1, prey)
         return false
     end
     local isItem = Osi.IsItem(prey) == 1

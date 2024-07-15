@@ -519,7 +519,9 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
                     Osi.ApplyStatus(prey, "SP_HealingAcid_RegainHP", 1, 1, pred)
                 end
             end
-            SP_SetLocusDigestion(object, spellLocus, false, true)
+            if Osi.HasActiveStatus(pred, "SP_LocusLethal_" .. spellLocus) == 1 then
+                SP_SetLocusDigestion(object, spellLocus, false, true)
+            end
         end
     elseif statusArgs[2] == 'TongueStatus' then
         _P("Tongue success")
