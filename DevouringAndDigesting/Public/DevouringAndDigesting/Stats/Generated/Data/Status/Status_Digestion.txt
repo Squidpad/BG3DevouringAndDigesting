@@ -18,6 +18,18 @@ data "StackId" "SP_Indigestion"
 data "StackType" "Additive"
 data "StatusPropertyFlags" "MultiplyEffectsByDuration;FreezeDuration"
 
+new entry "SP_StruggleExhaustion"
+type "StatusData"
+data "StatusType" "BOOST"
+data "DisplayName" "h8c4c5a2fbd9142319796a2b1ec2eaa2ce89c;2"
+data "Description" "h9eccb28a281b417b8ac691b167941a6e2500;7"
+data "DescriptionParams" "5"
+data "Icon" "Action_Glut_PacifyingSpores"
+data "StackId" "SP_StruggleExhaustion"
+data "StackType" "Additive"
+data "StatusPropertyFlags" "MultiplyEffectsByDuration;FreezeDuration"
+
+
 new entry "SP_Struggle"
 type "StatusData"
 data "StatusType" "BOOST"

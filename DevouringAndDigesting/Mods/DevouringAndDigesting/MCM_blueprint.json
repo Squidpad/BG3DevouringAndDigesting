@@ -233,13 +233,24 @@
                 },
                 {
                     "Id": "IndigestionLimit",
-                    "Name": "IndigestionLimit",
+                    "Name": "Indigestion Limit",
                     "Default": 3,
                     "Description": "Number of levels of \"Indigestion\" at which a pred will be forced to regurgitate all of their prey. Set to 0 to disable.",
                     "Type": "slider_int",
                     "Options": {
                         "Min": 0,
                         "Max": 20
+                    }
+                },
+                {
+                    "Id": "ExhaustionLimit",
+                    "Name": "Exhaustion Limit",
+                    "Default": 10,
+                    "Description": "Number of levels of \"Exhaustion\" at which a prey will be exhausted and stop struggling. Set to 0 to disable.",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 30
                     }
                 },
                 {

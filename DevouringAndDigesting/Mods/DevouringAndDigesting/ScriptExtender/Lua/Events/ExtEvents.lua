@@ -45,12 +45,12 @@ local function spHandleBeforeDealDamage(e)
                         e.Hit.DamageList[k].Amount = v.Amount // 2
                     end
                 end
-            elseif next(VoreData[inflicterEntityUuid].Prey) ~= nil then
-                if Osi.HasActiveStatus(inflicterEntityUuid, "SP_LeechingAcidStatus") == 1 then
-                    _P("Pred " .. inflicterEntityUuid .. " dealt damage")
-                    _P("Has leeching insides")
-                    _D(e)
-                end
+            -- elseif next(VoreData[inflicterEntityUuid].Prey) ~= nil then
+            --     if Osi.HasActiveStatus(inflicterEntityUuid, "SP_LeechingAcidStatus") == 1 then
+            --         _P("Pred " .. inflicterEntityUuid .. " dealt damage")
+            --         _P("Has leeching insides")
+            --         _D(e.Hit.field_158:GetAllComponents())
+            --     end
             end
         end
     end
