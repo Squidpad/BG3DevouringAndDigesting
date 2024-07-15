@@ -57,9 +57,9 @@ local function spHandleBeforeDealDamage(e)
 end
 
 ---Runs when reset command is sent to console.
-local function SP_OnResetCompleted()
+-- local function SP_OnResetCompleted()
 
-end
+-- end
 
 ---Runs on session load
 function SP_OnSessionLoaded()

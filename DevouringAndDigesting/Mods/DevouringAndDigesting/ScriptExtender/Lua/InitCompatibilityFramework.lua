@@ -40,72 +40,87 @@ local NewSubClasses = {
 }
 
 -- if Ext.Mod.IsModLoaded("67fbbd53-7c7d-4cfa-9409-6d737b4d92a9") then
-if false then
-    local subClasses = {}
-    for k, v in pairs(NewSubClasses) do
-        subClasses[k] = {
-            modGuid = ModGuid,
-            subClassGuid = v.subClassGuid,
-            class = v.class,
-            subClassName = v.subClassName,
-        }
-    end
-
-    local function OnStatsLoaded()
-        Mods.SubclassCompatibilityFramework.Api.InsertSubClasses(subClasses)
-    end
-
-    Ext.Events.StatsLoaded:Subscribe(OnStatsLoaded)
-else
-    local function DetectSubClass(arr, subClass)
-        for _, value in pairs(arr) do
-            if value == subClass then return true end
-        end
-    end
-
-    function BootStrap.loadSubClass(subClass, baseClass)
-        local arr = Ext.StaticData.Get(baseClass, "Progression").SubClasses
-        if arr ~= nil then
-            local found = DetectSubClass(arr, subClass)
-            if not found then
-                local t = {}
-                for _, value in pairs(arr) do
-                    table.insert(t, value)
-                end
-                table.insert(t, subClass)
-                Ext.StaticData.Get(baseClass, "Progression").SubClasses = t
-            end
-        end
-    end
-
-    for k, v in pairs(NewSubClasses) do
-        BootStrap.loadSubClass(v.subClassGuid, v.baseClassProgressionGuid)
-        if v.baseClassProgressionMulticlassGuid ~= nil and v.baseClassProgressionMulticlassGuid ~= "" then
-            BootStrap.loadSubClass(v.subClassGuid, v.baseClassProgressionMulticlassGuid)
-        end
-        --_P(Ext.StaticData.Get(v.baseClassGuid, "Progression"))
+local function DetectSubClass(arr, subClass)
+    for _, value in pairs(arr) do
+        if value == subClass then return true end
     end
 end
 
-
-for k, v in pairs(NewSubClasses) do
-    if v.Passives ~= nil then
-        for i, j in pairs(v.Passives) do
-            local arr = Ext.StaticData.Get(i, "PassiveList").Passives
-            local a = {}
+function BootStrap.loadSubClass(subClass, baseClass)
+    local arr = Ext.StaticData.Get(baseClass, "Progression").SubClasses
+    if arr ~= nil then
+        local found = DetectSubClass(arr, subClass)
+        if not found then
+            local t = {}
             for _, value in pairs(arr) do
-                table.insert(a, value)
+                table.insert(t, value)
             end
-            for _, t in pairs(j) do
-                local flag = true
-                for m, n in pairs(arr) do
-                    if n == t then flag = false end
-                end
-                if flag then
-                    table.insert(a, t)
-                end
-            end
-            Ext.StaticData.Get(i, "PassiveList").Passives = a
+            table.insert(t, subClass)
+            Ext.StaticData.Get(baseClass, "Progression").SubClasses = t
         end
     end
 end
+
+
+
+local function OnStatsLoaded()
+
+    if false then
+        local subClasses = {}
+        for k, v in pairs(NewSubClasses) do
+            subClasses[k] = {
+                modGuid = ModGuid,
+                subClassGuid = v.subClassGuid,
+                class = v.class,
+                subClassName = v.subClassName,
+            }
+        end
+
+        Mods.SubclassCompatibilityFramework.Api.InsertSubClasses(subClasses)
+    else
+        for k, v in pairs(NewSubClasses) do
+            BootStrap.loadSubClass(v.subClassGuid, v.baseClassProgressionGuid)
+            if v.baseClassProgressionMulticlassGuid ~= nil and v.baseClassProgressionMulticlassGuid ~= "" then
+                BootStrap.loadSubClass(v.subClassGuid, v.baseClassProgressionMulticlassGuid)
+            end
+            --_P(Ext.StaticData.Get(v.baseClassGuid, "Progression"))
+        end
+    end
+
+    for k, v in pairs(NewSubClasses) do
+        if v.Passives ~= nil then
+            for i, j in pairs(v.Passives) do
+                local pList = Ext.StaticData.Get(i, "PassiveList")
+                if not pList then
+                    _P("Bad passive list: " .. i)
+                else
+                    local arr = pList.Passives
+                    local a = {}
+                    for _, value in pairs(arr) do
+                        table.insert(a, value)
+                    end
+                    for _, t in pairs(j) do
+                        local flag = true
+                        for m, n in pairs(arr) do
+                            if n == t then flag = false end
+                        end
+                        if flag then
+                            table.insert(a, t)
+                        end
+                    end
+                    Ext.StaticData.Get(i, "PassiveList").Passives = a
+                end
+            end
+        end
+    end
+
+    -- set this to true to enable spell distribution
+    if false then
+        SP_InitializeSpells()
+    end
+    _P("Finished Client Initialization")
+end
+
+Ext.Events.StatsLoaded:Subscribe(OnStatsLoaded)
+
+
