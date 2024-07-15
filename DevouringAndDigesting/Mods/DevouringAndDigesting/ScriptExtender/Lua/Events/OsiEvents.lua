@@ -24,6 +24,11 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
         else
             SP_SetLocusDigestion(caster, locus, true)
         end
+    -- a shitty way to do this, but idk how to add statuses in zone spells
+    -- and shout is incompatible with detach
+    elseif spellName == 'ResistAcid' then
+        _P("Applying protection")
+        Osi.ApplyStatus(caster, "PROTECTION_FROM_ENERGY_ACID", 2 * SecondsPerTurn, 1, caster)
     elseif VoreData[caster] ~= nil then
 
         if spellName == 'Regurgitate' then
@@ -162,23 +167,31 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             end
         end
         -- other swallow-related spells
-    elseif spellName == "BellyportDestination" then
-        local predData = Ext.Entity.Get(caster)
+    elseif spellName == "BellyportDestination" or spellName == "PowerWordSwallowDestination" then
+        local predData = Ext.Entity.Get(target)
         local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) / 1000
         local preyTable = {}
         for prey, v in pairs(VoreData[caster].SpellTargets) do
-            if v == "Bellyport" then
-                if Osi.IsCharacter(prey) == 1 and Osi.HasActiveStatus(prey, "SP_HitBellyport") == 1 then
+            if v == "Bellyport" or v == "PowerWordSwallow" then
+                if Osi.IsCharacter(prey) == 1 then
                     -- this will teleport the exact amount of prey that fit inside pred
-                    if SP_VorePossible(target, prey) then
-                        if SP_GetTotalCharacterWeight(prey) <= predRoom and not SP_MCMGet("AllowOverstuffing") then
-                            predRoom = predRoom - SP_GetTotalCharacterWeight(prey)
-
-                        end
+                    -- reverted this to working version pre-commit ed75ffb
+                    if SP_VorePossible(target, prey) and (SP_GetTotalCharacterWeight(prey) <= predRoom or
+                            SP_MCMGet("AllowOverstuffing")) then
+                        predRoom = predRoom - SP_GetTotalCharacterWeight(prey)
                         table.insert(preyTable, prey)
                     end
                 end
                 Osi.RemoveStatus(prey, "SP_HitBellyport")
+                Osi.RemoveStatus(prey, "SP_HitPowerWordSwallow")
+                -- knock out prey for PW Swallow
+                if v == "PowerWordSwallow" then
+                    Osi.ApplyStatus(prey, "SP_StunnedPrey", 1 * SecondsPerTurn, 1, target)
+                end
+                -- this allows teleporting prey out of another stomach correctly
+                if VoreData[prey] ~= nil and VoreData[prey].Pred ~= "" then
+                    SP_RegurgitatePrey(VoreData[prey].Pred, prey, -1, "Transfer")
+                end
                 VoreData[caster].SpellTargets[prey] = nil
             end
         end
@@ -186,7 +199,11 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             if #preyTable > 0 then
                 SP_SwallowPreyMultiple(target, preyTable, DType.Lethal, true, false, locus)
             end
-            Osi.RemoveSpell(caster, "SP_Target_BellyportDestination")
+            if spellName == "BellyportDestination" then
+                Osi.RemoveSpell(caster, "SP_Target_BellyportDestination")
+            elseif spellName == "PowerWordSwallowDestination" then
+                Osi.RemoveSpell(caster, "SP_Target_PowerWordSwallowDestination")
+            end
         end)
         -- swallow me spells
     elseif spellName == 'OfferMe' then
@@ -245,27 +262,51 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                 Osi.AddPassive(target, "SP_NotPred")
             end
         elseif spellName == 'Acidify' then
+            local powerLevel = spellParams[4]
             if VoreData[caster] ~= nil then
                 for k, v in pairs(VoreData[caster].Prey) do
                     if VoreData[k].Digestion == DType.Lethal then
-                        Osi.ApplyStatus(k, 'SP_Acidify_Status', 0, 1, caster)
+                        Osi.ApplyStatus(k, 'SP_AcidifyStatus_' ..powerLevel , 0, 1, caster)
                     end
+                end
+            end
+        elseif spellName == 'Churn' then
+            if VoreData[caster] ~= nil then
+                local fullDigestThese = {}
+                for k, v in pairs(VoreData[caster].Prey) do
+                    if VoreData[k].Digestion == DType.Lethal then
+                        Osi.ApplyStatus(k, 'SP_ChurnStatus' , 0, 1, caster)
+                    elseif VoreData[k].Digestion == DType.Dead then
+                        fullDigestThese[k] = v
+                    end
+                end
+                if next(fullDigestThese) ~= nil then
+                    SP_FastDigestion(caster, fullDigestThese, 0)
                 end
             end
         elseif spellName == 'Rescue' then
-            if VoreData[target] ~= nil then
-                for k, v in pairs(VoreData[target].Prey) do
-                    if Osi.IsEnemy(caster, k) ~= 1 then
-                        SP_RegurgitatePrey(target, k, -1, "Transfer")
-                        if VoreData[k].Digestion == DType.Dead then
-                            SP_SwallowPrey(caster, k, DType.Dead, false, false, locus)
-                        else
-                            SP_SwallowPrey(caster, k, DType.Endo, false, false, locus)
+            SP_DelayCall (12, function ()
+                if VoreData[target] ~= nil then
+                    for k, v in pairs(VoreData[target].Prey) do
+                        if Osi.IsEnemy(caster, k) ~= 1 then
+                            SP_RegurgitatePrey(target, k, -1, "Transfer")
+                            if VoreData[k].Digestion == DType.Dead then
+                                SP_SwallowPrey(caster, k, DType.Dead, false, false, locus)
+                            else
+                                SP_SwallowPrey(caster, k, DType.Endo, false, false, locus)
+                            end
+                            return
                         end
-                        return
                     end
                 end
-            end
+            end)
+        elseif spellName == 'Rebirth' then
+            SP_DelayCall (12, function ()
+                Osi.ApplyStatus(target, "SP_ReformationStatus", 1 * SecondsPerTurn, 1, caster)
+                SP_SwallowPrey(caster, target, DType.Dead, true, false, locus)
+                VoreData[target].Weight = VoreData[target].FixedWeight // 5 + 1
+                _D(VoreData)
+            end)
         end
     end
 end
@@ -335,7 +376,7 @@ function SP_OnRollResults(eventName, roller, rollSubject, resultType, isActiveRo
         _P("rollresult: " .. tostring(resultType))
         if resultType == 1 and VoreData[roller] ~= nil and VoreData[rollSubject] ~= nil then
             -- add animation here
-            SP_RegurgitatePrey(rollSubject, "All", 0, "", VoreData[roller].Locus)
+            SP_RegurgitatePrey(rollSubject, roller, 0, "", VoreData[roller].Locus)
         end
     end
 end
@@ -346,7 +387,13 @@ end
 ---@param causee GUIDSTRING Thing that caused status to be applied.
 ---@param storyActionID? integer
 function SP_OnStatusApplied(object, status, causee, storyActionID)
-    --_P("StatusApplied")
+    -- release all prey when knocked out
+    if status == "KNOCKED_OUT" then
+        if VoreData[object] ~= nil and next(VoreData[object].Prey) ~= nil then
+            SP_RegurgitatePrey(object, "All", 10)
+        end
+    end
+
     if string.sub(status, 1, 2) ~= "SP" then
         return
     end
@@ -419,26 +466,42 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         SP_AssignRoleRandom(object)
     elseif statusArgs[2] == 'Struggle' then
         local prey = object
-        if VoreData[prey] == nil or VoreData[prey].Pred == "" then
+        if VoreData[prey] == nil or VoreData[prey].Pred == "" or Osi.HasActiveStatus(prey, "SP_StilledPrey") == 1 or
+                Osi.HasActiveStatus(prey, "SP_StunnedPrey") == 1 then
             return
         end
         if Osi.IsEnemy(prey, VoreData[prey].Pred) == 1 then
+            local exLimit = SP_MCMGet("ExhaustionLimit")
+            if exLimit > 0 then
+                Osi.ApplyStatus(prey, "SP_StruggleExhaustion", 1 * SecondsPerTurn, 1, prey)
+                if Osi.GetStatusTurns(prey, "SP_StruggleExhaustion") > exLimit then
+                    Osi.ApplyStatus(prey, "SP_StunnedPrey", 1 * SecondsPerTurn, 1, prey)
+                end
+            end
             SP_VoreCheck(VoreData[prey].Pred, prey, "StruggleCheck")
         end
         if VoreData[prey].Digestion == DType.Lethal then
             if Osi.HasPassive(VoreData[prey].Pred, 'SP_BoilingInsides') == 1 then
                 Osi.ApplyStatus(prey, "SP_BoilingInsidesAcid", 0, 1, VoreData[prey].Pred)
             end
+            if Osi.HasActiveStatus(VoreData[prey].Pred, "SP_LeechingAcidStatus") == 1 then
+                Osi.ApplyStatus(VoreData[prey].Pred, "SP_LeechingAcidHeal", 0, 1, VoreData[prey].Pred)
+            end
         end
+
     elseif statusArgs[2] == "HitBellyport" then
         local prey = object
-        local caster = SP_CharacterFromGUID(causee)
-        _P(caster)
-        if VoreData[caster] == nil then
-            SP_VoreDataEntry(caster, true)
-        end
-        VoreData[caster].SpellTargets[prey] = "Bellyport"
-        Osi.AddSpell(caster, "SP_Target_BellyportDestination")
+        local pred = SP_CharacterFromGUID(causee)
+        SP_VoreDataEntry(pred, true)
+        VoreData[pred].SpellTargets[prey] = "Bellyport"
+        Osi.AddSpell(pred, "SP_Target_BellyportDestination")
+
+    elseif statusArgs[2] == "HitPowerWordSwallow" then
+        local prey = object
+        local pred = SP_CharacterFromGUID(causee)
+        SP_VoreDataEntry(pred, true)
+        VoreData[pred].SpellTargets[prey] = "PowerWordSwallow"
+        Osi.AddSpell(pred, "SP_Target_PowerWordSwallowDestination")
     elseif statusArgs[2] == 'BellySlamStatus' then
         local pred = SP_CharacterFromGUID(causee)
         if VoreData[pred] ~= nil then
@@ -499,14 +562,12 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
             end
             for prey, _ in pairs(VoreData[pred].Prey) do
                 if VoreData[prey].Digestion ~= DType.Dead and (VoreData[prey].Digestion ~= DType.Endo or doEndo) then
-                    Osi.ApplyStatus(prey, "SP_StilledPrey", -1)
-
-                    if VoreData[prey].Combat ~= "" then
-                        _P("Trying to remove stilled prey from combat")
-                        Osi.LeaveCombat(prey)
-                    end
-                    if statusArgs[2] == "Single" then
-                        return
+                    if Osi.HasActiveStatus(prey, "SP_StilledPrey") == 0 then
+                        
+                        Osi.ApplyStatus(prey, "SP_StilledPrey", 1 * SecondsPerTurn)
+                        if statusArgs[2] == "Single" then
+                            return
+                        end
                     end
                 end
             end
@@ -516,6 +577,11 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         local shelterTurns = Osi.GetStatusTurns(pred, "SP_SC_StomachShelterStuffed")
         local sanctuaryTurns = Osi.GetStatusTurns(pred, "SP_SC_StomachSanctuaryStuffed")
         Osi.ApplyStatus(pred, "SP_SC_StomachShelterStuffed_TempHP", (shelterTurns + sanctuaryTurns * 2) * SecondsPerTurn, 1, pred)
+    -- release all prey when knocked out
+    elseif statusArgs[3] == "StilledPrey" or statusArgs[3] == "StunnedPrey" then
+        if VoreData[object] ~= nil and next(VoreData[object].Prey) ~= nil then
+            SP_RegurgitatePrey(object, "All", 10)
+        end
     end
 end
 
@@ -690,11 +756,18 @@ function SP_OnStatusRemoved(object, status, causee, storyActionID)
         end
     elseif statusArgs[2] == 'HasStilledPrey' then
         local pred = object
-        if VoreData[pred] ~= nil then
-            for prey, _ in pairs(VoreData[pred].Prey) do
-                Osi.RemoveStatus(prey, "SP_StilledPrey")
+        -- the delay is necessary in case 
+        SP_DelayCallTicks(3, function ()
+            if Osi.HasActiveStatus(pred, "SP_HasStilledPrey_Single") == 0 and
+                Osi.HasActiveStatus(pred, "SP_HasStilledPrey_All") == 0 then
+                
+                if VoreData[pred] ~= nil then
+                    for prey, _ in pairs(VoreData[pred].Prey) do
+                        Osi.RemoveStatus(prey, "SP_StilledPrey")
+                    end
+                end
             end
-        end
+        end)
     end
 end
 

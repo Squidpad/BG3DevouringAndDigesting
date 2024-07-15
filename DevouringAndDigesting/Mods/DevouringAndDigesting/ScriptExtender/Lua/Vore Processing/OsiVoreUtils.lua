@@ -5,9 +5,9 @@ function SP_UpdateBelly(pred, weight)
 
     -- base volume ~ base weight
     -- offset is to account for some empty space inside the pred, which allows the pred to swallow light items without belly sticking out
-    local baseVolume = 170
+    local baseVolume = 150
     local baseWeight = 80
-    local offset = 20
+    local offset = 10
     local volume = (weight * baseVolume / baseWeight - offset) * (SP_MCMGet("BellyScale") / 100)
 
     local predRace = Osi.GetRace(pred, 1)
