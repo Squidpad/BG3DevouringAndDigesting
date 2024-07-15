@@ -1082,12 +1082,10 @@ function SP_SlowDigestion(weightDiff, fatDiff)
             _P("Reformation: " .. thisDiff)
             -- end reformation
             if v.Weight >= v.FixedWeight then
-                Osi.ApplyStatus(k, "RESURRECTING", 1*SecondsPerTurn, 1, v.Pred)
-                Osi.Resurrect(k)
+                SP_Resurrect(k)
                 -- set this to endo because SetLocusDigestion ignores DType.Dead
                 VoreData[k].Digestion = DType.Endo
                 SP_SetLocusDigestion(v.Pred, v.Locus, false)
-                Osi.RemoveStatus(k, "SP_ReformationStatus")
                 _D(VoreData)
                 _P("Reformation done")
             end
@@ -1235,12 +1233,10 @@ function SP_FastDigestion(pred, allPrey, force)
                 _P("Reformation: " .. preyWeightDiff)
                 -- end reformation
                 if VoreData[prey].Weight >= VoreData[prey].FixedWeight then
-                    Osi.ApplyStatus(prey, "RESURRECTING", 1*SecondsPerTurn, 1, pred)
-                    Osi.Resurrect(prey)
+                    SP_Resurrect(prey)
                     -- set this to endo because SetLocusDigestion ignores DType.Dead
                     VoreData[prey].Digestion = DType.Endo
                     SP_SetLocusDigestion(pred, VoreData[prey].Locus, false)
-                    Osi.RemoveStatus(prey, "SP_ReformationStatus")
                     _D(VoreData)
                     _P("Reformation done")
                 end

@@ -324,7 +324,7 @@
 	<content contentuid="h69c5ce17gb38bg42c8g9c0eg5d9575cd0077" version="1">You attempt to whet your appetite on the taste of a nearby creature. On a hit, the target takes [1]. For the next 2 turns the Swallow attempts you make against the target are made with Advantage.</content>
 	
 	<content contentuid="h8b961defg7decg45b8g848bg05e1d75b4fcf" version="1">Belly slam</content>
-	<content contentuid="h2bccdd7cgd729g4a23gbb0ag3af33d061575" version="1">You slam your belly into a character, dealing [1] that increases with the amount of stuffed stacks you have.</content>
+	<content contentuid="h2bccdd7cgd729g4a23gbb0ag3af33d061575" version="1">You slam your belly into a character, dealing [1] per prey inside you.</content>
 	
 	<content contentuid="h4bb3ac0dg6893g45d4ga44cg9df6516a062b" version="1">Flavour/Disgust</content>
 	<content contentuid="h9fa0e47eg5ce9g4035g9278g27c9e9ecdaf4" version="1">You point at a creature within range, altering it's natural flavor.</content>
@@ -336,7 +336,7 @@
 	<content contentuid="h10b8e129g6c89g47f8ga159g6284ffd084a6" version="1">A creature of your choice within range becomes disgusting in flavor to any predator. That creature has Advantage on checks to avoid being Swallowed.</content>
 	
 	<content contentuid="h352fc061gc05eg417ag82fcg3316fd9c4e75" version="1">Burping</content>
-	<content contentuid="hf465d23bg4324g4eebg81f6g7d6c7c51465a" version="1">You may only cast this spell if you contain at least 1 prey in your stomach. You emanate a thunderous burp in front of you. Each creature within range must make a Constitution saving throw or take [1]</content>
+	<content contentuid="hf465d23bg4324g4eebg81f6g7d6c7c51465a" version="1">You may only cast this spell if you contain at least 1 prey in your stomach. You emanate a thunderous burp in front of you. Each creature within range must make a Constitution saving throw or take [1] per prey inside you.</content>
 	
 	<content contentuid="h097848a4g9417g48e4gb2b7g14a5dc4e1cc7" version="1">Unsolvent Flesh</content>
 	<content contentuid="had5b7526gb25cg484fg8105gc614f7d283d8" version="1">You briefly turn your skin into a smooth, acid resistant shell, gaining resistance to Acid damage for 2 turns.</content>

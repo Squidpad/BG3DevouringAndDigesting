@@ -370,3 +370,32 @@ function SP_AssignRoleRandom(character)
     _P("Adding PREY to " .. character)
     Osi.AddPassive(character, "SP_NotPred")
 end
+
+---@param level integer
+---@param num integer
+---@return integer
+function SP_LevelMapValue(level, num)
+    local rollcount = 1
+    if level >= 17 then
+        rollcount = 4
+    elseif level >= 11 then
+        rollcount = 3
+    elseif level >= 5 then
+        rollcount = 2
+    end
+    local result = 0
+    for i = 1, rollcount do
+        result = result + Osi.Random(num) + 1
+    end
+    return result
+end
+
+---@param prey CHARACTER
+function SP_Resurrect(prey)
+    Osi.ApplyStatus(prey, "RESURRECTING", 1*SecondsPerTurn)
+    Osi.Resurrect(prey)
+    Osi.RemoveStatus(prey, "SP_ReformationStatus")
+    -- statuses from 5e spells
+    Osi.RemoveStatus(prey, "DEAD_TECHNICAL")
+    Osi.RemoveStatus(prey, "DEAD_ONE_MINUTE")
+end
