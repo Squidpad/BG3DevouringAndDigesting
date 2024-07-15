@@ -502,15 +502,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         SP_VoreDataEntry(pred, true)
         VoreData[pred].SpellTargets[prey] = "PowerWordSwallow"
         Osi.AddSpell(pred, "SP_Target_PowerWordSwallowDestination")
-    elseif statusArgs[2] == 'BellySlamStatus' then
-        local pred = SP_CharacterFromGUID(causee)
-        if VoreData[pred] ~= nil then
-            local damage = 0
-            for _ = 1, SP_Clamp(VoreData[pred].StuffedStacks * (Osi.GetLevel(pred) // 5 + 1), 1, 3) do
-                damage = damage + (Osi.Random(8) + 1)
-            end
-            Osi.ApplyDamage(object, damage, "Bludgeoning", pred)
-        end
+
     -- all statuses that change the weight / visual weight
     elseif statusArgs[2] == 'BellyCompressed' or statusArgs[2] == 'Unburdened' or statusArgs[2] == 'Bottomless' then
         local pred = object
@@ -581,6 +573,45 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
     elseif statusArgs[3] == "StilledPrey" or statusArgs[3] == "StunnedPrey" then
         if VoreData[object] ~= nil and next(VoreData[object].Prey) ~= nil then
             SP_RegurgitatePrey(object, "All", 10)
+        end
+
+    -- damaging statuses
+    elseif statusArgs[2] == "BellySlamStatus" then
+        local pred = SP_CharacterFromGUID(causee)
+        if VoreData[pred] ~= nil and VoreData[pred].StuffedStacks > 0 then
+            local damage = 0
+            local predLevel = Osi.GetLevel(pred) or 1
+            for _ = 1, VoreData[pred].StuffedStacks do
+                damage = damage + SP_LevelMapValue(predLevel, 8)
+            end
+            Osi.ApplyDamage(object, damage, "Bludgeoning", pred)
+        end
+    elseif statusArgs[2] == "BurpSuccess" then
+        local pred = SP_CharacterFromGUID(causee)
+        if VoreData[pred] ~= nil and VoreData[pred].StuffedStacks > 0 then
+            local damage = 0
+            local predLevel = Osi.GetLevel(pred) or 1
+            for _ = 1, VoreData[pred].StuffedStacks do
+                damage = damage + SP_LevelMapValue(predLevel, 6)
+            end
+            Osi.ApplyDamage(object, damage, "Thunder", pred)
+        end
+    elseif statusArgs[2] == "MegaBurpSuccess" or statusArgs[2] == "MegaBurpFail" then
+        local pred = SP_CharacterFromGUID(causee)
+        if VoreData[pred] ~= nil and VoreData[pred].StuffedStacks > 0 then
+            -- 4d6 Thunder 4d6 Bludgeoning
+            local damage1 = 0
+            local damage2 = 0
+            for _ = 1, VoreData[pred].StuffedStacks * 4 do
+                damage1 = damage1 + Osi.Random(6) + 1
+                damage2 = damage2 + Osi.Random(6) + 1
+            end
+            if statusArgs[2] == "MegaBurpFail" then
+                damage1 = damage1 // 2
+                damage2 = damage2 // 2
+            end
+            Osi.ApplyDamage(object, damage1, "Thunder", pred)
+            Osi.ApplyDamage(object, damage2, "Bludgeoning", pred)
         end
     end
 end

@@ -190,3 +190,18 @@ data "Icon" "Spell_Necromancy_Harm"
 data "StatusPropertyFlags" "FreezeDuration;IgnoreResting;ApplyToDead;DisableCombatlog;DisableOverhead"
 data "DisplayName" "h4e23bc2e63264786996b9468a0df629f1206;1"
 data "Description" "h0f3f19c0654b416d8f8de4d6b3583bc7ac2b;1"
+
+new entry "SP_BurpSuccess"
+type "StatusData"
+data "StatusType" "BOOST"
+data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
+
+new entry "SP_MegaBurpSuccess"
+type "StatusData"
+data "StatusType" "BOOST"
+data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
+
+new entry "SP_MegaBurpFail"
+type "StatusData"
+data "StatusType" "BOOST"
+data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
