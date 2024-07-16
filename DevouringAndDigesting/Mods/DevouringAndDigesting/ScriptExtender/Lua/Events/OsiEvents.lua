@@ -820,16 +820,18 @@ end
 ---@param combatGuid GUIDSTRING
 function SP_OnCombatEnter(object, combatGuid)
     if VoreData[object] ~= nil then
-        _P("Adding " .. object .. " to combat")
         VoreData[object].Combat = combatGuid
         if next(VoreData[object].Prey) ~= nil then
             for prey, _ in pairs(VoreData[object].Prey) do
-                SP_TeleportToPred(prey)
-                SP_DelayCallTicks(10, function ()
-                    _P("Adding prey " .. prey .. " to combat")
-                    VoreData[prey].Combat = combatGuid
-                    Osi.EnterCombat(prey, object)
-                end)
+                if VoreData[prey].Digestion ~= DType.Dead then
+                    
+                    SP_TeleportToPred(prey)
+                    SP_DelayCallTicks(10, function ()
+                        _P("Adding prey " .. prey .. " to combat")
+                        VoreData[prey].Combat = combatGuid
+                        Osi.EnterCombat(prey, object)
+                    end)
+                end
             end
         end
     end
@@ -850,7 +852,11 @@ end
 function SP_OnTurnStarted(character)
     -- _P(character .. "'s turn started")
     -- replaced all with character to improve performance
-    SP_TeleportToPred(character)
+    if VoreData[character] ~= nil and VoreData[character].Pred ~= "" and
+        VoreData[character].Digestion ~= DType.Dead then
+
+        SP_TeleportToPred(character)
+    end
 end
 
 ---Runs when someone dies.
