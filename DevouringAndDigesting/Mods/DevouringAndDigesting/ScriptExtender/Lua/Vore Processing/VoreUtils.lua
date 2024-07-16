@@ -180,6 +180,10 @@ function SP_AddPrey(pred, prey, digestionType, notNested, swallowStages, locus)
     if notNested then
         Osi.AddSpell(prey, 'SP_Zone_ReleaseMe', 0, 0)
         Osi.AddSpell(prey, "SP_Zone_MoveToPred", 0, 0)
+        if Osi.IsPlayer(prey) == 1 then
+            Osi.AddSpell(prey, "SP_Zone_DoLongRest", 0, 0)
+        end
+
         Osi.SetVisible(prey, 0)
         if SP_MCMGet("DetachPrey") == true then
             Osi.SetDetached(prey, 1)
@@ -722,6 +726,9 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         -- clear prey spells
         Osi.RemoveSpell(prey, 'SP_Zone_ReleaseMe')
         Osi.RemoveSpell(prey, 'SP_Zone_MoveToPred')
+        if Osi.IsPlayer(prey) == 1 then
+            Osi.RemoveSpell(prey, "SP_Zone_DoLongRest")
+        end
 
         -- return prey to the world
         Osi.SetVisible(prey, 1)
@@ -894,6 +901,7 @@ function SP_DoUpdateWeight(pred, noVisual)
         Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
         Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
         SP_UpdateBelly(pred, 0)
+        SP_ApplyOverstuffing(pred)
         SP_DelayCallTicks(6, function ()
             WeightQueueRunning[pred] = nil
             WeightQueueWaiting[pred] = nil
@@ -961,10 +969,9 @@ function SP_DoUpdateWeight(pred, noVisual)
 
     if Osi.HasActiveStatus(pred, "SP_BellyCompressed") == 1 then
         newWeightVisual = 0
-        _P(pred .. "has compressed status")
     end
 
-    _P("Changing weight of " .. pred .. " to " .. newWeight)
+    _P("Changing weight of " .. pred .. " to " .. newWeightVisual)
     Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
     Osi.TemplateAddTo('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred, newWeight, 0)
     -- This is very important, it fixes inventory weight not updating properly when removing items.
@@ -974,7 +981,6 @@ function SP_DoUpdateWeight(pred, noVisual)
     if noVisual ~= true and VoreData[pred].Pred == "" then
         SP_UpdateBelly(pred, newWeightVisual)
     end
-    _P("weightvisual: " .. newWeightVisual)
     -- the delay here is necessary because we wait until the potato is added
     SP_DelayCallTicks(6, function ()
         SP_ApplyOverstuffing(pred)
@@ -992,10 +998,6 @@ end
 ---@param pred CHARACTER
 ---@param noVisual? boolean when we need to change the amount of weight placeholders but not the actual size of belly
 function SP_UpdateWeight(pred, noVisual)
-    -- _P("Queues")
-    -- _P(WeightQueue)
-    -- _P(WeightQueueWaiting)
-    -- _P(WeightQueueRunning)
     if noVisual == nil then
         noVisual = false
     end
@@ -1298,7 +1300,7 @@ function SP_GetTotalCharacterWeight(character)
             weight = weight + charData.InventoryWeight.Weight
         end
     end
-    _P("Total weight of " .. SP_GetDisplayNameFromGUID(character) .. " is " .. (weight // GramsPerKilo) .. " kg")
+    --_P("Total weight of " .. SP_GetDisplayNameFromGUID(character) .. " is " .. (weight // GramsPerKilo) .. " kg")
     return weight // GramsPerKilo
 end
 
