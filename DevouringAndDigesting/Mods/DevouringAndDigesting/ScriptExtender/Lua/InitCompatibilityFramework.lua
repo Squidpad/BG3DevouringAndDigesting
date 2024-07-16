@@ -115,7 +115,7 @@ local function OnStatsLoaded()
     end
 
     -- set this to true to enable spell distribution
-    if false then
+    if true then
         SP_InitializeSpells()
     end
     _P("Finished Client Initialization")

@@ -61,11 +61,9 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
             end
             -- deal small amount of damage to prey
         elseif spellName == 'FlexBelly' then
-            if VoreData[caster] ~= nil then
-                for k, v in pairs(VoreData[caster].Prey) do
-                    if VoreData[k].Digestion == DType.Lethal then
-                        Osi.ApplyStatus(k, 'SP_FlexBelly_Status', 0, 1, caster)
-                    end
+            for k, v in pairs(VoreData[caster].Prey) do
+                if VoreData[k].Digestion == DType.Lethal then
+                    Osi.ApplyStatus(k, 'SP_FlexBelly_Status', 0, 1, caster)
                 end
             end
             -- ask pred to release me
@@ -75,19 +73,30 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                 SP_VoreCheck(VoreData[caster].Pred, caster, "ReleaseMeCheck")
             end
         elseif spell == 'SP_SC_BoundPrey_Spell' then
-            if VoreData[caster] ~= nil then
-                for k, v in pairs(VoreData[caster].Prey) do
-                    if Osi.IsAlly(caster, k) == 1 and VoreData[k].Digestion == DType.Endo then
-                        Osi.ApplyStatus(caster, "SP_SC_BoundPrey_Pred", -1, 1, k)
-                        Osi.ApplyStatus(k, "SP_SC_BoundPrey_Prey", -1, 1, caster)
+            for k, v in pairs(VoreData[caster].Prey) do
+                if Osi.IsAlly(caster, k) == 1 and VoreData[k].Digestion == DType.Endo then
+                    Osi.ApplyStatus(caster, "SP_SC_BoundPrey_Pred", -1, 1, k)
+                    Osi.ApplyStatus(k, "SP_SC_BoundPrey_Prey", -1, 1, caster)
 
-                        Osi.ApplyStatus(caster, "SP_SC_BlockVoreTotal", -1, 1, k)
-                        return
-                    end
+                    Osi.ApplyStatus(caster, "SP_SC_BlockVoreTotal", -1, 1, k)
+                    return
                 end
             end
         elseif spellName == "MoveToPred" then
             SP_TeleportToPred(caster)
+        elseif spellName == 'DoLongRest' then
+            if VoreData[caster].Pred ~= "" then
+                _P("Attempting to start a long rest")
+                Osi.RemoveStatus(caster, VoreData[caster].Swallowed)
+                SP_DelayCallTicks(3, function ()
+                    
+                    Osi.RequestEndTheDay(caster)
+
+                    SP_DelayCallTicks(180, function ()
+                        Osi.ApplyStatus(caster, VoreData[caster].Swallowed, 100 * SecondsPerTurn, 1, VoreData[caster].Pred)
+                    end)
+                end)
+            end
         end
     end
 end
@@ -172,7 +181,8 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) / 1000
         local preyTable = {}
         for prey, v in pairs(VoreData[caster].SpellTargets) do
-            if v == "Bellyport" or v == "PowerWordSwallow" then
+            if v == "SP_HitBellyport" and spellName == "BellyportDestination"
+                    or v == "SP_HitPowerWordSwallow" and spellName == "PowerWordSwallowDestination" then
                 if Osi.IsCharacter(prey) == 1 then
                     -- this will teleport the exact amount of prey that fit inside pred
                     -- reverted this to working version pre-commit ed75ffb
@@ -185,7 +195,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                 Osi.RemoveStatus(prey, "SP_HitBellyport")
                 Osi.RemoveStatus(prey, "SP_HitPowerWordSwallow")
                 -- knock out prey for PW Swallow
-                if v == "PowerWordSwallow" then
+                if v == "SP_HitPowerWordSwallow" then
                     Osi.ApplyStatus(prey, "SP_StunnedPrey", 1 * SecondsPerTurn, 1, target)
                 end
                 -- this allows teleporting prey out of another stomach correctly
@@ -452,6 +462,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
             if VoreData[pred].GradualDigestionTimer >= SP_MCMGet("GradualDigestionTurns") then
                 VoreData[pred].GradualDigestionTimer = 0
                 if gradualCount > 0 then
+                    _P("Gradual digestion for " .. pred)
                     SP_FastDigestion(pred, VoreData[pred].Prey, SP_MCMGet("GradualDigestionAmount"))
                 end
             end
@@ -493,14 +504,14 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         local prey = object
         local pred = SP_CharacterFromGUID(causee)
         SP_VoreDataEntry(pred, true)
-        VoreData[pred].SpellTargets[prey] = "Bellyport"
+        VoreData[pred].SpellTargets[prey] = status
         Osi.AddSpell(pred, "SP_Target_BellyportDestination")
 
     elseif statusArgs[2] == "HitPowerWordSwallow" then
         local prey = object
         local pred = SP_CharacterFromGUID(causee)
         SP_VoreDataEntry(pred, true)
-        VoreData[pred].SpellTargets[prey] = "PowerWordSwallow"
+        VoreData[pred].SpellTargets[prey] = status
         Osi.AddSpell(pred, "SP_Target_PowerWordSwallowDestination")
 
     -- all statuses that change the weight / visual weight
