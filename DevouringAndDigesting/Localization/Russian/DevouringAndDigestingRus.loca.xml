@@ -1,0 +1,678 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<contentList>
+	<content contentuid="IAmLazy" version="1">[1]</content>
+	<content contentuid="h086643dege15eg42acga7c3gc0f596312163" version="1">Пожирание и Переваривание</content>
+	<!-- Config messages -->
+	<content contentuid="haff912c3gf2afg4723ga736gf534cb4f5352" version="1">Обнаружен конфиг старой версии.</content>
+	<content contentuid="h35ebd26bg84c7g4efag8be1gefde311b9f2e" version="1">Обнаружен конфиг новой версии.</content>
+	<content contentuid="h035645a0g5808g4618ga1b6g0e23a8ecb0ab" version="1">Обнаружен конфиг недействительной версии.</content>
+	<content contentuid="hfdb0ed11gd3abg47eag9e99g0140813ddb06" version="1">Извините, ваш конфиг не совместим &lt;br&gt;с текущей установленной версией мода.</content>
+	<content contentuid="h1c89714ag5f55g44f0g9a4fg6beac7723a20" version="1">Извините, ваш конфиг не совместим &lt;br&gt;с текущей установленной версией мода&lt;br&gt;и не может быть обновлен.</content>
+	<content contentuid="h31c7c480g72c9g44ebg9b2eg80f5f0f9e78d" version="1">Конфиг по умолчанию загружен.</content>
+	<content contentuid="h86742a8fga59cg4597g8b7dg30e4788a1ed0" version="1">Ваш конфиг был сброшен.</content>
+	<content contentuid="h79032db6g7469g4f1cgaca2g743d89c7b335" version="1">Введите !VoreConfigReset в консоли или&lt;br&gt;удалите конфиг вручную, чтобы сбросить конфиг&lt;br&gt;и остановить появление этого всплывающего окна.</content>
+
+	<!-- loot -->
+	<content contentuid="hc5942267gf430g4ea1g8cefg256f1fa726a5" version="1">Зелье Выбора Роли</content>
+	<content contentuid="hc0531247g62e4g42fagaf57g9e5cf2ca1ddd" version="1">Позволяет давать или забирать хищнические способности у других.</content>
+	<content contentuid="hbe2ba459gfae6g4b2egb8abg734abbbf8f93" version="1">Приятного читерства, я полагаю</content>
+
+	<content contentuid="hf92a001fg38bag4cb0g9d15ga1e654e59105" version="1">Кольцо отладки</content>
+	<content contentuid="h02748ea0gac19g438cgad0bg6cd6567cddc9" version="1">Кольцо отладки</content>
+	<content contentuid="he08158aeg235eg42cag8cacg591efa7bdfbc" version="1">[1]</content>
+
+	<content contentuid="h73496bbdg22afg4ccbg9185g84f116fcd970" version="1">Мешок с Vore Зельями</content>
+	<content contentuid="h7c593379ga73eg4b8cg92a2g86b5d72162a8" version="1">Все необходимое для того, чтобы есть и быть съеденным!</content>
+
+
+	<content contentuid="h2b052778g03ccg4c83gba5bgf4edbfe83c74" version="1">Зелье чревоугодия</content>
+	<content contentuid="h7e60efadgd577g4416gba59gc4a6ffbe7104" version="1">Вы можете проглатывать других существ целиком.. но теперь вы так голодны...</content>
+	<content contentuid="h87505252g0da0g4b0ag9537ga89b6438fee3" version="1">Пахнет кислотой... Вы сомневаетесь, стоит ли это пить...</content>	
+	<content contentuid="h1f2c5352g0e6cg4fa6g90ebg9233255c69c1" version="1">Дает вам способность проглатывать своих врагов целиком.</content>
+
+	<content contentuid="hff26e008g7261g45e4ga1ebg846209f2fb5d" version="1">Пахнет сладко.</content>
+	<content contentuid="he8c74ebcga5a0g47fegad4eg9a7318e59502" version="1">Дает вам способность насильно скармливать хищнику своё собственное тело.</content>
+	<content contentuid="h97a762ceg4e2cg45f4g8b5ag513fffca58b8" version="1">Зелье Жертвы</content>
+	<content contentuid="h7313a572g20c6g40a5ga9a3g273c2261843c" version="1">Пахнет тестированием... Вы сомневаетесь, стоит ли это пить...</content>	
+	<content contentuid="hca63feceg7175g4a4cg82a1g80f6054366d2" version="1">Позволяет вам бесплатно использовать любые заклинания.</content>
+	<content contentuid="h3a20121ag8aeag43bfgbb36g30b4d0ba885e" version="1">Зелье Отладки Заклинаний</content>
+	<content contentuid="h7313a572g20c6g40a5ga9a3g273c2261843c" version="1">Пахнет тестированием... Вы сомневаетесь, стоит ли это пить...</content>	
+	<content contentuid="hca63feceg7175g4a4cg82a1g80f6054366d2" version="1">Позволяет вам бесплатно использовать любые заклинания.</content>
+	<content contentuid="h3a20121ag8aeag43bfgbb36g30b4d0ba885e" version="1">Зелье Отладки Заклинаний</content>
+	<content contentuid="h69d8d005gecc9g4f76g9a44g6bc3c09a44b0" version="1">Один глоток, и вы готовы.</content>
+	<content contentuid="ha2dde9a2g161fg4bdfg863fg02bd8cccb804" version="1">Делает так, что другие не могут вас съесть.</content>
+	<content contentuid="haa3e796cg6a8ag4717g87e6g05ae98388598" version="1">Зелье несъедобности</content>
+
+	<content contentuid="ha01b4fb5g490bg4b15g9427g2050400752a4" version="1">Проглотить целиком</content>
+	<content contentuid="hd857482fg8c34g46edg992fg50f4dd202c4d" version="1">Проглотить целиком (Рот)</content>
+	<content contentuid="h3297cb60gf5deg4cdbga791g01a2201377fc" version="1">Проглотить целиком (Анал)</content>
+	<content contentuid="h3eb85ceeg1322g4192ga232g1a3a35186310" version="1">Проглотить целиком (Вагина)</content>
+	<content contentuid="h11b56eddgee6eg4069gb734g03e60ad721d6" version="1">Проглотить целиком (Член)</content>
+	<content contentuid="h10e6037cgc2e1g4931ga151gc6c8498f65d9" version="1">Проглотите существо целиком, отправив его в [1].</content>
+
+	<content contentuid="hd532ef04ga1a9g4ba6g9c0fgaa2d898ed1f2" version="1">Зелье Эластичного Рта</content>
+	<content contentuid="h074a039agf92bg4c70g8cf3g1ef50e84b495" version="1">Отмечает вас как способного поедать других существ ртом.</content>
+
+	<content contentuid="h6dcda87bg5b2fg4c4egb4e9g8ad2562b07ec" version="1">Зелье Анальной Эластичности</content>
+	<content contentuid="hd86b20e9g19f5g4c81ga9c5g4d85291f8bd3" version="1">Отмечает вас как способного анально поедать других существ.</content>
+
+	<content contentuid="h76edd30dg9f29g477egbc43gf76243c360a9" version="1">Зелье Вагинальной Эластичности</content>
+	<content contentuid="hd05f8b4fgd1beg44fdg9925g454a977390c4" version="1">Отмечает вас как способного вагинально поедать других существ.</content>
+
+	<content contentuid="h471840efgc689g4aa4ga1cdg86fbd8fef8c4" version="1">Зелье Эластичного Члена</content>
+	<content contentuid="h979f2edagba02g4b92gace3g087f584d01ee" version="1">Отмечает вас как способного поедать других существ членом.</content>
+
+	<content contentuid="heb4ad6c5g3aa6g4735g836bg95c0c032b583" version="1">Проглотить целиком (Переваривание)</content>
+	<content contentuid="ha7878dd9g671ag42a6g9ca8gbbd4522b673f" version="1">Проглотить существо целиком, чтобы переварить его.</content>
+	<content contentuid="h0a1782aeg5b0ag4dd7g8c19g54cebae7d3a8" version="1">Противники внутри будут получать [1] каждый ход.</content>
+
+	<content contentuid="hd9a173abg6678g4113g87f3g3b9533192350" version="1">Оральное поедание</content>
+	<content contentuid="hada46d2cg6190g4876g8315g81ac55d9cf62" version="1">Анальное поедание</content>
+	<content contentuid="h15a553eeg1a7eg4f63g995agf7d9e0cfe667" version="1">Проглотить целиком (Вагина)</content>
+	<content contentuid="hb5147271ge34ag4d48gb7c8g59005d458e26" version="1">Поедание членом</content>
+
+	<content contentuid="ha1dd02f2gbf31g4974g97adgd6ed92875d6e" version="1">Сжать живот</content>
+	<content contentuid="habd5cd92g8c6ag4d0fg8285g2ee8d844db9a" version="1">Сжать и помассировать живот, заставляя каждую жертву, которая была проглочена для переваривания, получить [1] и [2].</content>
+
+	<content contentuid="heb67e082g2f04g4e5agbc2bg8af24a4ee1ec" version="1">Выпустить</content>
+	<content contentuid="hde5b3914gbda1g436cga5eeg8b3a99a72351" version="1">Сходить в туалет</content>
+	<content contentuid="haf0400e7g9be5g4192g98e3g18fa6434450b" version="1">Выпустить</content>
+	<content contentuid="h0233ec64geaf5g41d8g8eadg5a70693e5e1c" version="1">Эякулировать</content>
+	<content contentuid="h3febac6egf828g4210ga795ge0799ce8c81d" version="1">Выпустить (Случайную жертву)</content>
+	<content contentuid="h16329e3cg1f0dg4057g94c2g6bad7d2cfe24" version="1">Сходить в туалет (Случайная жертва)</content>
+	<content contentuid="h9cf48cdeg8aafg46abg8404gdbcc08174bb4" version="1">Выпустить (Случайную жертву)</content>
+	<content contentuid="h9f3b362fg9601g45a9g9001g169c0929da93" version="1">Эякулировать (Случайная жертва)</content>
+	<content contentuid="h653901ccg15e1g47adg8d7agb1eb8e49c5b2" version="1">Выпустите одну или несколько жертв.</content>
+	<content contentuid="hf0a97b33g7572g44f8g9537g13a08e9112cd" version="1">Выпустить всех ещё живых или уже полностью переваренных жертв из [1].</content>
+	<content contentuid="h233a0d9bg8da7g489bgb937g55f9f7f0c62d" version="1">Выпустить одну случайную все ещё живую или уже полностью переваренную жертву из [1]</content>
+	<content contentuid="h339b4a78ga0a6g4b55g93fag7c8fb6725002" version="1">Выпустить одну жертву</content>
+	<content contentuid="hfed57717ga1feg4c72gad20gbaaa9d1adf1b" version="1">Выпустить [1] из желудка.</content>
+
+	<content contentuid="hf1967968gea50g42d1g9474gdce71387b2d3" version="1">Проглотить целиком (Безопасно)</content>
+	<content contentuid="h60376d5fg24b7g40e4gb8f4g0909a3d9b526" version="1">Проглотить союзника целиком.</content>
+	<content contentuid="hc4e89fa9g4eb2g4d4ag948dg3393c1a4af77" version="1">Союзники будут защищены.</content>
+
+	<content contentuid="h6dec3910g0fa9g48a1g804egfd347d331721" version="1">Оральное поедание (Безопасно)</content>
+	<content contentuid="h1be016ccg759cg421bgbcffg9071f38f4e69" version="1">Оральное поедание (Переваривание)</content>
+	<content contentuid="haca659degc658g42aeg9c29g7224fad5cd5b" version="1">Анальное поедание (Безопасно)</content>
+	<content contentuid="hc9f9a759g7e35g4a08g9c98g97054bef151d" version="1">Анальное поедание (Переваривание)</content>
+	<content contentuid="h396089f1g8da8g4222ga9acg394ed951c92c" version="1">Вагинальное поедание (Безопасно)</content>
+	<content contentuid="hcb09b7f2gb855g4533gb19fg738c57af8525" version="1">Вагинальное поедание (Переваривание)</content>
+	<content contentuid="hf1bade39ge56eg4c31g82aag9dade201779c" version="1">Поедание членом (Безопасно)</content>
+	<content contentuid="hb5147271ge34ag4d48gb7c8g59005d458e26" version="1">Поедание членом</content>
+	<content contentuid="h9786f9f6g394fg4fd0gbbf6gca1630d72f0b" version="1">Проглотить [1], отправив в [2].</content>
+
+	<content contentuid="h8b5b27b2g75e0g48bcg97f9ga5b20df8cf60" version="1">Проглочен!</content>
+	<content contentuid="h19ee24eega97cg43dagbc9bgb2f1eeec925e" version="1">Вы перевариваетесь! Вы получаете [1] каждый ход.</content>
+
+	<content contentuid="h130f3138g2e90g46e7gbe9bg0a073fe46ed8" version="1">Безопасно проглочен</content>
+	<content contentuid="h40b0b615g5b4fg4f2ega973g1632b1f6bf88" version="1">Безопасное нахождение в желудке.</content>
+
+	<content contentuid="h8d22d57dg4693g438cg8fc5gade25f292eab" version="1">Орально проглочен</content>
+	<content contentuid="h3c5b8d67g242eg4d09ga258g2053185c0559" version="1">Анально проглочен</content>
+	<content contentuid="h3e0263a8gbb6ag4228g8093gb083eebed038" version="1">Вагинально проглочен</content>
+	<content contentuid="h93d2df27g0d9fg49d0g9c2bgd2d71f414788" version="1">Проглочен членом</content>
+	<content contentuid="h5261f7dbg585bg415ag8884g5dc0b1039cba" version="1">Внутри [2].</content>
+
+	<content contentuid="h40855665cd08465a8be6ed1fa1e00064ag7e" version="1">Сытый</content>
+	<content contentuid="hcdefe4f0g5c06g4078gaaecgc566f24f38a9" version="1">Наелся!</content>
+	<content contentuid="h4b237c03g75a6g4658gbc72g3f70fe82f658" version="1">Вес вашей жертвы замедляет вас.</content>
+
+	<content contentuid="h0dc3a529gebffg4618gb118gf0a4f3bc231d" version="1">Заглушка веса</content>
+	<content contentuid="h87214011g31adg4c68ga2eegd5ed46a04668" version="1">Обозначает вес всех проглоченных жертв.</content>
+	<content contentuid="h610d50d6gbd94g4a6cgab58g509d8575153d" version="1">Это у вас в желудке, вы не можете его выбросить.</content>
+
+	<content contentuid="hd984e989ge07dg4eefgb2bdg1a9ef63ba49b" version="1">Пожирание и Переваривание</content>
+	<content contentuid="heafac356gd0dcg4f8fg8bf6ge0f4b1c63ba0" version="1">Вы перевариваете свою жертву</content>
+
+	<content contentuid="h9fde97c2gf3b3g4f37g932dg877ecd3f9502" version="1">Поглотить</content>
+	<content contentuid="he813d5dbgf297g4cf3g88c5g06913a2b2fb6" version="1">Поглощает полностью переваренных жертв, добавляя их предметы в инвентарь.</content>
+
+	<content contentuid="hccc6b399ge95eg4bb9gbc9dgf6990086aa7e" version="1">Переварен</content>
+	<content contentuid="hb7af406bg03edg4952g9838g49a2ecc066f6" version="1">Для этой жертвы уже слишком поздно...</content>
+
+	<content contentuid="hc9a79498gebf3g49f9g8da5ge4efd0e68c1d" version="1">Желудок с предметами</content>
+	<content contentuid="h40f63ac7g4bccg44d2gb056g73e93f1c2ef9" version="1">Здесь хранятся проглоченные вами предметы</content>
+
+	<content contentuid="heb677badg9415g4b58g909cgf1e4784ce210" version="1">Несварение</content>
+	<content contentuid="h1de3d398g8e38g42eegb96cg6288e15a0506" version="1">Ваш желудок сильно болит. Если значение достигнет [1], вы срыгнете всех жертв, что ещё живы!</content>
+
+	<content contentuid="h033e9e7ag25eeg487dg8fbege45b644127e4" version="1">Переключить смертельность</content>
+	<content contentuid="hbbe07e5eg88e3g4163ga28bge22018546c55" version="1">Переключить смертельность (Желудок)</content>
+	<content contentuid="h05ea72b7g1134g4b48gaf40g7f6c4f66f76a" version="1">Переключить смертельность (Жопка)</content>
+	<content contentuid="h03fcfe03gaa2bg474ag9c87g7c0ad7aa5e25" version="1">Переключить смертельность (Матка)</content>
+	<content contentuid="h007134a2gbbdeg4dc1gb1a5gc082e0f90980" version="1">Переключить смертельность (Яйца)</content>
+	<content contentuid="hbcd23c49gcca8g4b2aga982g9218f8672684" version="1">Переключить смертельность (Всё)</content>
+	<content contentuid="h14e840a3ga7d0g46fcg85b0g8e107ea5efc6" version="1">Заполнить желудок кислотой. Вы начнете переваривать всех живых жертв! Повторное использование остановит переваривание.</content>
+	<content contentuid="hf3b56c7c4af54e5e9651846a9595a5fb69g8" version="1">Заполнить кишки кислотой. Вы начнете переваривать всех живых жертв! Повторное использование остановит переваривание.</content>
+	<content contentuid="h409f8f38d3c14caab0e7739c3ad9424cb7aa" version="1">Заполнить матку кислотой. Вы начнете переваривать всех живых жертв! Повторное использование остановит переваривание.</content>
+	<content contentuid="h5936764d24b44347a4dd43c48ccdc49fefc6" version="1">Заполнить яйца кислотой. Вы начнете переваривать всех живых жертв! Повторное использование остановит переваривание.</content>
+
+	<content contentuid="h5a9e44b8g8d89g4291ga046ge4eb60b93ee2" version="1">Истощение</content>
+	<content contentuid="h5ca5300fg470ag489bgbb48g5581b2148888" version="1">Вы только что проглотили одну жертву, было бы сложно проглотить следующую сразу же. Подождите немного перед тем, как проглотить новую жертву.</content>
+	<content contentuid="hf96739d9gb734g4090gbaa6g58ea3fbf27f6" version="1">Вы чувствуете тошноту после того, как срыгнули жертв. Подождите немного перед тем, как проглотить новую жертву.</content>
+
+	<content contentuid="h40b866b2g6abdg4ed3g80f6gf0ace9e1bc50" version="1">Проглочен!</content>
+	<content contentuid="hbfda4247g1115g43a6g91aeg39418c9a494c" version="1">Вас проглатывает хищник!</content>
+
+	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Съешь меня!</content>
+	<content contentuid="he0c7df65gf5deg44b6g9763g3e4ebf1b3295" version="1">Съешь меня! (Рот)</content>
+	<content contentuid="h738f1a2cg1c9fg4f34g9828g71beb077b9d1" version="1">Съешь меня! (Анал)</content>
+	<content contentuid="h793bdcefg70a5g4026g99eag34dfd61107c5" version="1">Съешь меня! (Вагина)</content>
+	<content contentuid="h8f30f6c5g11d1g4a6dgaab6geed24ad0cba1" version="1">Съешь меня! (Член)</content>
+	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Насильно скормите хищнику своё собственное тело. И только ему решать, переваривать вас или нет.</content>
+	<!-- Passives -->
+	<content contentuid="h3463132ag4b97g4c1fg95c8g8eaf55466da9" version="1">Доступен Выбор Роли</content>
+	<content contentuid="h7499ee9cgd65fg42adg8e8fg2544d74b15f1" version="1">Не хищник</content>
+	<content contentuid="h3ec756e8g815fg4106g8228g60a6f56254b9" version="1">Доступно Оральное поедание</content>
+	<content contentuid="h7269f418g1485g481agbcd2g212e3ab12fd6" version="1">Доступно Анальное поедание</content>
+	<content contentuid="haac531f5g4707g4940g890ag4bc38004b649" version="1">Доступно Вагинальное поедание</content>
+	<content contentuid="h205c8378g3e29g491fg8853g656cdf3c84f9" version="1">Доступно Поедание членом</content>
+	<content contentuid="h3538bc27gc6c8g4b1egbbd0g79f3447d210a" version="1">Зелье Жертвы</content>
+	<content contentuid="h2e55ac52gfb0ag4885gb35egaed7d1efefd5" version="1">Хотя большинство боятся быть съеденными, вы наслаждаетесь этим.</content>
+	<!-- Core Statuses -->
+	<content contentuid="he3aaea57gf32fg4ec8g8900g552b14e0af9f" version="1">Голод</content>
+	<content contentuid="ha1bbbf43g48f2g4a14ga251gde36ebbb3389" version="1">Незначительный голод</content>
+	<content contentuid="hb59a20b1g0791g4c26gbef0g231a70a33377" version="1">Вы чувствуете легкий голод. Ваши мудрость и выносливость уменьшены на [1]. Существует низкая вероятность того, что вы случайно начнете переваривать съеденных жертв.</content>
+	<content contentuid="h9f188535g52b4g446ag922dg10fe5b2d7a8e" version="1">Голод</content>
+	<content contentuid="h2dfdb9e9ge9ddg490egb5eeg0d7e4ca4185e" version="1">Вы чувствуете голод. Ваши мудрость, выносливость и сила уменьшены на [1]. Существует средняя вероятность того, что вы случайно начнете переваривать жертв, которых проглотили без намерения переваривать.</content>
+	<content contentuid="hfbe41265gd387g4f0fg8a20g5108107a06f3" version="1">Умирает от голода</content>
+	<content contentuid="h5df1346dg35d3g491fg986bg1908d7721936" version="1">Вы умираете от голода. Ваши мудрость, выносливость, сила и интеллект уменьшены на [1]. Вы больше не можете сдерживать свою желудочную кислоту, все попытки безопасно проглотить жертву будут приводить к летальному исходу.</content>
+	
+	<content contentuid="h38e85f94465a408d9dcb190d0eefd05b5g07" version="1">Ошеломлен</content>
+	<content contentuid="h8c4c5a2fbd9142319796a2b1ec2eaa2ce89c" version="1">Истощение</content>
+	<content contentuid="h9eccb28a281b417b8ac691b167941a6e2500" version="1">Когда количество достигнет определенного лимита, вы потеряете способность сопротивляться каким-либо образом</content>
+	<!-- Tags -->
+	<content contentuid="h86f0551cg30cag4d85g962fgb14dfd2a29b2" version="1">Хищник</content>
+	<content contentuid="hdb8de1d1g2aceg4e07g89dag0793dc76a8a4" version="1">Вы обладаете способностью проглатывать существ гораздо крупнее, чем могло бы позволить ваше тело. Хотя с первого взгляда этого не видно, в вас живет голод, который пугает вас не меньше, чем возбуждает.</content>
+	<content contentuid="h2cf78240g5555g4570g8584g50248646a9b6" version="1">Зелье Жертвы</content>
+	<content contentuid="hfbcbe22ag4328g4d22gb5dfgea5446f427dc" version="1">Вы не обладаете способностью проглатывать других целиком.</content>
+	<content contentuid="he6914aa5gebe2g496cg98b4g296f00a86432" version="1">Несъедобен</content>
+	<content contentuid="hfd1c72cfgab58g4dc3ga3b8g2bf778663e5c" version="1">Хищники не могут вас поглотить.</content>
+
+	<!-- Subclass Warlock Great Hunger -->
+	<content contentuid="hf56e80b984fe487dbe031007019a3665f06b" version="1">Великий Голод</content>
+	<content contentuid="hf17875f4abe242a6bdd473e6134d2c530fa1" version="1">Вы заключили договор с невыразимо древней сущностью, но с большой силой приходит и большой голод - только от вас зависит, как его использовать.</content>
+
+	<content contentuid="h949296c8318d43bd9459ae72b8fff6aff8d7" version="1">Потустороннее обжорство</content>
+	<content contentuid="h8bb006e11dd347e4b2abc89ddb4023e0fe4a" version="1">Когда вы пытаетесь проглотить существо с целью переварить, будет происходить бросок на Запугивание, если оно выше, чем Атлетика или Акробатика. Ваша &lt;LSTag Tooltip="CarryWeight"&gt;грузоподъемность&lt;/LSTag&gt; увеличивается в полтора раза. Когда вы перевариваете жертву, вы восполняете одну ячейку заклинания. Договор сделал ваше тело сильнее, позволяя вам носить среднюю броню и использовать щиты.</content>
+
+	<content contentuid="h0ba4987f6f4e4ba7bc68af1c376ec4c7c1da" version="1">Ужасающий вид</content>
+	<content contentuid="h5af0b6e92fc54d56b21b63c5c89e127c099g" version="1">Когда враг атакует вас, пока вы &lt;LSTag Type="Status" Tooltip="SP_Stuffed"&gt;наелись&lt;/LSTag&gt;, вы можете использовать ответную реакцию, чтобы встретить его взгляд и дать ему почувствовать ваш голод, заставляя его &lt;LSTag Type="Status" Tooltip="FRIGHTENED"&gt;испугаться&lt;/LSTag&gt; до конца его следующего хода.</content>
+
+	<content contentuid="hcf1fb4ed3fd042cf966496bb5181dddb182g" version="1">Неудержимое Обжорство</content>
+	<content contentuid="he1da6be5dc2a4353bbc2ad90f52e161e9f21" version="1">Жуткая сила защищает вас в бою, поэтому вы можете поглотить больше жертв. Ваш КБ увеличивается на 1, и вы получаете на 2 урона меньше от всех источников, когда вы &lt;LSTag Type="Status" Tooltip="SP_Stuffed"&gt;наелись&lt;/LSTag&gt;</content>
+
+	<content contentuid="h99adabe8279342b4845d3358a30042d05bd1" version="1">Жуткая тюрьма</content>
+	<content contentuid="hbecad382f3e645d98b5eb76e6a058d372506" version="1">Ваша плоть наполнена мистической силой, дающей вам иммунитет к несварению.</content>
+
+	<content contentuid="h8cdc27734bee47768549006a21fa1196c2d0" version="1">Связанная жертва</content>
+	<content contentuid="hc826064f2286484ab6a72107c2fdc6a53503" version="1">Вы получаете возможность привязать к себе одну союзную жертву. Вы получаете дополнительно 1 действие и бонусное действие, но вы не можете никого проглотить или выпустить (включая связанную жертву) до длительного отдыха, а связанная жертва не может выполнять какие-либо действия.</content>
+
+	<content contentuid="h25a38de82b67453aa2d03d82d42382647ag1" version="1">Связанная жертва</content>
+	<content contentuid="hed90799c983e4ef1bbde9e1fab18bc4cdd11" version="1">Вы черпаете силу из привязанной к вам жертве.</content>
+
+	<content contentuid="hb250d995d2a94abc954462ebef38cc6fe731" version="1">Связанная жертва</content>
+	<content contentuid="h861dc6e3d16142ab8ab0bec608c87ce7g004" version="1">Вы привязаны к хищнику и не можете ничего сделать.</content>
+
+	<content contentuid="h5688d507d8e94c33973017997662e8fabd75" version="1">Заряды Ужасающего вида</content>
+	<content contentuid="h338df11c43b144cf935095e1433e6d5d00fa" version="1">Заряды щита</content>
+
+	<content contentuid="h7833d904a8af4731a2207c6ef1ec049ce4cb" version="1">Дар обжорства</content>
+	<content contentuid="h80ddca1ab04949bf978761b87606e75d64f8" version="1">Ваш покровитель одаривает вас за верную службу. Направьте свою прожорливую силу в одно из этих благодеяний.</content>
+
+	<content contentuid="h312bc1dd7ecc47c0a60df825691a3a469d22" version="1">Великий голод: Щит</content>
+	<content contentuid="hd9d47cf8cffe4ab09f783953249cc0f6f4f2" version="1">Вы можете использовать &lt;LSTag Type="Spell" Tooltip="SP_SC_ShieldOfGluttony"&gt;щит&lt;/LSTag&gt;, не тратя &lt;LSTag Tooltip="SpellSlot"&gt;ячейку заклинаний&lt;/LSTag&gt; (один раз за короткий отдых)</content>
+
+
+
+	<!-- Subclass Barbarian Stomach Sentinel -->
+
+	<content contentuid="h9082f1a2g5c36g446egb3ceg32b71e80729a" version="1">Страж Желудка</content>
+	<content contentuid="h76e18109gbc38g449dga82bgb7950d911b00" version="1">Вы дали клятву защищать тех, кто вам дорог, и держать их рядом. А что может быть ближе, чем внутри себя?</content>
+
+	<content contentuid="hd14e201bg9114g4a94g8fd5gfe10a576332b" version="1">Желудочное убежище</content>
+	<content contentuid="hd2bcff0ag3ac1g42e5gba97g8dd7f83fc391" version="1">Проглоченные члены группы весят в два раза меньше и увеличивают ваши защитные способности, а не мешают им. Каждый союзник, которого вы безопасно проглотили, дает бонус +[1] к КБ и испытаниям, а также [2] в начале каждого вашего хода.</content>
+	<content contentuid="h374a7d7cge69eg42a6g918eg4a0c8bb19089" version="1">Желудок-Святилище</content>
+	<content contentuid="hc1d7ee82g41b7g4769g9844g79c2cb361ffa" version="1">Проглоченные союзники теперь невесомы и еще больше повышают ваши защитные способности. Каждый союзник, которого вы безопасно проглотили, дает бонус +[1] к КБ и испытаниям, а также [2] в начале каждого вашего хода.</content>
+	<content contentuid="h52e08e96gdf42g425cg9161g17a8d95cb5f7" version="1">Защита союзников внутри вас дает вам бонус +[1] к КБ и испытаниям, а также [2] в начале каждого вашего хода за каждого из них.</content>
+
+	<content contentuid="hac0248d0g7417g476dg93f3g7278650cba48" version="1">Неподвижность Стража</content>
+	<content contentuid="h80a71a5cg14c1g4b36gbd86g160cc9179db7" version="1">Ваша &lt;LSTag Type="Status" Tooltip="RAGE"&gt;Ярость&lt;/LSTag&gt; сменяется невозмутимым спокойствием, сосредоточенным как на защите, так и на нападении. Пока активен этот эффект, вы получаете сопротивление ко всему урону.</content>
+	<content contentuid="hf8ac28e2g540cg46f3gb399g7f582b12bc2f" version="1">Ярость превращается в Неподвижность Стража</content>
+	<content contentuid="hed5fc488gf2d1g4298gab1fg18f59cd1c1c3" version="1">Вы подавляете в себе ярость, чтобы лучше защищать своих союзников.</content>
+	<content contentuid="h31869550gd185g4998gab43g60dd67d291bb" version="1">Неподвижность Стража</content>
+	<content contentuid="h32cfd1d2gc17bg4f19gb9ffg13b6762c5997" version="1">Наносить дополнительно [1] урон рукопашным и импровизированным оружием, а также метанием предметов. &lt;br&gt;&lt;br&gt;Также имеет сопротивление ко всему урону, и Преимущество при &lt;LSTag Tooltip="AbilityCheck"&gt;Проверке&lt;/LSTag&gt; и &lt;LSTag Tooltip="SavingThrow"&gt;Испытании&lt;/LSTag&gt; Силы.&lt;br&gt;&lt;br&gt;Не может произносить заклинания или концентрироваться на них.</content>
+
+	<content contentuid="h7fb07d2bg1c8cg479cg9469g26ff2bbabde6" version="1">Знание Внутри</content>
+	<content contentuid="h06aa6c3cgc0deg484dgb60ega3cd69d437e7" version="1">Когда вы сталкиваетесь с испытаниями, вы можете использовать таланты ваших союзников, чтобы помочь вам. При проверке способностей, если союзник внутри вас имеет больший бонус к этой проверке, вы можете использовать его бонус вместо этого.</content>
+	<content contentuid="ha0e07691g0cf5g4f93g819bg0be86770096a" version="1">Проверки [1] увеличены.</content>
+
+	<content contentuid="h6d40a345gf2f4g443fg903bg246958b7e9ad" version="1">Сила многих</content>
+	<content contentuid="h6e9c844cgc923g4f75ga6ddgfa235192b7eb" version="1">Ваши сила и выносливость увеличиваются на [1] за каждого союзника, находящегося внутри вас.</content>
+
+	<content contentuid="h17e0796fgc6fdg468bgac8cgf7cf03065ca9" version="1">Защита Изнутри</content>
+	<content contentuid="h676364eag4a85g4bdfg9e88g983150e3e136" version="1">Вы получаете [1] временного HP за каждого союзника внутри вас.</content>
+
+	<content contentuid="hb77896a0g2acbg40b0g8660gb57675fb9eed" version="1">Дар Хранителя</content>
+	<content contentuid="h06f5e8a4g751ag4dc6ga37fgb7321778e541" version="1">Союзники, находящиеся внутри вас, получают +2 к классу сложности броскам атаки и заклинаний.</content>
+	<content contentuid="hf55eab9fg3700g47d9gad76g30b6074de23a" version="1">Вы получаете +2 к классу сложности бросков атаки и заклинаний.</content>
+
+	<!-- pred feats -->
+	<content contentuid="h54388124gd369g4a55gb75dg89cf37ad12e2" version="1">Пещеристый</content>
+	<content contentuid="h3becb8d4gbb8cg40b4g9384gc7b70bc1e34a" version="1">Удваивает вместимость вашего желудка. Вы получаете способность анально поедать жертв.</content>
+	
+	<content contentuid="hcf77ee75gda7fg425dg8e40gc73ced72981d" version="1">Кипящие Внутренности</content>
+	<content contentuid="h1ea537d9g15f3g401cga78ag66fd4f2c4827" version="1">Увеличивает урон от переваривания на 1d4 плюс бонус мастерства, а также игнорирует устойчивость к кислоте вашей жертвы. Вы получаете насыщение, переваривая неорганических существ. Вы получаете способность поедать жертв членом.</content>
+	
+	<content contentuid="h9895a405g5744g4652g9b3dg8c95a3d77a1c" version="1">Свинцовый Живот</content>
+	<content contentuid="hb6575320g69a5g4366gb0bbg32ea27d17eff" version="1">Весь урон, наносимый вам существами, находящимися в вашем желудке, уменьшается вдвое. Вы получаете Преимущество в борьбе с жертвой.</content>
+	
+	<content contentuid="h1aaf187ag5c9cg4f1cga013g294543b2e470" version="1">Мышечное Брюхо</content>
+	<content contentuid="hd528fec9g01b9g4dcbgb2b6g406740be0ad3" version="1">Вы можете проглатывать значительно больше жертв, не получая при этом негативных эффектов. Если у вас внутри 3 или более жертв, вы получаете преимущество в Запугивании, 1 КБ и 2 снижения урона от всех источников.</content>
+	
+	<content contentuid="hb1fec23c5750495683a10b59dc0e5eaf5fa5" version="1">Пугающее присутствие</content>
+
+	<!--leaving handle empty breaks MCM descriptions-->
+	<content contentuid="he6eb5c7ccf864bf98f03b51f5cbb26809db5" version="1">Устрашающая Кишка</content>
+	<content contentuid="h13eb41b309a24f699f211f7199802ba9f877" version="1">Вы получаете преимущество при проверках на Запугивание, +[1] КБ и [2] снижение урона от всех источников.</content>
+
+	<content contentuid="hf451da9cgbc97g464agb95cg4ead7bb1e6ec" version="1">Комфортные Объятия</content>
+	<content contentuid="hd4bb28a5g97e3g40ecg89eeg454d8797b456" version="1">Безопасно проглоченная жертва больше не получает Слепоту и может использовать заклинания. Вы не нарушаете концентрацию добровольной жертвы, когда глотаете её.</content>
+	
+	<content contentuid="h51e3b020g60c6g4345g8afcgf0442a6ebc02" version="1">Растягивающаяся Пасть</content>
+	<content contentuid="hb0d6a564g4ba4g46adga24eg2baf1ae14c34" version="1">Вы получаете преимущество при проглатывании жертвы. Вы можете полностью проглотить жертву, используя на одно &lt;LSTag Type="Spell" Tooltip="SP_SwallowDown"&gt;Продолжить глотание&lt;/LSTag&gt; меньше (минимум 0).</content>
+
+	<content contentuid="hd145f6fdga2b6g4a82gb482gd88b8a301198" version="1">Успокаивающие Внутренности</content>
+	<content contentuid="he2f6ce79g4621g48b0gbcdcgb7d012537e79" version="1">Ваш голод утоляется, если вы отдыхаете с жертвой внутри себя. Вы получаете способность вагинально поедать жертв. Вы получаете &lt;LSTag Type="Spell" Tooltip="SP_Shout_HealingAcid_U"&gt;Медицинские кислоты (Вагина)&lt;/LSTag&gt;.</content>
+	
+	<content contentuid="h26dea810g635cg4374g9ea5g8581be0dafef" version="1">Подержанный Хищник</content>
+	<content contentuid="hc2117ed5g08e3g4d36g90begf39608de3b23" version="1">Находясь внутри другого хищника, вы получаете Преимущество при всех проверках на проглатывание другого существа, и каждый раз, когда ваш хищник пожирает другое существо в том же месте, вы можете немедленно попытаться проглотить это существо.</content>
+
+	<!-- prey feats -->
+	<content contentuid="h3d2dc720g5db6g41ccg9b1ag13c6e6478896" version="1">Беглый Художник</content>
+	<content contentuid="he0b69c0agb8e5g47e4g8079g11ff0073a272" version="1">Вы получаете Преимущество при борьбе внутри хищника, и вы не падаете плашмя при срыгивании. Вы получаете сопротивление к урону, наносимому кислотой.</content>
+
+	<content contentuid="hdb90bba1g351bg4783g8063g4db2e1f2ba44" version="1">Гастронавт</content>
+	<content contentuid="h00288ba8g4790g40eeg80d6g663d4870d706" version="1">Вы получаете способность исцелять своего хищника один раз за короткий отдых. Во время исцеления вы не Ослеплены и не Обездвижены, и можете использовать заклинания на персонажей, находящихся вне хищника.</content>
+	
+	<content contentuid="h5110e6f8g0abfg48c3g84b6g365f7e27cb52" version="1">Плотный</content>
+	<content contentuid="h55f51e5agce40g440cgbfc6g663160ece5f0" version="1">Вы занимаете вдвое больше места внутри хищника. При успешной борьбе вы заставляете хищника упасть плашмя на 1 раунд.</content>
+	
+	<content contentuid="h70eaff7fge4b2g4327g8787g290029615e77" version="1">Фанатик Живота</content>
+	<content contentuid="h00871744gf7a5g451fgbc07g50a4b7dc7c95" version="1">Один раз за длительный отдых вы можете помассировать живот хищника, и все жертвы внутри хищника, которые были проглочены не безопасно, немедленно получат урон от переваривания, а несварение хищника будет уменьшено до нуля.</content>
+	
+	<content contentuid="h26dea810g635cg4374g9ea5g8581be0dafef" version="1">Подержанный Хищник</content>
+	<content contentuid="hc2117ed5g08e3g4d36g90begf39608de3b23" version="1">Находясь внутри другого хищника, вы получаете Преимущество при всех проверках на проглатывание другого существа, и каждый раз, когда ваш хищник пожирает другое существо в том же месте, вы можете немедленно попытаться проглотить это существо.</content>
+	
+	<!-- spells -->
+	<content contentuid="h7a52537ag16c5g4c5cga0fcg2662cec801f0" version="1">Помочь хищнику</content>
+	<content contentuid="h382787b6gcbe6g4c45gbd60g11e2342007ce" version="1">Массаж живота</content>
+
+	<content contentuid="hdbcd95d4g1c00g4809g9a18g2217d5fb0dcd" version="1">Вы получаете преимущество при проглатывании жертвы. Вы можете полностью проглотить жертву, используя на одно &lt;LSTag Type="Spell" Tooltip="SP_SwallowDown"&gt;Продолжить глотание&lt;/LSTag&gt; меньше (минимум 0).</content>
+	<content contentuid="h88caf937g86ccg4125ga9e7gde32a7d0353c" version="1">Продолжайте глотать жертву. Если вы не успеете проглотить её вовремя, она сбежит!</content>
+
+	<!-- utility spells-->
+	<content contentuid="hffb97084g8a45g45acgadd6g7e96b4b9f2d2" version="1">Присвоить роль</content>
+	<content contentuid="hb1ba345cgefadg48ddg893fgc8b3c85c9ccd" version="1">Превращает персонажа в хищника или жертву.</content>
+	<content contentuid="hb01a577dg712fg4d21gb1bbg22a190105732" version="1">Сделать Хищником</content>
+	<content contentuid="h2493c23egb50dg4e70g9cafgbf6338badd57" version="1">Сделать Жертвой</content>
+	<content contentuid="hd610e037g5016g4229g9f47gaab4bb3176fd" version="1">Попросить выпустить</content>
+	<content contentuid="h8f7f9e25g8784g4382g8f22g9cd8ed3dbe36" version="1">Попросить хищника освободить вас.</content>
+	<content contentuid="h40b58651gf9a6g4e2fg970dga1a3463c7db2" version="1">Переместиться к хищнику</content>
+	<content contentuid="h0df6ad0ag0da8g4a45gb339g26e35da36fa0" version="1">Ручная телепортация к хищнику.</content>
+	<content contentuid="h09146121416b4111a114a188290625789dcd" version="1">Длительный отдых</content>
+	<content contentuid="hfa829e57fe0d467b8d7b15e42a8602c8d327" version="1">Используйте, если главный персонаж проглочен и вам нужен длительный отдых. Вы должны быстро нажать ДА, иначе это не сработает</content>
+	
+	<!-- Cantrips -->
+	<content contentuid="he02600d0g524fg4be2gb43eg93622af33b63" version="1">Лизнуть</content>
+	<content contentuid="h69c5ce17gb38bg42c8g9c0eg5d9575cd0077" version="1">Вы пытаетесь разжечь свой аппетит вкусом находящегося поблизости существа. При успехе цель получает [1]. В течение следующих 2 ходов попытки проглотить, которые вы предпринимаете против цели, выполняются с Преимуществом.</content>
+	
+	<content contentuid="h8b961defg7decg45b8g848bg05e1d75b4fcf" version="1">Удар животом</content>
+	<content contentuid="h2bccdd7cgd729g4a23gbb0ag3af33d061575" version="1">Вы бьете животом в персонажа, нанося ему [1], который увеличивается с количеством состояний сытости, которые у вас есть.</content>
+	
+	<content contentuid="h4bb3ac0dg6893g45d4ga44cg9df6516a062b" version="1">Аромат/Отвращение</content>
+	<content contentuid="h9fa0e47eg5ce9g4035g9278g27c9e9ecdaf4" version="1">Вы указываете на существо в пределах досягаемости, изменяя его естественный аромат.</content>
+	
+	<content contentuid="hb171b1f5g4bcdg46b7g90b9gb059230f5a99" version="1">Аромат/Отвращение</content>
+	<content contentuid="h504a1a99g4c3bg4888gb40fg20aa5da93ece" version="1">Выбранное вами существо в пределах досягаемости становится неотразимо вкусным для любого хищника. У этого существа есть Помеха при проверках против проглатывания.</content>
+	
+	<content contentuid="h01ed8bdeg11f5g44f8g808eg58bc71ad81cb" version="1">Аромат/Отвращение</content>
+	<content contentuid="h10b8e129g6c89g47f8ga159g6284ffd084a6" version="1">Существо по вашему выбору в радиусе действия становится отвратительным на вкус для любого хищника. Это существо получает Преимущество при проверках против проглатывания.</content>
+	
+	<content contentuid="h352fc061gc05eg417ag82fcg3316fd9c4e75" version="1">Отрыжка</content>
+	<content contentuid="hf465d23bg4324g4eebg81f6g7d6c7c51465a" version="1">Вы можете использовать это заклинание, только если в вашем желудке находится хотя бы 1 жертва. Вы извергаете перед собой громкую отрыжку. Каждое существо в пределах досягаемости должно сделать бросок на испытание Выносливости или получить [1]</content>
+	
+	<content contentuid="h097848a4g9417g48e4gb2b7g14a5dc4e1cc7" version="1">Нерастворившаяся Плоть</content>
+	<content contentuid="had5b7526gb25cg484fg8105gc614f7d283d8" version="1">Вы ненадолго превращаете свою кожу в гладкую, устойчивую к кислоте оболочку, получая сопротивление к урону кислоты на 2 хода.</content>
+	
+	<!-- Spellbook spells -->
+	<content contentuid="h86ddd764gf46eg46afgb2f0g63e044b737a4" version="1">Сжать</content>
+	<content contentuid="h31aaefc3gb352g4773g9502gd4170b1dc44c" version="1">Вы касаетесь любого хищника с существом внутри. Тело жертвы сжимается до тех пор, пока не покажется, что живот хищника пуст.</content>
+
+	<content contentuid="hdd709b07g2238g44b1gb758g4a911500e5fe" version="1">Разгрузка</content>
+	<content contentuid="h2a50023dgfef2g4d53g9c97g3505b6e19538" version="1">Вы касаетесь любого хищника. На время действия заклинания вес любой жертвы внутри него уменьшается вдвое.</content>
+	
+	<content contentuid="hf45e56e3g4370g49a7g8ea2gd0877db3edaa" version="1">Лягушачий Язык</content>
+	<content contentuid="h7c8cb1adg00ecg43bcg826ag78afe85dfcd9" version="1">Ваш язык вылетает, как хлыст, опутывая и притягивая к себе существо. Существо в радиусе действия должно пройти испытание Силы или быть подтянутым ближе к заклинателю. В случае успеха вы автоматически делаете попытку проглотить жертву. Если цель не является врагом, вы попытаетесь безопасно проглотить её.</content>
+	
+	<content contentuid="hf3d9c0fcg3c63g4fa1g807cga054d4e8d0ad" version="1">Прожорливый</content>
+	<content contentuid="heef31140gf100g4975g9e62g2bc58d3f6d21" version="1">Вы выбираете существо и обманываете его организм, заставляя думать, что оно голодает. На время действия заклинания у выбранного хищника есть Преимущество при всех проверках на захват или проглатывание другого существа.</content>
+	
+	<content contentuid="hb8a604bbg33aeg4fa3gaa3ag59f47c7d41a7" version="1">Спасти</content>
+	<content contentuid="hb0190af3gfffcg49a2g8ed8geaccafa3f0ba" version="1">Спасти (Рот)</content>
+	<content contentuid="h50e550a1gf8d8g4103gb623gcc4845590674" version="1">Спасти (Анал)</content>
+	<content contentuid="h4de84d5bg8794g4189gb079g93ee8d87efe6" version="1">Спасти (Вагина)</content>
+	<content contentuid="h9dc2ad68g28c3g49e4g862eg5e3c15478ca1" version="1">Спасти (Член)</content>
+	<content contentuid="h5335979fgbaecg4d6cg90d3gb43ab518caaf" version="1">Вы быстро уводите дружественное существо от опасности, помещая его внутрь себя. Невозможно совершить, если вы выбрали тип vore, который вы не можете сделать.</content>
+	<content contentuid="h7293f31d20b34e8ca881e66ef58973c0g67b" version="1">Вы быстро уводите дружественное существо от опасности, помещая его в желудок. Невозможно совершить, если вы выбрали тип vore, который вы не можете сделать.</content>
+	<content contentuid="h3635e4f167084827ae8d5c83ec070f57aac0" version="1">Вы быстро уводите дружественное существо от опасности, помещая его в кишки. Невозможно совершить, если вы выбрали тип vore, который вы не можете сделать.</content>
+	<content contentuid="h30efbc3607894c0b96177a03077cac0c1756" version="1">Вы быстро уводите дружественное существо от опасности, помещая его в матку. Невозможно совершить, если вы выбрали тип vore, который вы не можете сделать.</content>
+	<content contentuid="hcb63b19f6c5743bb8235e8572cc39f5b0a66" version="1">Вы быстро уводите дружественное существо от опасности, помещая его в яйца. Невозможно совершить, если вы выбрали тип vore, который вы не можете сделать.</content>
+	<content contentuid="h682ab6f5g9c0bg4e7fga945gfe51f2de56a7" version="1">Имеет большую дальность действия на высоких уровнях.</content>
+
+	<content contentuid="h467b1c00gfe74g44fag95b6g09568d83747b" version="1">Наполнить кислотой</content>
+	<content contentuid="h228697f0gb2cbg4a33g8136gbfa1eadf946b" version="1">Наполните желудок цели жгучей кислотой, нанося [1] урона всем переваривающимся жертвам.</content>
+	
+	<content contentuid="h695df312g8840g44eag99acga040cea80b82" version="1">Вздутие</content>
+	<content contentuid="h67d0b2afgdc83g4887ga3a0g2ba512d4c97b" version="1">Ваша магия заставляет хищника выблевать своих жертв. Когда вы произносите это заклинание против цели, у которой в желудке находится жертва, цель должна пройти испытание Мудрости. В случае неудачи хищник выблевывает всех существ из своего желудка. Если цель не проглотила ни одну жертву, вместо этого она будет отравлена на 1 ход.</content>
+	
+	<content contentuid="hec0450e4g5353g4c7dgbff5g294c40d38bf9" version="1">Медицинские кислоты</content>
+	<content contentuid="hd3d72e35956a44a8b4a70b35e3f873f3ag4a" version="1">Медицинские кислоты (Желудок)</content>
+	<content contentuid="hd61e024883824b74adf22eea5103fea7b4bb" version="1">Медицинские кислоты (Жопка)</content>
+	<content contentuid="h06e20c9eb6d2468d8ac648430b83d65a70ca" version="1">Медицинские кислоты (Матка)</content>
+	<content contentuid="hc409656db8f244d1a3d27f94941af0799f85" version="1">Медицинские кислоты (Яйца)</content>
+	<content contentuid="hf92f1d17g9736g4c44gb2fcg1d925f48af5d" version="1">Вы касаетесь 1 дружественного существа с другим существом внутри, наделяя хищника способностью выделять целебные кислоты. Хищник перестает переваривать жертв, и каждый раунд все жертвы внутри хищника восстанавливают [1].</content>
+	
+	<content contentuid="hc31b81f2g17f6g4f49ga1b0g20b59d8907c4" version="1">Медицинские кислоты (Вагина).</content>
+	<content contentuid="h87705e9dg91ddg4eafg99b6g53e725fcbfd2" version="1">Вы перестаете переваривать жертв, и каждый раунд все жертвы, находящиеся в вашей матке, получают [1].</content>
+	
+	<content contentuid="h890650a8g2c4eg47cdg9c96gf70e259be618" version="1">Поглощающие Внутренности</content>
+	<content contentuid="h8c36b9b8g94a8g4f38g9f1aga8862541ec2a" version="1">Вы касаетесь существа. На время действия заклинания, когда существу наносится урон от переваривания, оно восстанавливает HP равное половине нанесенного урона.</content>
+	
+	<content contentuid="hbfa5b1967f30410d9dc050c8134b4bb7af55" version="1">Спокойная жертва (Одна цель)</content>
+	<content contentuid="h2578b2b108be428bab9a6262e8e7d0e7292e" version="1">Вы касаетесь существа, принуждая одну жертву внутри него к неподвижности. Эта жертва теряет сознание и получает невосприимчивость к урону от переваривания на время действия заклинания. Не действует на жертв, проглоченных после произнесения этого заклинания.</content>
+	<content contentuid="hc9477ec6g7799g4dcdg94ceg55c3415732eb" version="1">Спокойная жертва</content>
+	<content contentuid="h5f6de038g2739g43d2gaf3bgb0d42ebac35a" version="1">Вы касаетесь существа, принуждая всех жертв внутри него к неподвижности. Все жертвы теряют сознание и получают невосприимчивость к урону от переваривания на время действия заклинания. Не действует на жертв, проглоченных после произнесения этого заклинания.</content>
+	
+	<content contentuid="hcb1ec43eg8d73g4d60gb9f7g604eac3c430e" version="1">Слово Силы: Проглотить</content>
+	<content contentuid="hbf91528dgc00fg49c8g8977g3b5e000ab543" version="1">Вы произносите слово силы, способное перенести выбранное вами существо. Они мгновенно телепортируются в желудок другого выбранного вами существа в пределах досягаемости. В течение следующего часа это существо не способно к осмысленной борьбе.</content>
+	
+	<content contentuid="h3e39f96cg77e6g4954gb1e7gb74286a35974" version="1">Бурление</content>
+	<content contentuid="h72e19c2fg7171g4c8bgac89g75d92be2e9bb" version="1">Одним прикосновением вы заставляете брюхо хищника быстро бурлить, переваривая жертв. Все существа, находящиеся в желудке хищника, немедленно получают [1] и [2], а все уже мертвые жертвы немедленно полностью перевариваются.</content>
+	
+	<content contentuid="hdbb58683gb507g4a89gaf9cg046e07357af0" version="1">Перерождение</content>
+	<content contentuid="had93fe5c851040a0a594cc2fa11a6a36694d" version="1">Перерождение (Желудок)</content>
+	<content contentuid="h5ce262082f424b0d9dc6f5072c7ed1c187g7" version="1">Перерождение (Кишки)</content>
+	<content contentuid="h98a85853113744859c2209fac3299a928ef1" version="1">Перерождение (Матка)</content>
+	<content contentuid="h2fe11571250f4698b72c7d14977de4a30geg" version="1">Перерождение (Яйца)</content>
+	<content contentuid="ha2742172g0d20g4ad0gbe34g3728a1d24235" version="1">Вы проглатываете труп гуманоида. Ваше тело медленно восстанавливает тело существа. После окончания действия заклинания вы выпускаете гуманоида, полностью сформированного и здорового. Если включен набор веса, это заклинание будет расходовать ваш жир на восстановление тела жертвы.</content>
+	<content contentuid="hc6954f50627843f3899ec150a1cfd21a62b6" version="1">Вы проглатываете труп гуманоида и помещаете его в свой желудок. Ваше тело медленно восстанавливает тело существа. После окончания действия заклинания вы выпускаете гуманоида, полностью сформированного и здорового. Если включен набор веса, это заклинание будет расходовать ваш жир на восстановление тела жертвы.</content>
+	<content contentuid="h7513e295acfc42cbaf56d17ad71a1a106ead" version="1">Вы проглатываете труп гуманоида и помещаете его в свои кишки. Ваше тело медленно восстанавливает тело существа. После окончания действия заклинания вы выпускаете гуманоида, полностью сформированного и здорового. Если включен набор веса, это заклинание будет расходовать ваш жир на восстановление тела жертвы.</content>
+	<content contentuid="hb2138aab1fed485198c45b3a0e683f648c06" version="1">Вы проглатываете труп гуманоида и помещаете его в свою матку. Ваше тело медленно восстанавливает тело существа. После окончания действия заклинания вы выпускаете гуманоида, полностью сформированного и здорового. Если включен набор веса, это заклинание будет расходовать ваш жир на восстановление тела жертвы.</content>
+	<content contentuid="h949eafcb0973435fa9fe6eac000fed88bbd5" version="1">Вы проглатываете труп гуманоида и помещаете его в свои яйца. Ваше тело медленно восстанавливает тело существа. После окончания действия заклинания вы выпускаете гуманоида, полностью сформированного и здорового. Если включен набор веса, это заклинание будет расходовать ваш жир на восстановление тела жертвы.</content>
+	
+	<content contentuid="h2e4326e2gafaag4195gbafdg0afc73a61829" version="1">Первобытная Отрыжка</content>
+	<content contentuid="hee2143c1g5e87g4334gbc52gef694968e913" version="1">Вы выпускаете сокрушительную отрыжку. Все существа, попавшие в зону действия конуса, должны пройти испытание Силы. При провале каждое существо падает плашмя и получает [1] урона, который увеличивается с количеством состояний сытости, которые у вас есть. При успехе существа получают половину урона и не сбиваются с ног.</content>
+	
+	<content contentuid="h96eac8e8gc934g4ca9gba5egdb56d4a1103f" version="1">Бездонный</content>
+	<content contentuid="h0feb5243g9895g4ca5gb170g2b317cd869f9" version="1">Вы прикасаетесь к существу, наделяя его неутолимым голодом, а внутри него становится места больше, чем он когда-либо сможет заполнить.</content>
+
+	<content contentuid="hed0193e5geef5g45d4g880age75088cfffb9" version="1">Телепорт в Живот</content>
+	<content contentuid="h121d9c41gd0d2g4119g9f80gf0735fbd14a8" version="1">Телепортировать [1] цель[2] прямо во внутрь себя и начать их переваривать</content>
+
+	<content contentuid="h708ccee6g1d7dg4653g98f7g79d9e128388c" version="1">Массовый Телепорт в Живот</content>
+	<content contentuid="hfa10b82cg694bg48a5gbb4bg3e59af7d1a4b" version="1">Телепортировать несколько целей прямо во внутрь себя и начать их переваривать</content>
+
+	<content contentuid="h1a1e6911g91cag410dga058g45dbf7fb121c" version="1">Отправить Цель в Хищника</content>
+	<content contentuid="h8e61e8d736a24453a86841e78bf86dcaf5g2" version="1">Отправьте существ, которые провалили испытание, в хищника.</content>
+	<content contentuid="h1d4b85d8g8d16g407cg8c53g5dbf6d985c4d" version="1">Отправьте существ, на которых действует Слово Силы: Проглотить прямо в хищника.</content>
+	<content contentuid="h57f71596b9c44502a458e7716e3248d623ca" version="1">Отправьте существ, которые провалили испытание, в желудок хищника.</content>
+	<content contentuid="h37f01a10afde45afb258a1ebeca73c880763" version="1">Отправьте существ, которые провалили испытание, в кишки хищника.</content>
+	<content contentuid="hea3bf16e4fa64e7d891a49b47b6d3e8835g8" version="1">Отправьте существ, которые провалили испытание, в матку хищника.</content>
+	<content contentuid="h8685377456cc41cab02a30e180586249b0a6" version="1">Отправьте существ, которые провалили испытание, в яйца хищника.</content>
+	<content contentuid="hf3af391e6c404fff8c418fb036b59fe5872b" version="1">Отправьте существ, на которых действует Слово Силы: Проглотить прямо в желудок хищника.</content>
+	<content contentuid="h17c0513ae8fc4cb680b4ea6d52f33a74e5f6" version="1">Отправьте существ, на которых действует Слово Силы: Проглотить прямо в кишки хищника.</content>
+	<content contentuid="h31b83abb29cf40229df0324b8c8b3c956072" version="1">Отправьте существ, на которых действует Слово Силы: Проглотить прямо в матку хищника.</content>
+	<content contentuid="hd5aefe9688464ebd840ab6eb5b5432635e2d" version="1">Отправьте существ, на которых действует Слово Силы: Проглотить прямо в яйца хищника.</content>
+	<content contentuid="h06383a8cg3992g4c66g8b6fgb7534173743d" version="1">Отправить Цель в Хищника (Рот)</content>
+	<content contentuid="hbe271bd3gfd1eg4553g832fgaf0932a25ddf" version="1">Отправить Цель в Хищника (Анал)</content>
+	<content contentuid="h47cf96e0g646cg4df3g9583ge19a4f1c8d73" version="1">Отправить Цель в Хищника (Вагина)</content>
+	<content contentuid="he48f81a0gada6g4c6ag9f37ga02734bdca4d" version="1">Отправить Цель в Хищника (Член)</content>
+	
+	<!-- Statuses for spells -->
+	<content contentuid="h09241c51g5974g4151gbad5gaff27e532710" version="1">Вкусный</content>
+	<content contentuid="hed648fecg97cbg48abga39eg12298058ba1a" version="1">Хищники имеют Преимущество, когда пытаются проглотить этого персонажа.</content>
+	
+	<content contentuid="h6184ffb0g372dg45ccg9cbeg552a0c1fe300" version="1">Отвратительный</content>
+	<content contentuid="h4120dc13g6c78g4b5bgaf11g646a80ec50e8" version="1">Хищники имеют Помеху, когда пытаются проглотить этого персонажа.</content>
+	
+	<content contentuid="h8d173316g064cg43fdg8349gf3368097d635" version="1">Сжатая добыча</content>
+	<content contentuid="haad0f231gd5abg405cga258g5915dee39709" version="1">Кажется, будто у этого хищника внутри нет жертв.</content>
+
+	<content contentuid="hbe4c0a40g5ae1g415fgb62ag3cf69c9f0196" version="1">Разгрузка</content>
+	<content contentuid="h58fc0b41gb1bcg4c9ega23fgb053a6bc1609" version="1">Ваши жертвы весят вдвое меньше.</content>
+
+	<content contentuid="hb14b1d8agfad0g4393g83e1g21c358b5c5f7" version="1">Бездонные Внутренности</content>
+	<content contentuid="h74ab3f7dgb8bfg42e5gaaa5gf5c6efd41e34" version="1">Вам кажется, что вы можете съесть весь мир!</content>
+	
+	<content contentuid="h55709b76gd90eg43f1g9186g03c7058f3197" version="1">Целебная кислота</content>
+	<content contentuid="h21f66aacgd695g4a50g8f85g6c196274cdd3" version="1">Целебная кислота (Желудок)</content>
+	<content contentuid="h46597bf8gdfa8g4095gb343gd3efcc39ffc7" version="1">Целебная кислота (Жопка)</content>
+	<content contentuid="h1dee0359gb1c5g404ag9677geb26ca22e383" version="1">Целебная кислота (Член)</content>
+	<content contentuid="h815cc7c0g2fc7g425eg8dabg4da289efcb8a" version="1">Целебная кислота (Матка)</content>
+	<content contentuid="h6c3c3ddegc688g437ega730gaf4e3fcb4ff7" version="1">Вы исцеляете жертв внутри себя.</content>
+	<content contentuid="h239dce28g2d11g4626g98f6ge330f44daf5b" version="1">Вы исцеляете жертв внутри [1].</content>
+
+	<content contentuid="he2898dfag40b1g43e8g853fg7803160c6db5" version="1">Цель Телепорта в Живот</content>
+	<content contentuid="h166b23cdg5899g432eg868dgb0af9238c567" version="1">Нацелен заклинанием Телепорт в Живот; для жертвы уже слишком поздно...</content>
+	<content contentuid="h46b24cffb10b48a49061e7b40cd721f683c7" version="1">Прожорливый</content>
+	<content contentuid="h34446071c0044841917cdc3140f4bd618789" version="1">У вас есть Преимущество при всех проверках проглатывания.</content>
+	<content contentuid="hac6e4b1e2f3c41298b1e81fa6a8f7162c9af" version="1">Поглощающая Кислота</content>
+	<content contentuid="hf85358ecef6b4ce6bb636f029e263328g9ac" version="1">Вы излечиваетесь на половину урона, наносимого перевариванием.</content>
+	<content contentuid="h15e446e26fdd4c26873cef04494c75f0ecfb" version="1">Спокойные Жертвы</content>
+	<content contentuid="h130a02227cab4c87a012aed66a33ba6a7b6b" version="1">Одна жертва внутри этого персонажа затихла.</content>
+	<content contentuid="h639bf8eafb5642d3be3e47b4ab8a3d9cf9bf" version="1">Все жертвы внутри этого персонажа затихли.</content>
+	<content contentuid="haa7325212a3f47b1a428cc7344b744757d2a" version="1">Спокойные Жертвы</content>
+	<content contentuid="h41aa1c26354e4ff0ba1ca83a2db4c948g529" version="1">Эта жертва лишилась сознания и не может действовать.</content>
+	<content contentuid="hc94479e7a10b404f9a4ffae93636849d222d" version="1">Переедание!</content>
+	<content contentuid="hf56776344351490c9b2b7676d7634b76f1fg" version="1">Вам кажется, что вы вот-вот лопнете! Каждый ход вы получаете [1]</content>
+
+	<content contentuid="hc96ae46aaa02493bb98d55c02c7768a50734" version="1">Персонажи в этом органе получают урон от переваривания</content>
+	<content contentuid="h4f640bb8e33a42a1b8f54dd1138433b69c89" version="1">Смертельное Переваривание (Желудок)</content>
+	<content contentuid="h412beff706a9499a8831e9e7ee8c07509312" version="1">Смертельное Переваривание (Матка)</content>
+	<content contentuid="h41b4f57909ad4f54aa0bcee0e4bf1842g81f" version="1">Смертельное Переваривание (Жопка)</content>
+	<content contentuid="hfabeb05e075f475e99b9daa28900b72b8d92" version="1">Смертельное Переваривание (Яйца)</content>
+	<content contentuid="hb6aba89020854298882b82332b8442c4aee5" version="1">Цель Слово Силы: Проглотить</content>
+	<content contentuid="hdf5b49f1a5e44d0bb923bc620907258637fc" version="1">Нацелен заклинанием Слово Силы: Проглотить; для жертвы уже слишком поздно...</content>
+	<content contentuid="h4e23bc2e63264786996b9468a0df629f1206" version="1">Реформация</content>
+	<content contentuid="h0f3f19c0654b416d8f8de4d6b3583bc7ac2b" version="1">Эта жертва реформируется</content>
+
+	<!-- MCM text -->
+	<!-- Start Here -->
+	<content contentuid="h2d57225eg5b0cg472egbfb4g86d1aec272a6" version="1">Получить Vore предметы</content>
+	<content contentuid="h77a11429g3848g41begbd34ga70d5dc329b7" version="1">Добавляет в инвентарь текущему контролируемому персонажу предметы, позволяющие включать/выключать vore</content>
+	
+	<!-- Digestion -->
+	<content contentuid="h5b11190eg5c18g4f4fga8e6gc0bf880a2a5b" version="1">Кипящие Внутренности. Быстрое переваривание</content>
+	<content contentuid="hba334da7g6555g44a1g8488g4c4c19c6a257" version="1">Мертвые жертвы перевариваются в два раза быстрее, если у вас есть черта 'Кипящие Внутренности'.</content>
+	
+	<content contentuid="h47e5139dg2c0eg4a11gb897g49de94713aec" version="1">Скорость переваривания (Длительный отдых)</content>
+	<content contentuid="h90c50245gd9cbg4884gb0b7g33c2090b736a" version="1">Определяет, на сколько уменьшается вес перевариваемой жертвы после длительного отдыха</content>
+	
+	<content contentuid="he9fa6ba6g508bg428fg8552g88604ab116cb" version="1">Скорость переваривания (Короткий отдых)</content>
+	<content contentuid="h05fc6aaag37abg4d99g95d7g2a76005c852c" version="1">Определяет, на сколько уменьшается вес перевариваемой жертвы после короткого отдыха</content>
+	
+	<content contentuid="h03cf3df0g2ce4g449eg99e0g8afc51f217e7" version="1">Скорость постепенного переваривания</content>
+	<content contentuid="hca25a119gfd5bg4c75g9738g24b3cdac5f01" version="1">Насколько сильно вы будете пассивно переваривать мертвую жертву за X ходов (задается опцией Количество ходов для постепенного переваривания). Установите значение 0, чтобы отключить.</content>
+	
+	<content contentuid="h3c7c39d4gebdeg44d9g8307gae14cfb4dcf6" version="1">Насколько сильно вы будете пассивно переваривать мертвую жертву за X ходов (задается опцией Количество ходов для постепенного переваривания). Установите значение 0, чтобы отключить.</content>
+	<content contentuid="h67ce705egae25g4835g8517gf802ab78df4d" version="1">Как часто происходит пассивное переваривание. 1 ход = 6 реальных секунд. Установите значение 0, чтобы отключить.</content>
+	
+	<content contentuid="h28d75044g9810g476egad69g5765d4664965" version="1">Мгновенное переваривание</content>
+	<content contentuid="he064dd60g18f4g45e6ga6edg27180c74d21b" version="1">Если включено, вы теряете вес сразу после завершения переваривания жертв, и вы сразу же сможете поглотить жертву / сходить в туалет</content>
+
+	<!-- Hunger System -->
+	<content contentuid="hb280ef2fg894cg4c0ag8c3ega0f971190cb7" version="1">Голод</content>
+	<content contentuid="h1560bc4dge61eg48d8gb6d2g72e1a9071ccd" version="1">Включает систему голода для хищников в группе игрока. Если хищник долгое время не переваривает жертву, он получает негативные эффекты. Уберите галочку, чтобы полностью отключить голод.</content>
+	
+	<content contentuid="h8debec48gb238g4038ga5f0gbd7ff8adf4a5" version="1">Суммирование голода</content>
+	<content contentuid="h3e516fddg31fbg402eg96dfg237da0a9d1d7" version="1">Количество состояний 'Голода', при котором вы начинаете голодать.</content>
+	
+	<content contentuid="hb027ab1eg6caag4013g8986gf2218f2fb6af" version="1">Суммирование сильного голода</content>
+	<content contentuid="haa98c284g829ag4f92ga8b8gd8d28c98324b" version="1">Количество состояний 'Голода', при котором вы начинаете сильно голодать.</content>
+	
+	<content contentuid="h012c79fegfac8g48f3gad3bg3a76ff0a1cfc" version="1">Суммирование крайнего голода</content>
+	<content contentuid="h5521379eg7001g4aefg88d6g4dd14824e9a1" version="1">Количество состояний 'Голода', при котором вы испытываете неописуемый голод.</content>
+	
+	<content contentuid="hd7caf1a1g8674g43dbg9db2g12deabad071c" version="1">Суммирование голода (Длительный отдых)</content>
+	<content contentuid="hbe94120fg0e47g44fag9caagbe81d13a54d9" version="1">Количество состояний 'Голода', которое вы получаете при длительном отдыхе.</content>
+	
+	<content contentuid="h82452982g391cg4ab7ga57egcd7a5ad2a4fc" version="1">Насыщение</content>
+	<content contentuid="hc03c838fgc6bag47abg8258gdc445c97c66f" version="1">Количество сытости, необходимое для снижения голода на 1 ед. Чем больше значение, тем больше жертв вам требуется переварить для утоления голода.</content>
+	
+	<content contentuid="h1926ab47gf338g421bg887cg342fa00e833f" version="1">Эффективность переваривания</content>
+	<content contentuid="h488fd883g0dcdg4a28g928dg41eec5a4178a" version="1">Сколько насыщения вы получаете после переваривания. Это число представляет собой процент от значения показателя Скорость переваривания (Длительный отдых).</content>
+	
+	<content contentuid="h4460f58agbdc9g477cg97f7g8fdb2b754f1f" version="1">Суммирование голода (Короткий отдых)</content>
+	<content contentuid="h9be661c7gb95bg4046gbfe3g579efc013310" version="1">Количество состояний 'Голода', которое вы получаете при коротком отдыхе.</content>
+	
+	<content contentuid="h50902d93g3f0fg480bgb5e5ge4b8077bcdc5" version="1">Случайное переваривание</content>
+	<content contentuid="h5e453492ga977g4b8egb5c5g22895f120164" version="1">Если включено, то чем сильнее у вас голод, тем больше вероятность того, что вы случайно начнете переваривать жертв, даже если они были проглочены безопасно. Работает независимо от SwitchEndoLethal.</content>
+	
+	<!-- Mechanics -->
+	<content contentuid="hbeabe152ga9d7g48c1g8736g343cfb2164c7" version="1">Разрешить переедание (WIP)</content>
+	<content contentuid="he5ac7fa6g289ag43f9g8a89g39c277a2812c" version="1">Если включено, то жертву можно проглотить даже, если в этом случае вес жертвы превысит вашу максимальную грузоподъемность, но вы будете получать урон каждый раунд пропорционально тому, насколько вы переполнены. Если выключено, то вес проглоченной вами жертвы будет жестко ограничен вашей грузоподъемностью.</content>
+	
+	<content contentuid="hf1fa5b9bgc83cg40ffgaa48g18d3198ed59b" version="1">Черты разблокируют органы</content>
+	<content contentuid="h015aca58ge9feg46c9ga7deg182c8885d211" version="1">Если включено, определенные черты разблокируют новые органы для Vore. В противном случае они могут быть разблокированы только с помощью зелий.</content>
+	
+	<content contentuid="h747ae843gf476g447aga39cg229c3de07161" version="1">Необходима корректная анатомия</content>
+	<content contentuid="h935d0d56g7debg47cegba7ag98fe77333d9e" version="1">Если включено, особые типы vore будут требовать, чтобы у вас была часть тела, позволяющая использовать этот тип vore.</content>
+	
+	<content contentuid="hb8a11fbcg8ce1g4856ga547g038979cc80da" version="1">Переключение летальности</content>
+	<content contentuid="he62c0918g047fg4d7fg9ccfge7b7656e08ff" version="1">Вы можете прекратить переваривание жертвы с помощью заклинания Переключить смертельность или если безопасно проглотите другую жертву. Если выключено, вы сможете безопасно проглатывать жертв только после того, как все жертвы в органе были переварены.</content>
+	
+	<content contentuid="hde03a225g09ebg4749gaa0eg509acd6082cf" version="1">Медленное глотание</content>
+	<content contentuid="h7a0e88c1g4314g4f87gbaa2gab231efbb0fa" version="1">Для успешного проглатывания существа требуется два действия, а не одно (WIP)</content>
+	
+	<content contentuid="h34a6f020g6a5fg4f2eg983cg86e336abd8cb" version="1">Удаление жертв</content>
+	<content contentuid="h39861453ge5e1g4665g979bg35af956bcba6" version="1">При проглатывании жертва удаляется из мировой сетки. Это означает, что на них не будут действовать эффекты по области и поверхности, но они не смогут произносить некоторые заклинания.</content>
+	
+	<content contentuid="hd004e205g720dg460dg911fgd262cd5d5e87" version="1">Лимит несварения</content>
+	<content contentuid="h1d381716g4c41g4fc5gad56g28e45eeb4a26" version="1">Количество состояний "Несварения", при котором хищник будет вынужден срыгнуть всех жертв. Установите значение 0, чтобы отключить.</content>
+	
+	<content contentuid="he41dfd12g8e58g4915gbfd5g594d1b8e4600" version="1">Лимит Истощения</content>
+	<content contentuid="hcfaec850g3b7eg4b4aga071g1e116fb3a09a" version="1">Количество состояний \"Истощения\", при котором жертва истощится и прекратит борьбу. Установите значение 0, чтобы отключить. (WIP)</content>
+	
+	<content contentuid="h1b5a5fa4gd545g492dgbc41g01d8c1f0a510" version="1">Несварение снимается только во время отдыха</content>
+	<content contentuid="h9e1b8567gc49fg4d74g9ddcg5b67bdbf5def" version="1">Вместо того, чтобы сниматься, когда внутри хищника нет живых жертв, несварение будет сниматься только во время длительного отдыха. Включайте только при высоком лимите несварения.</content>
+	
+	<!-- NPCs -->
+	<content contentuid="hf9c75c3cg600bg4834ga69eg39a9838dd47e" version="1">Максимальный шанс хищничества (Средний)</content>
+	<content contentuid="h5785dea9gae39g460cgba01g8255d30917f8" version="1">Этим значением ограничивает вероятность того, что среднее существо будет выбрано в качестве хищника. Установите значение 100 или выше, чтобы отключить.</content>
+	
+	<content contentuid="he9dfb140g2201g4789ga320gdbe35d1f1a6b" version="1">Максимальный шанс хищничества (Маленький)</content>
+	<content contentuid="h2338ef8eg8885g4806g82feg9c8f96e9085f" version="1">Этим значением ограничивает вероятность того, что маленькое существо будет выбрано в качестве хищника. Установите значение 100 или выше, чтобы отключить.</content>
+	
+	<content contentuid="hfd75f002gc099g4285g9a4eg8cff95b6273e" version="1">Максимальный шанс хищничества (Крошечный)</content>
+	<content contentuid="h7f85ac39g2602g4358g8165g2857d46d2b61" version="1">Этим значением ограничивает вероятность того, что крошечное существо будет выбрано в качестве хищника. Установите значение 100 или выше, чтобы отключить.</content>
+	
+	<content contentuid="hc44900a9g3ae9g48d0g966fgae51e4c537cc" version="1">Максимальное время восстановления Проглатывания</content>
+	<content contentuid="hae7b8cbcge3b0g44efgac03g4bad2a2b367c" version="1">Максимальный промежуток времени между попытками NPC проглотить кого-либо (измеряется в ходах).</content>
+	
+	<content contentuid="he16a7bdbg32eag4977g927dg2d3620ed89c9" version="1">Минимальное время восстановления Проглатывания</content>
+	<content contentuid="h18487894gb4f5g4005g9144gb2e77d58726a" version="1">Минимальный промежуток времени между попытками NPC проглотить кого-либо (измеряется в ходах).</content>
+	
+	<content contentuid="hec1267e9g154cg45e4g972eg79b78a38dbf4" version="1">Шанс хищничества (Монстр)</content>
+	<content contentuid="h60d7ed3cg3a98g41b9g85a3gfd1ae128b3dd" version="1">Процент с которым монстр станет хищником. Монстры - это любые существа, которые не считаются самцами или самками. Это значение умножается на множитель расы. Установите значение 0, чтобы отключить.</content>
+	
+	<content contentuid="h73799bdcg6d9fg4da2g83dag6c5a748b59be" version="1">Шанс хищничества (Девушка)</content>
+	<content contentuid="h857ad935g7f15g436ega4fcg1335fbd93806" version="1">Процент с которым девушка NPC станет хищником. Женские NPC имеют типы тела 1 или 2, за некоторыми исключениями. Это значение умножается на множитель расы. Установите значение 0, чтобы отключить.</content>
+	
+	<content contentuid="h71a055f0g9447g416egb521g1dd3a397ef27" version="1">Шанс хищничества (Мужчина)</content>
+	<content contentuid="h54c897b7ga067g4717g958egb55a0804e1bc" version="1">Процент с которым мужчина NPC станет хищником. Мужские NPC имеют типы тела 3 или 4, за некоторыми исключениями. Это значение умножается на множитель расы. Установите значение 0, чтобы отключить.</content>
+	
+	<content contentuid="h5a878b66gc82fg4c79g9064gdf3176208d82" version="1">Сбросить конфиг расы</content>
+	<content contentuid="h9e0550cdga785g4cd9g8e87g07e78f2b5a1c" version="1">RaceConfig.json is located in 'AppData\Local\Larian Studios\Baldur's Gate 3\Script Extender' Race Config stores the % of an NPC of every race becoming a pred. The final chance is 'Race Probability * Sex Probability / 100'% This Resets RaceConfig.json to 100 for every race.</content>
+	
+	<content contentuid="h612aa133gf015g4c9ag95a9gc8ace4fe0abd" version="1">Загрузить пример конфига расы</content>
+	<content contentuid="h52e1510ag70bbg4db9g8e63g9b4f1db47d79" version="1">Загружает пример конфига расы. Используйте его, если вам лень настраивать проценты самостоятельно, или в качестве отправной точки. Создайте резервную копию RaceConfig.json, потому что этот файл перезапишет его!</content>
+	
+	<content contentuid="hb9b179f0g7802g48e8ga5fbgaaacc6de0ead" version="1">Перезагрузить конфиг расы</content>
+	<content contentuid="h52efe3aag2823g4049ga2d1g86af3ebea842" version="1">Перезагружает конфиг расы из текущего сохраненного файла RaceConfig.json (если он существует). Обычно он загружается при загрузке сохранения, но эта опция позволяет вам вручную перезагрузить его.</content>
+	
+	<!-- Regurgitation -->
+	<content contentuid="hec67bdf7g4bd1g47c8ga30cg19b7ae6c1a53" version="1">Время восстановления Выпускания жертвы</content>
+	<content contentuid="h05bcbbb8ga6e5g4479g8f95gcb027de5f69f" version="1">После того, как хищник выпустит жертву, он не сможет снова воспользоваться этой способностью в течение нескольких ходов. Установите значение 0, чтобы отключить</content>
+	
+	<content contentuid="h86a0d83fg21b6g4909g874dg053a3ffc5ad5" version="1">Время восстановления Проглатывания</content>
+	<content contentuid="h392ef870g8004g4bbbg9700g65f74dae984d" version="1">После того, как хищник выпустит жертву, он не сможет никого проглотить в течение нескольких ходов. Установите значение 0, чтобы отключить</content>
+	
+	<content contentuid="h7273ac52g2029g4101gafebg2dc9b965de42" version="1">Расстояние выпускания жертв</content>
+	<content contentuid="h591a955cg086cg4adagb605gf83f903b4b6c" version="1">Определяет, насколько далеко жертвы появляются после того, как их выпустят.</content>
+	
+	<!-- Visuals and Audio -->
+	<content contentuid="ha71aee9cg765bg4807ga244g872fbf7fc9af" version="1">Размер живота</content>
+	<content contentuid="hc84055f8gde26g4d53g89c4g75094a9b2676" version="1">Увеличивает/уменьшает размер всех животов. По умолчанию 100%</content>
+	
+	<content contentuid="hcad8f987g535fg4731g8c3eg5664db059e0a" version="1">Обновить визуал животов</content>
+	<content contentuid="h4f5a07e3g6138g414cgbb96g58eb4dd58098" version="1">Немедленно обновляет визуальную часть всех животов</content>
+	
+	<content contentuid="hc42a1cc4g0f53g4c6ag8039g588c4746ca5f" version="1">Шанс урчания желудка</content>
+	<content contentuid="h4e78058fge597g4483g8df2g659cf3bd9292" version="1">Каждые 6 секунд (1 ход) будет шанс на то, что проиграется звук урчания желудка. Установите значение 0, чтобы отключить.</content>
+	
+	<!-- Debug -->
+	<content contentuid="h4e097d7dg8b92g4eecg943fg8f3c446cd600" version="1">Включить функции отладки</content>
+	<content contentuid="hfd9bc4f7g3ccfg4796g9ab8g64f6d13a3323" version="1">Получить доступ к функциям отладки. Не включайте, если не знаете, что делаете.</content>
+	
+	<content contentuid="h46b445c0g1fefg40d1g9c23ge1a8200dae0b" version="1">Перезагрузить vore</content>
+	<content contentuid="hf3a71a05g88ddg4421g8073g6cda3448cb81" version="1">Установите галочку, чтобы перезагрузить vore. Все хищники срыгнут все, а сохраненные данные будут очищены. Подождите, пока он не будет готов, прежде чем нажать еще раз. Если через 2-3 секунды кнопка не вернулась в состояние готовности, проверьте консоль на наличие ошибок.</content>
+	
+	<content contentuid="h745793d1g7f99g4804g94a5gdd74ac9ac521" version="1">Всегда успешное проглатывание</content>
+	<content contentuid="h2b249bc4ga705g4840gb05cg310b44df81ab" version="1">Если включено, абсолютно все попытки проглатывания будут успешны.</content>
+	
+	<content contentuid="h645b9269gaa12g4bf4gbbb8g04eab5c9c136" version="1">Заблокировать инвентарь желудка</content>
+	<content contentuid="h2bf4a4dagd687g464cgb42egbabd60be450e" version="1">Блокирует предмет-контейнер «инвентарь желудка», который используется для хранения проглоченных предметов.</content>
+	
+	<content contentuid="h205b370eg1392g40fcgab84g2501c25e0db4" version="1">Телепортировать жертв</content>
+	<content contentuid="h86904d99ga5f0g4b70ga5cfg3cd261ab58b1" version="1">Определяет, будут ли живые жертвы телепортироваться к своему хищнику в конце каждого хода (или каждые 6 секунд вне пошагового режима). По умолчанию включено, следует выключать только в случае возникновения проблем с производительностью</content>
+	
+	<content contentuid="hc8573aecg2080g4d0fg8984gfbd149465242" version="1">Вывести данные vore</content>
+	<content contentuid="h8c0409a6gc089g4119gb8deg3af749cfeff2" version="1">Выводит данные VoreData в консоль</content>
+	
+	<!-- WIP -->
+	<content contentuid="h9eac08bdg65f6g4ae2gadd1g2c47fd0e58e8" version="1">WIP функции</content>
+	<content contentuid="h94c92f7dg0ff8g40bcgbccdg4f86f145797d" version="1">Показывает вкладку с некоторыми WIP функциями. Большинство из них работают нормально, но используйте их на свой страх и риск.</content>
+	
+	<content contentuid="h5787b11cg360bg473bgaf67gf6e41341add5" version="1">Проглатывание предметов</content>
+	<content contentuid="h5a54e380g9a35g40a7g9e7egdf5a98a4f4e9" version="1">Позволяет проглатывать предметы. Они будут храниться в запертом контейнере в вашем инвентаре. Предметы могут быть переварены, если ваш желудок начнет переваривать жертву. Переваренные предметы теряются навсегда!</content>
+	
+	<content contentuid="h043674ecg0be8g4582g88f7g18ba9a6627cf" version="1">Переваривание предметов</content>
+	<content contentuid="hc80f837cgf6cdg48f5gaf21gee0e67ec64b9" version="1">Когда вы начнете переваривать жертву, предметы в вашем желудке могут подвергнуться перевариванию. ВНИМАНИЕ: ЭТО МОЖЕТ ПРИВЕСТИ К УДАЛЕНИЮ ВАЖНЫХ ДЛЯ СЮЖЕТА ПРЕДМЕТОВ В ВАШЕМ ЖЕЛУДКЕ, ЧТО МОЖЕТ ПРИВЕСТИ К СОФТЛОКУ ВАШЕГО СОХРАНЕНИЯ</content>
+	
+	<content contentuid="hd7b51e95g542cg40e7g8cf6ga7739b886692" version="1">Набор веса</content>
+	<content contentuid="hd1c26779gd970g48e8g8dcbg6229e59484f2" version="1">Накапливает и добавляет жир к размеру живота. Жир увеличивается во время переваривания мертвой жертвы и уменьшается после отдыха. Эта функция находится здесь, потому что она влияет ТОЛЬКО на размер живота.</content>
+	
+	<content contentuid="hae74d1c9gab55g4ad8gb8b4g0f18ca560044" version="1">Коэффициент набора веса</content>
+	<content contentuid="h2348a7cbgcd3fg4e69gb873g798b1b0c735e" version="1">Процент от веса добычи, который вы набираете в качестве жира.</content>
+	
+	<content contentuid="h5298a431g000eg48e4ga220g3da30fe806dc" version="1">Количество потери веса (Длительный отдых)</content>
+	<content contentuid="h8bbd0039g0c93g474bgbe50gad1ddfb3c329" version="1">Сколько жира теряет персонаж во время длительного отдыха.</content>
+	
+	<content contentuid="h2196f661g6f44g413cg8fecgb83d624bcc00" version="1">Количество потери веса (Короткий отдых)</content>
+	<content contentuid="he7bb71c7ga7d3g49fdg9d99g534730bad26a" version="1">Сколько жира теряет персонаж во время короткого отдыха.</content>
+	
+	<content contentuid="hcff67f30g9871g4a18gaf42g484271860bf0" version="1">Голод расходует жир</content>
+	<content contentuid="h85831c78g7af6g4cdag892dgb2aa0a3d043e" version="1">Если включено, ваш жир будет расходоваться на то, чтобы уменьшить количество получаемого голода на половину.</content>
+	
+	<content contentuid="h0dd6fcf5g1916g48ffgb251gb48092202e11" version="1">Потный хищник</content>
+	<content contentuid="h0e61b45fgcabag4adfg8fc2ge5ec8b8b2a2d" version="1">После проглатывания жертвы хищник станет потным на пару ходов. Я ХЗ почему это было убрано из основных опций.</content>
+	
+	<content contentuid="h4366abfdg8f26g46a9g8e8bgcccc68986bc1" version="1">Органы с бонусами</content>
+	<content contentuid="hd8575a61gb3d3g4b2ega6c0g074fe462aec6" version="1">Органы получают бонусы от черт персонажа (например, жертва может произносить заклинания, находясь внутри органа)</content>
+	
+	<!-- Reading Check -->
+	<content contentuid="h1e4391c8g9959g4131ga9ebg2f3d1c8dbee1" version="1">Я прочитал вики</content>
+	<content contentuid="hf9263e2eg3a7cg4686g928ag4c52b7483eb8" version="1">Ставя галочку, вы подтверждаете, что ознакомились со всей информацией, доступной на вики.</content>
+</contentList>
