@@ -664,7 +664,7 @@
 	<content contentuid="he7bb71c7ga7d3g49fdg9d99g534730bad26a" version="1">How much fat a character loses on short resting.</content>
 	
 	<content contentuid="hcff67f30g9871g4a18gaf42g484271860bf0" version="1">Hunger uses fat</content>
-	<content contentuid="h85831c78g7af6g4cdag892dgb2aa0a3d043e" version="1">If set to true, fat will be used to reduce hunger gain by half, if you don't have enough satiation stacks.</content>
+	<content contentuid="h85831c78g7af6g4cdag892dgb2aa0a3d043e" version="1">If set to true, while you have fat, it will be consumed to reduce hunger gain by half</content>
 	
 	<content contentuid="h0dd6fcf5g1916g48ffgb251gb48092202e11" version="1">Sweaty Vore</content>
 	<content contentuid="h0e61b45fgcabag4adfg8fc2ge5ec8b8b2a2d" version="1">Swallowing a prey will make the predator sweaty for a couple of turns. IDK why this has been removed from the main options.</content>
