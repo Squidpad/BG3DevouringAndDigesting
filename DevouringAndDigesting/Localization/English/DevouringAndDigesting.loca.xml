@@ -143,7 +143,10 @@
 	<content contentuid="h03fcfe03gaa2bg474ag9c87g7c0ad7aa5e25" version="1">Toggle Lethal (Womb)</content>
 	<content contentuid="h007134a2gbbdeg4dc1gb1a5gc082e0f90980" version="1">Toggle Lethal (Balls)</content>
 	<content contentuid="hbcd23c49gcca8g4b2aga982g9218f8672684" version="1">Toggle Lethal (All)</content>
-	<content contentuid="h14e840a3ga7d0g46fcg85b0g8e107ea5efc6" version="1">Fill [1] with acid. You will start digesting all your living prey! Using this again will stop the lethal digestion.</content>
+	<content contentuid="h14e840a3ga7d0g46fcg85b0g8e107ea5efc6" version="1">Fill your stomach with acid. You will start digesting all your living prey! Using this again will stop the lethal digestion.</content>
+	<content contentuid="hf3b56c7c4af54e5e9651846a9595a5fb69g8" version="1">Fill your intestines with acid. You will start digesting all your living prey! Using this again will stop the lethal digestion.</content>
+    <content contentuid="h409f8f38d3c14caab0e7739c3ad9424cb7aa" version="1">Fill your womb with acid. You will start digesting all your living prey! Using this again will stop the lethal digestion.</content>
+    <content contentuid="h5936764d24b44347a4dd43c48ccdc49fefc6" version="1">Fill your balls with acid. You will start digesting all your living prey! Using this again will stop the lethal digestion.</content>
 
 	<content contentuid="h5a9e44b8g8d89g4291ga046ge4eb60b93ee2" version="1">Exhausted</content>
 	<content contentuid="h5ca5300fg470ag489bgbb48g5581b2148888" version="1">You you just got one down, it'd be a struggle to get another. Wait a bit before swallowing new prey.</content>
@@ -318,6 +321,8 @@
 	<content contentuid="h8f7f9e25g8784g4382g8f22g9cd8ed3dbe36" version="1">Ask your predator to release you.</content>
 	<content contentuid="h40b58651gf9a6g4e2fg970dga1a3463c7db2" version="1">Move to Pred</content>
 	<content contentuid="h0df6ad0ag0da8g4a45gb339g26e35da36fa0" version="1">Manually teleport to your predator.</content>
+	<content contentuid="h09146121416b4111a114a188290625789dcd" version="1">Do Long Rest</content>
+    <content contentuid="hfa829e57fe0d467b8d7b15e42a8602c8d327" version="1">Use this if the player character is swallowed and you want a long rest. You must quickly click YES, or this will not work</content>
 	
 	<!-- Cantrips -->
 	<content contentuid="he02600d0g524fg4be2gb43eg93622af33b63" version="1">Lick</content>
@@ -359,7 +364,11 @@
 	<content contentuid="h50e550a1gf8d8g4103gb623gcc4845590674" version="1">Rescue (Anal)</content>
 	<content contentuid="h4de84d5bg8794g4189gb079g93ee8d87efe6" version="1">Rescue (Unbirth)</content>
 	<content contentuid="h9dc2ad68g28c3g49e4g862eg5e3c15478ca1" version="1">Rescue (Cock)</content>
-	<content contentuid="h5335979fgbaecg4d6cg90d3gb43ab518caaf" version="1">You swiftly whisk a friendly creature out of harms way, depositing them safely inside you[1]. Fails if you select a vore type you can't do.</content>
+	<content contentuid="h5335979fgbaecg4d6cg90d3gb43ab518caaf" version="1">You swiftly whisk a friendly creature out of harms way, depositing them safely inside you. Fails if you select a vore type you can't do.</content>
+	<content contentuid="h7293f31d20b34e8ca881e66ef58973c0g67b" version="1">You swiftly whisk a friendly creature out of harms way, depositing them safely inside your stomach. Fails if you select a vore type you can't do.</content>
+    <content contentuid="h3635e4f167084827ae8d5c83ec070f57aac0" version="1">You swiftly whisk a friendly creature out of harms way, depositing them safely inside your ass. Fails if you select a vore type you can't do.</content>
+    <content contentuid="h30efbc3607894c0b96177a03077cac0c1756" version="1">You swiftly whisk a friendly creature out of harms way, depositing them safely inside your womb. Fails if you select a vore type you can't do.</content>
+    <content contentuid="hcb63b19f6c5743bb8235e8572cc39f5b0a66" version="1">You swiftly whisk a friendly creature out of harms way, depositing them safely inside your balls. Fails if you select a vore type you can't do.</content>
 	<content contentuid="h682ab6f5g9c0bg4e7fga945gfe51f2de56a7" version="1">Has a longer range at higher levels.</content>
 
 	<content contentuid="h467b1c00gfe74g44fag95b6g09568d83747b" version="1">Acidify</content>
@@ -381,6 +390,8 @@
 	<content contentuid="h890650a8g2c4eg47cdg9c96gf70e259be618" version="1">Leeching Insides</content>
 	<content contentuid="h8c36b9b8g94a8g4f38g9f1aga8862541ec2a" version="1">You touch a creature. For the duration of the spell, whenever they inflict digestion damage, they regain hit points equal to half the damage dealt.</content>
 	
+	<content contentuid="hbfa5b1967f30410d9dc050c8134b4bb7af55" version="1">Still Prey (Single)</content>
+	<content contentuid="h2578b2b108be428bab9a6262e8e7d0e7292e" version="1">You touch a creature, willing a single creature inside of them into stillness. This prey is incapacitated and immune to all digestion damage for the duration of the spell. Does not affect prey who are swallowed after this spell is cast.</content>
 	<content contentuid="hc9477ec6g7799g4dcdg94ceg55c3415732eb" version="1">Still Prey</content>
 	<content contentuid="h5f6de038g2739g43d2gaf3bgb0d42ebac35a" version="1">You touch a creature, willing the creatures inside of them into stillness. All prey are incapacitated and immune to all digestion damage for the duration of the spell. Does not affect prey who are swallowed after this spell is cast.</content>
 	
@@ -391,7 +402,15 @@
 	<content contentuid="h72e19c2fg7171g4c8bgac89g75d92be2e9bb" version="1">With a single touch, you make a pred's belly rapidly boil through it's prey. All creatures inside of the predator's stomach immediately take [1] and [2], and all the dead prey are immediately fully digested.</content>
 	
 	<content contentuid="hdbb58683gb507g4a89gaf9cg046e07357af0" version="1">Rebirth</content>
-	<content contentuid="ha2742172g0d20g4ad0gbe34g3728a1d24235" version="1">You consume a corpse of a humanoid and store it inside you[1]. Your body slowly reconstructs the body of a creature. After some time, you release the humanoid, fully formed and healthy. If weight gain is enabled, this spells will drain your fat to reconstruct the body of the prey.</content>
+	<content contentuid="had93fe5c851040a0a594cc2fa11a6a36694d" version="1">Rebirth (Stomach)</content>
+    <content contentuid="h5ce262082f424b0d9dc6f5072c7ed1c187g7" version="1">Rebirth (Ass)</content>
+    <content contentuid="h98a85853113744859c2209fac3299a928ef1" version="1">Rebirth (Womb)</content>
+    <content contentuid="h2fe11571250f4698b72c7d14977de4a30geg" version="1">Rebirth (Balls)</content>
+	<content contentuid="ha2742172g0d20g4ad0gbe34g3728a1d24235" version="1">You consume a corpse of a humanoid and store it inside you. Your body slowly reconstructs the body of a creature. After some time, you release the humanoid, fully formed and healthy. If weight gain is enabled, this spells will drain your fat to reconstruct the body of the prey.</content>
+	<content contentuid="hc6954f50627843f3899ec150a1cfd21a62b6" version="1">You consume a corpse of a humanoid and store it inside your stomach. Your body slowly reconstructs the body of a creature. After some time, you release the humanoid, fully formed and healthy. If weight gain is enabled, this spells will drain your fat to reconstruct the body of the prey.</content>
+    <content contentuid="h7513e295acfc42cbaf56d17ad71a1a106ead" version="1">You consume a corpse of a humanoid and store it inside your ass. Your body slowly reconstructs the body of a creature. After some time, you release the humanoid, fully formed and healthy. If weight gain is enabled, this spells will drain your fat to reconstruct the body of the prey.</content>
+    <content contentuid="hb2138aab1fed485198c45b3a0e683f648c06" version="1">You consume a corpse of a humanoid and store it inside your womb. Your body slowly reconstructs the body of a creature. After some time, you release the humanoid, fully formed and healthy. If weight gain is enabled, this spells will drain your fat to reconstruct the body of the prey.</content>
+    <content contentuid="h949eafcb0973435fa9fe6eac000fed88bbd5" version="1">You consume a corpse of a humanoid and store it inside your balls. Your body slowly reconstructs the body of a creature. After some time, you release the humanoid, fully formed and healthy. If weight gain is enabled, this spells will drain your fat to reconstruct the body of the prey.</content>
 	
 	<content contentuid="h2e4326e2gafaag4195gbafdg0afc73a61829" version="1">Primal Belch</content>
 	<content contentuid="hee2143c1g5e87g4334gbc52gef694968e913" version="1">You release an earth-shattering belch. All creatures caught in the range of the cone must make a Strength saving throw. On a fail, each creature is knocked prone and takes [1] and [2], that increases with the amount of stuffed stacks you have. On a success, creatures take half damage and are not knocked prone.</content>
@@ -406,7 +425,16 @@
 	<content contentuid="hfa10b82cg694bg48a5gbb4bg3e59af7d1a4b" version="1">Teleport several targets directly into you, and start digesting them</content>
 
 	<content contentuid="h1a1e6911g91cag410dga058g45dbf7fb121c" version="1">Send Targets to Predator</content>
-	<content contentuid="h1d4b85d8g8d16g407cg8c53g5dbf6d985c4d" version="1">Send the creatures that failed their saves into the predator[1].</content>
+	<content contentuid="h8e61e8d736a24453a86841e78bf86dcaf5g2" version="1">Send the creatures that failed their saves into the predator.</content>
+	<content contentuid="h1d4b85d8g8d16g407cg8c53g5dbf6d985c4d" version="1">Send the creatures that were targeted by Power Word Swallow into the predator.</content>
+	<content contentuid="h57f71596b9c44502a458e7716e3248d623ca" version="1">Send the creatures that failed their saves into the predator's stomach.</content>
+    <content contentuid="h37f01a10afde45afb258a1ebeca73c880763" version="1">Send the creatures that failed their saves into the predator's ass.</content>
+    <content contentuid="hea3bf16e4fa64e7d891a49b47b6d3e8835g8" version="1">Send the creatures that failed their saves into the predator's womb.</content>
+    <content contentuid="h8685377456cc41cab02a30e180586249b0a6" version="1">Send the creatures that failed their saves into the predator's balls.</content>
+    <content contentuid="hf3af391e6c404fff8c418fb036b59fe5872b" version="1">Send the creatures that were targeted by Power Word Swallow into the predator's stomach.</content>
+    <content contentuid="h17c0513ae8fc4cb680b4ea6d52f33a74e5f6" version="1">Send the creatures that were targeted by Power Word Swallow into the predator's ass.</content>
+    <content contentuid="h31b83abb29cf40229df0324b8c8b3c956072" version="1">Send the creatures that were targeted by Power Word Swallow into the predator's womb.</content>
+    <content contentuid="hd5aefe9688464ebd840ab6eb5b5432635e2d" version="1">Send the creatures that were targeted by Power Word Swallow into the predator's balls.</content>
 	<content contentuid="h06383a8cg3992g4c66g8b6fgb7534173743d" version="1">Send Targets to Predator (Oral)</content>
 	<content contentuid="hbe271bd3gfd1eg4553g832fgaf0932a25ddf" version="1">Send Targets to Predator (Anal)</content>
 	<content contentuid="h47cf96e0g646cg4df3g9583ge19a4f1c8d73" version="1">Send Targets to Predator (Unbirth)</content>
@@ -445,7 +473,6 @@
     <content contentuid="h15e446e26fdd4c26873cef04494c75f0ecfb" version="1">Has Stilled Prey</content>
     <content contentuid="h130a02227cab4c87a012aed66a33ba6a7b6b" version="1">One prey inside this character is stilled</content>
     <content contentuid="h639bf8eafb5642d3be3e47b4ab8a3d9cf9bf" version="1">All preys inside this character are stilled</content>
-    <content contentuid="hbfa5b1967f30410d9dc050c8134b4bb7af55" version="1">Still Prey (Single)</content>
     <content contentuid="haa7325212a3f47b1a428cc7344b744757d2a" version="1">Stilled</content>
     <content contentuid="h41aa1c26354e4ff0ba1ca83a2db4c948g529" version="1">This prey is incapacitated and cannot act</content>
     <content contentuid="hc94479e7a10b404f9a4ffae93636849d222d" version="1">Overstuffed!</content>
@@ -460,10 +487,4 @@
     <content contentuid="hdf5b49f1a5e44d0bb923bc620907258637fc" version="1">Targeted by Power Word Swallow; it's too late for them...</content>
     <content contentuid="h4e23bc2e63264786996b9468a0df629f1206" version="1">Being Reformed</content>
     <content contentuid="h0f3f19c0654b416d8f8de4d6b3583bc7ac2b" version="1">This prey is being Reformed</content>
-    <content contentuid="had93fe5c851040a0a594cc2fa11a6a36694d" version="1">Rebirth (Stomach)</content>
-    <content contentuid="h5ce262082f424b0d9dc6f5072c7ed1c187g7" version="1">Rebirth (Ass)</content>
-    <content contentuid="h98a85853113744859c2209fac3299a928ef1" version="1">Rebirth (Womb)</content>
-    <content contentuid="h2fe11571250f4698b72c7d14977de4a30geg" version="1">Rebirth (Balls)</content>
-    <content contentuid="h09146121416b4111a114a188290625789dcd" version="1">Do Long Rest</content>
-    <content contentuid="hfa829e57fe0d467b8d7b15e42a8602c8d327" version="1">Use this if the player character is swallowed and you want a long rest. You must quickly click YES, or this will not work</content>
 </contentList>
