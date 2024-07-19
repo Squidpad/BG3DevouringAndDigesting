@@ -487,4 +487,124 @@
     <content contentuid="hdf5b49f1a5e44d0bb923bc620907258637fc" version="1">Targeted by Power Word Swallow; it's too late for them...</content>
     <content contentuid="h4e23bc2e63264786996b9468a0df629f1206" version="1">Being Reformed</content>
     <content contentuid="h0f3f19c0654b416d8f8de4d6b3583bc7ac2b" version="1">This prey is being Reformed</content>
+
+	<!-- MCM text -->
+	<content contentuid="h2d57225eg5b0cg472egbfb4g86d1aec272a6" version="1">Add Vore Items</content>
+	<content contentuid="h77a11429g3848g41begbd34ga70d5dc329b7" version="1">Adds vore-enabling items to the currently controlled character</content>
+	<content contentuid="h5b11190eg5c18g4f4fga8e6gc0bf880a2a5b" version="1">Boiling Insides Fast Digestion</content>
+	<content contentuid="hba334da7g6555g44a1g8488g4c4c19c6a257" version="1">Dead prey are digested twice as fast if you have 'Boiling insides' feat.</content>
+	<content contentuid="h47e5139dg2c0eg4a11gb897g49de94713aec" version="1">Digestion Rate (Long Rest)</content>
+	<content contentuid="h90c50245gd9cbg4884gb0b7g33c2090b736a" version="1">Determines by how much the weight of a prey who is being digested is reduced after a long rest</content>
+	<content contentuid="he9fa6ba6g508bg428fg8552g88604ab116cb" version="1">Digestion Rate (Short Rest)</content>
+	<content contentuid="h05fc6aaag37abg4d99g95d7g2a76005c852c" version="1">Determines by how much the weight of a prey who is being digested is reduced after each short rest</content>
+	<content contentuid="h03cf3df0g2ce4g449eg99e0g8afc51f217e7" version="1">Gradual Digestion Amount</content>
+	<content contentuid="hca25a119gfd5bg4c75g9738g24b3cdac5f01" version="1">You will passively digest dead prey by this much per X turns (set with Gradual Digestion Turns option). Set to 0 to disable.</content>
+	<content contentuid="h3c7c39d4gebdeg44d9g8307gae14cfb4dcf6" version="1">Gradual Digestion Turns</content>
+	<content contentuid="h67ce705egae25g4835g8517gf802ab78df4d" version="1">How often passive digestion happens. 1 turn = 6 real seconds. Set to 0 to disable.</content>
+	<content contentuid="h28d75044g9810g476egad69g5765d4664965" version="1">Instant Digestion</content>
+	<content contentuid="he064dd60g18f4g45e6ga6edg27180c74d21b" version="1">If true, you lose weight immediately upon finishing digestion, and you will be immediately able to absorb / dispose of prey</content>
+	<content contentuid="hb280ef2fg894cg4c0ag8c3ega0f971190cb7" version="1">Hunger</content>
+	<content contentuid="h1560bc4dge61eg48d8gb6d2g72e1a9071ccd" version="1">Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will receive debuffs.\nSetting this to false disables hunger completely.</content>
+	<content contentuid="h8debec48gb238g4038ga5f0gbd7ff8adf4a5" version="1">Hungry Stacks</content>
+	<content contentuid="h3e516fddg31fbg402eg96dfg237da0a9d1d7" version="1">Stacks of hunger at which you are hungry.</content>
+	<content contentuid="hb027ab1eg6caag4013g8986gf2218f2fb6af" version="1">Famished Stacks</content>
+	<content contentuid="haa98c284g829ag4f92ga8b8gd8d28c98324b" version="1">Stacks of hunger at which you are extremely hungry.</content>
+	<content contentuid="h012c79fegfac8g48f3gad3bg3a76ff0a1cfc" version="1">Starving Stacks</content>
+	<content contentuid="h5521379eg7001g4aefg88d6g4dd14824e9a1" version="1">Stacks of hunger at which you are desperately hungry.</content>
+	<content contentuid="hd7caf1a1g8674g43dbg9db2g12deabad071c" version="1">Hunger Stacks (Long Rest)</content>
+	<content contentuid="hbe94120fg0e47g44fag9caagbe81d13a54d9" version="1">Hunger stacks gained on long rest.</content>
+	<content contentuid="h82452982g391cg4ab7ga57egcd7a5ad2a4fc" version="1">Satiation</content>
+	<content contentuid="hc03c838fgc6bag47abg8258gdc445c97c66f" version="1">The amount of satiation required to reduce your hunger by 1 stack. A bigger value means you require more prey to sastiate your hunger.</content>
+	<content contentuid="h1926ab47gf338g421bg887cg342fa00e833f" version="1">Digestion Efficiency</content>
+	<content contentuid="h488fd883g0dcdg4a28g928dg41eec5a4178a" version="1">How much satiation you get from digestion. This number is a percentage of the value of Digestion Rate (Long Rest)</content>
+	<content contentuid="h4460f58agbdc9g477cg97f7g8fdb2b754f1f" version="1">Hunger Stacks (Short Rest)</content>
+	<content contentuid="h9be661c7gb95bg4046gbfe3g579efc013310" version="1">Hunger stacks gained on short rest.</content>
+	<content contentuid="h50902d93g3f0fg480bgb5e5ge4b8077bcdc5" version="1">Accidental Digestion</content>
+	<content contentuid="h5e453492ga977g4b8egb5c5g22895f120164" version="1">If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey.\nWorks independently from SwitchEndoLethal.</content>
+	<content contentuid="hbeabe152ga9d7g48c1g8736g343cfb2164c7" version="1">Allow Overstuffing (WIP)</content>
+	<content contentuid="he5ac7fa6g289ag43f9g8a89g39c277a2812c" version="1">If true, devouring prey can push you over your maximum carrying capacity, but you'll take damage every round proportional to how overstuffed you are.\nIf false, you'll be hard-capped by your carrying capacity.</content>
+	<content contentuid="hf1fa5b9bgc83cg40ffgaa48g18d3198ed59b" version="1">Feats Add Loci</content>
+	<content contentuid="h015aca58ge9feg46c9ga7deg182c8885d211" version="1">If true, certain feats will unlock new loci for vore. Otherwise, they can only be added through the potions.</content>
+	<content contentuid="h747ae843gf476g447aga39cg229c3de07161" version="1">Require Proper Anatomy</content>
+	<content contentuid="h935d0d56g7debg47cegba7ag98fe77333d9e" version="1">If true, special types of vore will require you to have a body part that would enable that type of vore.</content>
+	<content contentuid="hb8a11fbcg8ce1g4856ga547g038979cc80da" version="1">Switch Lethal to Endo</content>
+	<content contentuid="he62c0918g047fg4d7fg9ccfge7b7656e08ff" version="1">You are able to stop digesting prey with Toggle Lethal spell or by Endoing another prey.\nIf this is off, you will only be able to switch back to endo if no prey are being digested in this locus.</content>
+	<content contentuid="hde03a225g09ebg4749gaa0eg509acd6082cf" version="1">Slow Swallowing</content>
+	<content contentuid="h7a0e88c1g4314g4f87gbaa2gab231efbb0fa" version="1">Succecssfully \"swallowing\" a creature requires 2 actions, not 1. (WIP)</content>
+	<content contentuid="h34a6f020g6a5fg4f2eg983cg86e336abd8cb" version="1">Detach prey</content>
+	<content contentuid="h39861453ge5e1g4665g979bg35af956bcba6" version="1">Prey will be detached from the world grid when swallowed. This means they will be unaffected by AoEs and surfaces, but unable to cast shout spells.</content>
+	<content contentuid="hd004e205g720dg460dg911fgd262cd5d5e87" version="1">Indigestion Limit</content>
+	<content contentuid="h1d381716g4c41g4fc5gad56g28e45eeb4a26" version="1">Number of levels of \"Indigestion\" at which a pred will be forced to regurgitate all of their prey. Set to 0 to disable.</content>
+	<content contentuid="he41dfd12g8e58g4915gbfd5g594d1b8e4600" version="1">Exhaustion Limit</content>
+	<content contentuid="hcfaec850g3b7eg4b4aga071g1e116fb3a09a" version="1">Number of levels of \"Exhaustion\" at which a prey will be exhausted and stop struggling. Set to 0 to disable. (WIP)</content>
+	<content contentuid="h1b5a5fa4gd545g492dgbc41g01d8c1f0a510" version="1">Indigestion is removed only on rest</content>
+	<content contentuid="h9e1b8567gc49fg4d74g9ddcg5b67bdbf5def" version="1">Instead of being removed when there is no living prey inside of a pred, indigestion will ONLY be removed on long rest.\nUse with high indigestion limit.</content>
+	<content contentuid="hf9c75c3cg600bg4834ga69eg39a9838dd47e" version="1">Max Predator Chance (Medium)</content>
+	<content contentuid="h5785dea9gae39g460cgba01g8255d30917f8" version="1">Limits the probability of a medium creature being chosen as a pred to this value. Set to 100 or higher to disable.</content>
+	<content contentuid="he9dfb140g2201g4789ga320gdbe35d1f1a6b" version="1">Max Predator Chance (Small)</content>
+	<content contentuid="h2338ef8eg8885g4806g82feg9c8f96e9085f" version="1">Limits the probability of a small creature being chosen as a pred to this value. Set to 100 or higher to disable.</content>
+	<content contentuid="hfd75f002gc099g4285g9a4eg8cff95b6273e" version="1">Max Predator Chance (Tiny)</content>
+	<content contentuid="h7f85ac39g2602g4358g8165g2857d46d2b61" version="1">Limits the probability of a tiny creature being chosen as a pred to this value. Set to 100 or higher to disable.</content>
+	<content contentuid="hc44900a9g3ae9g48d0g966fgae51e4c537cc" version="1">Maximum Swallow Cooldown</content>
+	<content contentuid="hae7b8cbcge3b0g44efgac03g4bad2a2b367c" version="1">Maximum cooldown between NPC vore attempts (in turns).</content>
+	<content contentuid="he16a7bdbg32eag4977g927dg2d3620ed89c9" version="1">Minimum Swallow Cooldown</content>
+	<content contentuid="h18487894gb4f5g4005g9144gb2e77d58726a" version="1">Minimum cooldown between NPC vore attempts (in turns).</content>
+	<content contentuid="hec1267e9g154cg45e4g972eg79b78a38dbf4" version="1">Predator Chance (Monster)</content>
+	<content contentuid="h60d7ed3cg3a98g41b9g85a3gfd1ae128b3dd" version="1">The % of a monster becoming a predator. Monsters are any creature that isn't internally considered Male or Female.\nThis value is multiplied by the race's multiplier. Set to 0 to disable.</content>
+	<content contentuid="h73799bdcg6d9fg4da2g83dag6c5a748b59be" version="1">Predator Chance (Female)</content>
+	<content contentuid="h857ad935g7f15g436ega4fcg1335fbd93806" version="1">The % of a female NPC becoming a predator. Female NPCs have Body Types 1 or 2, with some exceptions.\nThis value is multiplied by the race's multiplier. Set to 0 to disable.</content>
+	<content contentuid="h71a055f0g9447g416egb521g1dd3a397ef27" version="1">Predator Chance (Male)</content>
+	<content contentuid="h54c897b7ga067g4717g958egb55a0804e1bc" version="1">The % of a male NPC becoming a predator. Male NPCs have Body Types 3 or 4, with some exceptions.\nThis value is multiplied by the race's multiplier. Set to 0 to disable.</content>
+	<content contentuid="h5a878b66gc82fg4c79g9064gdf3176208d82" version="1">Reset Race Config</content>
+	<content contentuid="h9e0550cdga785g4cd9g8e87g07e78f2b5a1c" version="1">RaceConfig.json is located in 'AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Script Extender'\nRace Config stores the % of an NPC of every race becoming a pred.\nThe final chance is 'Race Probability * Sex Probability / 100'%\nThis Resets RaceConfig.json to 100 for every race.</content>
+	<content contentuid="h612aa133gf015g4c9ag95a9gc8ace4fe0abd" version="1">Load Example Race Config</content>
+	<content contentuid="h52e1510ag70bbg4db9g8e63g9b4f1db47d79" version="1">This loads an example race config.\nUse this if you're too lazy to customize the probabilities yourself, or as a starting point\nBack up you RaceConfig.json, because this will overwrite it!</content>
+	<content contentuid="hb9b179f0g7802g48e8ga5fbgaaacc6de0ead" version="1">Reload Race Config</content>
+	<content contentuid="h52efe3aag2823g4049ga2d1g86af3ebea842" version="1">Reloads the RaceConfig from the currently saved RaceConfig.json (if it exists)\nNormally it's loaded when you load a save, but this option allows you to manually reload it.</content>
+	<content contentuid="hec67bdf7g4bd1g47c8ga30cg19b7ae6c1a53" version="1">Regurgitation Cooldown</content>
+	<content contentuid="h05bcbbb8ga6e5g4479g8f95gcb027de5f69f" version="1">Preds are unable to regurgitate prey for a number of turn after regurgitation. Set to 0 to disable</content>
+	<content contentuid="h86a0d83fg21b6g4909g874dg053a3ffc5ad5" version="1">Swallow Cooldown</content>
+	<content contentuid="h392ef870g8004g4bbbg9700g65f74dae984d" version="1">Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable</content>
+	<content contentuid="h7273ac52g2029g4101gafebg2dc9b965de42" version="1">Regurgitation Distance</content>
+	<content contentuid="h591a955cg086cg4adagb605gf83f903b4b6c" version="1">Determines how far prey spawn when regurgitated.</content>
+	<content contentuid="ha71aee9cg765bg4807ga244g872fbf7fc9af" version="1">Belly Scale</content>
+	<content contentuid="hc84055f8gde26g4d53g89c4g75094a9b2676" version="1">Increases / reduces the size of all bellies. Default is 100%</content>
+	<content contentuid="hcad8f987g535fg4731g8c3eg5664db059e0a" version="1">Update Belly Visuals</content>
+	<content contentuid="h4f5a07e3g6138g414cgbb96g58eb4dd58098" version="1">Immediately update belly visuals</content>
+	<content contentuid="hc42a1cc4g0f53g4c6ag8039g588c4746ca5f" version="1">Gurgle Probability</content>
+	<content contentuid="h4e78058fge597g4483g8df2g659cf3bd9292" version="1">The % chance of a gurgle being played every 6 seconds (a turn). Set to 0 to disable.</content>
+	<content contentuid="h4e097d7dg8b92g4eecg943fg8f3c446cd600" version="1">Enable Debug Options</content>
+	<content contentuid="hfd9bc4f7g3ccfg4796g9ab8g64f6d13a3323" version="1">Access debug options. Do not check this unless you know what you're doing.</content>
+	<content contentuid="h46b445c0g1fefg40d1g9c23ge1a8200dae0b" version="1">Reset Vore</content>
+	<content contentuid="hf3a71a05g88ddg4421g8073g6cda3448cb81" version="1">Check this to reset vore. All preds will regurgitate everything and the stored data will be cleared. Wait until it's ready before clicking again.\nIf it's not switching back to Ready after 2-3 seconds, check Console for errors.</content>
+	<content contentuid="h745793d1g7f99g4804g94a5gdd74ac9ac521" version="1">Always Succeed Vore</content>
+	<content contentuid="h2b249bc4ga705g4840gb05cg310b44df81ab" version="1">If true, all vore attempts will result in a success.</content>
+	<content contentuid="h645b9269gaa12g4bf4gbbb8g04eab5c9c136" version="1">Locks Stomach Item</content>
+	<content contentuid="h2bf4a4dagd687g464cgb42egbabd60be450e" version="1">Locks 'stomach item' that is used to store items during item vore.</content>
+	<content contentuid="h205b370eg1392g40fcgab84g2501c25e0db4" version="1">Teleport Prey</content>
+	<content contentuid="h86904d99ga5f0g4b70ga5cfg3cd261ab58b1" version="1">Determines if a living prey is teleported to their predator at the end of each turn (or every 6 seconds outside of turn-based mode). By default is on, should be only turned off in case of performance issues</content>
+	<content contentuid="hc8573aecg2080g4d0fg8984gfbd149465242" version="1">Print Vore Data</content>
+	<content contentuid="h8c0409a6gc089g4119gb8deg3af749cfeff2" version="1">Prints VoreData to the console</content>
+	<content contentuid="h9eac08bdg65f6g4ae2gadd1g2c47fd0e58e8" version="1">Shows WIP functionality</content>
+	<content contentuid="h94c92f7dg0ff8g40bcgbccdg4f86f145797d" version="1">Shows a tab with some WIP options. Most of them work just fine, but use them at your own risk.</content>
+	<content contentuid="h5787b11cg360bg473bgaf67gf6e41341add5" version="1">Item Vore</content>
+	<content contentuid="h5a54e380g9a35g40a7g9e7egdf5a98a4f4e9" version="1">Enables you to swallow items. They will be stored inside a locked container in your inventory.\nItems can be digested is your stomach start digesting prey. Digested items are permanently lost!</content>
+	<content contentuid="h043674ecg0be8g4582g88f7g18ba9a6627cf" version="1">Item Digestion</content>
+	<content contentuid="hc80f837cgf6cdg48f5gaf21gee0e67ec64b9" version="1">When you start digesting prey, the items in your stomach might be digested.\nWARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE</content>
+	<content contentuid="hd7b51e95g542cg40e7g8cf6ga7739b886692" version="1">Weight Gain</content>
+	<content contentuid="hd1c26779gd970g48e8g8dcbg6229e59484f2" version="1">Stores and adds fat value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.\nThis is here, because it ONLY affects the belly size, so some people found it confusing.</content>
+	<content contentuid="hae74d1c9gab55g4ad8gb8b4g0f18ca560044" version="1">Weight Gain Rate</content>
+	<content contentuid="h2348a7cbgcd3fg4e69gb873g798b1b0c735e" version="1">% of a prey's weight you gain as fat.</content>
+	<content contentuid="h5298a431g000eg48e4ga220g3da30fe806dc" version="1">Weight Loss Amount (Long Rest)</content>
+	<content contentuid="h8bbd0039g0c93g474bgbe50gad1ddfb3c329" version="1">How much fat a character loses on long resting.</content>
+	<content contentuid="h2196f661g6f44g413cg8fecgb83d624bcc00" version="1">Weight Loss Amount (Short Rest)</content>
+	<content contentuid="he7bb71c7ga7d3g49fdg9d99g534730bad26a" version="1">How much fat a character loses on short resting.</content>
+	<content contentuid="hcff67f30g9871g4a18gaf42g484271860bf0" version="1">Hunger uses fat</content>
+	<content contentuid="h85831c78g7af6g4cdag892dgb2aa0a3d043e" version="1">If set to true, fat will be used to reduce hunger gain by half, if you don't have enough satiation stacks.</content>
+	<content contentuid="h0dd6fcf5g1916g48ffgb251gb48092202e11" version="1">Sweaty Vore</content>
+	<content contentuid="h0e61b45fgcabag4adfg8fc2ge5ec8b8b2a2d" version="1">Swallowing a prey will make the predator sweaty for a couple of turns. IDK why this has been removed from the main options.</content>
+	<content contentuid="h4366abfdg8f26g46a9g8e8bgcccc68986bc1" version="1">Loci with bonuses</content>
+	<content contentuid="hd8575a61gb3d3g4b2ega6c0g074fe462aec6" version="1">These loci will receive bonuses from feats (like prey being able to cast spells while inside this locus)</content>
+	<content contentuid="h1e4391c8g9959g4131ga9ebg2f3d1c8dbee1" version="1">I have read the wiki</content>
+	<content contentuid="hf9263e2eg3a7cg4686g928ag4c52b7483eb8" version="1">By checking this, you assert that you have read any and all information available on the wiki.</content>
 </contentList>
