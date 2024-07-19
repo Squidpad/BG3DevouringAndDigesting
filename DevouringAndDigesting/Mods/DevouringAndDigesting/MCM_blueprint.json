@@ -11,7 +11,8 @@
                     "Name": "Add Vore Items",
                     "Default": false,
                     "Description": "Adds vore-enabling items to the currently controlled character",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"h2d57225eg5b0cg472egbfb4g86d1aec272a6","DescriptionHandle":"h77a11429g3848g41begbd34ga70d5dc329b7"}
                 }
             ],
             "VisibleIf": {
@@ -27,7 +28,8 @@
                     "Name": "Boiling Insides Fast Digestion",
                     "Default": false,
                     "Description": "Dead prey are digested twice as fast if you have 'Boiling insides' feat.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"h5b11190eg5c18g4f4fga8e6gc0bf880a2a5b","DescriptionHandle":"hba334da7g6555g44a1g8488g4c4c19c6a257"}
                 },
                 {
                     "Id": "DigestionRateLong",
@@ -38,7 +40,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"h47e5139dg2c0eg4a11gb897g49de94713aec","DescriptionHandle":"h90c50245gd9cbg4884gb0b7g33c2090b736a"}
                 },
                 {
                     "Id": "DigestionRateShort",
@@ -49,7 +52,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"he9fa6ba6g508bg428fg8552g88604ab116cb","DescriptionHandle":"h05fc6aaag37abg4d99g95d7g2a76005c852c"}
                 },
                 {
                     "Id": "GradualDigestionAmount",
@@ -60,7 +64,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"h03cf3df0g2ce4g449eg99e0g8afc51f217e7","DescriptionHandle":"hca25a119gfd5bg4c75g9738g24b3cdac5f01"}
                 },
                 {
                     "Id": "GradualDigestionTurns",
@@ -71,14 +76,16 @@
                     "Options": {
                         "Min": 0,
                         "Max": 600
-                    }
+                    },
+                    "Handles": {"NameHandle":"h3c7c39d4gebdeg44d9g8307gae14cfb4dcf6","DescriptionHandle":"h67ce705egae25g4835g8517gf802ab78df4d"}
                 },
                 {
                     "Id": "InstantDigestion",
                     "Name": "Instant Digestion",
                     "Default": false,
                     "Description": "If true, you lose weight immediately upon finishing digestion, and you will be immediately able to absorb / dispose of prey",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"h28d75044g9810g476egad69g5765d4664965","DescriptionHandle":"he064dd60g18f4g45e6ga6edg27180c74d21b"}
                 }
             ],
             "VisibleIf": {
@@ -94,7 +101,8 @@
                     "Name": "Hunger",
                     "Default": false,
                     "Description": "Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will receive debuffs.\nSetting this to false disables hunger completely.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"hb280ef2fg894cg4c0ag8c3ega0f971190cb7","DescriptionHandle":"h1560bc4dge61eg48d8gb6d2g72e1a9071ccd"}
                 },
                 {
                     "Id": "HungerBreakpoint1",
@@ -105,7 +113,8 @@
                     "Options": {
                         "Min": 1,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"h8debec48gb238g4038ga5f0gbd7ff8adf4a5","DescriptionHandle":"h3e516fddg31fbg402eg96dfg237da0a9d1d7"}
                 },
                 {
                     "Id": "HungerBreakpoint2",
@@ -116,7 +125,8 @@
                     "Options": {
                         "Min": 1,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"hb027ab1eg6caag4013g8986gf2218f2fb6af","DescriptionHandle":"haa98c284g829ag4f92ga8b8gd8d28c98324b"}
                 },
                 {
                     "Id": "HungerBreakpoint3",
@@ -127,7 +137,8 @@
                     "Options": {
                         "Min": 1,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"h012c79fegfac8g48f3gad3bg3a76ff0a1cfc","DescriptionHandle":"h5521379eg7001g4aefg88d6g4dd14824e9a1"}
                 },
                 {
                     "Id": "HungerLong",
@@ -138,7 +149,8 @@
                     "Options": {
                         "Min": 1,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"hd7caf1a1g8674g43dbg9db2g12deabad071c","DescriptionHandle":"hbe94120fg0e47g44fag9caagbe81d13a54d9"}
                 },
                 {
                     "Id": "HungerSatiation",
@@ -149,7 +161,8 @@
                     "Options": {
                         "Min": 1,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"h82452982g391cg4ab7ga57egcd7a5ad2a4fc","DescriptionHandle":"hc03c838fgc6bag47abg8258gdc445c97c66f"}
                 },
                 {
                     "Id": "HungerSatiationRate",
@@ -160,7 +173,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"h1926ab47gf338g421bg887cg342fa00e833f","DescriptionHandle":"h488fd883g0dcdg4a28g928dg41eec5a4178a"}
                 },
                 {
                     "Id": "HungerShort",
@@ -171,14 +185,16 @@
                     "Options": {
                         "Min": 1,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"h4460f58agbdc9g477cg97f7g8fdb2b754f1f","DescriptionHandle":"h9be661c7gb95bg4046gbfe3g579efc013310"}
                 },
                 {
                     "Id": "LethalRandomSwitch",
                     "Name": "Accidental Digestion",
                     "Default": false,
                     "Description": "If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey.\nWorks independently from SwitchEndoLethal.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"h50902d93g3f0fg480bgb5e5ge4b8077bcdc5","DescriptionHandle":"h5e453492ga977g4b8egb5c5g22895f120164"}
                 }
             ],
             "VisibleIf": {
@@ -194,42 +210,48 @@
                     "Name": "Allow Overstuffing (WIP)",
                     "Default": false,
                     "Description": "If true, devouring prey can push you over your maximum carrying capacity, but you'll take damage every round proportional to how overstuffed you are.\nIf false, you'll be hard-capped by your carrying capacity.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"hbeabe152ga9d7g48c1g8736g343cfb2164c7","DescriptionHandle":"he5ac7fa6g289ag43f9g8a89g39c277a2812c"}
                 },
                 {
                     "Id": "FeatsAddLoci",
                     "Name": "Feats Add Loci",
                     "Default": true,
                     "Description": "If true, certain feats will unlock new loci for vore. Otherwise, they can only be added through the potions.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"hf1fa5b9bgc83cg40ffgaa48g18d3198ed59b","DescriptionHandle":"h015aca58ge9feg46c9ga7deg182c8885d211"}
                 },
                 {
                     "Id": "RequireProperAnatomy",
                     "Name": "Require Proper Anatomy",
                     "Default": true,
                     "Description": "If true, special types of vore will require you to have a body part that would enable that type of vore.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"h747ae843gf476g447aga39cg229c3de07161","DescriptionHandle":"h935d0d56g7debg47cegba7ag98fe77333d9e"}
                 },
                 {
                     "Id": "SwitchLethalEndo",
                     "Name": "Switch Lethal to Endo",
                     "Default": true,
                     "Description": "You are able to stop digesting prey with Toggle Lethal spell or by Endoing another prey.\nIf this is off, you will only be able to switch back to endo if no prey are being digested in this locus.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"hb8a11fbcg8ce1g4856ga547g038979cc80da","DescriptionHandle":"he62c0918g047fg4d7fg9ccfge7b7656e08ff"}
                 },
                 {
                     "Id": "SwallowDown",
                     "Name": "Slow Swallowing",
                     "Default": false,
                     "Description": "Succecssfully \"swallowing\" a creature requires 2 actions, not 1. (WIP)",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"hde03a225g09ebg4749gaa0eg509acd6082cf","DescriptionHandle":"h7a0e88c1g4314g4f87gbaa2gab231efbb0fa"}
                 },
                 {
                     "Id": "DetachPrey",
                     "Name": "Detach prey",
                     "Default": true,
                     "Description": "Prey will be detached from the world grid when swallowed. This means they will be unaffected by AoEs and surfaces, but unable to cast shout spells.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"h34a6f020g6a5fg4f2eg983cg86e336abd8cb","DescriptionHandle":"h39861453ge5e1g4665g979bg35af956bcba6"}
                 },
                 {
                     "Id": "IndigestionLimit",
@@ -240,7 +262,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 20
-                    }
+                    },
+                    "Handles": {"NameHandle":"hd004e205g720dg460dg911fgd262cd5d5e87","DescriptionHandle":"h1d381716g4c41g4fc5gad56g28e45eeb4a26"}
                 },
                 {
                     "Id": "ExhaustionLimit",
@@ -251,14 +274,16 @@
                     "Options": {
                         "Min": 0,
                         "Max": 30
-                    }
+                    },
+                    "Handles": {"NameHandle":"he41dfd12g8e58g4915gbfd5g594d1b8e4600","DescriptionHandle":"hcfaec850g3b7eg4b4aga071g1e116fb3a09a"}
                 },
                 {
                     "Id": "IndigestionRest",
                     "Name": "Indigestion is removed only on rest",
                     "Default": false,
                     "Description": "Instead of being removed when there is no living prey inside of a pred, indigestion will ONLY be removed on long rest.\nUse with high indigestion limit.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"h1b5a5fa4gd545g492dgbc41g01d8c1f0a510","DescriptionHandle":"h9e1b8567gc49fg4d74g9ddcg5b67bdbf5def"}
                 }
             ],
             "VisibleIf": {
@@ -278,7 +303,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"hf9c75c3cg600bg4834ga69eg39a9838dd47e","DescriptionHandle":"h5785dea9gae39g460cgba01g8255d30917f8"}
                 },
                 {
                     "Id": "ClampSmall",
@@ -289,7 +315,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"he9dfb140g2201g4789ga320gdbe35d1f1a6b","DescriptionHandle":"h2338ef8eg8885g4806g82feg9c8f96e9085f"}
                 },
                 {
                     "Id": "ClampTiny",
@@ -300,7 +327,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"hfd75f002gc099g4285g9a4eg8cff95b6273e","DescriptionHandle":"h7f85ac39g2602g4358g8165g2857d46d2b61"}
                 },
                 {
                     "Id": "CooldownMax",
@@ -311,7 +339,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 10
-                    }
+                    },
+                    "Handles": {"NameHandle":"hc44900a9g3ae9g48d0g966fgae51e4c537cc","DescriptionHandle":"hae7b8cbcge3b0g44efgac03g4bad2a2b367c"}
                 },
                 {
                     "Id": "CooldownMin",
@@ -322,7 +351,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 10
-                    }
+                    },
+                    "Handles": {"NameHandle":"he16a7bdbg32eag4977g927dg2d3620ed89c9","DescriptionHandle":"h18487894gb4f5g4005g9144gb2e77d58726a"}
                 },
                 {
                     "Id": "ProbabilityCreature",
@@ -333,7 +363,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"hec1267e9g154cg45e4g972eg79b78a38dbf4","DescriptionHandle":"h60d7ed3cg3a98g41b9g85a3gfd1ae128b3dd"}
                 },
                 {
                     "Id": "ProbabilityFemale",
@@ -344,7 +375,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"h73799bdcg6d9fg4da2g83dag6c5a748b59be","DescriptionHandle":"h857ad935g7f15g436ega4fcg1335fbd93806"}
                 },
                 {
                     "Id": "ProbabilityMale",
@@ -355,28 +387,32 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"h71a055f0g9447g416egb521g1dd3a397ef27","DescriptionHandle":"h54c897b7ga067g4717g958egb55a0804e1bc"}
                 },
                 {
                     "Id": "rResetRaceConfig",
                     "Name": "Reset Race Config",
                     "Default": false,
                     "Description": "RaceConfig.json is located in 'AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Script Extender'\nRace Config stores the % of an NPC of every race becoming a pred.\nThe final chance is 'Race Probability * Sex Probability / 100'%\nThis Resets RaceConfig.json to 100 for every race.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"h5a878b66gc82fg4c79g9064gdf3176208d82","DescriptionHandle":"h9e0550cdga785g4cd9g8e87g07e78f2b5a1c"}
                 },
                 {
                     "Id": "rLoadExample",
                     "Name": "Load Example Race Config",
                     "Default": false,
                     "Description": "This loads an example race config.\nUse this if you're too lazy to customize the probabilities yourself, or as a starting point\nBack up you RaceConfig.json, because this will overwrite it!",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"h612aa133gf015g4c9ag95a9gc8ace4fe0abd","DescriptionHandle":"h52e1510ag70bbg4db9g8e63g9b4f1db47d79"}
                 },
                 {
                     "Id": "rReloadRaceConfig",
                     "Name": "Reload Race Config",
                     "Default": false,
                     "Description": "Reloads the RaceConfig from the currently saved RaceConfig.json (if it exists)\nNormally it's loaded when you load a save, but this option allows you to manually reload it.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"hb9b179f0g7802g48e8ga5fbgaaacc6de0ead","DescriptionHandle":"h52efe3aag2823g4049ga2d1g86af3ebea842"}
                 }
             ],
             "VisibleIf": {
@@ -397,7 +433,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"hec67bdf7g4bd1g47c8ga30cg19b7ae6c1a53","DescriptionHandle":"h05bcbbb8ga6e5g4479g8f95gcb027de5f69f"}
                 },
                 {
                     "Id": "CooldownSwallow",
@@ -408,7 +445,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"h86a0d83fg21b6g4909g874dg053a3ffc5ad5","DescriptionHandle":"h392ef870g8004g4bbbg9700g65f74dae984d"}
                 },
                 {
                     "Id": "RegurgitationDistance",
@@ -419,7 +457,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 5
-                    }
+                    },
+                    "Handles": {"NameHandle":"h7273ac52g2029g4101gafebg2dc9b965de42","DescriptionHandle":"h591a955cg086cg4adagb605gf83f903b4b6c"}
                 }
             ],
             "VisibleIf": {
@@ -439,7 +478,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 1000
-                    }
+                    },
+                    "Handles": {"NameHandle":"ha71aee9cg765bg4807ga244g872fbf7fc9af","DescriptionHandle":"hc84055f8gde26g4d53g89c4g75094a9b2676"}
                 },
                 {
                     "Id": "UpdateBellyVisuals",
@@ -449,7 +489,8 @@
                     "Type": "radio",
                     "Options":{
                         "Choices": ["Ready", "Updating"]
-                    }
+                    },
+                    "Handles":{"NameHandle":"hcad8f987g535fg4731g8c3eg5664db059e0a","DescriptionHandle":"h4f5a07e3g6138g414cgbb96g58eb4dd58098"}
                 },
                 {
                     "Id": "GurgleProbability",
@@ -460,7 +501,8 @@
                     "Options": {
                         "Min": 0,
                         "Max": 100
-                    }
+                    },
+                    "Handles": {"NameHandle":"hc42a1cc4g0f53g4c6ag8039g588c4746ca5f","DescriptionHandle":"h4e78058fge597g4483g8df2g659cf3bd9292"}
                 }
             ],
             "VisibleIf": {
@@ -476,7 +518,8 @@
                     "Name": "Enable Debug Options",
                     "Default": false,
                     "Description": "Access debug options. Do not check this unless you know what you're doing.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"h4e097d7dg8b92g4eecg943fg8f3c446cd600","DescriptionHandle":"hfd9bc4f7g3ccfg4796g9ab8g64f6d13a3323"}
                 },
                 {
                     "Id": "ResetVore",
@@ -486,7 +529,8 @@
                     "Type": "radio",
                     "Options":{
                         "Choices": ["Ready", "Running"]
-                    }
+                    },
+                    "Handles":{"NameHandle":"h46b445c0g1fefg40d1g9c23ge1a8200dae0b","DescriptionHandle":"hf3a71a05g88ddg4421g8073g6cda3448cb81"}
                 },
                 {
                     "Id": "AlwaysSucceedVore",
@@ -496,7 +540,8 @@
                     "Type": "checkbox",
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "DebugEnable", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"h745793d1g7f99g4804g94a5gdd74ac9ac521","DescriptionHandle":"h2b249bc4ga705g4840gb05cg310b44df81ab"}
                 },
                 {
                     "Id": "LockStomach",
@@ -506,7 +551,8 @@
                     "Type": "checkbox",
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "DebugEnable", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"h645b9269gaa12g4bf4gbbb8g04eab5c9c136","DescriptionHandle":"h2bf4a4dagd687g464cgb42egbabd60be450e"}
                 },
                 {
                     "Id": "TeleportPrey",
@@ -516,7 +562,8 @@
                     "Type": "checkbox",
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "DebugEnable", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"h205b370eg1392g40fcgab84g2501c25e0db4","DescriptionHandle":"h86904d99ga5f0g4b70ga5cfg3cd261ab58b1"}
                 },
                 {
                     "Id": "PrintVoreData",
@@ -526,7 +573,8 @@
                     "Type": "checkbox",
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "DebugEnable", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"hc8573aecg2080g4d0fg8984gfbd149465242","DescriptionHandle":"h8c0409a6gc089g4119gb8deg3af749cfeff2"}
                 }
             ],
             "VisibleIf": {
@@ -542,7 +590,8 @@
                     "Name": "Shows WIP functionality",
                     "Default": false,
                     "Description": "Shows a tab with some WIP options. Most of them work just fine, but use them at your own risk.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"h9eac08bdg65f6g4ae2gadd1g2c47fd0e58e8","DescriptionHandle":"h94c92f7dg0ff8g40bcgbccdg4f86f145797d"}
                 },
                 {
                     "Id": "ItemVore",
@@ -552,7 +601,8 @@
                     "Type": "checkbox",
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"h5787b11cg360bg473bgaf67gf6e41341add5","DescriptionHandle":"h5a54e380g9a35g40a7g9e7egdf5a98a4f4e9"}
                 },
                 {
                     "Id": "DigestItems",
@@ -562,7 +612,8 @@
                     "Type": "checkbox",
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"h043674ecg0be8g4582g88f7g18ba9a6627cf","DescriptionHandle":"hc80f837cgf6cdg48f5gaf21gee0e67ec64b9"}
                 },
                 {
                     "Id": "WeightGain",
@@ -572,7 +623,8 @@
                     "Type": "checkbox",
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"hd7b51e95g542cg40e7g8cf6ga7739b886692","DescriptionHandle":"hd1c26779gd970g48e8g8dcbg6229e59484f2"}
                 },
                 {
                     "Id": "WeightGainRate",
@@ -586,7 +638,8 @@
                     },
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"hae74d1c9gab55g4ad8gb8b4g0f18ca560044","DescriptionHandle":"h2348a7cbgcd3fg4e69gb873g798b1b0c735e"}
                 },
                 {
                     "Id": "WeightLossLong",
@@ -600,7 +653,8 @@
                     },
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"h5298a431g000eg48e4ga220g3da30fe806dc","DescriptionHandle":"h8bbd0039g0c93g474bgbe50gad1ddfb3c329"}
                 },
                 {
                     "Id": "WeightLossShort",
@@ -614,7 +668,8 @@
                     },
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"h2196f661g6f44g413cg8fecgb83d624bcc00","DescriptionHandle":"he7bb71c7ga7d3g49fdg9d99g534730bad26a"}
                 },
                 {
                     "Id": "HungerUseFat",
@@ -624,7 +679,8 @@
                     "Type": "checkbox",
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"hcff67f30g9871g4a18gaf42g484271860bf0","DescriptionHandle":"h85831c78g7af6g4cdag892dgb2aa0a3d043e"}
                 },
                 {
                     "Id": "SweatyVore",
@@ -634,7 +690,8 @@
                     "Type": "checkbox",
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"h0dd6fcf5g1916g48ffgb251gb48092202e11","DescriptionHandle":"h0e61b45fgcabag4adfg8fc2ge5ec8b8b2a2d"}
                 },
                 {
                     "Id": "StatusBonusLocus",
@@ -647,7 +704,8 @@
                     },
                     "VisibleIf": {
                         "Conditions": [{"SettingId": "ShowWIP", "ExpectedValue": "true", "Operator": "=="}]
-                    }
+                    },
+                    "Handles": {"NameHandle":"h4366abfdg8f26g46a9g8e8bgcccc68986bc1","DescriptionHandle":"hd8575a61gb3d3g4b2ega6c0g074fe462aec6"}
                 }
             ],
             "VisibleIf": {
@@ -663,7 +721,8 @@
                     "Name": "I have read the wiki",
                     "Default": false,
                     "Description": "By checking this, you assert that you have read any and all information available on the wiki.",
-                    "Type": "checkbox"
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"h1e4391c8g9959g4131ga9ebg2f3d1c8dbee1","DescriptionHandle":"hf9263e2eg3a7cg4686g928ag4c52b7483eb8"}
                 }
             ]
         }
