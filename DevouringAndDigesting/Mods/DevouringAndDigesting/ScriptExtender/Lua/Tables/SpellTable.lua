@@ -185,88 +185,30 @@ local SpellTable = {
         "SP_Target_Compress"
     },
     cleric2 = {
-        "SP_Target_Compress",
         "SP_Target_Unburden",
         "SP_Target_Ravenous",
         "SP_Target_Rescue",
         "SP_Target_Acidify_2"
     },
     cleric3 = {
-        "SP_Target_Compress",
-        "SP_Target_Unburden",
-        "SP_Target_Ravenous",
-        "SP_Target_Rescue",
-        "SP_Target_Acidify_2",
         "SP_Target_HealingAcid",
         "SP_Target_Rebirth"
     },
     cleric4 = {
-        "SP_Target_Compress",
-        "SP_Target_Unburden",
-        "SP_Target_Ravenous",
-        "SP_Target_Rescue",
-        "SP_Target_Acidify_2",
-        "SP_Target_HealingAcid",
-        "SP_Target_Rebirth"
+
     },
     cleric5 = {
-        "SP_Target_Compress",
-        "SP_Target_Unburden",
-        "SP_Target_Ravenous",
-        "SP_Target_Rescue",
-        "SP_Target_Acidify_2",
-        "SP_Target_HealingAcid",
-        "SP_Target_Rebirth",
         "SP_Target_Bottomless",
         "SP_Zone_SuperBelch"
     },
     cleric6 = {
-        "SP_Target_Compress",
-        "SP_Target_Unburden",
-        "SP_Target_Ravenous",
-        "SP_Target_Rescue",
-        "SP_Target_Acidify_2",
-        "SP_Target_HealingAcid",
-        "SP_Target_Rebirth",
-        "SP_Target_Bottomless",
-        "SP_Zone_SuperBelch",
         "SP_Target_Churn"
     },
     cleric7 = {
-        "SP_Target_Compress",
-        "SP_Target_Unburden",
-        "SP_Target_Ravenous",
-        "SP_Target_Rescue",
-        "SP_Target_Acidify_2",
-        "SP_Target_HealingAcid",
-        "SP_Target_Rebirth",
-        "SP_Target_Bottomless",
-        "SP_Zone_SuperBelch",
-        "SP_Target_Churn"
     },
     cleric8 = {
-        "SP_Target_Compress",
-        "SP_Target_Unburden",
-        "SP_Target_Ravenous",
-        "SP_Target_Rescue",
-        "SP_Target_Acidify_2",
-        "SP_Target_HealingAcid",
-        "SP_Target_Rebirth",
-        "SP_Target_Bottomless",
-        "SP_Zone_SuperBelch",
-        "SP_Target_Churn"
     },
     cleric9 = {
-        "SP_Target_Compress",
-        "SP_Target_Unburden",
-        "SP_Target_Ravenous",
-        "SP_Target_Rescue",
-        "SP_Target_Acidify_2",
-        "SP_Target_HealingAcid",
-        "SP_Target_Rebirth",
-        "SP_Target_Bottomless",
-        "SP_Zone_SuperBelch",
-        "SP_Target_Churn"
     },
 
     -- druid 
@@ -280,82 +222,28 @@ local SpellTable = {
         "SP_Target_Tongue"
     },
     druid2 = {
-        "SP_Target_Tongue",
         "SP_Target_Ravenous",
         "SP_Target_Acidify_2",
         "SP_Target_Heave"
     },
     druid3 = {
-        "SP_Target_Tongue",
-        "SP_Target_Ravenous",
-        "SP_Target_Acidify_2",
-        "SP_Target_Heave",
         "SP_Target_HealingAcid",
         "SP_Target_LeechingAcid",
         "SP_Target_Rebirth"
     },
     druid4 = {
-        "SP_Target_Tongue",
-        "SP_Target_Ravenous",
-        "SP_Target_Acidify_2",
-        "SP_Target_Heave",
-        "SP_Target_HealingAcid",
-        "SP_Target_LeechingAcid",
-        "SP_Target_Rebirth"
     },
     druid5 = {
-        "SP_Target_Tongue",
-        "SP_Target_Ravenous",
-        "SP_Target_Acidify_2",
-        "SP_Target_Heave",
-        "SP_Target_HealingAcid",
-        "SP_Target_LeechingAcid",
-        "SP_Target_Rebirth",
         "SP_Zone_SuperBelch"
     },
     druid6 = {
-        "SP_Target_Tongue",
-        "SP_Target_Ravenous",
-        "SP_Target_Acidify_2",
-        "SP_Target_Heave",
-        "SP_Target_HealingAcid",
-        "SP_Target_LeechingAcid",
-        "SP_Target_Rebirth",
-        "SP_Zone_SuperBelch",
         "SP_Target_Churn"
     },
     druid7 = {
-        "SP_Target_Tongue",
-        "SP_Target_Ravenous",
-        "SP_Target_Acidify_2",
-        "SP_Target_Heave",
-        "SP_Target_HealingAcid",
-        "SP_Target_LeechingAcid",
-        "SP_Target_Rebirth",
-        "SP_Zone_SuperBelch",
-        "SP_Target_Churn"
     },
     druid8 = {
-        "SP_Target_Tongue",
-        "SP_Target_Ravenous",
-        "SP_Target_Acidify_2",
-        "SP_Target_Heave",
-        "SP_Target_HealingAcid",
-        "SP_Target_LeechingAcid",
-        "SP_Target_Rebirth",
-        "SP_Zone_SuperBelch",
-        "SP_Target_Churn"
     },
     druid9 = {
-        "SP_Target_Tongue",
-        "SP_Target_Ravenous",
-        "SP_Target_Acidify_2",
-        "SP_Target_Heave",
-        "SP_Target_HealingAcid",
-        "SP_Target_LeechingAcid",
-        "SP_Target_Rebirth",
-        "SP_Zone_SuperBelch",
-        "SP_Target_Churn"
     },
 
     -- eldritch knight
