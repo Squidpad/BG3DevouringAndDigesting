@@ -514,7 +514,7 @@
 
 	<!-- Hunger System -->
 	<content contentuid="hb280ef2fg894cg4c0ag8c3ega0f971190cb7" version="1">Hunger</content>
-	<content contentuid="h1560bc4dge61eg48d8gb6d2g72e1a9071ccd" version="1">Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will receive debuffs.\nSetting this to false disables hunger completely.</content>
+	<content contentuid="h1560bc4dge61eg48d8gb6d2g72e1a9071ccd" version="1">Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will receive debuffs.&#10;Setting this to false disables hunger completely.</content>
 	
 	<content contentuid="h8debec48gb238g4038ga5f0gbd7ff8adf4a5" version="1">Hungry Stacks</content>
 	<content contentuid="h3e516fddg31fbg402eg96dfg237da0a9d1d7" version="1">Stacks of hunger at which you are hungry.</content>
@@ -538,11 +538,11 @@
 	<content contentuid="h9be661c7gb95bg4046gbfe3g579efc013310" version="1">Hunger stacks gained on short rest.</content>
 	
 	<content contentuid="h50902d93g3f0fg480bgb5e5ge4b8077bcdc5" version="1">Accidental Digestion</content>
-	<content contentuid="h5e453492ga977g4b8egb5c5g22895f120164" version="1">If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey.\nWorks independently from SwitchEndoLethal.</content>
+	<content contentuid="h5e453492ga977g4b8egb5c5g22895f120164" version="1">If set to true, as you gain Hunger, it will become increasingly likely that you'll accidentally start digesting your non-lethally swallowed prey.&#10;Works independently from SwitchEndoLethal.</content>
 	
 	<!-- Mechanics -->
 	<content contentuid="hbeabe152ga9d7g48c1g8736g343cfb2164c7" version="1">Allow Overstuffing (WIP)</content>
-	<content contentuid="he5ac7fa6g289ag43f9g8a89g39c277a2812c" version="1">If true, devouring prey can push you over your maximum carrying capacity, but you'll take damage every round proportional to how overstuffed you are.\nIf false, you'll be hard-capped by your carrying capacity.</content>
+	<content contentuid="he5ac7fa6g289ag43f9g8a89g39c277a2812c" version="1">If true, devouring prey can push you over your maximum carrying capacity, but you'll take damage every round proportional to how overstuffed you are.&#10;If false, you'll be hard-capped by your carrying capacity.</content>
 	
 	<content contentuid="hf1fa5b9bgc83cg40ffgaa48g18d3198ed59b" version="1">Feats Add Loci</content>
 	<content contentuid="h015aca58ge9feg46c9ga7deg182c8885d211" version="1">If true, certain feats will unlock new loci for vore. Otherwise, they can only be added through the potions.</content>
@@ -551,7 +551,7 @@
 	<content contentuid="h935d0d56g7debg47cegba7ag98fe77333d9e" version="1">If true, special types of vore will require you to have a body part that would enable that type of vore.</content>
 	
 	<content contentuid="hb8a11fbcg8ce1g4856ga547g038979cc80da" version="1">Switch Lethal to Endo</content>
-	<content contentuid="he62c0918g047fg4d7fg9ccfge7b7656e08ff" version="1">You are able to stop digesting prey with Toggle Lethal spell or by Endoing another prey.\nIf this is off, you will only be able to switch back to endo if no prey are being digested in this locus.</content>
+	<content contentuid="he62c0918g047fg4d7fg9ccfge7b7656e08ff" version="1">You are able to stop digesting prey with Toggle Lethal spell or by Endoing another prey.&#10;If this is off, you will only be able to switch back to endo if no prey are being digested in this locus.</content>
 	
 	<content contentuid="hde03a225g09ebg4749gaa0eg509acd6082cf" version="1">Slow Swallowing</content>
 	<content contentuid="h7a0e88c1g4314g4f87gbaa2gab231efbb0fa" version="1">Succecssfully \"swallowing\" a creature requires 2 actions, not 1. (WIP)</content>
@@ -566,7 +566,7 @@
 	<content contentuid="hcfaec850g3b7eg4b4aga071g1e116fb3a09a" version="1">Number of levels of \"Exhaustion\" at which a prey will be exhausted and stop struggling. Set to 0 to disable. (WIP)</content>
 	
 	<content contentuid="h1b5a5fa4gd545g492dgbc41g01d8c1f0a510" version="1">Indigestion is removed only on rest</content>
-	<content contentuid="h9e1b8567gc49fg4d74g9ddcg5b67bdbf5def" version="1">Instead of being removed when there is no living prey inside of a pred, indigestion will ONLY be removed on long rest.\nUse with high indigestion limit.</content>
+	<content contentuid="h9e1b8567gc49fg4d74g9ddcg5b67bdbf5def" version="1">Instead of being removed when there is no living prey inside of a pred, indigestion will ONLY be removed on long rest.&#10;Use with high indigestion limit.</content>
 	
 	<!-- NPCs -->
 	<content contentuid="hf9c75c3cg600bg4834ga69eg39a9838dd47e" version="1">Max Predator Chance (Medium)</content>
@@ -585,22 +585,22 @@
 	<content contentuid="h18487894gb4f5g4005g9144gb2e77d58726a" version="1">Minimum cooldown between NPC vore attempts (in turns).</content>
 	
 	<content contentuid="hec1267e9g154cg45e4g972eg79b78a38dbf4" version="1">Predator Chance (Monster)</content>
-	<content contentuid="h60d7ed3cg3a98g41b9g85a3gfd1ae128b3dd" version="1">The % of a monster becoming a predator. Monsters are any creature that isn't internally considered Male or Female.\nThis value is multiplied by the race's multiplier. Set to 0 to disable.</content>
+	<content contentuid="h60d7ed3cg3a98g41b9g85a3gfd1ae128b3dd" version="1">The % of a monster becoming a predator. Monsters are any creature that isn't internally considered Male or Female.&#10;This value is multiplied by the race's multiplier. Set to 0 to disable.</content>
 	
 	<content contentuid="h73799bdcg6d9fg4da2g83dag6c5a748b59be" version="1">Predator Chance (Female)</content>
-	<content contentuid="h857ad935g7f15g436ega4fcg1335fbd93806" version="1">The % of a female NPC becoming a predator. Female NPCs have Body Types 1 or 2, with some exceptions.\nThis value is multiplied by the race's multiplier. Set to 0 to disable.</content>
+	<content contentuid="h857ad935g7f15g436ega4fcg1335fbd93806" version="1">The % of a female NPC becoming a predator. Female NPCs have Body Types 1 or 2, with some exceptions.&#10;This value is multiplied by the race's multiplier. Set to 0 to disable.</content>
 	
 	<content contentuid="h71a055f0g9447g416egb521g1dd3a397ef27" version="1">Predator Chance (Male)</content>
-	<content contentuid="h54c897b7ga067g4717g958egb55a0804e1bc" version="1">The % of a male NPC becoming a predator. Male NPCs have Body Types 3 or 4, with some exceptions.\nThis value is multiplied by the race's multiplier. Set to 0 to disable.</content>
+	<content contentuid="h54c897b7ga067g4717g958egb55a0804e1bc" version="1">The % of a male NPC becoming a predator. Male NPCs have Body Types 3 or 4, with some exceptions.&#10;This value is multiplied by the race's multiplier. Set to 0 to disable.</content>
 	
 	<content contentuid="h5a878b66gc82fg4c79g9064gdf3176208d82" version="1">Reset Race Config</content>
-	<content contentuid="h9e0550cdga785g4cd9g8e87g07e78f2b5a1c" version="1">RaceConfig.json is located in 'AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Script Extender'\nRace Config stores the % of an NPC of every race becoming a pred.\nThe final chance is 'Race Probability * Sex Probability / 100'%\nThis Resets RaceConfig.json to 100 for every race.</content>
+	<content contentuid="h9e0550cdga785g4cd9g8e87g07e78f2b5a1c" version="1">RaceConfig.json is located in 'AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Script Extender'&#10;Race Config stores the % of an NPC of every race becoming a pred.&#10;The final chance is 'Race Probability * Sex Probability / 100'%&#10;This Resets RaceConfig.json to 100 for every race.</content>
 	
 	<content contentuid="h612aa133gf015g4c9ag95a9gc8ace4fe0abd" version="1">Load Example Race Config</content>
-	<content contentuid="h52e1510ag70bbg4db9g8e63g9b4f1db47d79" version="1">This loads an example race config.\nUse this if you're too lazy to customize the probabilities yourself, or as a starting point\nBack up you RaceConfig.json, because this will overwrite it!</content>
+	<content contentuid="h52e1510ag70bbg4db9g8e63g9b4f1db47d79" version="1">This loads an example race config.&#10;Use this if you're too lazy to customize the probabilities yourself, or as a starting point&#10;Back up you RaceConfig.json, because this will overwrite it!</content>
 	
 	<content contentuid="hb9b179f0g7802g48e8ga5fbgaaacc6de0ead" version="1">Reload Race Config</content>
-	<content contentuid="h52efe3aag2823g4049ga2d1g86af3ebea842" version="1">Reloads the RaceConfig from the currently saved RaceConfig.json (if it exists)\nNormally it's loaded when you load a save, but this option allows you to manually reload it.</content>
+	<content contentuid="h52efe3aag2823g4049ga2d1g86af3ebea842" version="1">Reloads the RaceConfig from the currently saved RaceConfig.json (if it exists)&#10;Normally it's loaded when you load a save, but this option allows you to manually reload it.</content>
 	
 	<!-- Regurgitation -->
 	<content contentuid="hec67bdf7g4bd1g47c8ga30cg19b7ae6c1a53" version="1">Regurgitation Cooldown</content>
@@ -627,7 +627,7 @@
 	<content contentuid="hfd9bc4f7g3ccfg4796g9ab8g64f6d13a3323" version="1">Access debug options. Do not check this unless you know what you're doing.</content>
 	
 	<content contentuid="h46b445c0g1fefg40d1g9c23ge1a8200dae0b" version="1">Reset Vore</content>
-	<content contentuid="hf3a71a05g88ddg4421g8073g6cda3448cb81" version="1">Check this to reset vore. All preds will regurgitate everything and the stored data will be cleared. Wait until it's ready before clicking again.\nIf it's not switching back to Ready after 2-3 seconds, check Console for errors.</content>
+	<content contentuid="hf3a71a05g88ddg4421g8073g6cda3448cb81" version="1">Check this to reset vore. All preds will regurgitate everything and the stored data will be cleared. Wait until it's ready before clicking again.&#10;If it's not switching back to Ready after 2-3 seconds, check Console for errors.</content>
 	
 	<content contentuid="h745793d1g7f99g4804g94a5gdd74ac9ac521" version="1">Always Succeed Vore</content>
 	<content contentuid="h2b249bc4ga705g4840gb05cg310b44df81ab" version="1">If true, all vore attempts will result in a success.</content>
@@ -646,13 +646,13 @@
 	<content contentuid="h94c92f7dg0ff8g40bcgbccdg4f86f145797d" version="1">Shows a tab with some WIP options. Most of them work just fine, but use them at your own risk.</content>
 	
 	<content contentuid="h5787b11cg360bg473bgaf67gf6e41341add5" version="1">Item Vore</content>
-	<content contentuid="h5a54e380g9a35g40a7g9e7egdf5a98a4f4e9" version="1">Enables you to swallow items. They will be stored inside a locked container in your inventory.\nItems can be digested is your stomach start digesting prey. Digested items are permanently lost!</content>
+	<content contentuid="h5a54e380g9a35g40a7g9e7egdf5a98a4f4e9" version="1">Enables you to swallow items. They will be stored inside a locked container in your inventory.&#10;Items can be digested is your stomach start digesting prey. Digested items are permanently lost!</content>
 	
 	<content contentuid="h043674ecg0be8g4582g88f7g18ba9a6627cf" version="1">Item Digestion</content>
-	<content contentuid="hc80f837cgf6cdg48f5gaf21gee0e67ec64b9" version="1">When you start digesting prey, the items in your stomach might be digested.\nWARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE</content>
+	<content contentuid="hc80f837cgf6cdg48f5gaf21gee0e67ec64b9" version="1">When you start digesting prey, the items in your stomach might be digested.&#10;WARNING: THIS WILL DELETE STORY ITEMS IN YOUR STOMACH AND COULD SOFTLOCK YOUR SAVE</content>
 	
 	<content contentuid="hd7b51e95g542cg40e7g8cf6ga7739b886692" version="1">Weight Gain</content>
-	<content contentuid="hd1c26779gd970g48e8g8dcbg6229e59484f2" version="1">Stores and adds fat value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.\nThis is here, because it ONLY affects the belly size, so some people found it confusing.</content>
+	<content contentuid="hd1c26779gd970g48e8g8dcbg6229e59484f2" version="1">Stores and adds fat value to belly size. Fat is increased during digestion of dead prey and reduced upon resting.&#10;This is here, because it ONLY affects the belly size, so some people found it confusing.</content>
 	
 	<content contentuid="hae74d1c9gab55g4ad8gb8b4g0f18ca560044" version="1">Weight Gain Rate</content>
 	<content contentuid="h2348a7cbgcd3fg4e69gb873g798b1b0c735e" version="1">% of a prey's weight you gain as fat.</content>
