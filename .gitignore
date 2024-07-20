@@ -11,3 +11,5 @@ DevouringAndDigesting/Public/DevouringAndDigesting/GUI/**/*
 DevouringAndDigesting/Localization/English/DevouringAndDigesting.xml
 DevouringAndDigesting/Mods/DevouringAndDigesting/ScriptExtender/Lua/Subclasses/StomachSentinelBootlegBullshit.lua
 DevouringAndDigesting/Mods/DevouringAndDigesting/MCM_blueprint_old.json
+*.log
+db/
