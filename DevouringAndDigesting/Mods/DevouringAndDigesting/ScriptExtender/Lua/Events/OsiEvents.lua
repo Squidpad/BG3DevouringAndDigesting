@@ -33,14 +33,15 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
 
         if spellName == 'Regurgitate' then
             local locus = spellParams[4]
-            if Osi.HasActiveStatus(caster, "SP_CooldownRegurgitate") ~= 0 and locus ~= "A" then
-                return
-            end
-            local prey = table.concat({table.unpack(spellParams, 6, #spellParams)}, "_")
             if locus == "X" then
                 locus = nil
             end
-            SP_RegurgitatePrey(caster, prey, 10, '', locus)
+            local prey = table.concat({table.unpack(spellParams, 6, #spellParams)}, "_")
+            if Osi.HasActiveStatus(caster, "SP_CooldownRegurgitate") ~= 0 then
+                SP_RegurgitatePrey(caster, prey, 1, '', locus)
+            else
+                SP_RegurgitatePrey(caster, prey, 10, '', locus)
+            end
         elseif spellName == 'Absorb' then
             local prey = spellParams[4]
             SP_RegurgitatePrey(caster, prey, 1, "Absorb")

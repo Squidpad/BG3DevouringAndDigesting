@@ -661,6 +661,9 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     -- offset to avoid placing prey into each other
     local rotationOffsetDisosal = 0
     local rotationOffsetDisosal1 = 30
+
+    local regurgitatedLiving = false
+
     -- Remove regurgitated prey from the table and release them
     for _, prey in ipairs(markedForRemoval) do
         -- moved this whole section here, so all changes to prey in VoreData are located in one place
@@ -738,6 +741,9 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
 
         --clear prey VoreDataEntry
         VoreData[prey].Locus = ""
+        if VoreData[prey].Digestion == DType.Endo or VoreData[prey].Digestion == DType.Lethal then
+            regurgitatedLiving = true
+        end
         VoreData[prey].Digestion = DType.None
         VoreData[prey].Swallowed = ""
 
@@ -790,13 +796,11 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     end
 
     -- add swallow cooldown after regurgitation
-    if locus ~= "A" and (preyString == "All" or spell == "SwallowFail") and SP_MCMGet("CooldownSwallow") > 0 then
-        Osi.ApplyStatus(pred, 'SP_CooldownSwallow', SP_MCMGet("CooldownSwallow") * SecondsPerTurn,
-                        1)
+    if (preyString == "All" or spell == "SwallowFail") and SP_MCMGet("CooldownSwallow") > 0 and regurgitatedLiving then
+        Osi.ApplyStatus(pred, 'SP_CooldownSwallow', SP_MCMGet("CooldownSwallow") * SecondsPerTurn, 1)
     end
-    if locus ~= "A" and (preyString == "All" or spell == "SwallowFail") and SP_MCMGet("CooldownRegurgitate") > 0 then
-        Osi.ApplyStatus(pred, 'SP_CooldownRegurgitate',
-                        SP_MCMGet("CooldownRegurgitate") * SecondsPerTurn, 1)
+    if (preyString == "All" or spell == "SwallowFail") and SP_MCMGet("CooldownRegurgitate") > 0 and regurgitatedLiving then
+        Osi.ApplyStatus(pred, 'SP_CooldownRegurgitate', SP_MCMGet("CooldownRegurgitate") * SecondsPerTurn, 1)
     end
 
 
