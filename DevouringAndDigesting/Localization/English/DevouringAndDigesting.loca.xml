@@ -675,4 +675,9 @@
 	<!-- Reading Check -->
 	<content contentuid="h1e4391c8g9959g4131ga9ebg2f3d1c8dbee1" version="1">I have read the wiki</content>
 	<content contentuid="hf9263e2eg3a7cg4686g928ag4c52b7483eb8" version="1">By checking this, you assert that you have read any and all information available on the wiki.</content>
+
+	<!-- New Handles -->
+    <content contentuid="h6e6d6ac1b5424d0d99f08d67444c148bed22" version="1">Acid</content>
+    <content contentuid="hd295442ebe274aeca1c1e3d85a3ad83bece0" version="1">Acid Domain</content>
+    <content contentuid="h229eaae1bcc24a7dab1a79e6a0d57bb4aaf4" version="1">Test</content>
 </contentList>

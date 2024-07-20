@@ -39,8 +39,8 @@ local NewSubClasses = {
     },
     SP_AcidDomain = {
         subClassGuid = "2bc2a333-9fbb-49ba-9511-a3c8026f506d",
-        baseClassProgressionGuid = "366cde9c-db0c-43ce-a49c-fb140e084b3c",
-        baseClassProgressionMulticlassGuid = "2b249feb-bba5-4922-8385-c2dd9baaa049",
+        baseClassProgressionGuid = "1dbce574-fff1-49be-b7da-704f9b73cad9",
+        baseClassProgressionMulticlassGuid = "366cde9c-db0c-43ce-a49c-fb140e084b3c",
         class = "cleric",
         subClassName = "Acid Domain",
     },

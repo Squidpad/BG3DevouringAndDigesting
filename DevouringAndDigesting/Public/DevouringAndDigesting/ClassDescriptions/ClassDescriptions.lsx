@@ -37,15 +37,15 @@
                 </node>
                 <node id="ClassDescription">
                     <attribute id="CharacterCreationPose" type="guid" value="0f07ec6e-4ef0-434e-9a51-1353260ccff8" />
-                    <attribute id="Description" type="TranslatedString" handle="haf4704d6gba0bg4c46gb1eeg1740b978db08" version="3" />
-                    <attribute id="DisplayName" type="TranslatedString" handle="haac8a040g75e2g4a7eg9da3g0f9ed34e7bba" version="1" />
+                    <attribute id="Description" type="TranslatedString" handle="h229eaae1bcc24a7dab1a79e6a0d57bb4aaf4" version="3" />
+                    <attribute id="DisplayName" type="TranslatedString" handle="hd295442ebe274aeca1c1e3d85a3ad83bece0" version="1" />
                     <attribute id="LearningStrategy" type="uint8" value="1" />
                     <attribute id="MustPrepareSpells" type="bool" value="True" />
                     <attribute id="Name" type="FixedString" value="AcidDomain" />
                     <attribute id="ParentGuid" type="guid" value="114e7aee-d1d4-4371-8d90-8a2080592faf"/>
                     <attribute id="PrimaryAbility" type="uint8" value="5" />
                     <attribute id="ProgressionTableUUID" type="guid" value="8f6048bc-47b8-49fa-956a-8a364807f6ec" />
-                    <attribute id="ShortName" type="TranslatedString" handle="hcb63e908g7495g4b3bga6f6ge3df61958148" version="1" />
+                    <attribute id="ShortName" type="TranslatedString" handle="h6e6d6ac1b5424d0d99f08d67444c148bed22" version="1" />
                     <attribute id="SoundClassType" type="FixedString" value="Cleric" />
                     <attribute id="SpellCastingAbility" type="uint8" value="5" />
                     <attribute id="SpellList" type="guid" value="d76e6293-e2e3-4e63-9ef1-655556b18833" />
