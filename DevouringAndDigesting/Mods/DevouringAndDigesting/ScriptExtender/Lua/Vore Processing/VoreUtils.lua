@@ -1336,7 +1336,8 @@ function SP_SwitchToDigestionType(pred, prey, fromDig, toDig)
         VoreData[prey].Digestion = toDig
         if Osi.HasActiveStatus(prey, DigestionStatuses[VoreData[prey].Locus][VoreData[prey].Digestion]) == 0 then
             Osi.ApplyStatus(prey, DigestionStatuses[VoreData[prey].Locus][VoreData[prey].Digestion], 1 * SecondsPerTurn, 1, pred)
-            if (toDig == DType.Lethal or Osi.IsEnemy(prey, pred) == 1) and not Osi.IsPartyMember(prey, 1) ~= 1 then
+            --start combat
+            if toDig == DType.Lethal and Osi.IsPartyMember(prey, 1) ~= 1 and Osi.IsAlly(pred, prey) ~= 1 then
                 Osi.SetRelationTemporaryHostile(prey, pred)
                 _P("Set hostile relationship")
             end
@@ -1373,6 +1374,39 @@ function SP_SwitchToLocus(pred, prey, toLoc)
         end
     end
     Osi.ApplyStatus(prey, DigestionStatuses[VoreData[prey].Locus][newDigestion], 1 * SecondsPerTurn, 1, pred)
+end
+
+
+---handles all changes done to prey hp during digestion
+---@param pred CHARACTER
+---@param prey CHARACTER
+function SP_DoPreyHPChange(pred, prey)
+
+    if VoreData[prey].Digestion == DType.Lethal then
+        if Osi.IsEnemy(pred, prey) ~= 1 and Osi.HasPassive(pred, "AN_HealingBelly") == 1 then
+            Osi.ApplyStatus(prey, "AN_AcidCleric_RegainHP", 0, 1, pred)
+
+        elseif Osi.HasPassive(pred, 'SP_BoilingInsides') == 1 then
+            Osi.ApplyStatus(prey, "SP_DigestionDamage_Boiling", 0, 1, pred)
+        else
+            Osi.ApplyStatus(prey, "SP_DigestionDamage_Normal", 0, 1, pred)
+        end
+
+
+        if Osi.HasActiveStatus(pred, "SP_LeechingAcidStatus") == 1 then
+            Osi.ApplyStatus(pred, "SP_LeechingAcidHeal", 0, 1, pred)
+        end
+
+        -- switch to endo if healing acid is active
+        if Osi.HasActiveStatus(pred, 'SP_HealingAcid_' .. VoreData[prey].Locus) == 1 then
+            SP_SetLocusDigestion(pred, VoreData[prey].Locus, false, true)
+            Osi.ApplyStatus(prey, "SP_HealingAcid_RegainHP", 0, 1, pred)
+        end
+    elseif VoreData[prey].Digestion == DType.Endo then
+        if Osi.HasActiveStatus(pred, 'SP_HealingAcid_' .. VoreData[prey].Locus) == 1 then
+            Osi.ApplyStatus(prey, "SP_HealingAcid_RegainHP", 0, 1, pred)
+        end
+    end
 end
 
 ---Recursively generates a list of all nested prey

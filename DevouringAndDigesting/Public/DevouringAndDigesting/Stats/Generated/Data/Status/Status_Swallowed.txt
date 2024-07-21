@@ -66,7 +66,7 @@ data "Description" "h19ee24eega97cg43dagbc9bgb2f1eeec925e;2"
 data "Icon" "Action_VampireBite"
 data "DescriptionParams" "DealDamage(LevelMapValue(D6Cantrip) + ConstitutionModifier,Acid);"
 data "TooltipDamage" "DealDamage(LevelMapValue(D6Cantrip) + ConstitutionModifier,Acid);"
-data "TickFunctors" "DealDamage(LevelMapValue(D6Cantrip) + ConstitutionModifier,Acid);ApplyStatus(SP_Struggle, 100, 1)"
+data "TickFunctors" "ApplyStatus(SP_Struggle, 100, 1)"
 data "StatusPropertyFlags" "FreezeDuration;DisableOverhead;IgnoreResting;InitiateCombat;ApplyToDead"
 
 new entry "SP_SwallowedGentle"

@@ -51,7 +51,7 @@
         ]
     },
     "files.associations": {
-        "*.txt": "bg3txt"
+        "*.txt": "bg3"
     },
     "emmylua.spell.dict": [
         "vore",

@@ -1,17 +1,8 @@
-new entry "SP_BoilingInsidesAcid"
-type "StatusData"
-data "StatusType" "BOOST"
-data "StatusPropertyFlags" "DisablePortraitIndicator;ApplyToDead;IgnoreResting;DisableCombatlog"
-data "OnApplyFunctors" "DealDamage(LevelMapValue(D4Cantrip) + ProficiencyBonus,Acid)"
-
-
 new entry "SP_MassageAcid"
 type "StatusData"
 data "StatusType" "BOOST"
 data "StatusPropertyFlags" "DisablePortraitIndicator;ApplyToDead;IgnoreResting;DisableCombatlog"
 data "OnApplyFunctors" "DealDamage(LevelMapValue(D12Cantrip) + ConstitutionModifier,Acid)"
-
-
 
 
 new entry "SP_MusclegutIntimidate"
