@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<save>
+    <version major="4" minor="2" revision="0" build="100"/>
+    <region id="LevelMapValues">
+        <node id="root">
+            <children>
+                <node id="LevelMapSeries">
+                    <attribute id="Level1" type="LSString" value="1d4"/>
+                    <attribute id="Level5" type="LSString" value="2d4"/>
+                    <attribute id="Level10" type="LSString" value="3d4"/>
+                    <attribute id="Name" type="FixedString" value="AcidHeal"/>
+                    <attribute id="UUID" type="guid" value="0cc193f3-fa44-48c3-8e40-5884aee6230d"/>
+                </node>
+            </children>
+        </node>
+    </region>
+</save>

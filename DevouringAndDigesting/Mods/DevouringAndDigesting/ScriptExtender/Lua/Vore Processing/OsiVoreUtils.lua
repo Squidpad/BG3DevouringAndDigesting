@@ -186,6 +186,7 @@ function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
     --         correctlocus = true
     --     end
     -- end
+
     if correctlocus then
         if endo then
             if Osi.HasPassive(prey, "SP_Gastronaut") == 1 or Osi.HasPassive(pred, "SP_MuscleControl") == 1 or Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 then

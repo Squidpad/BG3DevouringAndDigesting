@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<save>
+    <version major="4" minor="5" revision="0" build="503"/>
+    <region id="SpellLists">
+        <node id="root">
+            <children>
+                <node id="SpellList">
+                    <attribute id="Comment" type="LSString" value="Cleric Acid Domain 1" />
+                    <attribute id="Spells" type="LSString" value="SP_Target_HealingAcid" />
+                    <attribute id="UUID" type="guid" value="10da167c-1f52-4fb0-a2f7-bfc7665723c3" />
+                </node>
+                <node id="SpellList">
+                    <attribute id="Comment" type="LSString" value="Cleric Acid Domain 2" />
+                    <attribute id="Spells" type="LSString" value="SP_Target_Rescue" />
+                    <attribute id="UUID" type="guid" value="3a0647f4-e0da-42e7-b014-f7e0d946a11b" />
+                </node>
+                <node id="SpellList">
+                    <attribute id="Comment" type="LSString" value="Cleric Acid Domain 3" />
+                    <attribute id="Spells" type="LSString" value="SP_Target_Rebirth" />
+                    <attribute id="UUID" type="guid" value="7494e69c-0340-43e5-95ba-dd1df9c9e125" />
+                </node>
+            </children>
+        </node>
+    </region>
+</save>
