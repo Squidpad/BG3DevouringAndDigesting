@@ -680,4 +680,7 @@
     <content contentuid="h6e6d6ac1b5424d0d99f08d67444c148bed22" version="1">Acid</content>
     <content contentuid="hd295442ebe274aeca1c1e3d85a3ad83bece0" version="1">Acid Domain</content>
     <content contentuid="h229eaae1bcc24a7dab1a79e6a0d57bb4aaf4" version="1">Test</content>
+
+	<content contentuid="h694c0a2eg5bb7g4ed7ga01dg90a6386d8bc0" version="1">Acid Heal Passive</content>
+	<content contentuid="hb4888f19g78f6g4bb4ga0ddgaaba0096892d" version="1">You're being digested in healing acids! You take [1] each turn.</content>
 </contentList>

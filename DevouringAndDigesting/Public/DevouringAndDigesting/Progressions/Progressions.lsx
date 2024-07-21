@@ -138,7 +138,32 @@
 
                 <!-- Paladin and Cleric subclasses for me and Joe -->
                 <!-- Belly Healer Cleric -->
-                
+                <node id="Progression">
+                    <attribute id="Boosts" type="LSString" value="ActionResource(WarPriestActionPoint,3,0);Proficiency(HeavyArmor);Proficiency(MartialWeapons)" />
+                    <attribute id="Level" type="uint8" value="1" />
+                    <attribute id="Name" type="LSString" value="AcidDomain" />
+                    <attribute id="PassivesAdded" type="LSString" value="AN_HealingBelly" />
+                    <attribute id="ProgressionType" type="uint8" value="1" />
+                    <attribute id="Selectors" type="LSString" value="AddSpells(10da167c-1f52-4fb0-a2f7-bfc7665723c3,ClericWarDomainSpells,,,AlwaysPrepared)" />
+                    <attribute id="TableUUID" type="guid" value="8ef96b15-ba5f-415b-900b-0f50eca0bdb7" />
+                    <attribute id="UUID" type="guid" value="d74108cf-2f44-4a82-ad81-c890aa9315e2" />
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="3" />
+                    <attribute id="Name" type="LSString" value="AcidDomain" />
+                    <attribute id="ProgressionType" type="uint8" value="1" />
+                    <attribute id="Selectors" type="LSString" value="AddSpells(3a0647f4-e0da-42e7-b014-f7e0d946a11b,ClericWarDomainSpells,,,AlwaysPrepared)" />
+                    <attribute id="TableUUID" type="guid" value="8ef96b15-ba5f-415b-900b-0f50eca0bdb7" />
+                    <attribute id="UUID" type="guid" value="c7811a28-5b9a-4e53-8709-2c4217f20360" />
+                </node>
+                <node id="Progression">
+                    <attribute id="Level" type="uint8" value="5" />
+                    <attribute id="Name" type="LSString" value="AcidDomain" />
+                    <attribute id="ProgressionType" type="uint8" value="1" />
+                    <attribute id="Selectors" type="LSString" value="AddSpells(7494e69c-0340-43e5-95ba-dd1df9c9e125,ClericWarDomainSpells,,,AlwaysPrepared)" />
+                    <attribute id="TableUUID" type="guid" value="8ef96b15-ba5f-415b-900b-0f50eca0bdb7" />
+                    <attribute id="UUID" type="guid" value="86e23ce9-a255-4c14-a3ae-dcfb098c2ff9" />
+                </node>
             </children>
         </node>
     </region>
