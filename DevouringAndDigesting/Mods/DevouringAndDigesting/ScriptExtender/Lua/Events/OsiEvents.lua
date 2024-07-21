@@ -478,27 +478,20 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         SP_AssignRoleRandom(object)
     elseif statusArgs[2] == 'Struggle' then
         local prey = object
-        if VoreData[prey] == nil or VoreData[prey].Pred == "" or Osi.HasActiveStatus(prey, "SP_StilledPrey") == 1 or
-                Osi.HasActiveStatus(prey, "SP_StunnedPrey") == 1 then
-            return
-        end
-        if Osi.IsEnemy(prey, VoreData[prey].Pred) == 1 then
-            local exLimit = SP_MCMGet("ExhaustionLimit")
-            if exLimit > 0 then
-                Osi.ApplyStatus(prey, "SP_StruggleExhaustion", 1 * SecondsPerTurn, 1, prey)
-                if Osi.GetStatusTurns(prey, "SP_StruggleExhaustion") > exLimit then
-                    Osi.ApplyStatus(prey, "SP_StunnedPrey", 1 * SecondsPerTurn, 1, prey)
+        if VoreData[prey] ~= nil and VoreData[prey].Pred ~= "" then
+            if Osi.HasActiveStatus(prey, "SP_StilledPrey") ~= 1 and Osi.HasActiveStatus(prey, "SP_StunnedPrey") ~= 1 and
+                     Osi.IsEnemy(prey, VoreData[prey].Pred) == 1 then
+
+                local exLimit = SP_MCMGet("ExhaustionLimit")
+                if exLimit > 0 then
+                    Osi.ApplyStatus(prey, "SP_StruggleExhaustion", 1 * SecondsPerTurn, 1, prey)
+                    if Osi.GetStatusTurns(prey, "SP_StruggleExhaustion") >= exLimit then
+                        Osi.ApplyStatus(prey, "SP_StunnedPrey", 1 * SecondsPerTurn, 1, prey)
+                    end
                 end
+                SP_VoreCheck(VoreData[prey].Pred, prey, "StruggleCheck")
             end
-            SP_VoreCheck(VoreData[prey].Pred, prey, "StruggleCheck")
-        end
-        if VoreData[prey].Digestion == DType.Lethal then
-            if Osi.HasPassive(VoreData[prey].Pred, 'SP_BoilingInsides') == 1 then
-                Osi.ApplyStatus(prey, "SP_BoilingInsidesAcid", 0, 1, VoreData[prey].Pred)
-            end
-            if Osi.HasActiveStatus(VoreData[prey].Pred, "SP_LeechingAcidStatus") == 1 then
-                Osi.ApplyStatus(VoreData[prey].Pred, "SP_LeechingAcidHeal", 0, 1, VoreData[prey].Pred)
-            end
+            SP_DoPreyHPChange(prey, VoreData[prey].Pred)
         end
 
     elseif statusArgs[2] == "HitBellyport" then
@@ -520,20 +513,6 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         local pred = object
         if VoreData[pred] ~= nil then
             SP_UpdateWeight(pred)
-        end
-    elseif statusArgs[2] == 'HealingAcid' and statusArgs[3] == 'Tick' then
-        _P("Healing Acid Tick")
-        local spellLocus = statusArgs[4]
-        local pred = object
-        if VoreData[pred] ~= nil then
-            for prey, preyLocus in pairs(VoreData[pred].Prey) do
-                if preyLocus == spellLocus then
-                    Osi.ApplyStatus(prey, "SP_HealingAcid_RegainHP", 1, 1, pred)
-                end
-            end
-            if Osi.HasActiveStatus(pred, "SP_LocusLethal_" .. spellLocus) == 1 then
-                SP_SetLocusDigestion(object, spellLocus, false, true)
-            end
         end
     elseif statusArgs[2] == 'TongueStatus' then
         _P("Tongue success")
@@ -882,8 +861,9 @@ function SP_OnBeforeDeath(character)
         _P(character .. " was digested by " .. pred .. " and DIED")
 
         -- Warlock slot recovery
-        if Osi.HasPassive(pred, "SP_SC_GreatHunger") == 1 and Osi.HasActiveStatus(pred, "SP_SC_GreatHunger_RestoreSlot") == 0 then
+        if Osi.HasPassive(pred, "SP_SC_GreatHunger") == 1 and Osi.GetStatusTurns(pred, "SP_SC_GreatHunger_RestoreSlotCooldown") < 3 then
             Osi.ApplyStatus(pred, "SP_SC_GreatHunger_RestoreSlot", 1 * SecondsPerTurn, 1, pred)
+            Osi.ApplyStatus(pred, "SP_SC_GreatHunger_RestoreSlotCooldown", 1 * SecondsPerTurn, 1, pred)
         end
         -- Warlock bound prey remove
         if Osi.HasActiveStatus(character, "SP_SC_BoundPrey_Prey") == 1 then
@@ -955,12 +935,6 @@ function SP_OnShortRest(character)
 
     --Osi.IteratePlayerCharacters("HungerCalculateShort", "")
     SP_HungerSystem(SP_MCMGet("HungerShort"), false)
-
-    for k, v in pairs(VoreData) do
-        if Osi.HasActiveStatus(k, "SP_SC_GreatHunger_RestoreSlot") == 1 then
-            Osi.RemoveStatus(k, "SP_SC_GreatHunger_RestoreSlot")
-        end
-    end
 
     _D(VoreData)
     SP_DelayCallTicks(5, function ()

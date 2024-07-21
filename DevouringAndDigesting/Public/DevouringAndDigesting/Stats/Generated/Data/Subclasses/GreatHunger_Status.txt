@@ -5,6 +5,13 @@ data "DisplayName" "h949296c8318d43bd9459ae72b8fff6aff8d7;2"
 data "StatusPropertyFlags" "DisableImmunityOverhead;DisableOverhead;DisableCombatlog;DisablePortraitIndicator;FreezeDuration"
 data "OnApplyFunctors" "RestoreResource(WarlockSpellSlot, 1, 1); RestoreResource(WarlockSpellSlot, 1, 2); RestoreResource(WarlockSpellSlot, 1, 3); RestoreResource(WarlockSpellSlot, 1, 4); RestoreResource(WarlockSpellSlot, 1, 5);ApplyStatus(SP_SC_GreatHunger_Visual,100,1)"
 
+new entry "SP_SC_GreatHunger_RestoreSlotCooldown"
+type "StatusData"
+data "StatusType" "BOOST"
+data "StatusPropertyFlags" "DisablePortraitIndicator;FreezeDuration;DisableOverhead;DisableImmunityOverhead;ApplyToDead;DisableCombatlog;"
+data "StackId" "SP_SC_GreatHunger_RestoreSlotCooldown"
+data "StackType" "Additive"
+
 new entry "SP_SC_GreatHunger_Visual"
 type "StatusData"
 data "StatusType" "BOOST"
