@@ -16,7 +16,7 @@ data "StatusType" "BOOST"
 data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
 data "OnApplyFunctors" "RegainHitPoints(LevelMapValue(D6Cantrip) + ConstitutionModifier)"
 
-new entry "AN_AcidCleric_RegainHP"
+new entry "SP_AN_AcidCleric_RegainHP"
 type "StatusData"
 data "StatusType" "BOOST"
 data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"

@@ -6,7 +6,7 @@
             <children>
                 <node id="SpellList">
                     <attribute id="Comment" type="LSString" value="Cleric Acid Domain 1" />
-                    <attribute id="Spells" type="LSString" value="SP_Target_HealingAcid" />
+                    <attribute id="Spells" type="LSString" value="" />
                     <attribute id="UUID" type="guid" value="10da167c-1f52-4fb0-a2f7-bfc7665723c3" />
                 </node>
                 <node id="SpellList">

@@ -85,7 +85,7 @@
     "files.exclude": {
         "DevouringAndDigesting\\Public\\DevouringAndDigesting\\Stats\\Generated\\Data\\*.txt": true
     },
-    "bg3ModHelper.rootModPath": "c:\\Games\\BG3Mods\\temp_mod\\BG3DevouringAndDigesting"
+    "bg3ModHelper.rootModPath": "d:\\Repositories\\BG3DevouringAndDigesting"
 
       
 }
