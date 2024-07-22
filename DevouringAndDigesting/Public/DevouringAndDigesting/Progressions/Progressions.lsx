@@ -142,7 +142,7 @@
                     <attribute id="Boosts" type="LSString" value="ActionResource(WarPriestActionPoint,3,0);Proficiency(HeavyArmor);Proficiency(MartialWeapons)" />
                     <attribute id="Level" type="uint8" value="1" />
                     <attribute id="Name" type="LSString" value="AcidDomain" />
-                    <attribute id="PassivesAdded" type="LSString" value="AN_HealingBelly" />
+                    <attribute id="PassivesAdded" type="LSString" value="SP_AN_HealingBelly;SP_AN_ToggleHealing" />
                     <attribute id="ProgressionType" type="uint8" value="1" />
                     <attribute id="Selectors" type="LSString" value="AddSpells(10da167c-1f52-4fb0-a2f7-bfc7665723c3,ClericWarDomainSpells,,,AlwaysPrepared)" />
                     <attribute id="TableUUID" type="guid" value="8ef96b15-ba5f-415b-900b-0f50eca0bdb7" />
