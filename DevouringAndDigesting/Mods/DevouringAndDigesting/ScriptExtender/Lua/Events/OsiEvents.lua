@@ -491,7 +491,7 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
                 end
                 SP_VoreCheck(VoreData[prey].Pred, prey, "StruggleCheck")
             end
-            SP_DoPreyHPChange(prey, VoreData[prey].Pred)
+            SP_DoPreyHPChange(VoreData[prey].Pred, prey)
         end
 
     elseif statusArgs[2] == "HitBellyport" then
