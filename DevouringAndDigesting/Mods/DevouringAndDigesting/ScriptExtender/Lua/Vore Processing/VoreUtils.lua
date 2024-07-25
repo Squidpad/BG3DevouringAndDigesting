@@ -37,6 +37,22 @@ function SP_NewVoreDataEntry(character)
     VoreData[character].Combat = Osi.CombatGetGuidFor(character) or ""
 end
 
+---returns true is a character participates in vore as a pred
+---@param character CHARACTER
+---@return boolean
+function SP_IsPred(character)
+    if VoreData[character] == nil then
+        return false
+    end
+    if next(VoreData[character].Prey) ~= nil then
+        return true
+    end
+    if VoreData[character].Items ~= "" then
+        return true
+    end
+    return false
+end
+
 ---checks if pred can swallow prey
 ---@param pred CHARACTER
 ---@param prey CHARACTER
@@ -778,7 +794,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     end
 
     -- If pred has no more prey inside.
-    if next(VoreData[pred].Prey) == nil and VoreData[pred].Items == "" then
+    if SP_IsPred(pred) == false then
         SP_RemoveAllRegurgitate(pred)
         Osi.RemoveSpell(pred, 'SP_Zone_Absorb_All')
         Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown', 1)
@@ -894,6 +910,19 @@ function SP_VoreCheck(pred, prey, eventName)
     end
 end
 
+--TODO: Reevaluate formula
+---Determines how overstuffed a pred is and applies the proper status stacks
+---@param pred CHARACTER
+function SP_ApplyOverstuffing(pred)
+    local mediumCharacterWeight = 75000
+    local predData = Ext.Entity.Get(pred)
+    local overStuff = math.ceil((predData.InventoryWeight.Weight - predData.EncumbranceStats["HeavilyEncumberedWeight"]) / mediumCharacterWeight)
+    Osi.RemoveStatus(pred, "SP_OverstuffedDamage")
+    if SP_IsPred(pred) and overStuff > 0 then
+        Osi.ApplyStatus(pred, "SP_OverstuffedDamage", overStuff * SecondsPerTurn)
+    end
+end
+
 ---Changes the amount of Weight Placeholders by looking for weights of all prey in pred.
 ---Do not call manually call this
 ---@param pred CHARACTER
@@ -905,10 +934,14 @@ function SP_DoUpdateWeight(pred, noVisual)
         Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
         Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
         SP_UpdateBelly(pred, 0)
-        SP_ApplyOverstuffing(pred)
         SP_DelayCallTicks(6, function ()
+            SP_ApplyOverstuffing(pred)
             WeightQueueRunning[pred] = nil
-            WeightQueueWaiting[pred] = nil
+            if WeightQueueWaiting[pred] ~= nil then
+                local t = WeightQueueWaiting[pred]
+                WeightQueueWaiting[pred] = nil
+                SP_UpdateWeight(pred, t)
+            end
         end)
         return
     end
@@ -922,10 +955,11 @@ function SP_DoUpdateWeight(pred, noVisual)
         -- protecting allies by swallowing them, and gets a feature that
         -- reduces the weight of swallowed allies.
         local fullWeight = VoreData[k].Weight
-
+        weightReduction = 0
         if Osi.HasActiveStatus(pred, "SP_Bottomless") == 1 then
             fullWeight = 0
         elseif VoreData[k].Digestion == DType.Endo and Osi.IsPartyMember(k, 0) == 1 then
+            weightReduction = 0
             if Osi.HasPassive(pred, "SP_SC_StomachSanctuary") == 1 then
                 weightReduction = fullWeight
             elseif Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 then

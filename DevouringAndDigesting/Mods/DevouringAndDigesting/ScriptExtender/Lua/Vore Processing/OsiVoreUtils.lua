@@ -146,19 +146,6 @@ function SP_CanFitPrey(pred, prey)
     end
 end
 
---TODO: Reevaluate formula
----Determines how overstuffed a pred is and applies the proper status stacks
----@param pred CHARACTER
-function SP_ApplyOverstuffing(pred)
-    local mediumCharacterWeight = 75000
-    local predData = Ext.Entity.Get(pred)
-    local overStuff = math.ceil((predData.InventoryWeight.Weight - predData.EncumbranceStats["HeavilyEncumberedWeight"]) / mediumCharacterWeight)
-    Osi.RemoveStatus(pred, "SP_OverstuffedDamage")
-    if overStuff > 0 then
-        Osi.ApplyStatus(pred, "SP_OverstuffedDamage", overStuff * SecondsPerTurn)
-    end
-end
-
 ---returns what swallowed status should be appled to a prey on swallow
 ---@param pred CHARACTER
 ---@param endo boolean
