@@ -48,7 +48,10 @@
 	<content contentuid="h3297cb60gf5deg4cdbga791g01a2201377fc" version="1">Swallow Whole (Anal)</content>
 	<content contentuid="h3eb85ceeg1322g4192ga232g1a3a35186310" version="1">Swallow Whole (Unbirth)</content>
 	<content contentuid="h11b56eddgee6eg4069gb734g03e60ad721d6" version="1">Swallow Whole (Cock)</content>
-	<content contentuid="h10e6037cgc2e1g4931ga151gc6c8498f65d9" version="1">Swallow a creature whole, sending them to your [1].</content>
+	<content contentuid="h10e6037cgc2e1g4931ga151gc6c8498f65d9" version="1">Swallow a creature whole, sending them to your Stomach.</content>
+	<content contentuid="h59265909g19a2g43feg8df0gcfc55849e554" version="1">Swallow a creature whole, sending them to your Ass.</content>
+	<content contentuid="h48936802g8886g4826gb7b9g3b17bbfa8f67" version="1">Swallow a creature whole, sending them to your Womb.</content>
+	<content contentuid="hbd699e80g17d0g4995gb72bgd35279ae1ee9" version="1">Swallow a creature whole, sending them to your Cock.</content>
 
 	<content contentuid="hd532ef04ga1a9g4ba6g9c0fgaa2d898ed1f2" version="1">Potion of Oral Elasticity</content>
 	<content contentuid="h074a039agf92bg4c70g8cf3g1ef50e84b495" version="1">Marks you as able to Orally vore other creatures.</content>
@@ -83,7 +86,12 @@
 	<content contentuid="h9cf48cdeg8aafg46abg8404gdbcc08174bb4" version="1">Release (Random)</content>
 	<content contentuid="h9f3b362fg9601g45a9g9001g169c0929da93" version="1">Ejaculate (Random)</content>
 	<content contentuid="h653901ccg15e1g47adg8d7agb1eb8e49c5b2" version="1">Regurgitate one or more creatues.</content>
-	<content contentuid="hf0a97b33g7572g44f8g9537g13a08e9112cd" version="1">Releases all of your living or fully digested prey from your [1].</content>
+	
+	<content contentuid="hf0a97b33g7572g44f8g9537g13a08e9112cd" version="1">Releases all of your living or fully digested prey from your stomach.</content>
+	<content contentuid="h813f7c14g9315g4454gb0fbg6fa649e6fae5" version="1">Releases all of your living or fully digested prey from your ass.</content>
+	<content contentuid="hc639c7ddgb82cg4c90g9c92g4a731683e274" version="1">Releases all of your living or fully digested prey from your womb.</content>
+	<content contentuid="h4629bd0egedbfg4053g95acg9308d70f659e" version="1">Releases all of your living or fully digested prey from your balls.</content>
+	
 	<content contentuid="h233a0d9bg8da7g489bgb937g55f9f7f0c62d" version="1">Releases a living or fully digested prey from your [1] at random.</content>
 	<content contentuid="h339b4a78ga0a6g4b55g93fag7c8fb6725002" version="1">Regurgitate One</content>
 	<content contentuid="hfed57717ga1feg4c72gad20gbaaa9d1adf1b" version="1">Regurgitate [1] from your stomach.</content>
@@ -194,8 +202,14 @@
 	<content contentuid="hf56e80b984fe487dbe031007019a3665f06b" version="1">The Great Hunger</content>
 	<content contentuid="hf17875f4abe242a6bdd473e6134d2c530fa1" version="1">You have made a pact with an unspeakably ancient entity, but with great power comes great hunger - it is up to you how to utilise it.</content>
 
-	<content contentuid="h949296c8318d43bd9459ae72b8fff6aff8d7" version="1">Otherworldly gluttony</content>
-	<content contentuid="h8bb006e11dd347e4b2abc89ddb4023e0fe4a" version="1">When trying to Lethally Swallow a creature, you will use your Intimidation if it's higher that your Athletics or Acrobatics for the rolls. Your &lt;LSTag Tooltip="CarryWeight"&gt;carrying capacity&lt;/LSTag&gt; is increased 1.5 times. When you digest a prey, you regain a spell slot. The pact made your body stronger, allowing you to wear Medium Armor and use shields.</content>
+	<content contentuid="h949296c8318d43bd9459ae72b8fff6aff8d7" version="1">Eldritch gaze</content>
+	<content contentuid="h8bb006e11dd347e4b2abc89ddb4023e0fe4a" version="1">When trying to Lethally Swallow a creature, you will use your Intimidation if it's higher that your Athletics or Acrobatics for the rolls. The pact made your body stronger, allowing you to wear Medium Armor and use shields.</content>
+
+	<content contentuid="h298ee274gad42g4d0bg86b5g0c5d1452de27" version="1">Otherworldly gluttony</content>
+	<content contentuid="h5770536dg4d80g45e8g9900g6251aa0bd287" version="1">Your &lt;LSTag Tooltip="CarryWeight"&gt;carrying capacity&lt;/LSTag&gt; is increased 1.5 times.</content>
+
+	<content contentuid="haea52f46gbe48g4098g91c1gb8872ba462a4" version="1">Refurbishing prey's magic</content>
+	<content contentuid="h6f815f68g49a4g488fg9f5cg884788122295" version="1">When you digest a prey, you regain a spell slot.</content>
 
 	<content contentuid="h0ba4987f6f4e4ba7bc68af1c376ec4c7c1da" version="1">Maddening Sight</content>
 	<content contentuid="h5af0b6e92fc54d56b21b63c5c89e127c099g" version="1">When an enemy attacks you while you are &lt;LSTag Type="Status" Tooltip="SP_Stuffed"&gt;Stuffed&lt;/LSTag&gt;, you can use your reaction to meet their gaze and let them feel your hunger, making them &lt;LSTag Type="Status" Tooltip="FRIGHTENED"&gt;Frightened&lt;/LSTag&gt; until the end of their next turn.</content>

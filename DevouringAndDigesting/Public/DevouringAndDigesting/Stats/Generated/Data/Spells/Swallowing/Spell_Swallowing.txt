@@ -34,7 +34,7 @@ data "TargetConditions" "((Character() and not Dead() or Item()) and IsMovable()
 data "DisplayName" "heb4ad6c5g3aa6g4735g836bg95c0c032b583;1"
 data "Description" "ha7878dd9g671ag42a6g9ca8gbbd4522b673f;7"
 data "ExtraDescription" "h0a1782aeg5b0ag4dd7g8c19g54cebae7d3a8;3"
-data "ExtraDescriptionParams" "DealDamage(LevelMapValue(D8Cantrip)+LevelMapValue(D8Cantrip),Acid);"
+data "ExtraDescriptionParams" "DealDamage(LevelMapValue(Digestion) + ConstitutionModifier,Acid);"
 data "CycleConditions" "CanShoveWeight() and not Grounded() and (Character() and Enemy() and not Dead() or Item())"
 data "HitAnimationType" "PhysicalDamage"
 data "SpellAnimationIntentType" "Aggressive"

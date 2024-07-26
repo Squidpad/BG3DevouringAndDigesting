@@ -861,7 +861,7 @@ function SP_OnBeforeDeath(character)
         _P(character .. " was digested by " .. pred .. " and DIED")
 
         -- Warlock slot recovery
-        if Osi.HasPassive(pred, "SP_SC_GreatHunger") == 1 and Osi.GetStatusTurns(pred, "SP_SC_GreatHunger_RestoreSlotCooldown") < 3 then
+        if Osi.HasPassive(pred, "SP_SC_GreatHunger_RestoreSlotDescription") == 1 and Osi.GetStatusTurns(pred, "SP_SC_GreatHunger_RestoreSlotCooldown") < 3 then
             Osi.ApplyStatus(pred, "SP_SC_GreatHunger_RestoreSlot", 1 * SecondsPerTurn, 1, pred)
             Osi.ApplyStatus(pred, "SP_SC_GreatHunger_RestoreSlotCooldown", 1 * SecondsPerTurn, 1, pred)
         end

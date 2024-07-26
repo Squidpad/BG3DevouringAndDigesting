@@ -11,6 +11,27 @@
                     <attribute id="Name" type="FixedString" value="AcidHeal"/>
                     <attribute id="UUID" type="guid" value="0cc193f3-fa44-48c3-8e40-5884aee6230d"/>
                 </node>
+                <node id="LevelMapSeries">
+                    <attribute id="Level1" type="LSString" value="1d6"/>
+                    <attribute id="Level5" type="LSString" value="2d6"/>
+                    <attribute id="Level10" type="LSString" value="3d6"/>
+                    <attribute id="Name" type="FixedString" value="Digestion"/>
+                    <attribute id="UUID" type="guid" value="a74bef49-7269-4678-a1ac-12b0ecef64ba"/>
+                </node>
+                <node id="LevelMapSeries">
+                    <attribute id="Level1" type="LSString" value="1d10" />
+                    <attribute id="Level5" type="LSString" value="2d10" />
+                    <attribute id="Level10" type="LSString" value="3d10" />
+                    <attribute id="Name" type="FixedString" value="DigestionBoiling"/>
+                    <attribute id="UUID" type="guid" value="1cecb230-35d4-4c32-bed0-517d3ec6f263"/>
+                </node>
+                <node id="LevelMapSeries">
+                    <attribute id="Level1" type="LSString" value="1d12" />
+                    <attribute id="Level5" type="LSString" value="2d12" />
+                    <attribute id="Level10" type="LSString" value="3d12" />
+                    <attribute id="Name" type="FixedString" value="DigestionMassage"/>
+                    <attribute id="UUID" type="guid" value="4dab4946-10d6-4996-86fc-40fd3e04b9eb"/>
+                </node>
             </children>
         </node>
     </region>
