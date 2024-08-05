@@ -1,7 +1,7 @@
 new entry "SP_SC_GreatHunger_RestoreSlot"
 type "StatusData"
 data "StatusType" "BOOST"
-data "DisplayName" "h949296c8318d43bd9459ae72b8fff6aff8d7;2"
+data "DisplayName" "haea52f46gbe48g4098g91c1gb8872ba462a4;2"
 data "StatusPropertyFlags" "DisableImmunityOverhead;DisableOverhead;DisableCombatlog;DisablePortraitIndicator;FreezeDuration"
 data "OnApplyFunctors" "RestoreResource(WarlockSpellSlot, 1, 1); RestoreResource(WarlockSpellSlot, 1, 2); RestoreResource(WarlockSpellSlot, 1, 3); RestoreResource(WarlockSpellSlot, 1, 4); RestoreResource(WarlockSpellSlot, 1, 5);ApplyStatus(SP_SC_GreatHunger_Visual,100,1)"
 

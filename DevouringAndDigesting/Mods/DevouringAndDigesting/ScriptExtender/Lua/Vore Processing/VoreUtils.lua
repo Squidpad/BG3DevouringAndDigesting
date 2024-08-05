@@ -1417,7 +1417,7 @@ end
 function SP_DoPreyHPChange(pred, prey)
 
     if VoreData[prey].Digestion == DType.Lethal then
-        if Osi.IsEnemy(pred, prey) ~= 1 and Osi.HasPassive(pred, "SP_AN_HealingBelly") == 1 then
+        if Osi.IsEnemy(pred, prey) ~= 1 and Osi.HasPassive(pred, "SP_AN_HealingBelly") == 1 and Osi.HasActiveStatus(pred, "SP_AN_Enable_HealingBelly") == 1 then
             Osi.ApplyStatus(prey, "SP_AN_AcidCleric_RegainHP", 0, 1, pred)
 
         elseif Osi.HasPassive(pred, 'SP_BoilingInsides') == 1 then
