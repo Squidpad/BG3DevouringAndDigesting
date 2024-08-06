@@ -22,15 +22,57 @@ function SP_BulkRemoveStatus(entity, statuses)
   end
 end
 
-
 function SP_IsActivePred(entity)
     entity = entity or context.Target
     return HasStatus('SP_Stuffed', entity)
 end
 
+function SP_IsPredOfPrey(pred, prey)
+    return HasAnyStatus({'SP_PartiallySwallowed','SP_PartiallySwallowedGentle','SP_Swallowed','SP_SwallowedGentle','SP_SwallowedXray','SP_SwallowedDiver'},{},{}, prey, pred, false)
+end
+
+
+function SP_CanVore()
+    if HasStatus('SP_CooldownSwallow', context.Source).Result or HasStatus('SP_SC_BlockVoreTotal', context.Source).Result or HasStatus('SP_Inedible', context.Target).Result then
+        return ConditionResult(false)
+    end
+    if SP_IsPredOfPrey(context.Target, context.Source).Result then
+        return ConditionResult(false)
+    end
+    return ((Character() & ~Dead() | Item()) & IsMovable()) & ~Self() & CanShoveWeight() & ~Grounded() & ~Tagged('GASEOUS_FORM') & ~Tagged('CANT_SHOVE_THROW') & ~Tagged('Inedible')
+end
+
+function SwallowCheck(lethal)
+    local pred = context.Source
+    local prey = context.Target
+    local lethal = lethal or false
+    -- when used in conditions, bools must be turned into ConditionResults
+    local willing = (Ally() & ~ConditionResult(lethal)) | Party() | Item()
+    if not willing.Result then
+
+        local adv = IsSneakingOrInvisible() | HasPassive('SP_StretchyMaw', pred) | HasStatus('SP_RavenousStatus', pred) | HasStatus('SP_Tasty', prey) | IsCrowdControlled(prey)
+        local disadv = HasEvasion() | HasStatus('SP_Disgusting', prey) | SP_IsActivePred(prey)
+
+        local preySkill = math.max(prey.GetPassiveSkill(Skill.Athletics),prey.GetPassiveSkill(Skill.Acrobatics))
+
+        local predSkill = Skill.Athletics
+        if pred.GetPassiveSkill(Skill.Acrobatics) > pred.GetPassiveSkill(predSkill) then
+            predSkill = Skill.Acrobatics
+        end
+        if HasPassive('SP_SC_GreatHunger', pred).Result and pred.GetPassiveSkill(Skill.Intimidation) > pred.GetPassiveSkill(predSkill) then
+            predSkill = Skill.Intimidation
+        end
+
+        local skillCheck = SkillCheck(predSkill, preySkill, adv, disadv)
+        return ConditionResult(skillCheck.Result,{},{},skillCheck.Chance)
+    end
+    return willing
+end
+
+-- unused?
 function SP_SC_GetStomachShelterTempHPStatus(turns)
 
-    if StatusDurationEqualOrMoreThan(context.Source, 'SP_SC_StomachShelterStuffed', turns) then
+    if StatusDurationEqualOrMoreThan(context.Source, 'SP_SC_StomachShelterStuffed', turns).Result then
         return true
     end
     return false
