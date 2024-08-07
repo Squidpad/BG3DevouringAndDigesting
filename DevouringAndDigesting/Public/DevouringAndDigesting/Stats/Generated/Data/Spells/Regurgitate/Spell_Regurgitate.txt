@@ -98,6 +98,14 @@ data "DisplayName" "haf0400e7g9be5g4192g98e3g18fa6434450b;2"
 data "Description" "h4629bd0egedbfg4053g95acg9308d70f659e;4"
 data "SpellFlags" "Temporary"
 
+
+new entry "SP_Zone_RegurgitateContainer_OAUC"
+type "SpellData"
+data "SpellType" "Zone"
+using "SP_Zone_Regurgitate"
+data "ContainerSpells" "SP_Zone_Regurgitate_O_All;SP_Zone_Regurgitate_A_All;SP_Zone_Regurgitate_U_All;SP_Zone_Regurgitate_C_All"
+
+
 new entry "SP_Zone_Absorb_All"
 type "SpellData"
 data "SpellType" "Zone"

@@ -148,10 +148,10 @@ end
 
 ---returns what swallowed status should be appled to a prey on swallow
 ---@param pred CHARACTER
----@param endo boolean
+---@param prey CHARACTER
 ---@return string
-function SP_GetPartialSwallowStatus(pred, endo)
-    if Osi.HasPassive(pred, "SP_MuscleControl") == 1 and endo then
+function SP_GetPartialSwallowStatus(pred, prey)
+    if Osi.HasPassive(pred, "SP_MuscleControl") == 1 and Osi.IsEnemy(pred, prey) == 0 then
         return "SP_PartiallySwallowedGentle"
     else
         return "SP_PartiallySwallowed"
@@ -163,10 +163,10 @@ end
 ---returns what swallowed status should be appled to a prey
 ---@param pred CHARACTER
 ---@param prey CHARACTER
----@param endo boolean
+---@param digestionType integer
 ---@param locus string
 ---@return string
-function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
+function SP_GetSwallowedVoreStatus(pred, prey, digestionType, locus)
     local correctlocus = locus == 'O' or SP_MCMGet("StatusBonusLocus") ~= 'Stomach'
     -- for k, v in pairs(SP_MCMGet("StatusBonusLocus")) do
     --     if string.sub(v, 1, 1) == locus then
@@ -174,8 +174,9 @@ function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
     --     end
     -- end
 
+    --- !!! when adding status here's don't forget to add it to condition.khn !!!
     if correctlocus then
-        if endo then
+        if digestionType == DType.Endo then
             if Osi.HasPassive(prey, "SP_Gastronaut") == 1 or Osi.HasPassive(pred, "SP_MuscleControl") == 1 or Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 then
                 return "SP_SwallowedXray"
             elseif Osi.HasPassive(prey, "SP_BellyDiver") == 1 then
@@ -234,20 +235,6 @@ end
 ---removes all regurgitation containers, in case pred's avalible types of vore were changed
 ---@param pred CHARACTER
 function SP_RemoveAllRegurgitate(pred)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_O", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_A", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_U", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_C", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OA", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OU", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OC", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_AU", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_AC", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_UC", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAU", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAC", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OUC", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_AUC", 1)
     Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 1)
 end
 
@@ -304,61 +291,6 @@ function SP_PlayGurgle(pred, preyLethal, preyDigestion)
     end
 end
 
----@param character CHARACTER
-function SP_AssignRoleRandom(character)
-    if Osi.HasPassive(character, "SP_NotPred") == 1 or Osi.HasPassive(character, "SP_IsPred") == 1 then
-        return
-    end
-    if Ext.Entity.Get(character).ServerCharacter.Temporary == true then
-        Osi.AddPassive(character, "SP_NotPred")
-        return
-    end
-    if Osi.IsTagged(character, "ee978587-6c68-4186-9bfc-3b3cc719a835") == 1 then
-        Osi.AddPassive(character, "SP_NotPred")
-        return
-    end
-    local race = Osi.GetRace(character, 0)
-    local selectedPobability = 0
-
-    if not RaceConfigVars[race] then
-        _P("Race not supported " .. race)
-        selectedPobability = SP_MCMGet("ProbabilityFemale")
-    elseif SINGLE_GENDER_CREATURE[race] == true then
-        selectedPobability = SP_MCMGet("ProbabilityCreature") * RaceConfigVars[race] // 100
-    elseif Osi.GetBodyType(character, 0) == "Female" then
-        selectedPobability = SP_MCMGet("ProbabilityFemale") * RaceConfigVars[race] // 100
-    else
-        selectedPobability = SP_MCMGet("ProbabilityMale") * RaceConfigVars[race] // 100
-    end
-
-    local size = SP_GetCharacterSize(character)
-    if size == 0 and selectedPobability > SP_MCMGet("ClampTiny") then
-        selectedPobability = SP_MCMGet("ClampTiny")
-    elseif size == 1 and selectedPobability > SP_MCMGet("ClampSmall") then
-        selectedPobability = SP_MCMGet("ClampSmall")
-    elseif size == 2 and selectedPobability > SP_MCMGet("ClampMedium") then
-        selectedPobability = SP_MCMGet("ClampMedium")
-    end
-    if Osi.HasPassive(character, "SP_CanOralVore") == 1 or
-        Osi.HasPassive(character, "SP_CanAnalVore") == 1 or
-        Osi.HasPassive(character, "SP_CanUnbirth") == 1 or
-        Osi.HasPassive(character, "SP_CanCockVore") == 1 then
-            Osi.AddPassive(character, "SP_IsPred")
-            return
-    end
-    if selectedPobability > 0 then
-        local randomRoll = Osi.Random(100) + 1
-        if randomRoll <= selectedPobability then
-            _P("Adding PRED to " .. character)
-            Osi.AddPassive(character, "SP_IsPred")
-            Osi.AddPassive(character, "SP_CanOralVore")
-            return
-        end
-    end
-    _P("Adding PREY to " .. character)
-    Osi.AddPassive(character, "SP_NotPred")
-end
-
 ---@param level integer
 ---@param num integer
 ---@return integer
@@ -380,7 +312,6 @@ end
 
 ---@param prey CHARACTER
 function SP_Resurrect(prey)
-    Osi.ApplyStatus(prey, "RESURRECTING", 1*SecondsPerTurn)
     Osi.Resurrect(prey)
     Osi.RemoveStatus(prey, "SP_ReformationStatus")
     -- statuses from 5e spells
