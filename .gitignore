@@ -13,3 +13,4 @@ DevouringAndDigesting/Mods/DevouringAndDigesting/ScriptExtender/Lua/Subclasses/S
 DevouringAndDigesting/Mods/DevouringAndDigesting/MCM_blueprint_old.json
 *.log
 db/
+Scripts/ModdingTools/
