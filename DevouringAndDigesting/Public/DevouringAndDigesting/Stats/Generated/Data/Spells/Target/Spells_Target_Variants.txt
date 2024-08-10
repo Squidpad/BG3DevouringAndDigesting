@@ -107,6 +107,14 @@ data "SpellFlags" "IsMelee"
 data "ContainerSpells" ""
 data "SpellContainerID" "SP_Target_OfferMe"
 
+new entry "SP_Target_OfferMe_Any"
+type "SpellData"
+using "SP_Target_OfferMe"
+data "TargetConditions" "Character() and not Dead() and not Self() and not Tagged('GASEOUS_FORM') and Tagged('PREDATOR')"
+data "DisplayName" "h8f30f6c5g11d1g4a6dgaab6geed24ad0cba1;2"
+data "SpellFlags" "IsMelee"
+data "ContainerSpells" ""
+data "SpellContainerID" "SP_Target_OfferMe"
 
 
 

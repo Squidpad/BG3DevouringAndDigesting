@@ -82,7 +82,7 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                 _P("Attempting to start a long rest")
                 for k, v in pairs(VoreData) do
                     if Osi.IsPlayer(k) == 1 then
-                        Osi.RemoveStatus(k, VoreData[k].Swallowed)
+                        Osi.RemoveStatus(k, VoreData[k].SwallowedStatus)
                     end
                 end
                 SP_DelayCallTicks(3, function ()
@@ -91,8 +91,8 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
 
                     SP_DelayCallTicks(180, function ()
                         for k, v in pairs(VoreData) do
-                            if Osi.IsPlayer(k) == 1 and Osi.HasActiveStatus(k, VoreData[k].Swallowed) == 0 then
-                                Osi.ApplyStatus(k, VoreData[k].Swallowed, 100 * SecondsPerTurn, 1, VoreData[k].Pred)
+                            if Osi.IsPlayer(k) == 1 and Osi.HasActiveStatus(k, VoreData[k].SwallowedStatus) == 0 then
+                                Osi.ApplyStatus(k, VoreData[k].SwallowedStatus, 100 * SecondsPerTurn, 1, VoreData[k].Pred)
                             end
                         end
                     end)
@@ -117,9 +117,6 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         return
     end
     local locus = spellParams[#spellParams]
-    if DigestionStatuses[locus] == nil then
-        locus = nil
-    end
     local spellName = spellParams[3]
     -- main vore spell
     if spellName == "BellyportDestination" or spellName == "PowerWordSwallowDestination" then
@@ -132,7 +129,7 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
                 if Osi.IsCharacter(prey) == 1 then
                     -- this will teleport the exact amount of prey that fit inside pred
                     -- reverted this to working version pre-commit ed75ffb
-                    if SP_VorePossible(target, prey) and (SP_GetTotalCharacterWeight(prey) <= predRoom or
+                    if SP_VorePossible(target, prey, DType.Lethal) and (SP_GetTotalCharacterWeight(prey) <= predRoom or
                             SP_MCMGet("AllowOverstuffing")) then
                         predRoom = predRoom - SP_GetTotalCharacterWeight(prey)
                         table.insert(preyTable, prey)
@@ -161,19 +158,32 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
         -- swallow me spells
     elseif spellName == 'OfferMe' then
         -- prey should not target their preds
-        if VoreData[caster] ~= nil and VoreData[caster].Pred == target then
-            return
+
+        if locus == "Any" then
+            if Osi.HasPassive(target, "SP_CanOralVore") then
+                locus = "O"
+            elseif Osi.HasPassive(target, "SP_CanAnalVore") then
+                locus = "A"
+            elseif Osi.HasPassive(target, "SP_CanUnbirth") then
+                locus = "U"
+            elseif Osi.HasPassive(target, "SP_CanCockVore") then
+                locus = "C"
+            else
+                return
+            end
         end
-        if not SP_VorePossible(target, caster) then
-            return
-        end
+
         if Osi.IsEnemy(caster, target) == 0 then
             SP_DelayCallTicks(12, function ()
-                SP_SwallowSuccess(target, caster, DType.Endo, locus, false)
+                if SP_VorePossible(target, caster, DType.Endo) then
+                    SP_SwallowSuccess(target, caster, DType.Endo, locus, false)
+                end
             end)
         else
             SP_DelayCallTicks(12, function ()
-                SP_SwallowSuccess(target, caster, DType.Lethal, locus, false)
+                if SP_VorePossible(target, caster, DType.Lethal) then
+                    SP_SwallowSuccess(target, caster, DType.Lethal, locus, false)
+                end
             end)
         end
         -- non swallow-related spells
@@ -409,7 +419,8 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
     elseif statusArgs[2] == "FailSwallow" then
         local pred = SP_CharacterFromGUID(causee)
         SP_SwallowFail(pred, object, false)
-
+    elseif statusArgs[2] == "HealingAcid" or statusArgs[4] == "HealingBelly" then
+        SP_SetLocusDigestion(object, "All", false, false, true)
     -- damaging statuses from spells
     elseif statusArgs[2] == "BellySlamStatus" then
         local pred = SP_CharacterFromGUID(causee)
@@ -493,6 +504,8 @@ function SP_OnStatusRemoved(object, status, causee, storyActionID)
                 end
             end
         end)
+    elseif statusArgs[2] == "HealingAcid" or statusArgs[4] == "HealingBelly" then
+        SP_SetLocusDigestion(object, "All", false, false, true)
     end
 end
 

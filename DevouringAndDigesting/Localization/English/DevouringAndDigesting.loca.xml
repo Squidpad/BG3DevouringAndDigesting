@@ -162,6 +162,11 @@
 
 	<content contentuid="h40b866b2g6abdg4ed3g80f6gf0ace9e1bc50" version="1">Being Swallowed!</content>
 	<content contentuid="hbfda4247g1115g43a6g91aeg39418c9a494c" version="1">You are being swallowed by the pred!</content>
+    <!--Locus-->
+    <content contentuid="hba0ad607f2ea43f3b4034e34a1b5196bcdc6" version="1">Inside Stomach</content>
+    <content contentuid="hded6818dce08467f8cd0b67e4727ec5f3bb2" version="1">Inside Ass</content>
+    <content contentuid="hc255ddf7cccf4f8dba0fba3ffed95a05952e" version="1">Inside Womb</content>
+    <content contentuid="h22605c0d87c84637a263471b3f0efe3b9260" version="1">Inside Balls</content>
 
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Eat Me!</content>
 	<content contentuid="he0c7df65gf5deg44b6g9763g3e4ebf1b3295" version="1">Eat Me! (Oral)</content>
@@ -365,7 +370,7 @@
 	<content contentuid="h31aaefc3gb352g4773g9502gd4170b1dc44c" version="1">You touch one target creature with a creature inside of them. Their body compresses itself until it appears that they have no creatures inside of them.</content>
 
 	<content contentuid="hdd709b07g2238g44b1gb758g4a911500e5fe" version="1">Unburden</content>
-	<content contentuid="h2a50023dgfef2g4d53g9c97g3505b6e19538" version="1">You touch one target creature. For the duration of the spell, any prey inside of them have their weight halved.</content>
+	<content contentuid="h2a50023dgfef2g4d53g9c97g3505b6e19538" version="1">You touch one target creature. For the duration of the spell, their stomach capacity is increased by a third.</content>
 	
 	<content contentuid="hf45e56e3g4370g49a7g8ea2gd0877db3edaa" version="1">Frog's Tongue</content>
 	<content contentuid="h7c8cb1adg00ecg43bcg826ag78afe85dfcd9" version="1">Your tongue flies out like a whip, entangling and dragging a creature towards you. A creature in range must make a Strength Saving throw or be pulled up closer to the spellcaster. On success, you automatically make an attempt to swallow it. If the target is not an enemy, you will try to endo it.</content>
@@ -465,7 +470,7 @@
 	<content contentuid="haad0f231gd5abg405cga258g5915dee39709" version="1">It appears as if this predator has no prey inside them.</content>
 
 	<content contentuid="hbe4c0a40g5ae1g415fgb62ag3cf69c9f0196" version="1">Unburdened</content>
-	<content contentuid="h58fc0b41gb1bcg4c9ega23fgb053a6bc1609" version="1">Your prey weigh half as much.</content>
+	<content contentuid="h58fc0b41gb1bcg4c9ega23fgb053a6bc1609" version="1">Your stomach capacity is increased by a third.</content>
 
 	<content contentuid="hb14b1d8agfad0g4393g83e1g21c358b5c5f7" version="1">Bottomless Insides</content>
 	<content contentuid="h74ab3f7dgb8bfg42e5gaaa5gf5c6efd41e34" version="1">You feel like you could eat the whole world!</content>
@@ -695,6 +700,9 @@
     <content contentuid="hd295442ebe274aeca1c1e3d85a3ad83bece0" version="1">Acid Domain</content>
     <content contentuid="h229eaae1bcc24a7dab1a79e6a0d57bb4aaf4" version="1">Test</content>
 
-	<content contentuid="h694c0a2eg5bb7g4ed7ga01dg90a6386d8bc0" version="1">Acid Heal Passive</content>
-	<content contentuid="hb4888f19g78f6g4bb4ga0ddgaaba0096892d" version="1">You're being digested in healing acids! You take [1] each turn.</content>
+	<content contentuid="h694c0a2eg5bb7g4ed7ga01dg90a6386d8bc0" version="1">Healing acid</content>
+	<content contentuid="hb4888f19g78f6g4bb4ga0ddgaaba0096892d" version="1">Digesting allies will heal them for [1] instead of dealing damage. This passive can be toggled off.</content>
+   
+    <content contentuid="h26240f96gc8e4g4e7dg9feeg7957581995b3" version="1">Healing digestion</content>
+	<content contentuid="hf9adc735g8e2dg4696g9ae7gc0d0aad44c03" version="1">You are covered by healing acid! You regain [1] each turn.</content>
 </contentList>

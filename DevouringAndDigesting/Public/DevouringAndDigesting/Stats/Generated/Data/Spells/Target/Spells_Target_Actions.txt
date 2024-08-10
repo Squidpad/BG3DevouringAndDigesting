@@ -25,7 +25,7 @@ data "SpellSoundMagnitude" "Small"
 data "Sheathing" "DontChange"
 data "DisplayName" "h65e1132cg5ceeg4026g91fcg8541bc24043c;1"
 data "Description" "h0ff63b8ag7ae3g4216ga2e1ga5065987a143;6"
-data "ContainerSpells" "SP_Target_OfferMe_O;SP_Target_OfferMe_A;SP_Target_OfferMe_U;SP_Target_OfferMe_C"
+data "ContainerSpells" "SP_Target_OfferMe_O;SP_Target_OfferMe_A;SP_Target_OfferMe_U;SP_Target_OfferMe_C;SP_Target_OfferMe_Any"
 
 new entry "SP_Target_HealPred"
 type "SpellData"

@@ -162,6 +162,11 @@
 
 	<content contentuid="h40b866b2g6abdg4ed3g80f6gf0ace9e1bc50" version="1">Проглочен!</content>
 	<content contentuid="hbfda4247g1115g43a6g91aeg39418c9a494c" version="1">Вас проглатывает хищник!</content>
+    <!--Locus-->
+    <content contentuid="hba0ad607f2ea43f3b4034e34a1b5196bcdc6" version="1">Внутри Желудка</content>
+    <content contentuid="hded6818dce08467f8cd0b67e4727ec5f3bb2" version="1">В Жопе</content>
+    <content contentuid="hc255ddf7cccf4f8dba0fba3ffed95a05952e" version="1">Внутри Матки</content>
+    <content contentuid="h22605c0d87c84637a263471b3f0efe3b9260" version="1">Внутри Яиц</content>
 
 	<content contentuid="h65e1132cg5ceeg4026g91fcg8541bc24043c" version="1">Съешь меня!</content>
 	<content contentuid="he0c7df65gf5deg44b6g9763g3e4ebf1b3295" version="1">Съешь меня! (Рот)</content>
@@ -695,7 +700,7 @@
     <content contentuid="hd295442ebe274aeca1c1e3d85a3ad83bece0" version="1">Домен кислоты</content>
     <content contentuid="h229eaae1bcc24a7dab1a79e6a0d57bb4aaf4" version="1">Test</content>
 
-	<content contentuid="h694c0a2eg5bb7g4ed7ga01dg90a6386d8bc0" version="1">Acid</content>
+	<content contentuid="h694c0a2eg5bb7g4ed7ga01dg90a6386d8bc0" version="1">Целебная кислота</content>
 	<content contentuid="hb4888f19g78f6g4bb4ga0ddgaaba0096892d" version="1">Переваривание союзников не наносит им урон, а вместо этого исцеляет их на [1].</content>
 
 	<content contentuid="h26240f96gc8e4g4e7dg9feeg7957581995b3" version="1">Целебное переваривание</content>
