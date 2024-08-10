@@ -125,19 +125,15 @@ end
 ---Checks if eating a character would exceed pred's carry limit.
 ---@param pred CHARACTER
 ---@param prey CHARACTER
-function SP_CanFitPrey(pred, prey)
-    if Osi.HasActiveStatus(pred, "SP_Bottomless") == 1 then
-        return true
-    end
+---@param digestionType integer
+---@return boolean
+function SP_CanFitPrey(pred, prey, digestionType)
     local predData = Ext.Entity.Get(pred)
     local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) // GramsPerKilo
-    if Osi.HasPassive(pred, "SP_Cavernous") == 1 then
-        predRoom = predRoom * 2
-    end
-    if Osi.HasPassive(prey, "SP_Dense") == 1 then
-        predRoom = predRoom // 2
-    end
-    if SP_GetTotalCharacterWeight(prey) > predRoom then
+
+    local preyWeight = SP_CalculateWeightReduction(pred, prey, digestionType)
+
+    if preyWeight > predRoom then
         _P("Can't fit " .. SP_GetDisplayNameFromGUID(prey) .. " inside of " .. SP_GetDisplayNameFromGUID(pred) ..
             "'s stomach!")
         return false
@@ -298,7 +294,7 @@ function SP_LevelMapValue(level, num)
     local rollcount = 1
     if level >= 17 then
         rollcount = 4
-    elseif level >= 11 then
+    elseif level >= 10 then
         rollcount = 3
     elseif level >= 5 then
         rollcount = 2

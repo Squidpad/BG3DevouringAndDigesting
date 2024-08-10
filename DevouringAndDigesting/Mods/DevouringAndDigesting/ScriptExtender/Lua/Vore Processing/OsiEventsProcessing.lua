@@ -127,7 +127,11 @@ function SP_DoStruggle(prey)
             end
             SP_VoreCheck(VoreData[prey].Pred, prey, "StruggleCheck")
         end
-        SP_DoPreyHPChange(VoreData[prey].Pred, prey)
+        if VoreData[prey].Digestion == DType.Lethal then
+            if Osi.HasActiveStatus(VoreData[prey].Pred, "SP_LeechingAcidStatus") == 1 then
+                Osi.ApplyStatus(VoreData[prey].Pred, "SP_LeechingAcidHeal", 0, 1, VoreData[prey].Pred)
+            end
+        end
     end
 end
 
@@ -165,7 +169,7 @@ function SP_SwallowSuccess(pred, prey, swallowType, locus, swallowStages)
         if removeSwallowDownSpell then
             Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown')
         end
-    elseif SP_VorePossible(pred, prey) then
+    elseif SP_VorePossible(pred, prey, swallowType) then
         -- being swallowed by a different predator
         if Osi.IsItem(prey) == 1 then
             SP_SwallowItem(pred, prey)
