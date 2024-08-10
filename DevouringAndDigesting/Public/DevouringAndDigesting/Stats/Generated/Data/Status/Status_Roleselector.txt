@@ -6,7 +6,7 @@ data "StackId" "SP_ROLESELECTOR"
 data "StackType" "Overwrite"
 data "AuraRadius" "20"
 data "AuraStatuses" "TARGET:IF(Character() and not Dead()):ApplyStatus(SP_ROLESELECTOR_AURA,100,-1)"
-data "StatusPropertyFlags" "DisableOverhead;DisablePortraitIndicator;DisableCombatlog;IgnoreResting"
+data "StatusPropertyFlags" "DisableOverhead;DisablePortraitIndicator;DisableCombatlog"
 
 new entry "SP_ROLESELECTOR_AURA"
 type "StatusData"

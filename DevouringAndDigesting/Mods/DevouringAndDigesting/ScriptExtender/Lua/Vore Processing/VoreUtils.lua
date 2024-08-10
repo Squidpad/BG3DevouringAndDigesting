@@ -191,6 +191,10 @@ function SP_AddPrey(pred, prey, swallowStages, locus)
         Osi.AddSpell(prey, 'SP_Zone_ReleaseMe', 0, 0)
         Osi.AddSpell(prey, "SP_Zone_MoveToPred", 0, 0)
         if Osi.IsPlayer(prey) == 1 then
+            if Osi.IsTagged(prey, "f7265d55-e88e-429e-88df-93f8e41c821c") == 1 then
+                Osi.AddSpell(prey, "SP_Zone_PreySwallow_Endo_OAUC", 0, 0)
+                Osi.AddSpell(prey, "SP_Zone_PreySwallow_Lethal_OAUC", 0, 0)
+            end
             Osi.AddSpell(prey, "SP_Zone_DoLongRest", 0, 0)
         end
 
@@ -391,7 +395,9 @@ function SP_SwallowPrey(pred, prey, swallowType, swallowStages, locus)
         Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
         Osi.AddSpell(pred, 'SP_Zone_FlexBelly', 0, 0)
         if Osi.IsPlayer(pred) == 1 then
-            Osi.AddSpell(pred, "SP_Zone_DoLongRest")
+            Osi.AddSpell(pred, "SP_Zone_MovePrey", 0, 0)
+            Osi.AddSpell(pred, "SP_Zone_DoLongRest", 0, 0)
+            --Osi.AddSpell(pred, "SP_Zone_TalkToPrey")
         end
     end
 
@@ -682,10 +688,14 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         Osi.RemoveStatus(prey, "SP_InLocus_" .. VoreData[prey].Locus, pred)
 
         -- clear prey spells
-        Osi.RemoveSpell(prey, 'SP_Zone_ReleaseMe')
-        Osi.RemoveSpell(prey, 'SP_Zone_MoveToPred')
+        Osi.RemoveSpell(prey, 'SP_Zone_ReleaseMe', 1)
+        Osi.RemoveSpell(prey, 'SP_Zone_MoveToPred', 1)
         if Osi.IsPlayer(prey) == 1 then
-            Osi.RemoveSpell(prey, "SP_Zone_DoLongRest")
+            if Osi.IsTagged(prey, "f7265d55-e88e-429e-88df-93f8e41c821c") == 1 then
+                Osi.RemoveSpell(prey, "SP_Zone_PreySwallow_Endo_OAUC", 1)
+                Osi.RemoveSpell(prey, "SP_Zone_PreySwallow_Lethal_OAUC", 1)
+            end
+            Osi.RemoveSpell(prey, "SP_Zone_DoLongRest",1)
         end
 
         -- return prey to the world
@@ -736,11 +746,14 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     -- If pred has no more prey inside.
     if SP_IsPred(pred) == false then
         SP_RemoveAllRegurgitate(pred)
-        Osi.RemoveSpell(pred, 'SP_Zone_Absorb_All')
+        Osi.RemoveSpell(pred, 'SP_Zone_Absorb_All', 1)
         Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown', 1)
-        --Osi.RemoveSpell(pred, 'SP_Zone_SwitchToLethal', 1)
         Osi.RemoveSpell(pred, 'SP_Zone_FlexBelly', 1)
-        Osi.RemoveSpell(pred, "SP_Zone_DoLongRest")
+        if Osi.IsPlayer(pred) == 1 then
+            Osi.RemoveSpell(pred, "SP_Zone_MovePrey", 1)
+            Osi.RemoveSpell(pred, "SP_Zone_DoLongRest", 1)
+            --Osi.RemoveSpell(prey, "SP_Zone_TalkToPrey")
+        end
     end
 
     if not SP_HasLivingPrey(pred, true) and not SP_MCMGet("IndigestionRest") then
@@ -1296,7 +1309,6 @@ function SP_GetDigestionVoreStatus(pred, prey, digestionType)
 end
 
 ---switches to a different type of digestion
----do not forget to copy VoreData after using this
 ---@param pred CHARACTER
 ---@param prey CHARACTER
 ---@param toDig integer fromDig switch from this digestion type
@@ -1331,7 +1343,7 @@ function SP_SwitchToDigestionType(pred, prey, toDig)
 end
 
 ---switches to a different type of locus
----do not forget to copy VoreData after using this
+---will automatically apply all the necessary statuses
 ---@param pred CHARACTER
 ---@param prey CHARACTER
 ---@param toLoc string fromDig switch to this locus

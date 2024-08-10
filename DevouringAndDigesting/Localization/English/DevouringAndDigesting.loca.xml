@@ -705,4 +705,10 @@
    
     <content contentuid="h26240f96gc8e4g4e7dg9feeg7957581995b3" version="1">Healing digestion</content>
 	<content contentuid="hf9adc735g8e2dg4696g9ae7gc0d0aad44c03" version="1">You are covered by healing acid! You regain [1] each turn.</content>
+    <content contentuid="h1ed85bc160dd40f3ae6fd1951546777f889f" version="1">Talk to Prey</content>
+    <content contentuid="h58a26de73ccf4b8382b442c6891948e36d29" version="1">Start a dialogue with a random prey inside you.</content>
+    <content contentuid="h81b78c4d8bb44a50955ac17801aa61bc72e2" version="1">Move Prey</content>
+    <content contentuid="h2be69893aec944c3b37004dd1fe867d6838a" version="1">Moves all your preys from one organ into a different organ.</content>
+    <content contentuid="h0080e96912db468c810ef521a2647154f15f" version="1">Move Prey (Stomach to Bowels)</content>
+    <content contentuid="h39b3be56481041ceb550362ae42cc3e9dg3c" version="1">Move Prey (Bowels to Stomach)</content>
 </contentList>

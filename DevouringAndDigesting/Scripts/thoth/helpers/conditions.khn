@@ -28,7 +28,7 @@ function SP_IsActivePred(entity)
 end
 
 function SP_IsPredOfPrey(pred, prey)
-    return HasAnyStatus({'SP_PartiallySwallowed','SP_PartiallySwallowedGentle','SP_Swallowed','SP_SwallowedGentle','SP_SwallowedXray','SP_SwallowedDiver'},{},{}, prey, pred, false)
+    return HasAnyStatus({'SP_InLocus_O','SP_InLocus_A','SP_InLocus_U','SP_InLocus_C'},{},{}, prey, pred, false)
 end
 
 

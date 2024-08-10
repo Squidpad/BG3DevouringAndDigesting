@@ -42,9 +42,27 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
             else
                 SP_RegurgitatePrey(caster, prey, 10, '', locus)
             end
+        elseif spellName == 'PreySwallow' then
+            local digestionType = spellParams[4]
+            local locus = spellParams[5]
+            -- select random prey
+            local preyList = {}
+            if VoreData[caster].Pred ~= "" and VoreData[VoreData[caster].Pred] ~= nil then
+                for k, v in pairs(VoreData[VoreData[caster].Pred].Prey) do
+                    if v == locus and k ~= caster then
+                        table.insert(preyList, k)
+                    end
+                end
+            end
+            local preyListLength = #preyList
+            if preyListLength > 0 then
+                local chosenPrey = preyList[Osi.Random(preyListLength) + 1]
+                Osi.ApplyStatus(chosenPrey, "SP_TrySwallow_"..digestionType.."_"..locus, 0, 1, caster)
+            end
         elseif spellName == 'Absorb' then
             local prey = spellParams[4]
             SP_RegurgitatePrey(caster, prey, 1, "Absorb")
+
         elseif spellName == 'SwallowDown' then
             for k, v in pairs(VoreData[caster].Prey) do
                 if VoreData[k].SwallowProcess > 0 then
@@ -77,6 +95,29 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
             end
         elseif spellName == "MoveToPred" then
             SP_TeleportToPred(caster)
+        elseif spellName == "TalkToPrey" then
+            -- does not work!!!!!!!!!!!!!!!
+            -- idk how to do this
+            if VoreData[caster] ~= nil then
+                for k, _ in pairs(VoreData[caster].Prey) do
+                    --Osi.Use(caster, k, 0, 1, "VoreDialogue")
+                    _P(Osi.GetDefaultDialog(k))
+                    local dialog = Osi.FindGossipWorld(k)
+                    if dialog ~= nil then
+                        Osi.QRY_StartDialog_Internal(dialog, k, caster, "", "", "", "", 1, 1)
+                    end
+                end
+            end
+        elseif spellName == "MovePrey" then
+            if VoreData[caster] ~= nil then
+                local lsource = spellParams[4]
+                local ldest = spellParams[5]
+                for k, v in pairs(VoreData[caster].Prey) do
+                    if VoreData[k] ~= nil and VoreData[k].Digestion ~= DType.Dead and v == lsource then
+                        SP_SwitchToLocus(caster, k, ldest)
+                    end
+                end
+            end
         elseif spellName == 'DoLongRest' then
             if VoreData[caster] ~= nil and (VoreData[caster].Pred ~= "" or next(VoreData[caster].Prey) ~= nil) then
                 _P("Attempting to start a long rest")
@@ -822,6 +863,7 @@ function SP_OnLongRest()
             end
         end
     end)
+    Osi.ApplyStatus(Osi.GetHostCharacter(), "SP_ROLESELECTOR", -1)
     _D(VoreData)
 end
 
