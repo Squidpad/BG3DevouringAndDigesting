@@ -2,12 +2,9 @@ import os
 import subprocess
 
 def pak():
-    modFolder = os.getenv('LOCALAPPDATA') + "/Larian Studios/Baldur's Gate 3/Mods/"
+    modFolder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     mod = "DevouringAndDigesting"
-    
-    
-    
-    subprocess.check_call("")
+    subprocess.check_call(["dll/PakRun.exe", modFolder, mod])
 
 def runBG3():
     import webbrowser
@@ -15,4 +12,4 @@ def runBG3():
     webbrowser.open(path)
 
 pak()
-#runBG3()
+runBG3()
