@@ -4,7 +4,8 @@ import subprocess
 def pak():
     modFolder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     mod = "DevouringAndDigesting"
-    subprocess.check_call(["dll/PakRun.exe", modFolder, mod])
+    exe = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dll", "PakRun.exe")
+    subprocess.check_call([exe, modFolder, mod])
 
 def runBG3():
     import webbrowser
