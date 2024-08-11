@@ -217,5 +217,11 @@ function SP_SwallowFail(pred, prey, superFail)
         if removeSwallowDownSpell then
             Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown')
         end
+    else
+        if Osi.IsPlayer(pred) ~= 1 then
+            local cooldown = SP_MCMGet("CooldownMax") - SP_MCMGet("CooldownMin") + 1
+            cooldown = Osi.Random(cooldown) + SP_MCMGet("CooldownMin")
+            Osi.ApplyStatus(pred, "SP_AI_HELPER_BLOCKVORE", SecondsPerTurn * cooldown, 1, pred)
+        end
     end
 end
