@@ -228,12 +228,6 @@ function SP_TeleportToPred(prey)
 
 end
 
----removes all regurgitation containers, in case pred's avalible types of vore were changed
----@param pred CHARACTER
-function SP_RemoveAllRegurgitate(pred)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 1)
-end
-
 ---@param pred CHARACTER
 ---@param forRegurgitate? boolean set this to true if this function is used to get loci for regurgitation spells
 function SP_GetPredLoci(pred, forRegurgitate)
@@ -313,4 +307,28 @@ function SP_Resurrect(prey)
     -- statuses from 5e spells
     Osi.RemoveStatus(prey, "DEAD_TECHNICAL")
     Osi.RemoveStatus(prey, "DEAD_ONE_MINUTE")
+end
+
+---@param pred CHARACTER
+---@param force? boolean
+function SP_AddPredSpells(pred, force)
+    if not SP_IsPred(pred) or force then
+        Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 0, 0)
+        Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
+        Osi.AddSpell(pred, 'SP_Zone_FlexBelly', 0, 0)
+        Osi.AddSpell(pred, "SP_Zone_MovePrey", 0, 0)
+        --Osi.AddSpell(pred, "SP_Zone_TalkToPrey")
+    end
+end
+
+---@param pred CHARACTER
+function SP_RemovePredSpells(pred)
+    if not SP_IsPred(pred) then
+        Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 1)
+        Osi.RemoveSpell(pred, 'SP_Zone_Absorb_All', 1)
+        Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown', 1)
+        Osi.RemoveSpell(pred, 'SP_Zone_FlexBelly', 1)
+        Osi.RemoveSpell(pred, "SP_Zone_MovePrey", 1)
+        --Osi.RemoveSpell(prey, "SP_Zone_TalkToPrey")
+    end
 end

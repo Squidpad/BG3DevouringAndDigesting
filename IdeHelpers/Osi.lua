@@ -1,4 +1,4 @@
-
+---@meta
 ---@diagnostic disable
 
 --#region Types
@@ -154,6 +154,11 @@
 ---| `3` # Trade
 ---| `2` # Donate
 ---| `1` # Default
+
+---@alias JOINBLOCKTYPE
+---| `0` # None
+---| `1` # BlockNew
+---| `2` # BlockAll
 
 --#endregion
 
@@ -359,9 +364,19 @@ function Osi.CombatIsActive(combatGuid) end
 function Osi.Concatenate(stringA, stringB) end
 
 ---@param string string
+---@param guidString GUIDSTRING
+---@return string result
+function Osi.ConcatenateGUID(string, guidString) end
+
+---@param string string
 ---@param number integer
 ---@return string result
 function Osi.ConcatenateInteger(string, number) end
+
+---@param stringA string
+---@param stringB string
+---@return string result
+function Osi.ConcatenateNewLine(stringA, stringB) end
 
 ---@param string string
 ---@param number number
@@ -701,9 +716,9 @@ function Osi.FindGossipWorld(character) end
 ---@return number validPositionZ
 function Osi.FindValidPosition(sourceX, sourceY, sourceZ, radius, object, avoidDangerousSurfaces) end
 
----@param gUIDstring GUIDSTRING
+---@param guidString GUIDSTRING
 ---@return string result
-function Osi.GUIDToString(gUIDstring) end
+function Osi.GUIDToString(guidString) end
 
 ---@param character CHARACTER
 ---@param attribute string
@@ -922,9 +937,9 @@ function Osi.GetGlobalPriceModifier() end
 ---@return integer amount
 function Osi.GetGold(inventoryHolder) end
 
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@return integer amount
-function Osi.GetGoldInMagicPockets(player) end
+function Osi.GetGoldInMagicPockets(source) end
 
 ---@param dialog DIALOGRESOURCE
 ---@param index integer
@@ -1635,9 +1650,9 @@ function Osi.IsInInventory(object) end
 function Osi.IsInInventoryOf(object, inventory) end
 
 ---@param object GUIDSTRING
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@return integer bool
-function Osi.IsInMagicPockets(object, player) end
+function Osi.IsInMagicPockets(object, source) end
 
 ---@param entity GUIDSTRING
 ---@param combatGuid GUIDSTRING
@@ -1880,6 +1895,11 @@ function Osi.ItemTagIsInInventory(tags, inventoryHolder) end
 ---@return string translatedStringKey
 function Osi.ObjectGetTitle(object) end
 
+---@param entity GUIDSTRING
+---@param timer string
+---@return integer exists
+function Osi.ObjectTimerExists(entity, timer) end
+
 ---@param looter CHARACTER
 ---@param target CHARACTER
 ---@return integer bool
@@ -1940,6 +1960,10 @@ function Osi.PlayLoopEffectAtPositionAndRotation(fxName, x, y, z, xAngle, yAngle
 ---@param trigger TRIGGER
 ---@return integer bool
 function Osi.PositionIsInTrigger(x, y, z, trigger) end
+
+---@param quest string
+---@return string parentQuest
+function Osi.QuestGetParent(quest) end
 
 ---@param quest string
 ---@return string rewardTarget
@@ -2012,6 +2036,10 @@ function Osi.RealSum(a, b) end
 ---@return integer i
 function Osi.RealToInteger(r) end
 
+---@param number number
+---@return string result
+function Osi.RealToString(number) end
+
 ---@param ratingOwner CHARACTER
 ---@param ratedCharacter CHARACTER
 ---@return integer bool
@@ -2081,6 +2109,16 @@ function Osi.StartGameplayTimeline(timeline, speaker1, speaker2, speaker3, speak
 ---@return integer dialogID
 function Osi.StartWorldTimeline(dialog, trigger) end
 
+---@param statName string
+---@param player CHARACTER
+---@return integer amount
+function Osi.StatStringGetCountInMagicPockets(statName, player) end
+
+---@param statName string
+---@param inventoryHolder GUIDSTRING
+---@return integer amount
+function Osi.StatStringIsInInventory(statName, inventoryHolder) end
+
 ---@param target GUIDSTRING
 ---@return integer bool
 function Osi.StayInAiHints(target) end
@@ -2092,18 +2130,18 @@ function Osi.StayInAiHints(target) end
 function Osi.Substring(string, start, count) end
 
 ---@param tags string
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@return integer amount
-function Osi.TaggedItemsGetCountInMagicPockets(tags, player) end
+function Osi.TaggedItemsGetCountInMagicPockets(tags, source) end
 
 ---@param itemTemplate ITEMROOT
 ---@return integer bool
 function Osi.TemplateCanSitOn(itemTemplate) end
 
 ---@param template ROOT
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@return integer amount
-function Osi.TemplateGetCountInMagicPockets(template, player) end
+function Osi.TemplateGetCountInMagicPockets(template, source) end
 
 ---@param itemTemplate ITEMROOT
 ---@return string stringHandle
@@ -2125,6 +2163,10 @@ function Osi.TemplateIsInPartyInventory(itemTemplate, character, moveAndReport) 
 ---@param moveAndReport integer
 ---@return integer count
 function Osi.TemplateIsInUserInventory(itemTemplate, character, moveAndReport) end
+
+---@param timer string
+---@return integer exists
+function Osi.TimerExists(timer) end
 
 ---@param trigger TRIGGER
 ---@return number x
@@ -2227,9 +2269,9 @@ function Osi.AddFogVolume(object, fogVolume) end
 ---@param amount integer
 function Osi.AddGold(inventoryHolder, amount) end
 
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@param amount integer
-function Osi.AddGoldToMagicPockets(player, amount) end
+function Osi.AddGoldToMagicPockets(source, amount) end
 
 ---@param bookname string
 ---@param entryname string
@@ -2495,11 +2537,10 @@ function Osi.ClearGodOverride(entity) end
 ---@param faction FACTION
 function Osi.ClearIndividualRelation(entity, faction) end
 
----@overload fun(character:CHARACTER, flag:FLAG)
----@param character CHARACTER
+---@param source GUIDSTRING
 ---@param flag FLAG
 ---@param sendFlagClearEventsIfChanged integer
-function Osi.ClearMagicPocketsFlag(character, flag, sendFlagClearEventsIfChanged) end
+function Osi.ClearMagicPocketsFlag(source, flag, sendFlagClearEventsIfChanged) end
 
 ---@param item ITEM
 function Osi.ClearOriginalOwner(item) end
@@ -2707,6 +2748,9 @@ function Osi.DebugBreak(message) end
 ---@param flag integer
 function Osi.DebugDialogSkillCheck(flag) end
 
+---@param text string
+function Osi.DebugLog(text) end
+
 ---@param object GUIDSTRING
 ---@param text string
 function Osi.DebugText(object, text) end
@@ -2768,6 +2812,9 @@ function Osi.DialogAddActorAtReservedSlot(instanceID, actor, force, peanut, cons
 ---@param instanceID integer
 ---@param immediate integer
 function Osi.DialogRequestBehaviorGracefulStop(instanceID, immediate) end
+
+---@param speaker GUIDSTRING
+function Osi.DialogRequestSmoothStop(speaker) end
 
 ---@param speaker GUIDSTRING
 function Osi.DialogRequestStop(speaker) end
@@ -3170,52 +3217,52 @@ function Osi.LookFromTrigger(character, trigger, snapToTarget) end
 ---@param requestAccepted integer
 function Osi.LootRequestProcessed(character, requestAccepted) end
 
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@param tags string
 ---@param amount integer
-function Osi.MagicPocketsDestroyLocalItemsByTag(player, tags, amount) end
+function Osi.MagicPocketsDestroyLocalItemsByTag(source, tags, amount) end
 
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@param itemTemplate ITEMROOT
 ---@param amount integer
-function Osi.MagicPocketsDestroyLocalItemsByTemplate(player, itemTemplate, amount) end
+function Osi.MagicPocketsDestroyLocalItemsByTemplate(source, itemTemplate, amount) end
 
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@param object GUIDSTRING
-function Osi.MagicPocketsDrop(player, object) end
+function Osi.MagicPocketsDrop(source, object) end
 
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@param tags string
 ---@param amount integer
-function Osi.MagicPocketsDropByTag(player, tags, amount) end
+function Osi.MagicPocketsDropByTag(source, tags, amount) end
 
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@param root ROOT
 ---@param amount integer
-function Osi.MagicPocketsDropByTemplate(player, root, amount) end
+function Osi.MagicPocketsDropByTemplate(source, root, amount) end
 
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@param object GUIDSTRING
 ---@param destinationInventory GUIDSTRING
 ---@param showNotification integer
 ---@param clearOriginalOwner integer
-function Osi.MagicPocketsMoveTo(player, object, destinationInventory, showNotification, clearOriginalOwner) end
+function Osi.MagicPocketsMoveTo(source, object, destinationInventory, showNotification, clearOriginalOwner) end
 
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@param tags string
 ---@param amount integer
 ---@param destinationInventory GUIDSTRING
 ---@param showNotification integer
 ---@param clearOriginalOwner integer
-function Osi.MagicPocketsMoveToByTag(player, tags, amount, destinationInventory, showNotification, clearOriginalOwner) end
+function Osi.MagicPocketsMoveToByTag(source, tags, amount, destinationInventory, showNotification, clearOriginalOwner) end
 
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@param template ROOT
 ---@param amount integer
 ---@param destinationInventory GUIDSTRING
 ---@param showNotification integer
 ---@param clearOriginalOwner integer
-function Osi.MagicPocketsMoveToByTemplate(player, template, amount, destinationInventory, showNotification, clearOriginalOwner) end
+function Osi.MagicPocketsMoveToByTemplate(source, template, amount, destinationInventory, showNotification, clearOriginalOwner) end
 
 ---@param character CHARACTER
 function Osi.MakeNPC(character) end
@@ -3256,6 +3303,14 @@ function Osi.MoveAllItemsTo(fromObject, toObject, moveEquippedArmor, moveEquippe
 
 ---@param fromObject GUIDSTRING
 ---@param toObject GUIDSTRING
+---@param moveEquippedArmor integer
+---@param moveEquippedWeapons integer
+---@param clearOriginalOwner integer
+---@param moveVanityClothing integer
+function Osi.MoveAllLootableItemsTo(fromObject, toObject, moveEquippedArmor, moveEquippedWeapons, clearOriginalOwner, moveVanityClothing) end
+
+---@param fromObject GUIDSTRING
+---@param toObject GUIDSTRING
 ---@param moveEquippedItems integer
 ---@param clearOriginalOwner integer
 function Osi.MoveAllStoryItemsTo(fromObject, toObject, moveEquippedItems, clearOriginalOwner) end
@@ -3287,13 +3342,6 @@ function Osi.MusicPlayGeneral(eventName) end
 ---@param eventName string
 function Osi.MusicPlayOnCharacter(character, eventName) end
 
----@param mysteryID string
-function Osi.MysteryClose(mysteryID) end
-
----@param mysteryID string
----@param mysteryStepID string
-function Osi.MysteryUpdate(mysteryID, mysteryStepID) end
-
 function Osi.NotifyCharacterCreationFinished() end
 
 function Osi.NotifyCharacterCreationSkipped() end
@@ -3308,6 +3356,10 @@ function Osi.ObjectQuestTimerLaunch(entity, timer, localizedTextKey, time2, shou
 ---@param object GUIDSTRING
 ---@param localizedTextKey string
 function Osi.ObjectSetTitle(object, localizedTextKey) end
+
+---@param object GUIDSTRING
+---@param isHide integer
+function Osi.ObjectSetTitleHidden(object, isHide) end
 
 ---@param entity GUIDSTRING
 ---@param timer string
@@ -3502,6 +3554,13 @@ function Osi.QuestMessageHide(messageId) end
 ---@param localizedTextKey string
 function Osi.QuestMessageShow(messageId, localizedTextKey) end
 
+---@param messageId string
+---@param localizedTextKey string
+---@param initialCount integer
+---@param totalCount integer
+---@param localizedCountTextKey string
+function Osi.QuestMessageWithCounterShow(messageId, localizedTextKey, initialCount, totalCount, localizedCountTextKey) end
+
 ---@param quest string
 ---@param categoryID string
 function Osi.QuestSetCategory(quest, categoryID) end
@@ -3511,6 +3570,10 @@ function Osi.QuestSetCategory(quest, categoryID) end
 ---@param questID string
 ---@param stateID string
 function Osi.QuestUpdate(character, questID, stateID) end
+
+---@param messageId string
+---@param deltaUpdateAmount integer
+function Osi.QuestUpdateMessageCounter(messageId, deltaUpdateAmount) end
 
 ---@param eventId string
 function Osi.ReadyCheckCancel(eventId) end
@@ -3579,9 +3642,9 @@ function Osi.RemoveEntryFromCustomBook(bookname, entryname) end
 ---@param object GUIDSTRING
 function Osi.RemoveFogVolume(object) end
 
----@param player CHARACTER
+---@param source GUIDSTRING
 ---@param amount integer
-function Osi.RemoveGoldFromMagicPockets(player, amount) end
+function Osi.RemoveGoldFromMagicPockets(source, amount) end
 
 ---@param target GUIDSTRING
 function Osi.RemoveHarmfulStatuses(target) end
@@ -3910,6 +3973,10 @@ function Osi.SetCharacterLootOwned(character, bool) end
 ---@param value integer
 function Osi.SetCharacterLootable(character, value) end
 
+---@param character GUIDSTRING
+---@param portrait GUIDSTRING
+function Osi.SetCharacterOnPortraitPainting(character, portrait) end
+
 ---@param target GUIDSTRING
 ---@param groupID string
 ---@param enemy GUIDSTRING
@@ -4086,6 +4153,9 @@ function Osi.SetIsInDangerZone(character, isInDangerZone) end
 ---@param eIsTradableType TRADABLETYPE
 function Osi.SetIsTradable(entity, eIsTradableType) end
 
+---@param joinBlockType JOINBLOCKTYPE
+function Osi.SetJoinBlock(joinBlockType) end
+
 ---@param item ITEM
 ---@param bool integer
 function Osi.SetKnown(item, bool) end
@@ -4101,11 +4171,10 @@ function Osi.SetLevelStartingDialog(instanceID, startingDialog) end
 ---@param isEnabled integer
 function Osi.SetLongRestAvailable(isEnabled) end
 
----@overload fun(character:CHARACTER, flag:FLAG)
----@param character CHARACTER
+---@param source GUIDSTRING
 ---@param flag FLAG
 ---@param sendFlagSetEventsIfChanged integer
-function Osi.SetMagicPocketsFlag(character, flag, sendFlagSetEventsIfChanged) end
+function Osi.SetMagicPocketsFlag(source, flag, sendFlagSetEventsIfChanged) end
 
 ---@param partySizeOverride integer
 function Osi.SetMaxPartySizeOverride(partySizeOverride) end
@@ -4507,6 +4576,10 @@ function Osi.ToInventory(object, targetObject, amount, showNotification, clearOr
 ---@param roll number
 function Osi.ToTransform(item, x, y, z, pitch, yaw, roll) end
 
+---@param entity GUIDSTRING
+---@param passiveID string
+function Osi.TogglePassive(entity, passiveID) end
+
 ---@param eventName string
 ---@param eventData string
 ---@param character CHARACTER
@@ -4642,6 +4715,9 @@ function Osi.Unequip(character, item) end
 ---@param character CHARACTER
 function Osi.Unfreeze(character) end
 
+---@param target GUIDSTRING
+function Osi.UnloadItem(target) end
+
 ---@param levelTemplate LEVELTEMPLATE
 function Osi.UnloadLevelTemplate(levelTemplate) end
 
@@ -4687,20 +4763,25 @@ function Osi.UnregisterAsCompanion(character) end
 function Osi.Use(character, item, useItem, isInteraction, event) end
 
 ---@overload fun(caster:GUIDSTRING, spellID:string, target:GUIDSTRING)
+---@overload fun(caster:GUIDSTRING, spellID:string, target:GUIDSTRING, target2:GUIDSTRING)
 ---@param caster GUIDSTRING
 ---@param spellID string
 ---@param target GUIDSTRING
 ---@param target2 GUIDSTRING
-function Osi.UseSpell(caster, spellID, target, target2) end
+---@param withoutMove integer
+function Osi.UseSpell(caster, spellID, target, target2, withoutMove) end
 
+---@overload fun(caster:GUIDSTRING, spellID:string, x:number, y:number, z:number)
 ---@param caster GUIDSTRING
 ---@param spellID string
 ---@param x number
 ---@param y number
 ---@param z number
-function Osi.UseSpellAtPosition(caster, spellID, x, y, z) end
+---@param withoutMove integer
+function Osi.UseSpellAtPosition(caster, spellID, x, y, z, withoutMove) end
 
 ---@param character CHARACTER
 ---@param count integer
 function Osi.UserAddGold(character, count) end
 --#endregion
+    

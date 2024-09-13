@@ -195,7 +195,6 @@ function SP_AddPrey(pred, prey, swallowStages, locus)
                 Osi.AddSpell(prey, "SP_Zone_PreySwallow_Endo_OAUC", 0, 0)
                 Osi.AddSpell(prey, "SP_Zone_PreySwallow_Lethal_OAUC", 0, 0)
             end
-            Osi.AddSpell(prey, "SP_Zone_DoLongRest", 0, 0)
         end
 
         Osi.SetVisible(prey, 0)
@@ -372,8 +371,6 @@ function SP_SwallowPrey(pred, prey, swallowType, swallowStages, locus)
 
     SP_VoreDataEntry(pred, true)
 
-    local isPredAlready = SP_IsPred(pred)
-
     for _, oneprey in ipairs(prey) do
         SP_AddPrey(pred, oneprey, swallowStages, locus)
     end
@@ -390,16 +387,7 @@ function SP_SwallowPrey(pred, prey, swallowType, swallowStages, locus)
     -- if it's nested vore, pred should already have prey inside his stomach (unless we're talking about preyStolen, but it's not implemented yet)
     -- one preyStolen is done, add a check here
 
-    if not isPredAlready then
-        Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 0, 0)
-        Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
-        Osi.AddSpell(pred, 'SP_Zone_FlexBelly', 0, 0)
-        if Osi.IsPlayer(pred) == 1 then
-            Osi.AddSpell(pred, "SP_Zone_MovePrey", 0, 0)
-            Osi.AddSpell(pred, "SP_Zone_DoLongRest", 0, 0)
-            --Osi.AddSpell(pred, "SP_Zone_TalkToPrey")
-        end
-    end
+    SP_AddPredSpells(pred)
 
     if SP_MCMGet("SweatyVore") == true then
         Osi.ApplyStatus(pred, "SWEATY", 5 * SecondsPerTurn)
@@ -417,9 +405,7 @@ function SP_SwallowItem(pred, item)
 
     if Osi.TemplateIsInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred) == 1 then
         if VoreData[pred].StuffedStacks == 0 then
-            Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 0, 0)
-            Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
-            --Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
+            SP_AddPredSpells(pred, true)
         end
         local itemWeight = Ext.Entity.Get(item).Data.Weight // GramsPerKilo
 
@@ -448,10 +434,7 @@ function SP_SwallowAllItems(pred, container)
 
     if Osi.TemplateIsInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred) == 1 then
         if VoreData[pred].StuffedStacks == 0 then
-
-            Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 0, 0)
-            Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
-            --Osi.AddSpell(pred, 'SP_Zone_SwitchToLethal', 0, 0)
+            SP_AddPredSpells(pred, true)
         end
         local itemWeight = Ext.Entity.Get(container).Data.InventoryWeight // GramsPerKilo
 
@@ -695,7 +678,6 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
                 Osi.RemoveSpell(prey, "SP_Zone_PreySwallow_Endo_OAUC", 1)
                 Osi.RemoveSpell(prey, "SP_Zone_PreySwallow_Lethal_OAUC", 1)
             end
-            Osi.RemoveSpell(prey, "SP_Zone_DoLongRest",1)
         end
 
         -- return prey to the world
@@ -743,18 +725,8 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         end
     end
 
-    -- If pred has no more prey inside.
-    if SP_IsPred(pred) == false then
-        SP_RemoveAllRegurgitate(pred)
-        Osi.RemoveSpell(pred, 'SP_Zone_Absorb_All', 1)
-        Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown', 1)
-        Osi.RemoveSpell(pred, 'SP_Zone_FlexBelly', 1)
-        if Osi.IsPlayer(pred) == 1 then
-            Osi.RemoveSpell(pred, "SP_Zone_MovePrey", 1)
-            Osi.RemoveSpell(pred, "SP_Zone_DoLongRest", 1)
-            --Osi.RemoveSpell(prey, "SP_Zone_TalkToPrey")
-        end
-    end
+    -- If pred has no more prey inside, remove spells
+    SP_RemovePredSpells(pred)
 
     if not SP_HasLivingPrey(pred, true) and not SP_MCMGet("IndigestionRest") then
         Osi.RemoveStatus(pred, "SP_Indigestion")
@@ -784,19 +756,20 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     _P('Ending Regurgitation')
 end
 
----Creates a new spell to regurgitate one specific prey TODO
----@param prey GUIDSTRING guid of Prey
----@return string spell
-function SP_CreateCustomRegurgitate(pred, prey)
-    local stat = Ext.Stats.Create("SP_Zone_Regurgitate_X_" .. prey, "SpellData", "SP_Zone_Regurgitate")
-    stat.SpellFlags = "Temporary"
-    stat.DisplayName = "h339b4a78ga0a6g4b55g93fag7c8fb6725002"
-    stat.Description = "hfed57717ga1feg4c72gad20gbaaa9d1adf1b"
-    stat.DescriptionParams = SP_GetDisplayNameFromGUID(prey)
-    stat:Sync()
-    SP_DelayCallTicks(10, function () Osi.AddSpell(pred, "SP_Zone_Regurgitate_X_" .. prey, 0, 0) end)
-    return "SP_Zone_Regurgitate_X_" .. prey
-end
+-- the needs to be revised for the new extidehelpers.lua
+-- ---Creates a new spell to regurgitate one specific prey TODO
+-- ---@param prey GUIDSTRING guid of Prey
+-- ---@return string spell
+-- function SP_CreateCustomRegurgitate(pred, prey)
+--     local stat = Ext.Stats.Create("SP_Zone_Regurgitate_X_" .. prey, "SpellData", "SP_Zone_Regurgitate")
+--     stat.SpellFlags = "Temporary"
+--     stat.DisplayName = "h339b4a78ga0a6g4b55g93fag7c8fb6725002"
+--     stat.Description = "hfed57717ga1feg4c72gad20gbaaa9d1adf1b"
+--     stat.DescriptionParams = SP_GetDisplayNameFromGUID(prey)
+--     stat:Sync()
+--     SP_DelayCallTicks(10, function () Osi.AddSpell(pred, "SP_Zone_Regurgitate_X_" .. prey, 0, 0) end)
+--     return "SP_Zone_Regurgitate_X_" .. prey
+-- end
 
 ---Handles rolling checks.
 ---@param pred CHARACTER

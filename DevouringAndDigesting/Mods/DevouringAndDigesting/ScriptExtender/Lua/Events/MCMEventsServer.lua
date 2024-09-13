@@ -1,7 +1,8 @@
 
-Ext.RegisterNetListener("MCM_Saved_Setting", function(call, payload)
-    local data = Ext.Json.Parse(payload)
-    if not data or data.modGUID ~= ModuleUUID or not data.settingId then
+---@diagnostic disable-next-line: undefined-field
+Ext.ModEvents.BG3MCM["MCM_Setting_Saved"]:Subscribe(function(data)
+
+    if not data or data.modUUID ~= ModuleUUID or not data.settingId then
         return
     end
 
@@ -19,23 +20,33 @@ Ext.RegisterNetListener("MCM_Saved_Setting", function(call, payload)
         end
     elseif data.settingId == "AddVoreItems" and data.value == true then
         SP_GiveVoreItems()
-        SP_MCMSet("AddVoreItems", false)
+        SP_DelayCallTicks(5, function ()
+            SP_MCMSet("AddVoreItems", false)
+        end)
     elseif data.settingId == "PrintVoreData" and data.value == true then
         _D(VoreData)
-        SP_MCMSet("PrintVoreData", false)
+        SP_DelayCallTicks(5, function ()
+            SP_MCMSet("PrintVoreData", false)
+        end)
     elseif data.settingId == "ResetVore" then
         if data.value == "Running" then
             SP_ResetVore()
         end
     elseif data.settingId == "rResetRaceConfig" and data.value == true then
         SP_ResetAndSaveRaceWeightsConfig()
-        SP_MCMSet("rResetRaceConfig", false)
+        SP_DelayCallTicks(5, function ()
+            SP_MCMSet("rResetRaceConfig", false)
+        end)
     elseif data.settingId == "rLoadExample" and data.value == true then
         SP_LoadExampleRaceConfig()
-        SP_MCMSet("rLoadExample", false)
+        SP_DelayCallTicks(5, function ()
+            SP_MCMSet("rLoadExample", false)
+        end)
     elseif data.settingId == "rReloadRaceConfig" and data.value == true then
         SP_LoadRaceWeightsConfigFromFile()
-        SP_MCMSet("rReloadRaceConfig", false)
+        SP_DelayCallTicks(5, function ()
+            SP_MCMSet("rReloadRaceConfig", false)
+        end)
     elseif data.settingId == "DetachPrey" then
         for k, v in pairs(VoreData) do
             if v.Pred ~= "" then

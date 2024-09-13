@@ -85,8 +85,9 @@
     "files.exclude": {
         "DevouringAndDigesting\\Public\\DevouringAndDigesting\\Stats\\Generated\\Data\\*.txt": true
     },
-    "bg3ModHelper.rootModPath": "d:\\Repositories\\BG3DevouringAndDigesting",
-    "bg3ModHelper.modDestPath": "C:/Users/Acolyte/AppData/Local/Larian Studios/Baldur's Gate 3/Mods/"
+    "bg3ModHelper.rootModPath": "c:\\Games\\BG3Mods\\temp_mod\\BG3DevouringAndDigesting",
+    "bg3ModHelper.modDestPath": "C:/Users/Acolyte/AppData/Local/Larian Studios/Baldur's Gate 3/Mods/",
+    "bg3ModHelper.packingPriority": 0
 
       
 }

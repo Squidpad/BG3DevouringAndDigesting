@@ -118,27 +118,6 @@ function SP_OnSpellCast(caster, spell, spellType, spellElement, storyActionID)
                     end
                 end
             end
-        elseif spellName == 'DoLongRest' then
-            if VoreData[caster] ~= nil and (VoreData[caster].Pred ~= "" or next(VoreData[caster].Prey) ~= nil) then
-                _P("Attempting to start a long rest")
-                for k, v in pairs(VoreData) do
-                    if Osi.IsPlayer(k) == 1 then
-                        Osi.RemoveStatus(k, VoreData[k].SwallowedStatus)
-                    end
-                end
-                SP_DelayCallTicks(3, function ()
-                    
-                    Osi.RequestEndTheDay(caster)
-
-                    SP_DelayCallTicks(180, function ()
-                        for k, v in pairs(VoreData) do
-                            if Osi.IsPlayer(k) == 1 and Osi.HasActiveStatus(k, VoreData[k].SwallowedStatus) == 0 then
-                                Osi.ApplyStatus(k, VoreData[k].SwallowedStatus, 100 * SecondsPerTurn, 1, VoreData[k].Pred)
-                            end
-                        end
-                    end)
-                end)
-            end
         end
     end
 end
@@ -622,6 +601,24 @@ function SP_OnItemUsed(character, item, success)
             else
                 Osi.RemovePassive(character, "SP_IsPrey")
             end
+        elseif template == 'SP_PotionOfRest_37eee091-99b3-4756-8d96-16f09dbecec9' then
+                for k, v in pairs(VoreData) do
+                    if Osi.IsPlayer(k) == 1 then
+                        Osi.RemoveStatus(k, VoreData[k].SwallowedStatus)
+                    end
+                end
+                SP_DelayCallTicks(3, function ()
+                    
+                    Osi.RequestEndTheDay(character)
+
+                    SP_DelayCallTicks(180, function ()
+                        for k, v in pairs(VoreData) do
+                            if Osi.IsPlayer(k) == 1 and Osi.HasActiveStatus(k, VoreData[k].SwallowedStatus) == 0 then
+                                Osi.ApplyStatus(k, VoreData[k].SwallowedStatus, 100 * SecondsPerTurn, 1, VoreData[k].Pred)
+                            end
+                        end
+                    end)
+                end)
         end
         -- if no loci left, remove pred status
         SP_DelayCallTicks(2, function ()

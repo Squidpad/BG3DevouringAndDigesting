@@ -711,4 +711,6 @@
     <content contentuid="h2be69893aec944c3b37004dd1fe867d6838a" version="1">Moves all your preys from one organ into a different organ.</content>
     <content contentuid="h0080e96912db468c810ef521a2647154f15f" version="1">Move Prey (Stomach to Bowels)</content>
     <content contentuid="h39b3be56481041ceb550362ae42cc3e9dg3c" version="1">Move Prey (Bowels to Stomach)</content>
+    <content contentuid="hf47e6963a43c440eb5a1e83d2c80af293bfd" version="1">Potion of Rest</content>
+    <content contentuid="h32127c41138d493dab4a3dc437512905ac77" version="1">Use this to start a Long Rest while a player character is devoured. A confirmation window will appear on screen. You must click 'yes' within a couple of seconds, or the potion will not work.</content>
 </contentList>
