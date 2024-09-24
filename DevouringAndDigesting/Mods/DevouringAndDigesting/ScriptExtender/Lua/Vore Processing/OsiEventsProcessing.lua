@@ -203,16 +203,17 @@ function SP_SwallowFail(pred, prey, superFail)
         if superFail then
             VoreData[prey].SwallowProcess = maxSwallowProcess + 1
         end
-        -- if the prey managed to struggle out
-        if VoreData[prey].SwallowProcess > maxSwallowProcess then
-            SP_RegurgitatePrey(pred, prey, -1, "SwallowFail")
-        end
-
+        
         local removeSwallowDownSpell = true
         for k, v in pairs(VoreData[pred].Prey) do
             if VoreData[k].SwallowProcess > 0 then
                 removeSwallowDownSpell = false
             end
+        end
+        
+        -- if the prey managed to struggle out
+        if VoreData[prey].SwallowProcess > maxSwallowProcess then
+            SP_RegurgitatePrey(pred, prey, -1, "SwallowFail")
         end
         if removeSwallowDownSpell then
             Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown')

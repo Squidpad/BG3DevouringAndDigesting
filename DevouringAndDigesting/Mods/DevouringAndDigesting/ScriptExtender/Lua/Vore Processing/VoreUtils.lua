@@ -371,6 +371,8 @@ function SP_SwallowPrey(pred, prey, swallowType, swallowStages, locus)
 
     SP_VoreDataEntry(pred, true)
 
+    SP_AddPredSpells(pred)
+
     for _, oneprey in ipairs(prey) do
         SP_AddPrey(pred, oneprey, swallowStages, locus)
     end
@@ -386,8 +388,6 @@ function SP_SwallowPrey(pred, prey, swallowType, swallowStages, locus)
 
     -- if it's nested vore, pred should already have prey inside his stomach (unless we're talking about preyStolen, but it's not implemented yet)
     -- one preyStolen is done, add a check here
-
-    SP_AddPredSpells(pred)
 
     if SP_MCMGet("SweatyVore") == true then
         Osi.ApplyStatus(pred, "SWEATY", 5 * SecondsPerTurn)
@@ -572,7 +572,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
                 local rotationOffset1 = 360 // (#itemList)
                 for k, v in pairs(itemList) do
                     local uuid = v.Item:GetAllComponents().Uuid.EntityUuid
-                    local predX, predY, predZ = Osi.getPosition(pred)
+                    local predX, predY, predZ = Osi.GetPosition(pred)
                     -- Y-rotation == yaw.
                     local predXRotation, predYRotation, predZRotation = Osi.GetRotation(pred)
                     -- Osi.GetRotation() returns degrees for some ungodly reason, let's fix that :)
@@ -640,7 +640,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
                         Osi.ToInventory(uuid, pred, 9999, 0, 0)
                         predRoom = predRoom - itemWeight
                     else
-                        local predX, predY, predZ = Osi.getPosition(pred)
+                        local predX, predY, predZ = Osi.GetPosition(pred)
                         local predXRotation, predYRotation, predZRotation = Osi.GetRotation(pred)
                         predYRotation = (predYRotation + rotationOffset) * math.pi / 180
                         local newX = predX + 1 * math.cos(predYRotation)
@@ -652,7 +652,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
             end
             Osi.TeleportToPosition(prey, 100000, 0, 100000, "", 0, 0, 0, 1, 1)
         else
-            local predX, predY, predZ = Osi.getPosition(pred)
+            local predX, predY, predZ = Osi.GetPosition(pred)
             local predXRotation, predYRotation, predZRotation = Osi.GetRotation(pred)
             predYRotation = (predYRotation + rotationOffsetDisosal) * math.pi / 180
             local newX = predX + SP_MCMGet("RegurgitationDistance") * math.cos(predYRotation)
