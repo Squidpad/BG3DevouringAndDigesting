@@ -573,16 +573,16 @@
 	<content contentuid="he62c0918g047fg4d7fg9ccfge7b7656e08ff" version="1">You are able to stop digesting prey with Toggle Lethal spell or by Endoing another prey.&#10;If this is off, you will only be able to switch back to endo if no prey are being digested in this locus.</content>
 	
 	<content contentuid="hde03a225g09ebg4749gaa0eg509acd6082cf" version="1">Slow Swallowing</content>
-	<content contentuid="h7a0e88c1g4314g4f87gbaa2gab231efbb0fa" version="1">Succecssfully \"swallowing\" a creature requires 2 actions, not 1. (WIP)</content>
+	<content contentuid="h7a0e88c1g4314g4f87gbaa2gab231efbb0fa" version="1">Succecssfully swallowing a creature requires 2 actions, not 1. (WIP)</content>
 	
 	<content contentuid="h34a6f020g6a5fg4f2eg983cg86e336abd8cb" version="1">Detach prey</content>
 	<content contentuid="h39861453ge5e1g4665g979bg35af956bcba6" version="1">Prey will be detached from the world grid when swallowed. This means they will be unaffected by AoEs and surfaces, but unable to cast shout spells.</content>
 	
 	<content contentuid="hd004e205g720dg460dg911fgd262cd5d5e87" version="1">Indigestion Limit</content>
-	<content contentuid="h1d381716g4c41g4fc5gad56g28e45eeb4a26" version="1">Number of levels of \"Indigestion\" at which a pred will be forced to regurgitate all of their prey. Set to 0 to disable.</content>
+	<content contentuid="h1d381716g4c41g4fc5gad56g28e45eeb4a26" version="1">Number of levels of Indigestion at which a pred will be forced to regurgitate all of their prey. Set to 0 to disable.</content>
 	
 	<content contentuid="he41dfd12g8e58g4915gbfd5g594d1b8e4600" version="1">Exhaustion Limit</content>
-	<content contentuid="hcfaec850g3b7eg4b4aga071g1e116fb3a09a" version="1">Number of levels of \"Exhaustion\" at which a prey will be exhausted and stop struggling. Set to 0 to disable. (WIP)</content>
+	<content contentuid="hcfaec850g3b7eg4b4aga071g1e116fb3a09a" version="1">Number of levels of Exhaustion at which a prey will be exhausted and stop struggling. Set to 0 to disable. (WIP)</content>
 	
 	<content contentuid="h1b5a5fa4gd545g492dgbc41g01d8c1f0a510" version="1">Indigestion is removed only on rest</content>
 	<content contentuid="h9e1b8567gc49fg4d74g9ddcg5b67bdbf5def" version="1">Instead of being removed when there is no living prey inside of a pred, indigestion will ONLY be removed on long rest.&#10;Use with high indigestion limit.</content>
@@ -623,13 +623,16 @@
 	
 	<!-- Regurgitation -->
 	<content contentuid="hec67bdf7g4bd1g47c8ga30cg19b7ae6c1a53" version="1">Regurgitation Cooldown</content>
-	<content contentuid="h05bcbbb8ga6e5g4479g8f95gcb027de5f69f" version="1">Preds are unable to regurgitate prey for a number of turn after regurgitation. Set to 0 to disable</content>
+	<content contentuid="h05bcbbb8ga6e5g4479g8f95gcb027de5f69f" version="1">Preds are unable to regurgitate prey for a number of turn after regurgitation. Set to 0 to disable.&#10;This is a band-aid solution if constantly swallowing/spitting out allies feels like an abuse of game mechanics.&#10;Alternatively, use Regurgitation Hunger.</content>
 	
 	<content contentuid="h86a0d83fg21b6g4909g874dg053a3ffc5ad5" version="1">Swallow Cooldown</content>
 	<content contentuid="h392ef870g8004g4bbbg9700g65f74dae984d" version="1">Preds are unable to swallow prey for a number of turn after regurgitation. Set to 0 to disable</content>
 	
 	<content contentuid="h7273ac52g2029g4101gafebg2dc9b965de42" version="1">Regurgitation Distance</content>
 	<content contentuid="h591a955cg086cg4adagb605gf83f903b4b6c" version="1">Determines how far prey spawn when regurgitated.</content>
+
+    <content contentuid="h714ac4ee038849879c63c77ebf917647g998" version="1">Regurgitation Hunger</content>
+    <content contentuid="h10546701610241dba903b71fd0a99593ce43" version="1">If the hunger mechanic is enabled and this is greater than 0, you will recieve this amount of hunger stacks after regurgitating a living prey, per prey. Alternative to Regurgitation Cooldown</content>
 	
 	<!-- Visuals and Audio -->
 	<content contentuid="ha71aee9cg765bg4807ga244g872fbf7fc9af" version="1">Belly Scale</content>

@@ -428,11 +428,11 @@
                     "Id": "CooldownRegurgitate",
                     "Name": "Regurgitation Cooldown",
                     "Default": 0,
-                    "Description": "Preds are unable to regurgitate prey for a number of turn after regurgitation. Set to 0 to disable",
+                    "Description": "Preds are unable to regurgitate prey for a number of turn after regurgitation. Set to 0 to disable. If constantly swallowing/spitting out allies feels like an abuse of game mechanics, this is a band-aid solution. Alternatively, use Regurgitate Hunger.",
                     "Type": "slider_int",
                     "Options": {
                         "Min": 0,
-                        "Max": 100
+                        "Max": 600
                     },
                     "Handles": {"NameHandle":"hec67bdf7g4bd1g47c8ga30cg19b7ae6c1a53","DescriptionHandle":"h05bcbbb8ga6e5g4479g8f95gcb027de5f69f"}
                 },
@@ -459,6 +459,18 @@
                         "Max": 5
                     },
                     "Handles": {"NameHandle":"h7273ac52g2029g4101gafebg2dc9b965de42","DescriptionHandle":"h591a955cg086cg4adagb605gf83f903b4b6c"}
+                },
+                {
+                    "Id": "RegurgitationHunger",
+                    "Name": "Regurgitation Hunger",
+                    "Default": 0,
+                    "Description": "If the hunger mechanic is enabled and this is greater than 0, you will recieve this amount of stacks after regurgitating a living prey, per prey. Alternative to Regurgitation Cooldown",
+                    "Type": "slider_int",
+                    "Options": {
+                        "Min": 0,
+                        "Max": 100
+                    },
+                    "Handles": {"NameHandle":"h714ac4ee038849879c63c77ebf917647g998","DescriptionHandle":"h10546701610241dba903b71fd0a99593ce43"}
                 }
             ],
             "VisibleIf": {

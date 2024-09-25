@@ -613,7 +613,7 @@
 	<content contentuid="h54c897b7ga067g4717g958egb55a0804e1bc" version="1">Процент с которым мужчина NPC станет хищником. Мужские NPC имеют типы тела 3 или 4, за некоторыми исключениями. Это значение умножается на множитель расы.&#10;Установите значение 0, чтобы отключить.</content>
 	
 	<content contentuid="h5a878b66gc82fg4c79g9064gdf3176208d82" version="1">Сбросить конфиг расы</content>
-	<content contentuid="h9e0550cdga785g4cd9g8e87g07e78f2b5a1c" version="1">Translate! RaceConfig.json is located in 'AppData\Local\Larian Studios\Baldur's Gate 3\Script Extender' Race Config stores the % of an NPC of every race becoming a pred. The final chance is 'Race Probability * Sex Probability / 100'% This Resets RaceConfig.json to 100 for every race.</content>
+	<content contentuid="h9e0550cdga785g4cd9g8e87g07e78f2b5a1c" version="1">RaceConfig.json находится в 'AppData\Local\Larian Studios\Baldur's Gate 3\Script Extender'&#10;Race Config хранит шанс становления NPC каждой рассы хищником (в процентах). Финальный шанс: 'Шанс рассы * Шанс пола / 100'%&#10;Эта опция сбрасывает RaceConfig.json, уравнивая шансы всех рас стать хищником.</content>
 	
 	<content contentuid="h612aa133gf015g4c9ag95a9gc8ace4fe0abd" version="1">Загрузить пример конфига расы</content>
 	<content contentuid="h52e1510ag70bbg4db9g8e63g9b4f1db47d79" version="1">Загружает пример конфига расы. Используйте его, если вам лень настраивать проценты самостоятельно, или в качестве отправной точки. Создайте резервную копию RaceConfig.json,&#10;потому что этот файл перезапишет его!</content>
@@ -623,13 +623,16 @@
 	
 	<!-- Regurgitation -->
 	<content contentuid="hec67bdf7g4bd1g47c8ga30cg19b7ae6c1a53" version="1">Время восстановления Выпускания жертвы</content>
-	<content contentuid="h05bcbbb8ga6e5g4479g8f95gcb027de5f69f" version="1">После того, как хищник выпустит жертву, он не сможет снова воспользоваться этой способностью в течение нескольких ходов.&#10;Установите значение 0, чтобы отключить</content>
+	<content contentuid="h05bcbbb8ga6e5g4479g8f95gcb027de5f69f" version="1">После того, как хищник выпустит жертву, он не сможет снова воспользоваться этой способностью в течение нескольких ходов. Установите значение 0, чтобы отключить&#10;Используйте если постоянное проглатывание/выплевывание персонажей кажется вам абьюзом игровых механик или просто нереалистичным.&#10;Голод после выплевывания - альтернатива этой опции.</content>
 	
 	<content contentuid="h86a0d83fg21b6g4909g874dg053a3ffc5ad5" version="1">Время восстановления Проглатывания</content>
 	<content contentuid="h392ef870g8004g4bbbg9700g65f74dae984d" version="1">После того, как хищник выпустит жертву, он не сможет никого проглотить в течение нескольких ходов. Установите значение 0, чтобы отключить</content>
 	
 	<content contentuid="h7273ac52g2029g4101gafebg2dc9b965de42" version="1">Расстояние выпускания жертв</content>
 	<content contentuid="h591a955cg086cg4adagb605gf83f903b4b6c" version="1">Определяет, насколько далеко жертвы появляются после того, как их выпустят.</content>
+
+    <content contentuid="h714ac4ee038849879c63c77ebf917647g998" version="1">Голод после выплевывания</content>
+    <content contentuid="h10546701610241dba903b71fd0a99593ce43" version="1">Если включен Голод и значение этой опции больше нуля, то хищник получит такое количество стаков голода после выплевывания живой жертвы, за жертву. Альтернатива Время восстановления Выпускания жертвы.</content>
 	
 	<!-- Visuals and Audio -->
 	<content contentuid="ha71aee9cg765bg4807ga244g872fbf7fc9af" version="1">Размер живота</content>

@@ -604,7 +604,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     local rotationOffsetDisosal = 0
     local rotationOffsetDisosal1 = 30
 
-    local regurgitatedLiving = false
+    local regurgitatedLiving = 0
 
     -- Remove regurgitated prey from the table and release them
     for _, prey in ipairs(markedForRemoval) do
@@ -689,7 +689,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         --clear prey VoreDataEntry
         VoreData[prey].Locus = ""
         if VoreData[prey].Digestion == DType.Endo or VoreData[prey].Digestion == DType.Lethal then
-            regurgitatedLiving = true
+            regurgitatedLiving = regurgitatedLiving + 1
         end
         VoreData[prey].Digestion = DType.None
         VoreData[prey].SwallowedStatus = ""
@@ -738,11 +738,16 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     end
 
     -- add swallow cooldown after regurgitation
-    if (preyString == "All" or spell == "SwallowFail") and SP_MCMGet("CooldownSwallow") > 0 and regurgitatedLiving then
-        Osi.ApplyStatus(pred, 'SP_CooldownSwallow', SP_MCMGet("CooldownSwallow") * SecondsPerTurn, 1)
-    end
-    if (preyString == "All" or spell == "SwallowFail") and SP_MCMGet("CooldownRegurgitate") > 0 and regurgitatedLiving then
-        Osi.ApplyStatus(pred, 'SP_CooldownRegurgitate', SP_MCMGet("CooldownRegurgitate") * SecondsPerTurn, 1)
+    if (preyString == "All" and spell ~= "ResetVore" or spell == "SwallowFail") and regurgitatedLiving > 0 then
+        if SP_MCMGet("CooldownSwallow") > 0 then
+            Osi.ApplyStatus(pred, 'SP_CooldownSwallow', SP_MCMGet("CooldownSwallow") * SecondsPerTurn, 1)
+        end
+        if SP_MCMGet("CooldownRegurgitate") > 0 then
+            Osi.ApplyStatus(pred, 'SP_CooldownRegurgitate', SP_MCMGet("CooldownRegurgitate") * SecondsPerTurn, 1)
+        end
+        if SP_MCMGet("RegurgitationHunger") > 0 and SP_MCMGet("Hunger") and Osi.IsPartyMember(pred, 0) == 1 then
+            Osi.ApplyStatus(pred, 'SP_Hunger', SP_MCMGet("RegurgitationHunger") * SecondsPerTurn * regurgitatedLiving, 1)
+        end
     end
 
 
@@ -1091,7 +1096,7 @@ function SP_HungerSystem(stacks, isLong)
     for k, v in pairs(party) do
         local predData = v:GetAllComponents()
         local pred = predData.ServerCharacter.Template.Name .. "_" .. predData.Uuid.EntityUuid
-        if Osi.IsTagged(pred, 'f7265d55-e88e-429e-88df-93f8e41c821c') == 1 and Osi.IsDead(pred) == 0 then
+        if Osi.IsTagged(pred, 'f7265d55-e88e-429e-88df-93f8e41c821c') == 1 and Osi.IsDead(pred) == 0 and Osi.IsPartyMember(v, 0) == 1 then
             local hungerStacks = stacks + Osi.GetStatusTurns(pred, "SP_Hunger")
             local newhungerStacks = hungerStacks
             if VoreData[pred] ~= nil then
