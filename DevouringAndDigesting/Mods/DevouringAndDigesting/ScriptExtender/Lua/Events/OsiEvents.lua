@@ -691,7 +691,6 @@ function SP_OnCombatEnter(object, combatGuid)
                     
                     SP_TeleportToPred(prey)
                     SP_DelayCallTicks(10, function ()
-                        _P("Adding prey " .. prey .. " to combat")
                         VoreData[prey].Combat = combatGuid
                         Osi.EnterCombat(prey, object)
                     end)
@@ -707,7 +706,6 @@ end
 function SP_OnCombatLeave(object, combatGuid)
     --_P("CombatLeave")
     if VoreData[object] ~= nil then
-        _P("Removing " .. object .. " from combat")
         VoreData[object].Combat = ""
     end
 end
@@ -733,7 +731,7 @@ function SP_OnBeforeDeath(character)
     -- If character was pred.
     VoreData[character].Fat = 0
     VoreData[character].Satiation = 0
-    if next(VoreData[character].Prey) ~= nil or VoreData[character].Items ~= "" then
+    if SP_IsPred(character) then
         _P(character .. " was pred and DIED")
         SP_RegurgitatePrey(character, 'All', -1)
     end

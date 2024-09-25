@@ -173,6 +173,8 @@
 	<content contentuid="h738f1a2cg1c9fg4f34g9828g71beb077b9d1" version="1">Eat Me! (Anal)</content>
 	<content contentuid="h793bdcefg70a5g4026g99eag34dfd61107c5" version="1">Eat Me! (Unbirth)</content>
 	<content contentuid="h8f30f6c5g11d1g4a6dgaab6geed24ad0cba1" version="1">Eat Me! (Cock)</content>
+    <content contentuid="hd6260614e58a4c08896c6929839629d3a6cg" version="1">Eat Me! (Any)</content>
+
 	<content contentuid="h0ff63b8ag7ae3g4216ga2e1ga5065987a143" version="1">Shove yourself down a character's throat. It's up to them whether to digest you or not.</content>
 	<!-- Passives -->
 	<content contentuid="h3463132ag4b97g4c1fg95c8g8eaf55466da9" version="1">Role selection avalible</content>
@@ -607,10 +609,10 @@
 	<content contentuid="h60d7ed3cg3a98g41b9g85a3gfd1ae128b3dd" version="1">The % of a monster becoming a predator. Monsters are any creature that isn't internally considered Male or Female.&#10;This value is multiplied by the race's multiplier. Set to 0 to disable.</content>
 	
 	<content contentuid="h73799bdcg6d9fg4da2g83dag6c5a748b59be" version="1">Predator Chance (Female)</content>
-	<content contentuid="h857ad935g7f15g436ega4fcg1335fbd93806" version="1">The % of a female NPC becoming a predator. Female NPCs have Body Types 1 or 2, with some exceptions.&#10;This value is multiplied by the race's multiplier. Set to 0 to disable.</content>
+	<content contentuid="h857ad935g7f15g436ega4fcg1335fbd93806" version="1">The % of a female NPC becoming a predator. Female NPCs have Body Types 1 or 3, with some exceptions.&#10;This value is multiplied by the race's multiplier. Set to 0 to disable.</content>
 	
 	<content contentuid="h71a055f0g9447g416egb521g1dd3a397ef27" version="1">Predator Chance (Male)</content>
-	<content contentuid="h54c897b7ga067g4717g958egb55a0804e1bc" version="1">The % of a male NPC becoming a predator. Male NPCs have Body Types 3 or 4, with some exceptions.&#10;This value is multiplied by the race's multiplier. Set to 0 to disable.</content>
+	<content contentuid="h54c897b7ga067g4717g958egb55a0804e1bc" version="1">The % of a male NPC becoming a predator. Male NPCs have Body Types 2 or 4, with some exceptions.&#10;This value is multiplied by the race's multiplier. Set to 0 to disable.</content>
 	
 	<content contentuid="h5a878b66gc82fg4c79g9064gdf3176208d82" version="1">Reset Race Config</content>
 	<content contentuid="h9e0550cdga785g4cd9g8e87g07e78f2b5a1c" version="1">RaceConfig.json is located in 'AppData\\Local\\Larian Studios\\Baldur's Gate 3\\Script Extender'&#10;Race Config stores the % of an NPC of every race becoming a pred.&#10;The final chance is 'Race Probability * Sex Probability / 100'%&#10;This Resets RaceConfig.json to 100 for every race.</content>

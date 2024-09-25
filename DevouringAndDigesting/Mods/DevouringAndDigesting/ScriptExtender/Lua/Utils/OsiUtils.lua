@@ -44,6 +44,23 @@ function SP_GetCharacterSize(character)
     return charData.ObjectSize.Size
 end
 
+---Checks if a character has a status caused by another character
+---@param character CHARACTER
+---@param status string
+---@param cause CHARACTER
+---@return boolean
+function SP_HasStatusWithCause(character, status, cause)
+    local causeGUID = string.sub(cause, -36)
+    local charStatusData = Ext.Entity.Get(character).ServerCharacter.StatusManager.Statuses
+    for _, i in ipairs(charStatusData) do
+        if i.CauseGUID == causeGUID and i.StatusId == status then
+            _P("Found status " .. status .. " in " .. character)
+            return true
+        end
+    end
+    return false
+end
+
 ---Delays a function call by given milliseconds.
 ---Preferable not to use, as time is not properly synced between server and client.
 ---@param ms integer

@@ -58,7 +58,7 @@
                 {
                     "Id": "GradualDigestionAmount",
                     "Name": "Gradual Digestion Amount",
-                    "Default": 5,
+                    "Default": 2,
                     "Description": "You will passively digest dead prey by this much per X turns (set with Gradual Digestion Turns option). Set to 0 to disable.",
                     "Type": "slider_int",
                     "Options": {

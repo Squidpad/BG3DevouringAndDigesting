@@ -26,8 +26,6 @@ function SP_VoreDataEntry(character, create)
         next(VoreData[character].SpellTargets) == nil and not create then
         _P("Removing character " .. character)
         VoreData[character] = nil
-    else
-        _P("Skipping character " .. character)
     end
 end
 
@@ -184,6 +182,9 @@ function SP_AddPrey(pred, prey, swallowStages, locus)
     VoreData[prey].Pred = pred
     VoreData[pred].Prey[prey] = locus
 
+    -- reset swallow process in ALL cases
+    VoreData[prey].SwallowProcess = 0
+
     if oldPred == "" then
         VoreData[prey].Weight = weight
         VoreData[prey].FixedWeight = weight
@@ -270,7 +271,7 @@ function SP_UpdateStuffed(pred)
 
     local stuffedStacks = 0
     local stacks = SP_Shallowcopy(StuffedAdditions)
-    _D(stacks)
+    -- _D(stacks)
     -- calculate the weight of all preys
     for prey, locus in pairs(VoreData[pred].Prey) do
         -- initial prey weight
@@ -509,6 +510,8 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     local markedForSwallow = {}
     local markedForErase = {}
 
+    local regurgitatedLiving = 0
+
     local roll = -1
     if preyString == "Random" then
         roll = Osi.Roll(SP_TableLength(VoreData[pred].Prey))
@@ -542,6 +545,10 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
                 _P('Prey:' .. prey)
                 VoreData[pred].Prey[prey] = nil
                 SP_ReduceWeightRecursive(pred, VoreData[prey].Weight, true)
+
+                if VoreData[prey].Digestion == DType.Endo or VoreData[prey].Digestion == DType.Lethal then
+                    regurgitatedLiving = regurgitatedLiving + 1
+                end
                 -- Voreception
                 if VoreData[pred].Pred ~= "" and spell ~= "Transfer" then
                     table.insert(markedForSwallow, prey)
@@ -603,8 +610,6 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
     -- offset to avoid placing prey into each other
     local rotationOffsetDisosal = 0
     local rotationOffsetDisosal1 = 30
-
-    local regurgitatedLiving = 0
 
     -- Remove regurgitated prey from the table and release them
     for _, prey in ipairs(markedForRemoval) do
@@ -688,9 +693,6 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
 
         --clear prey VoreDataEntry
         VoreData[prey].Locus = ""
-        if VoreData[prey].Digestion == DType.Endo or VoreData[prey].Digestion == DType.Lethal then
-            regurgitatedLiving = regurgitatedLiving + 1
-        end
         VoreData[prey].Digestion = DType.None
         VoreData[prey].SwallowedStatus = ""
         VoreData[prey].DigestionStatus = ""
@@ -1286,23 +1288,30 @@ function SP_GetDigestionVoreStatus(pred, prey, digestionType)
     return statusPrefix .. mainName, harmful
 end
 
----switches to a different type of digestion
+---switches to a type of digestion
 ---@param pred CHARACTER
 ---@param prey CHARACTER
----@param toDig integer fromDig switch from this digestion type
+---@param toDig integer switch to this digestion type
 function SP_SwitchToDigestionType(pred, prey, toDig)
     VoreData[prey].Digestion = toDig
 
-    -- apply digestion  status
+    -- apply digestion status
     local harmful = false
     VoreData[prey].DigestionStatus, harmful = SP_GetDigestionVoreStatus(pred, prey, VoreData[prey].Digestion, VoreData[prey].Locus)
-    -- apply swallow status
-    Osi.ApplyStatus(prey, VoreData[prey].DigestionStatus, 1 * SecondsPerTurn, 1, pred)
+    if not SP_HasStatusWithCause(prey, VoreData[prey].DigestionStatus, pred) then
+        Osi.ApplyStatus(prey, VoreData[prey].DigestionStatus, 1 * SecondsPerTurn, 1, pred)
+    end
+    -- apply restraining status
     if VoreData[prey].SwallowProcess == 0 then
         VoreData[prey].SwallowedStatus = SP_GetSwallowedVoreStatus(pred, prey, VoreData[prey].Digestion, VoreData[prey].Locus)
-        Osi.ApplyStatus(prey, VoreData[prey].SwallowedStatus, 100 * SecondsPerTurn, 1, pred)
+        if not SP_HasStatusWithCause(prey, VoreData[prey].SwallowedStatus, pred) then
+            Osi.ApplyStatus(prey, VoreData[prey].SwallowedStatus, 100 * SecondsPerTurn, 1, pred)
+        end
     end
-    Osi.ApplyStatus(prey, "SP_InLocus_" .. VoreData[prey].Locus, 1 * SecondsPerTurn, 1, pred)
+    -- apply locus status
+    if not SP_HasStatusWithCause(prey, "SP_InLocus_" .. VoreData[prey].Locus, pred) then
+        Osi.ApplyStatus(prey, "SP_InLocus_" .. VoreData[prey].Locus, 1 * SecondsPerTurn, 1, pred)
+    end
     --start combat
     if harmful and Osi.IsPartyMember(prey, 1) ~= 1 or Osi.IsAlly(pred, prey) ~= 1 then
         Osi.SetRelationTemporaryHostile(prey, pred)
