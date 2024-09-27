@@ -69,6 +69,7 @@ function SP_OnSessionLoaded()
     SP_ResetRaceWeightsConfig()
     --SP_LoadConfigFromFile()
     SP_LoadRaceWeightsConfigFromFile()
+    SP_LoadRaceBellyConfigFromFile()
     if PersistentVars['VoreData'] == nil then
         PersistentVars['VoreData'] = {}
     end

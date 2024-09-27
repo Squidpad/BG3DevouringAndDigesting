@@ -3,49 +3,51 @@
 ---@param weight integer How many weight placeholders in inventory.
 function SP_UpdateBelly(pred, weight)
 
-    -- base volume ~ base weight
-    -- offset is to account for some empty space inside the pred, which allows the pred to swallow light items without belly sticking out
-    local baseVolume = 150
-    local baseWeight = 80
-    local offset = 10
-    local volume = (weight * baseVolume / baseWeight - offset) * (SP_MCMGet("BellyScale") / 100)
-
     local predRace = Osi.GetRace(pred, 1)
     -- These races use the same or similar model.
-    if string.find(predRace, 'Drow') ~= nil or string.find(predRace, 'Elf') ~= nil or string.find(predRace, 'Human') ~= nil or
-        string.find(predRace, 'Aasimar') ~= nil or string.find(predRace, 'Tiefling') ~= nil then
-        predRace = 'Human'
-    elseif string.find(predRace, 'Gith') ~= nil then
-        predRace = 'Gith'
-    elseif string.find(predRace, 'Orc') ~= nil then
-        predRace = 'Orc'
-    elseif string.find(predRace, 'Dragonborn') ~= nil then
-        predRace = 'Dragonborn'
+
+    if CustomRaceAliases[predRace] ~= nil then
+        predRace = CustomRaceAliases[predRace]
     end
-    if BellyTable[predRace] == nil then
+    if RaceAliases[predRace] ~= nil then
+        predRace = RaceAliases[predRace]
+    end
+
+    local raceSettings = {}
+    if CustomRacesBellies[predRace] ~= nil then
+        raceSettings = CustomRacesBellies[predRace]
+    elseif BellyTable[predRace] ~= nil then
+        raceSettings = BellyTable[predRace]
+    else
         _P("Race " .. predRace .. " does not support bellies")
         return
     end
+
     local sex = Osi.GetBodyType(pred, 1)
     -- Only female belly is currently implemented.
-    if BellyTable[predRace].Sexes == false then
+    if raceSettings.Sexes == false then
         sex = "Sex"
     end
-    if BellyTable[predRace][sex] == nil then
+    if raceSettings[sex] == nil then
         _P("Sex " .. sex .. " does not support bellies")
         return
     end
-    local bodyShape = 0
-    if BellyTable[predRace][sex].BodyShapes then
+    local bodyShape = "Default"
+    if raceSettings[sex].BodyShapes then
         local tags = Ext.Entity.Get(pred).Tag.Tags
         for _, v in pairs(tags) do
             if v == "d3116e58-c55a-4853-a700-bee996207397" then
-                bodyShape = 1
+                bodyShape = "Strong"
             end
         end
     end
-    if BellyTable[predRace][sex][bodyShape] == nil then
+    if raceSettings[sex][bodyShape] == nil then
         _P("Body shape " .. bodyShape .. " does not support bellies")
+        return
+    end
+
+    if BellySets[raceSettings[sex][bodyShape]] == nil then
+        _P("Race " .. predRace .. " uses bad belly set " .. raceSettings[sex][bodyShape])
         return
     end
     -- fixes most npcs not having a field that stores visual overrides
@@ -54,20 +56,29 @@ function SP_UpdateBelly(pred, weight)
         predData:CreateComponent("CharacterCreationAppearance")
     end
 
+    
+    -- base volume ~ base weight
+    -- offset is to account for some empty space inside the pred, which allows the pred to swallow light items without belly sticking out
+    local baseVolume = 150
+    local baseWeight = 80
+    local offset = 10
+    local volume = (weight * baseVolume / baseWeight - offset) * (SP_MCMGet("BellyScale") / 100)
+
+
     -- for size change
     local predSizeCategory = predData.ObjectSize.Size
 
     if predSizeCategory ~= nil then
-        if predSizeCategory > BellyTable[predRace].DefaultSize then
-            volume = volume / (predSizeCategory - BellyTable[predRace].DefaultSize + 1)
-        elseif predSizeCategory < BellyTable[predRace].DefaultSize then
-            volume = volume * (BellyTable[predRace].DefaultSize - predSizeCategory + 1)
+        if predSizeCategory > raceSettings.DefaultSize then
+            volume = volume / (predSizeCategory - raceSettings.DefaultSize + 1)
+        elseif predSizeCategory < raceSettings.DefaultSize then
+            volume = volume * (raceSettings.DefaultSize - predSizeCategory + 1)
         end
     end
 
     local bellySize = 0
     local bellyShape = ""
-    for k, v in pairs(BellyTable[predRace][sex][bodyShape]) do
+    for k, v in pairs(BellySets[raceSettings[sex][bodyShape]]) do
         if volume > k and k > bellySize then
             bellySize = k
             bellyShape = v

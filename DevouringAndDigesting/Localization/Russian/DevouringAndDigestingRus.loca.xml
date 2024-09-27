@@ -644,6 +644,9 @@
 	
 	<content contentuid="hc42a1cc4g0f53g4c6ag8039g588c4746ca5f" version="1">Шанс урчания желудка</content>
 	<content contentuid="h4e78058fge597g4483g8df2g659cf3bd9292" version="1">Каждые 6 секунд (1 ход) будет шанс на то, что проиграется звук урчания желудка.&#10;Установите значение 0, чтобы отключить.</content>
+
+    <content contentuid="he87e3e39189a45de82db37295afb6361e9ac" version="1">Перезагрузить конфиг животов рас</content>
+    <content contentuid="h43863a6bcac843bea9d9600884f817539b63" version="1">Перезагружает конфиг животов для рас из модов из текущего сохраненного файла CustomRacesBellies.json (если он существует). Обычно он загружается при загрузке сохранения, но эта опция позволяет вам вручную&#10;перезагрузить его.</content>
 	
 	<!-- Debug -->
 	<content contentuid="h4e097d7dg8b92g4eecg943fg8f3c446cd600" version="1">Включить функции отладки</content>

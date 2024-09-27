@@ -515,6 +515,14 @@
                         "Max": 100
                     },
                     "Handles": {"NameHandle":"hc42a1cc4g0f53g4c6ag8039g588c4746ca5f","DescriptionHandle":"h4e78058fge597g4483g8df2g659cf3bd9292"}
+                },
+                {
+                    "Id": "rReloadBellyConfig",
+                    "Name": "Reload Belly Config",
+                    "Default": false,
+                    "Description": "Reloads the config for bellies for custom races from the currently saved CustomRacesBellies.json (if it exists)\nNormally it's loaded when you load a save, but this option allows you to manually reload it.",
+                    "Type": "checkbox",
+                    "Handles": {"NameHandle":"he87e3e39189a45de82db37295afb6361e9ac","DescriptionHandle":"h43863a6bcac843bea9d9600884f817539b63"}
                 }
             ],
             "VisibleIf": {

@@ -645,6 +645,9 @@
 	
 	<content contentuid="hc42a1cc4g0f53g4c6ag8039g588c4746ca5f" version="1">Gurgle Probability</content>
 	<content contentuid="h4e78058fge597g4483g8df2g659cf3bd9292" version="1">The % chance of a gurgle being played every 6 seconds (a turn). Set to 0 to disable.</content>
+
+    <content contentuid="he87e3e39189a45de82db37295afb6361e9ac" version="1">Reload Belly Config</content>
+    <content contentuid="h43863a6bcac843bea9d9600884f817539b63" version="1">Reloads the config for bellies for custom races from the currently saved CustomRacesBellies.json (if it exists)&#10;Normally it's loaded when you load a save, but this option allows you to manually reload it.</content>
 	
 	<!-- Debug -->
 	<content contentuid="h4e097d7dg8b92g4eecg943fg8f3c446cd600" version="1">Enable Debug Options</content>

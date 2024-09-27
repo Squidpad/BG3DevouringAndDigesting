@@ -47,6 +47,11 @@ Ext.ModEvents.BG3MCM["MCM_Setting_Saved"]:Subscribe(function(data)
         SP_DelayCallTicks(10, function ()
             SP_MCMSet("rReloadRaceConfig", false)
         end)
+    elseif data.settingId == "rReloadBellyConfig" and data.value == true then
+        SP_LoadRaceBellyConfigFromFile()
+        SP_DelayCallTicks(10, function ()
+            SP_MCMSet("rReloadBellyConfig", false)
+        end)
     elseif data.settingId == "DetachPrey" then
         for k, v in pairs(VoreData) do
             if v.Pred ~= "" then
