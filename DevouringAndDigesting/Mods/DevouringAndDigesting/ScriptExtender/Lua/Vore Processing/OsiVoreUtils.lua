@@ -3,6 +3,17 @@
 ---@param weight integer How many weight placeholders in inventory.
 function SP_UpdateBelly(pred, weight)
 
+    if weight == 0 then
+        local predData = Ext.Entity.Get(pred)
+        if predData.CharacterCreationAppearance ~= nil then
+            for k, v in pairs(predData.CharacterCreationAppearance.Visuals) do
+                if AllBellies[v] == true then
+                    Osi.RemoveCustomVisualOvirride(pred, v)
+                end
+            end
+        end
+        return
+    end
     local predRace = Osi.GetRace(pred, 1)
     -- These races use the same or similar model.
 
@@ -13,7 +24,7 @@ function SP_UpdateBelly(pred, weight)
         predRace = RaceAliases[predRace]
     end
 
-    local raceSettings = {}
+    local raceSettings
     if CustomRacesBellies[predRace] ~= nil then
         raceSettings = CustomRacesBellies[predRace]
     elseif BellyTable[predRace] ~= nil then

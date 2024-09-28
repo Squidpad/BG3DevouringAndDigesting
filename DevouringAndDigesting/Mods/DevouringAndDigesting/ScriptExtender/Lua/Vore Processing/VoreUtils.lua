@@ -37,8 +37,9 @@ end
 
 ---returns true is a character participates in vore as a pred
 ---@param character CHARACTER
+---@param useAddweight? boolean addweight is needed for weight updates but not for spell adding/removal
 ---@return boolean
-function SP_IsPred(character)
+function SP_IsPred(character, useAddweight)
     if VoreData[character] == nil then
         return false
     end
@@ -46,6 +47,9 @@ function SP_IsPred(character)
         return true
     end
     if VoreData[character].Items ~= "" then
+        return true
+    end
+    if useAddweight and VoreData[character].AddWeight > 0 then
         return true
     end
     return false
@@ -709,8 +713,8 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
             VoreData[prey].Unpreferred = false
         end
         VoreData[prey].Pred = ""
-        SP_UpdateWeight(prey)
         SP_VoreDataEntry(prey, false)
+        SP_UpdateWeight(prey)
     end
 
 
@@ -817,7 +821,7 @@ function SP_ApplyOverstuffing(pred)
     local predData = Ext.Entity.Get(pred)
     local overStuff = math.ceil((predData.InventoryWeight.Weight - predData.EncumbranceStats["HeavilyEncumberedWeight"]) / mediumCharacterWeight)
     Osi.RemoveStatus(pred, "SP_OverstuffedDamage")
-    if SP_IsPred(pred) and overStuff > 0 then
+    if SP_IsPred(pred, true) and overStuff > 0 then
         Osi.ApplyStatus(pred, "SP_OverstuffedDamage", overStuff * SecondsPerTurn)
     end
 end
@@ -876,72 +880,68 @@ end
 function SP_DoUpdateWeight(pred, noVisual)
     WeightQueue[pred] = nil
     WeightQueueRunning[pred] = true
-    if VoreData[pred] == nil then
-        Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
-        Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
-        SP_UpdateStuffed(pred)
-        if noVisual ~= true then
-            SP_UpdateBelly(pred, 0)
-        end
-        SP_DelayCallTicks(6, function ()
-            SP_ApplyOverstuffing(pred)
-            WeightQueueRunning[pred] = nil
-            if WeightQueueWaiting[pred] ~= nil then
-                local t = WeightQueueWaiting[pred]
-                WeightQueueWaiting[pred] = nil
-                SP_UpdateWeight(pred, t)
-            end
-        end)
-        return
-    end
+
     local newWeight = 0
     local newWeightVisual = 0
+    if SP_IsPred(pred, true) then
+        -- predator capacity multiplier
+        for k, v in pairs(VoreData[pred].Prey) do
 
-    -- predator capacity multiplier
-    
+            local preyWeight = SP_CalculateWeightReduction(pred, k, VoreData[k].Digestion)
 
-    for k, v in pairs(VoreData[pred].Prey) do
+            -- stores by how much the weight of prey was reduced, so we can add this to the weight of pred if they are swallowed
+            VoreData[k].WeightReduction = VoreData[k].Weight - preyWeight
 
-        local preyWeight = SP_CalculateWeightReduction(pred, k, VoreData[k].Digestion)
+            newWeight = newWeight + preyWeight
+            if VoreData[k].Locus ~= 'C' then
+                newWeightVisual = newWeightVisual + VoreData[k].Weight
 
-        -- stores by how much the weight of prey was reduced, so we can add this to the weight of pred if they are swallowed
-        VoreData[k].WeightReduction = VoreData[k].Weight - preyWeight
+            end
+        end
 
-        newWeight = newWeight + preyWeight
-        if VoreData[k].Locus ~= 'C' then
-            newWeightVisual = newWeightVisual + VoreData[k].Weight
-            
+        -- add weight that does not belong to a prey
+        newWeight = newWeight + VoreData[pred].AddWeight
+        -- add weight that does not belong to a prey
+        newWeightVisual = newWeightVisual + VoreData[pred].Fat + VoreData[pred].AddWeight
+
+        -- fat can be a float, so we round it
+        newWeightVisual = math.floor(newWeightVisual)
+
+        if VoreData[pred].Items ~= "" then
+            newWeightVisual = newWeightVisual + Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // GramsPerKilo
+        end
+
+        if Osi.HasActiveStatus(pred, "SP_BellyCompressed") == 1 then
+            newWeightVisual = 0
+        end
+
+        Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
+        _P("Changing weight of " .. pred .. " to " .. newWeightVisual)
+        Osi.TemplateAddTo('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred, newWeight, 0)
+        -- This is very important, it fixes inventory weight not updating properly when removing items.
+        -- This is the only solution that worked. 8d3b74d4-0fe6-465f-9e96-36b416f4ea6f is removed
+        -- immediately after being added (in the main script).
+        Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
+
+        SP_UpdateStuffed(pred)
+
+    else
+        if Osi.HasTaggedItem(pred, '0e2988df-3863-4678-8d49-caf308d22f2a') == 1 then
+            _P("Removing weight placeholders from " .. pred)
+            Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
+            Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
+        end
+        if Osi.HasActiveStatus(pred, "SP_Stuffed") == 1 then
+            SP_UpdateStuffed(pred)
         end
     end
 
-    -- add weight that does not belong to a prey
-    newWeight = newWeight + VoreData[pred].AddWeight
-    -- add weight that does not belong to a prey
-    newWeightVisual = newWeightVisual + VoreData[pred].Fat + VoreData[pred].AddWeight
-
-    -- fat can be a float, so we round it
-    newWeightVisual = math.floor(newWeightVisual)
-
-    if VoreData[pred].Items ~= "" then
-        newWeightVisual = newWeightVisual + Ext.Entity.Get(VoreData[pred].Items).InventoryWeight.Weight // GramsPerKilo
-    end
-
-    if Osi.HasActiveStatus(pred, "SP_BellyCompressed") == 1 then
-        newWeightVisual = 0
-    end
-
-    _P("Changing weight of " .. pred .. " to " .. newWeightVisual)
-    Osi.CharacterRemoveTaggedItems(pred, '0e2988df-3863-4678-8d49-caf308d22f2a', 9999)
-    Osi.TemplateAddTo('f80c2fd2-5222-44aa-a68e-b2faa808171b', pred, newWeight, 0)
-    -- This is very important, it fixes inventory weight not updating properly when removing items.
-    -- This is the only solution that worked. 8d3b74d4-0fe6-465f-9e96-36b416f4ea6f is removed
-    -- immediately after being added (in the main script).
-    Osi.TemplateAddTo('8d3b74d4-0fe6-465f-9e96-36b416f4ea6f', pred, 1, 0)
-
-
-    SP_UpdateStuffed(pred)
-    if noVisual ~= true and VoreData[pred].Pred == "" then
-        SP_UpdateBelly(pred, newWeightVisual)
+    if noVisual ~= true then
+        if VoreData[pred] == nil then
+            SP_UpdateBelly(pred, 0)
+        elseif VoreData[pred].Pred == "" then
+            SP_UpdateBelly(pred, newWeightVisual)
+        end
     end
     -- the delay here is necessary because we wait until the potato is added
     SP_DelayCallTicks(6, function ()
@@ -1098,7 +1098,7 @@ function SP_HungerSystem(stacks, isLong)
     for k, v in pairs(party) do
         local predData = v:GetAllComponents()
         local pred = predData.ServerCharacter.Template.Name .. "_" .. predData.Uuid.EntityUuid
-        if Osi.IsTagged(pred, 'f7265d55-e88e-429e-88df-93f8e41c821c') == 1 and Osi.IsDead(pred) == 0 and Osi.IsPartyMember(v, 0) == 1 then
+        if Osi.IsTagged(pred, 'f7265d55-e88e-429e-88df-93f8e41c821c') == 1 and Osi.IsDead(pred) == 0 and Osi.IsPartyMember(pred, 0) == 1 then
             local hungerStacks = stacks + Osi.GetStatusTurns(pred, "SP_Hunger")
             local newhungerStacks = hungerStacks
             if VoreData[pred] ~= nil then
