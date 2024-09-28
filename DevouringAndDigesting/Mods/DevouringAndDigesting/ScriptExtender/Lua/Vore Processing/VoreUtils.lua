@@ -37,9 +37,9 @@ end
 
 ---returns true is a character participates in vore as a pred
 ---@param character CHARACTER
----@param useAddweight? boolean addweight is needed for weight updates but not for spell adding/removal
+---@param mode? integer 0/null = only if pred has acrive prey/items, 1 = if pred also has addweight, 2 = if pred has any of pred stats
 ---@return boolean
-function SP_IsPred(character, useAddweight)
+function SP_IsPred(character, mode)
     if VoreData[character] == nil then
         return false
     end
@@ -49,8 +49,13 @@ function SP_IsPred(character, useAddweight)
     if VoreData[character].Items ~= "" then
         return true
     end
-    if useAddweight and VoreData[character].AddWeight > 0 then
-        return true
+    if mode ~= nil then
+        if mode > 0 and VoreData[character].AddWeight > 0 then
+            return true
+        end
+        if mode > 1 and (VoreData[character].Fat > 0 or VoreData[character].Satiation > 0) then
+            return true
+        end
     end
     return false
 end
@@ -247,7 +252,7 @@ function SP_AddPrey(pred, prey, swallowStages, locus)
         end
     end
 
-    SP_ReduceWeightRecursive(pred, -VoreData[prey].Weight, true)
+    SP_ReduceWeightRecursive(pred, -VoreData[prey].Weight, true, false)
 end
 
 
@@ -419,7 +424,7 @@ function SP_SwallowItem(pred, item)
 
 
         SP_DelayCallTicks(4, function ()
-            SP_ReduceWeightRecursive(pred, -itemWeight, true)
+            SP_ReduceWeightRecursive(pred, -itemWeight, true, false)
         end)
     else
         Osi.TemplateAddTo('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred, 1, 0)
@@ -449,7 +454,7 @@ function SP_SwallowAllItems(pred, container)
 
 
         SP_DelayCallTicks(4, function ()
-            SP_ReduceWeightRecursive(pred, -itemWeight, true)
+            SP_ReduceWeightRecursive(pred, -itemWeight, true, false)
         end)
     else
         Osi.TemplateAddTo('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred, 1, 0)
@@ -548,7 +553,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
                 _P('Pred:' .. pred)
                 _P('Prey:' .. prey)
                 VoreData[pred].Prey[prey] = nil
-                SP_ReduceWeightRecursive(pred, VoreData[prey].Weight, true)
+                SP_ReduceWeightRecursive(pred, VoreData[prey].Weight, true, false)
 
                 if VoreData[prey].Digestion == DType.Endo or VoreData[prey].Digestion == DType.Lethal then
                     regurgitatedLiving = regurgitatedLiving + 1
@@ -762,7 +767,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
 
     Osi.RemoveStatus(pred, "SP_Cant_Fit_Prey")
 
-    SP_ReduceWeightRecursive(pred, 0, true)
+    SP_ReduceWeightRecursive(pred, 0, true, false)
     SP_VoreDataEntry(pred, false)
     _P('Ending Regurgitation')
 end
@@ -821,7 +826,7 @@ function SP_ApplyOverstuffing(pred)
     local predData = Ext.Entity.Get(pred)
     local overStuff = math.ceil((predData.InventoryWeight.Weight - predData.EncumbranceStats["HeavilyEncumberedWeight"]) / mediumCharacterWeight)
     Osi.RemoveStatus(pred, "SP_OverstuffedDamage")
-    if SP_IsPred(pred, true) and overStuff > 0 then
+    if SP_IsPred(pred, 1) and overStuff > 0 then
         Osi.ApplyStatus(pred, "SP_OverstuffedDamage", overStuff * SecondsPerTurn)
     end
 end
@@ -883,7 +888,7 @@ function SP_DoUpdateWeight(pred, noVisual)
 
     local newWeight = 0
     local newWeightVisual = 0
-    if SP_IsPred(pred, true) then
+    if SP_IsPred(pred, 2) then
         -- predator capacity multiplier
         for k, v in pairs(VoreData[pred].Prey) do
 
@@ -988,7 +993,9 @@ end
 ---@param character CHARACTER
 ---@param diff integer Amount to subtract.
 ---@param reduceFixed boolean if we reduce the fixedweight of prey
-function SP_ReduceWeightRecursive(character, diff, reduceFixed)
+---@param dontUpdateWeightFirst boolean will not update first character's belly size/weight placeholders.
+---Set this to true when we're sure the amount of weight placeholders for this character should remain the same
+function SP_ReduceWeightRecursive(character, diff, reduceFixed, dontUpdateWeightFirst)
     if character == nil or VoreData[character] == nil then
         return
     end
@@ -998,8 +1005,10 @@ function SP_ReduceWeightRecursive(character, diff, reduceFixed)
             VoreData[character].FixedWeight = math.max(VoreData[character].FixedWeight - diff, 0)
         end
         VoreData[character].Weight = math.max(VoreData[character].Weight - diff, 0)
-        SP_UpdateWeight(character)
-        SP_ReduceWeightRecursive(pred, diff, true)
+        if dontUpdateWeightFirst ~= true then
+            SP_UpdateWeight(character)
+        end
+        SP_ReduceWeightRecursive(pred, diff, true, false)
     else
         SP_UpdateWeight(character)
     end
@@ -1030,7 +1039,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
             --since addweight is a part of character's weight if character with addweight is prey
             --we need to reduce weight of the character and all their preds
             --but because this is different from weight reduction from digestion, we also reduce fixedweight
-            SP_ReduceWeightRecursive(k, thisAddDiff, true)
+            SP_ReduceWeightRecursive(k, thisAddDiff, true, false)
         end
         if SP_MCMGet("WeightGain") and VoreData[k].Fat > 0 then
             VoreData[k].Fat = math.max(0, VoreData[k].Fat - fatDiff)
@@ -1046,7 +1055,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
         -- reformation
         if v.Digestion == DType.Dead and Osi.HasActiveStatus(k, "SP_ReformationStatus") == 1 then
             thisDiff = math.min(v.FixedWeight - thisDiff, thisDiff)
-            SP_ReduceWeightRecursive(k, -thisDiff, false)
+            SP_ReduceWeightRecursive(k, -thisDiff, false, true)
             _P("Reformation: " .. thisDiff)
             -- end reformation
             if v.Weight >= v.FixedWeight then
@@ -1071,7 +1080,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                 VoreData[v.Pred].Satiation = VoreData[v.Pred].Satiation +
                     thisDiff * SP_MCMGet("HungerSatiationRate") / 100
             end
-            SP_ReduceWeightRecursive(k, thisDiff, false)
+            SP_ReduceWeightRecursive(k, thisDiff, false, true)
         -- if prey is endoed and pred has soothing stomach, add satiation
         elseif v.Digestion == DType.Endo then
             if SP_MCMGet("Hunger") and Osi.IsPartyMember(v.Pred, 0) == 1 and Osi.HasPassive(v.Pred, "SP_SoothingStomach") == 1 then
@@ -1181,7 +1190,7 @@ function SP_FastDigestion(pred, allPrey, force)
             if VoreData[prey].Digestion == DType.Dead and Osi.HasActiveStatus(prey, "SP_ReformationStatus") == 1 then
                 preyWeightDiff = math.min(VoreData[prey].FixedWeight - force, force)
                 -- remembers all characters whose weight we need to update
-                SP_ReduceWeightRecursive(prey, -preyWeightDiff, false)
+                SP_ReduceWeightRecursive(prey, -preyWeightDiff, false, true)
                 _P("Reformation: " .. preyWeightDiff)
                 -- end reformation
                 if VoreData[prey].Weight >= VoreData[prey].FixedWeight then
@@ -1210,7 +1219,7 @@ function SP_FastDigestion(pred, allPrey, force)
                         preyWeightDiff * SP_MCMGet("HungerSatiationRate") / 100
                 end
                 -- remembers all characters whose weight we need to update
-                SP_ReduceWeightRecursive(prey, preyWeightDiff, false)
+                SP_ReduceWeightRecursive(prey, preyWeightDiff, false, true)
             end
         end
     end
