@@ -167,8 +167,8 @@
                 {
                     "Id": "HungerSatiationRate",
                     "Name": "Digestion Efficiency",
-                    "Default": 25,
-                    "Description": "How much satiation you get from digestion. This number is a percentage of the value of Digestion Rate (Long Rest)",
+                    "Default": 40,
+                    "Description": "How much satiation you get from digestion. This number is a percentage of the value of the prey's weight",
                     "Type": "slider_int",
                     "Options": {
                         "Min": 0,

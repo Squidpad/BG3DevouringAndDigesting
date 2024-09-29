@@ -553,7 +553,7 @@
 	<content contentuid="hc03c838fgc6bag47abg8258gdc445c97c66f" version="1">The amount of satiation required to reduce your hunger by 1 stack. A bigger value means you require more prey to sastiate your hunger.</content>
 	
 	<content contentuid="h1926ab47gf338g421bg887cg342fa00e833f" version="1">Digestion Efficiency</content>
-	<content contentuid="h488fd883g0dcdg4a28g928dg41eec5a4178a" version="1">How much satiation you get from digestion. This number is a percentage of the value of Digestion Rate (Long Rest)</content>
+	<content contentuid="h488fd883g0dcdg4a28g928dg41eec5a4178a" version="1">How much satiation you get from digestion. This number is a percentage of the prey's weight</content>
 	
 	<content contentuid="h4460f58agbdc9g477cg97f7g8fdb2b754f1f" version="1">Hunger Stacks (Short Rest)</content>
 	<content contentuid="h9be661c7gb95bg4046gbfe3g579efc013310" version="1">Hunger stacks gained on short rest.</content>

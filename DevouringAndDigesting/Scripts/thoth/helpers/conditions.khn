@@ -49,7 +49,7 @@ function SwallowCheck(lethal)
     local prey = context.Target
     local lethal = lethal or false
     -- when used in conditions, bools must be turned into ConditionResults
-    local willing = (Ally() & ~ConditionResult(lethal)) | Party() | Item()
+    local willing = (Ally() & ~ConditionResult(lethal)) | (Party(pred) & Party(prey)) | Item()
     if not willing.Result then
 
         local adv = IsSneakingOrInvisible() | HasPassive('SP_StretchyMaw', pred) | HasStatus('SP_RavenousStatus', pred) | HasStatus('SP_Tasty', prey) | IsCrowdControlled(prey)
