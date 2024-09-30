@@ -186,7 +186,7 @@ function SP_AddPrey(pred, prey, swallowStages, locus)
     local predSize = SP_GetCharacterSize(pred)
     local preySize = SP_GetCharacterSize(prey)
 
-    local oldPred = VoreData[pred].Pred
+    local oldPred = VoreData[prey].Pred
 
     VoreData[prey].Pred = pred
     VoreData[pred].Prey[prey] = locus
@@ -706,6 +706,7 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         VoreData[prey].SwallowedStatus = ""
         VoreData[prey].DigestionStatus = ""
 
+        VoreData[prey].SwallowProcess = 0
         VoreData[prey].Weight = 0
         VoreData[prey].FixedWeight = 0
 
@@ -1043,6 +1044,7 @@ function SP_SlowDigestion(weightDiff, fatDiff)
         end
         if SP_MCMGet("WeightGain") and VoreData[k].Fat > 0 then
             VoreData[k].Fat = math.max(0, VoreData[k].Fat - fatDiff)
+            SP_UpdateWeight(k)
         end
     end
 
@@ -1088,9 +1090,6 @@ function SP_SlowDigestion(weightDiff, fatDiff)
                     weightDiff * SP_MCMGet("HungerSatiationRate") / 100
             end
         end
-    end
-    for k, v in pairs(VoreData) do
-        SP_VoreDataEntry(k, false)
     end
 end
 

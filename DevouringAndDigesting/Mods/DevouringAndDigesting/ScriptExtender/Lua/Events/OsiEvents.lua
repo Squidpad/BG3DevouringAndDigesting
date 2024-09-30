@@ -834,6 +834,11 @@ function SP_OnShortRest(character)
     SP_DelayCallTicks(5, function ()
         calculateRest = true
     end)
+    SP_DelayCallTicks(15, function ()
+        for k, v in pairs(VoreData) do
+            SP_VoreDataEntry(k, false)
+        end
+    end)
 end
 
 ---Fires once after long rest.
@@ -855,6 +860,8 @@ function SP_OnLongRest()
                         SP_RegurgitatePrey(k, "All", 1, "Rest")
                     end
                 end
+            else
+                SP_VoreDataEntry(k, false)
             end
         end
     end)
