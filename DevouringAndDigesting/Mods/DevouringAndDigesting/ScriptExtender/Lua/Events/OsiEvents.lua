@@ -246,25 +246,26 @@ function SP_OnSpellCastTarget(caster, target, spell, spellType, spellElement, st
             end
         elseif spellName == 'Acidify' then
             local powerLevel = spellParams[4]
-            if VoreData[caster] ~= nil then
-                for k, v in pairs(VoreData[caster].Prey) do
+            _P("Cast Acidify " .. powerLevel)
+            if VoreData[target] ~= nil then
+                for k, v in pairs(VoreData[target].Prey) do
                     if VoreData[k].Digestion == DType.Lethal then
-                        Osi.ApplyStatus(k, 'SP_AcidifyStatus_' ..powerLevel , 0, 1, caster)
+                        Osi.ApplyStatus(k, 'SP_AcidifyStatus_' ..powerLevel , 0, 1, target)
                     end
                 end
             end
         elseif spellName == 'Churn' then
-            if VoreData[caster] ~= nil then
+            if VoreData[target] ~= nil then
                 local fullDigestThese = {}
-                for k, v in pairs(VoreData[caster].Prey) do
+                for k, v in pairs(VoreData[target].Prey) do
                     if VoreData[k].Digestion == DType.Lethal then
-                        Osi.ApplyStatus(k, 'SP_ChurnStatus' , 0, 1, caster)
+                        Osi.ApplyStatus(k, 'SP_ChurnStatus' , 0, 1, target)
                     elseif VoreData[k].Digestion == DType.Dead then
                         fullDigestThese[k] = v
                     end
                 end
                 if next(fullDigestThese) ~= nil then
-                    SP_FastDigestion(caster, fullDigestThese, 0)
+                    SP_FastDigestion(target, fullDigestThese, 0)
                 end
             end
         elseif spellName == 'Rescue' then
