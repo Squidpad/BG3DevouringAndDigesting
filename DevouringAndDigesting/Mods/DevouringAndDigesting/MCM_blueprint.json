@@ -463,7 +463,7 @@
                 {
                     "Id": "RegurgitationHunger",
                     "Name": "Regurgitation Hunger",
-                    "Default": 0,
+                    "Default": 1,
                     "Description": "If the hunger mechanic is enabled and this is greater than 0, you will recieve this amount of stacks after regurgitating a living prey, per prey. Alternative to Regurgitation Cooldown",
                     "Type": "slider_int",
                     "Options": {
