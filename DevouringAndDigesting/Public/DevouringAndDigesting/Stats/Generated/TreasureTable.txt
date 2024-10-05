@@ -13,3 +13,5 @@ new subtable "1,1"
 object category "I_SP_PotionOfUnbirth",1,0,0,0,0,0,0,0
 new subtable "1,1"
 object category "I_SP_PotionOfCockVore",1,0,0,0,0,0,0,0
+new subtable "1,1"
+object category "I_SP_PotionOfRest",1,0,0,0,0,0,0,0

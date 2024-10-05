@@ -4,9 +4,9 @@ local levelGameplayStarted = false
 local osiListenersQueue = {}
 
 ---Registers a function as a one-time callback for a specified Osiris event.
----@param event FixedString
+---@param event string
 ---@param arity integer
----@param when FixedString
+---@param when string
 ---@param handler function
 function SP_OsirisRegisterOneTimeListener(event, arity, when, handler)
     local key = event .. "_" .. arity .. "_" .. when

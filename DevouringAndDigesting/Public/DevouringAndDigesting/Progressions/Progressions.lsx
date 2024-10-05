@@ -26,6 +26,7 @@
                 <node id="Progression">
                     <attribute id="Level" type="uint8" value="3"/>
                     <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_GreatHunger_RestoreSlotDescription"/>
                     <attribute id="ProgressionType" type="uint8" value="1"/>
                     <attribute id="Selectors" type="LSString" value="SelectSpells(fe101a94-8619-49b2-859d-a68c2c291054,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a)"/>
                     <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
@@ -42,6 +43,7 @@
                 <node id="Progression">
                     <attribute id="Level" type="uint8" value="5"/>
                     <attribute id="Name" type="LSString" value="GreatHunger"/>
+                    <attribute id="PassivesAdded" type="LSString" value="SP_SC_GreatHunger_Capacity"/>
                     <attribute id="ProgressionType" type="uint8" value="1"/>
                     <attribute id="Selectors" type="LSString" value="SelectSpells(30e9b761-6be0-418e-bb28-5103c00c663b,1,2,,,e9127b70-22b7-42a1-b172-d02f828f260a);SelectPassives(fd2c7e00-95a5-444a-a63a-5cccb38c7f11,1,HungerBoon)"/>
                     <attribute id="TableUUID" type="guid" value="ff138048-5e46-4d19-bf53-60844aca0bc2"/>
@@ -142,7 +144,7 @@
                     <attribute id="Boosts" type="LSString" value="ActionResource(WarPriestActionPoint,3,0);Proficiency(HeavyArmor);Proficiency(MartialWeapons)" />
                     <attribute id="Level" type="uint8" value="1" />
                     <attribute id="Name" type="LSString" value="AcidDomain" />
-                    <attribute id="PassivesAdded" type="LSString" value="AN_HealingBelly" />
+                    <attribute id="PassivesAdded" type="LSString" value="SP_AN_HealingBelly" />
                     <attribute id="ProgressionType" type="uint8" value="1" />
                     <attribute id="Selectors" type="LSString" value="AddSpells(10da167c-1f52-4fb0-a2f7-bfc7665723c3,ClericWarDomainSpells,,,AlwaysPrepared)" />
                     <attribute id="TableUUID" type="guid" value="8ef96b15-ba5f-415b-900b-0f50eca0bdb7" />

@@ -37,6 +37,8 @@ Ext.Require("Utils/OsiUtils.lua")
 -- non vore or ext/osi related utils
 Ext.Require("Utils/Utils.lua")
 
+-- functions that are called from certain event listeners, to avoid bloat in OsiEvents.lua
+Ext.Require("Vore Processing/OsiEventsProcessing.lua")
 -- utils that are directly related to vore but do not use voredata
 Ext.Require("Vore Processing/OsiVoreUtils.lua")
 -- VoreData management

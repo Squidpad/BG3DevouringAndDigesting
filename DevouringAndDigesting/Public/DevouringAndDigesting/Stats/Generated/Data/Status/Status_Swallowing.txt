@@ -7,3 +7,68 @@ data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
 data "StackId" "SP_Cant_Fit_Prey"
 data "StackType" "Overwrite"
 data "OnApplyFunctors" ""
+
+
+new entry "SP_DoSwallow_Endo_O"
+type "StatusData"
+data "StatusType" "BOOST"
+data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
+
+new entry "SP_DoSwallow_Endo_A"
+type "StatusData"
+data "StatusType" "BOOST"
+using "SP_DoSwallow_Endo_O"
+
+new entry "SP_DoSwallow_Endo_U"
+type "StatusData"
+data "StatusType" "BOOST"
+using "SP_DoSwallow_Endo_O"
+
+new entry "SP_DoSwallow_Endo_C"
+type "StatusData"
+data "StatusType" "BOOST"
+using "SP_DoSwallow_Endo_O"
+
+new entry "SP_DoSwallow_Lethal_O"
+type "StatusData"
+data "StatusType" "BOOST"
+using "SP_DoSwallow_Endo_O"
+
+new entry "SP_DoSwallow_Lethal_A"
+type "StatusData"
+data "StatusType" "BOOST"
+using "SP_DoSwallow_Lethal_O"
+
+new entry "SP_DoSwallow_Lethal_U"
+type "StatusData"
+data "StatusType" "BOOST"
+using "SP_DoSwallow_Lethal_O"
+
+new entry "SP_DoSwallow_Lethal_C"
+type "StatusData"
+data "StatusType" "BOOST"
+using "SP_DoSwallow_Lethal_O"
+
+
+new entry "SP_FailSwallow"
+type "StatusData"
+data "StatusType" "BOOST"
+data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
+
+
+new entry "SP_TrySwallow_Endo_O"
+type "StatusData"
+data "StatusType" "BOOST"
+data "OnApplyRoll" "SwallowCheck()"
+data "OnApplySuccess" "ApplyStatus(SP_DoSwallow_Endo_O, 100, 0)"
+data "OnApplyFail" "ApplyStatus(SP_FailSwallow, 100, 0)"
+data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"
+
+
+new entry "SP_TrySwallow_Lethal_O"
+type "StatusData"
+data "StatusType" "BOOST"
+data "OnApplyRoll" "SwallowCheck()"
+data "OnApplySuccess" "ApplyStatus(SP_DoSwallow_Lethal_O, 100, 0)"
+data "OnApplyFail" "ApplyStatus(SP_FailSwallow, 100, 0)"
+data "StatusPropertyFlags" "DisablePortraitIndicator;DisableCombatlog"

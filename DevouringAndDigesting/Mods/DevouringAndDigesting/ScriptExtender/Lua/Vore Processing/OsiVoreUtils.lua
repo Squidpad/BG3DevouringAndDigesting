@@ -3,49 +3,62 @@
 ---@param weight integer How many weight placeholders in inventory.
 function SP_UpdateBelly(pred, weight)
 
-    -- base volume ~ base weight
-    -- offset is to account for some empty space inside the pred, which allows the pred to swallow light items without belly sticking out
-    local baseVolume = 150
-    local baseWeight = 80
-    local offset = 10
-    local volume = (weight * baseVolume / baseWeight - offset) * (SP_MCMGet("BellyScale") / 100)
-
+    if weight == 0 then
+        local predData = Ext.Entity.Get(pred)
+        if predData.CharacterCreationAppearance ~= nil then
+            for k, v in pairs(predData.CharacterCreationAppearance.Visuals) do
+                if AllBellies[v] == true then
+                    Osi.RemoveCustomVisualOvirride(pred, v)
+                end
+            end
+        end
+        return
+    end
     local predRace = Osi.GetRace(pred, 1)
     -- These races use the same or similar model.
-    if string.find(predRace, 'Drow') ~= nil or string.find(predRace, 'Elf') ~= nil or string.find(predRace, 'Human') ~= nil or
-        string.find(predRace, 'Aasimar') ~= nil or string.find(predRace, 'Tiefling') ~= nil then
-        predRace = 'Human'
-    elseif string.find(predRace, 'Gith') ~= nil then
-        predRace = 'Gith'
-    elseif string.find(predRace, 'Orc') ~= nil then
-        predRace = 'Orc'
-    elseif string.find(predRace, 'Dragonborn') ~= nil then
-        predRace = 'Dragonborn'
+
+    if CustomRaceAliases[predRace] ~= nil then
+        predRace = CustomRaceAliases[predRace]
     end
-    if BellyTable[predRace] == nil then
+    if RaceAliases[predRace] ~= nil then
+        predRace = RaceAliases[predRace]
+    end
+
+    local raceSettings
+    if CustomRacesBellies[predRace] ~= nil then
+        raceSettings = CustomRacesBellies[predRace]
+    elseif BellyTable[predRace] ~= nil then
+        raceSettings = BellyTable[predRace]
+    else
         _P("Race " .. predRace .. " does not support bellies")
         return
     end
+
     local sex = Osi.GetBodyType(pred, 1)
     -- Only female belly is currently implemented.
-    if BellyTable[predRace].Sexes == false then
+    if raceSettings.Sexes == false then
         sex = "Sex"
     end
-    if BellyTable[predRace][sex] == nil then
+    if raceSettings[sex] == nil then
         _P("Sex " .. sex .. " does not support bellies")
         return
     end
-    local bodyShape = 0
-    if BellyTable[predRace][sex].BodyShapes then
+    local bodyShape = "Default"
+    if raceSettings[sex].BodyShapes then
         local tags = Ext.Entity.Get(pred).Tag.Tags
         for _, v in pairs(tags) do
             if v == "d3116e58-c55a-4853-a700-bee996207397" then
-                bodyShape = 1
+                bodyShape = "Strong"
             end
         end
     end
-    if BellyTable[predRace][sex][bodyShape] == nil then
+    if raceSettings[sex][bodyShape] == nil then
         _P("Body shape " .. bodyShape .. " does not support bellies")
+        return
+    end
+
+    if BellySets[raceSettings[sex][bodyShape]] == nil then
+        _P("Race " .. predRace .. " uses bad belly set " .. raceSettings[sex][bodyShape])
         return
     end
     -- fixes most npcs not having a field that stores visual overrides
@@ -54,20 +67,29 @@ function SP_UpdateBelly(pred, weight)
         predData:CreateComponent("CharacterCreationAppearance")
     end
 
+    
+    -- base volume ~ base weight
+    -- offset is to account for some empty space inside the pred, which allows the pred to swallow light items without belly sticking out
+    local baseVolume = 150
+    local baseWeight = 80
+    local offset = 10
+    local volume = (weight * baseVolume / baseWeight - offset) * (SP_MCMGet("BellyScale") / 100)
+
+
     -- for size change
     local predSizeCategory = predData.ObjectSize.Size
 
     if predSizeCategory ~= nil then
-        if predSizeCategory > BellyTable[predRace].DefaultSize then
-            volume = volume / (predSizeCategory - BellyTable[predRace].DefaultSize + 1)
-        elseif predSizeCategory < BellyTable[predRace].DefaultSize then
-            volume = volume * (BellyTable[predRace].DefaultSize - predSizeCategory + 1)
+        if predSizeCategory > raceSettings.DefaultSize then
+            volume = volume / (predSizeCategory - raceSettings.DefaultSize + 1)
+        elseif predSizeCategory < raceSettings.DefaultSize then
+            volume = volume * (raceSettings.DefaultSize - predSizeCategory + 1)
         end
     end
 
     local bellySize = 0
     local bellyShape = ""
-    for k, v in pairs(BellyTable[predRace][sex][bodyShape]) do
+    for k, v in pairs(BellySets[raceSettings[sex][bodyShape]]) do
         if volume > k and k > bellySize then
             bellySize = k
             bellyShape = v
@@ -125,19 +147,15 @@ end
 ---Checks if eating a character would exceed pred's carry limit.
 ---@param pred CHARACTER
 ---@param prey CHARACTER
-function SP_CanFitPrey(pred, prey)
-    if Osi.HasActiveStatus(pred, "SP_Bottomless") == 1 then
-        return true
-    end
+---@param digestionType integer
+---@return boolean
+function SP_CanFitPrey(pred, prey, digestionType)
     local predData = Ext.Entity.Get(pred)
     local predRoom = (predData.EncumbranceStats["HeavilyEncumberedWeight"] - predData.InventoryWeight.Weight) // GramsPerKilo
-    if Osi.HasPassive(pred, "SP_Cavernous") == 1 then
-        predRoom = predRoom * 2
-    end
-    if Osi.HasPassive(prey, "SP_Dense") == 1 then
-        predRoom = predRoom // 2
-    end
-    if SP_GetTotalCharacterWeight(prey) > predRoom then
+
+    local preyWeight = SP_CalculateWeightReduction(pred, prey, digestionType)
+
+    if preyWeight > predRoom then
         _P("Can't fit " .. SP_GetDisplayNameFromGUID(prey) .. " inside of " .. SP_GetDisplayNameFromGUID(pred) ..
             "'s stomach!")
         return false
@@ -148,10 +166,10 @@ end
 
 ---returns what swallowed status should be appled to a prey on swallow
 ---@param pred CHARACTER
----@param endo boolean
+---@param prey CHARACTER
 ---@return string
-function SP_GetPartialSwallowStatus(pred, endo)
-    if Osi.HasPassive(pred, "SP_MuscleControl") == 1 and endo then
+function SP_GetPartialSwallowStatus(pred, prey)
+    if Osi.HasPassive(pred, "SP_MuscleControl") == 1 and Osi.IsEnemy(pred, prey) == 0 then
         return "SP_PartiallySwallowedGentle"
     else
         return "SP_PartiallySwallowed"
@@ -163,10 +181,10 @@ end
 ---returns what swallowed status should be appled to a prey
 ---@param pred CHARACTER
 ---@param prey CHARACTER
----@param endo boolean
+---@param digestionType integer
 ---@param locus string
 ---@return string
-function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
+function SP_GetSwallowedVoreStatus(pred, prey, digestionType, locus)
     local correctlocus = locus == 'O' or SP_MCMGet("StatusBonusLocus") ~= 'Stomach'
     -- for k, v in pairs(SP_MCMGet("StatusBonusLocus")) do
     --     if string.sub(v, 1, 1) == locus then
@@ -174,8 +192,9 @@ function SP_GetSwallowedVoreStatus(pred, prey, endo, locus)
     --     end
     -- end
 
+    --- !!! when adding status here's don't forget to add it to condition.khn !!!
     if correctlocus then
-        if endo then
+        if digestionType == DType.Endo then
             if Osi.HasPassive(prey, "SP_Gastronaut") == 1 or Osi.HasPassive(pred, "SP_MuscleControl") == 1 or Osi.HasPassive(pred, "SP_SC_StomachShelter") == 1 then
                 return "SP_SwallowedXray"
             elseif Osi.HasPassive(prey, "SP_BellyDiver") == 1 then
@@ -231,26 +250,6 @@ function SP_TeleportToPred(prey)
 
 end
 
----removes all regurgitation containers, in case pred's avalible types of vore were changed
----@param pred CHARACTER
-function SP_RemoveAllRegurgitate(pred)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_O", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_A", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_U", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_C", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OA", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OU", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OC", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_AU", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_AC", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_UC", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAU", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAC", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OUC", 1)
-    -- Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_AUC", 1)
-    Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 1)
-end
-
 ---@param pred CHARACTER
 ---@param forRegurgitate? boolean set this to true if this function is used to get loci for regurgitation spells
 function SP_GetPredLoci(pred, forRegurgitate)
@@ -304,61 +303,6 @@ function SP_PlayGurgle(pred, preyLethal, preyDigestion)
     end
 end
 
----@param character CHARACTER
-function SP_AssignRoleRandom(character)
-    if Osi.HasPassive(character, "SP_NotPred") == 1 or Osi.HasPassive(character, "SP_IsPred") == 1 then
-        return
-    end
-    if Ext.Entity.Get(character).ServerCharacter.Temporary == true then
-        Osi.AddPassive(character, "SP_NotPred")
-        return
-    end
-    if Osi.IsTagged(character, "ee978587-6c68-4186-9bfc-3b3cc719a835") == 1 then
-        Osi.AddPassive(character, "SP_NotPred")
-        return
-    end
-    local race = Osi.GetRace(character, 0)
-    local selectedPobability = 0
-
-    if not RaceConfigVars[race] then
-        _P("Race not supported " .. race)
-        selectedPobability = SP_MCMGet("ProbabilityFemale")
-    elseif SINGLE_GENDER_CREATURE[race] == true then
-        selectedPobability = SP_MCMGet("ProbabilityCreature") * RaceConfigVars[race] // 100
-    elseif Osi.GetBodyType(character, 0) == "Female" then
-        selectedPobability = SP_MCMGet("ProbabilityFemale") * RaceConfigVars[race] // 100
-    else
-        selectedPobability = SP_MCMGet("ProbabilityMale") * RaceConfigVars[race] // 100
-    end
-
-    local size = SP_GetCharacterSize(character)
-    if size == 0 and selectedPobability > SP_MCMGet("ClampTiny") then
-        selectedPobability = SP_MCMGet("ClampTiny")
-    elseif size == 1 and selectedPobability > SP_MCMGet("ClampSmall") then
-        selectedPobability = SP_MCMGet("ClampSmall")
-    elseif size == 2 and selectedPobability > SP_MCMGet("ClampMedium") then
-        selectedPobability = SP_MCMGet("ClampMedium")
-    end
-    if Osi.HasPassive(character, "SP_CanOralVore") == 1 or
-        Osi.HasPassive(character, "SP_CanAnalVore") == 1 or
-        Osi.HasPassive(character, "SP_CanUnbirth") == 1 or
-        Osi.HasPassive(character, "SP_CanCockVore") == 1 then
-            Osi.AddPassive(character, "SP_IsPred")
-            return
-    end
-    if selectedPobability > 0 then
-        local randomRoll = Osi.Random(100) + 1
-        if randomRoll <= selectedPobability then
-            _P("Adding PRED to " .. character)
-            Osi.AddPassive(character, "SP_IsPred")
-            Osi.AddPassive(character, "SP_CanOralVore")
-            return
-        end
-    end
-    _P("Adding PREY to " .. character)
-    Osi.AddPassive(character, "SP_NotPred")
-end
-
 ---@param level integer
 ---@param num integer
 ---@return integer
@@ -366,7 +310,7 @@ function SP_LevelMapValue(level, num)
     local rollcount = 1
     if level >= 17 then
         rollcount = 4
-    elseif level >= 11 then
+    elseif level >= 10 then
         rollcount = 3
     elseif level >= 5 then
         rollcount = 2
@@ -380,10 +324,33 @@ end
 
 ---@param prey CHARACTER
 function SP_Resurrect(prey)
-    Osi.ApplyStatus(prey, "RESURRECTING", 1*SecondsPerTurn)
     Osi.Resurrect(prey)
     Osi.RemoveStatus(prey, "SP_ReformationStatus")
     -- statuses from 5e spells
     Osi.RemoveStatus(prey, "DEAD_TECHNICAL")
     Osi.RemoveStatus(prey, "DEAD_ONE_MINUTE")
+end
+
+---@param pred CHARACTER
+---@param force? boolean
+function SP_AddPredSpells(pred, force)
+    if not SP_IsPred(pred) or force then
+        Osi.AddSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 0, 0)
+        Osi.AddSpell(pred, "SP_Zone_Absorb_All", 0, 0)
+        Osi.AddSpell(pred, 'SP_Zone_FlexBelly', 0, 0)
+        Osi.AddSpell(pred, "SP_Zone_MovePrey", 0, 0)
+        --Osi.AddSpell(pred, "SP_Zone_TalkToPrey")
+    end
+end
+
+---@param pred CHARACTER
+function SP_RemovePredSpells(pred)
+    if not SP_IsPred(pred) then
+        Osi.RemoveSpell(pred, "SP_Zone_RegurgitateContainer_OAUC", 1)
+        Osi.RemoveSpell(pred, 'SP_Zone_Absorb_All', 1)
+        Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown', 1)
+        Osi.RemoveSpell(pred, 'SP_Zone_FlexBelly', 1)
+        Osi.RemoveSpell(pred, "SP_Zone_MovePrey", 1)
+        --Osi.RemoveSpell(prey, "SP_Zone_TalkToPrey")
+    end
 end
