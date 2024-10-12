@@ -62,3 +62,21 @@ data "StatusType" "BOOST"
 using "SP_AcidifyStatus_2"
 data "OnApplyFunctors" "DealDamage(8d6,Acid)"
 
+new entry "SP_AcidifyStatus_7"
+type "StatusData"
+data "StatusType" "BOOST"
+using "SP_AcidifyStatus_2"
+data "OnApplyFunctors" "DealDamage(9d6,Acid)"
+
+new entry "SP_AcidifyStatus_8"
+type "StatusData"
+data "StatusType" "BOOST"
+using "SP_AcidifyStatus_2"
+data "OnApplyFunctors" "DealDamage(10d6,Acid)"
+
+new entry "SP_AcidifyStatus_9"
+type "StatusData"
+data "StatusType" "BOOST"
+using "SP_AcidifyStatus_2"
+data "OnApplyFunctors" "DealDamage(11d6,Acid)"
+
