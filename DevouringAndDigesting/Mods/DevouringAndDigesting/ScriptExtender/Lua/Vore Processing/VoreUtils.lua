@@ -99,6 +99,11 @@ function SP_SetLocusDigestion(pred, locus, lethal, force, initialize)
         end
         return
     end
+
+    if EnumLociFeat[locus] == nil then
+        _P("Trying to switch wrong locus name " .. locus .. " for " .. pred)
+        return
+    end
     -- can't print out boolean
     local dname = "Endo"
     if initialize then
@@ -146,6 +151,11 @@ function SP_SetLocusDigestion(pred, locus, lethal, force, initialize)
     if hasLethals and not lethal and not SP_MCMGet("SwitchLethalEndo") and not force then
         _P("Cannot switch digestion from lethal to endo")
         SP_SetLocusDigestion(pred, locus, true)
+        return
+    end
+
+    if not force and not initialize and lethal and Osi.HasPassive(pred, EnumLociFeat[locus]) == 0 then
+        --_P("Cannot switch locus " .. locus .. " to lethal because " .. pred .. " doesn't have this vore type")
         return
     end
 

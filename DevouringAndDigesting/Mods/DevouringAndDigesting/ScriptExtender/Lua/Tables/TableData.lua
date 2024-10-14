@@ -40,6 +40,15 @@ EnumLoci = {
     ["C"] = true
 }
 
+---enum for loci
+EnumLociFeat = {
+    ["O"] = "SP_CanOralVore",
+    ["A"] = "SP_CanAnalVore",
+    ["U"] = "SP_CanUnbirth",
+    ["C"] = "SP_CanCockVore"
+}
+
+
 -- List of gurgle sounds randomly played for stuffed preds
 GurgleSounds = {
     "LOW_BlushingMermaid_HagVomitsOutDeadVanra_StomachGurgle_A",
