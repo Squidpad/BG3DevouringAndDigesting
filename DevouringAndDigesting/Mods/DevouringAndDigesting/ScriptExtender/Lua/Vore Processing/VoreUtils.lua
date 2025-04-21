@@ -246,7 +246,7 @@ function SP_AddPrey(pred, prey, swallowStages, locus)
             local pswallow = SP_GetPartialSwallowStatus(pred, prey)
             VoreData[prey].SwallowedStatus = pswallow
             Osi.ApplyStatus(prey, pswallow, (VoreData[prey].SwallowProcess + 1) * SecondsPerTurn, 1, pred)
-            Osi.AddSpell(pred, 'SP_Zone_SwallowDown', 0, 0)
+            Osi.ApplyStatus(pred, 'SP_StuffedSwallowDown', SecondsPerTurn)
         else
             VoreData[prey].SwallowProcess = 0
         end
@@ -391,8 +391,6 @@ function SP_SwallowPrey(pred, prey, swallowType, swallowStages, locus)
 
     SP_VoreDataEntry(pred, true)
 
-    SP_AddPredSpells(pred)
-
     for _, oneprey in ipairs(prey) do
         SP_AddPrey(pred, oneprey, swallowStages, locus)
     end
@@ -424,9 +422,7 @@ function SP_SwallowItem(pred, item)
     SP_VoreDataEntry(pred, true)
 
     if Osi.TemplateIsInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred) == 1 then
-        if VoreData[pred].StuffedStacks == 0 then
-            SP_AddPredSpells(pred, true)
-        end
+
         local itemWeight = Ext.Entity.Get(item).Data.Weight // GramsPerKilo
 
         VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
@@ -453,9 +449,7 @@ function SP_SwallowAllItems(pred, container)
     SP_VoreDataEntry(pred, true)
 
     if Osi.TemplateIsInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred) == 1 then
-        if VoreData[pred].StuffedStacks == 0 then
-            SP_AddPredSpells(pred, true)
-        end
+
         local itemWeight = Ext.Entity.Get(container).Data.InventoryWeight // GramsPerKilo
 
         VoreData[pred].Items = Osi.GetItemByTemplateInInventory('eb1d0750-903e-44a9-927e-85200b9ecc5e', pred)
@@ -747,8 +741,10 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
         end
     end
 
-    -- If pred has no more prey inside, remove spells
-    SP_RemovePredSpells(pred)
+    -- If pred has no prey inside, remove swallow down enabler status
+    if not SP_IsPred(pred) then
+        Osi.RemoveStatus(pred, 'SP_StuffedSwallowDown')
+    end
 
     if not SP_HasLivingPrey(pred, true) and not SP_MCMGet("IndigestionRest") then
         Osi.RemoveStatus(pred, "SP_Indigestion")

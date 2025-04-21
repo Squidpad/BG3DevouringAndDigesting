@@ -1,4 +1,5 @@
 ---@type SP_RaceConfigVars
+---@diagnostic disable-next-line
 RaceConfigVars = {}
 
 local RACECONFIG_PATH = "RaceConfig.json"

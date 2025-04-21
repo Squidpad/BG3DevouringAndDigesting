@@ -1,4 +1,5 @@
 ---@type SP_ConfigVars
+---@diagnostic disable-next-line
 ConfigVars = {}
 
 local CONFIG_PATH = "DevouringAndDigesting\\VoreConfig.json"

@@ -167,7 +167,7 @@ function SP_SwallowSuccess(pred, prey, swallowType, locus, swallowStages)
             end
         end
         if removeSwallowDownSpell then
-            Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown')
+            Osi.RemoveStatus(pred, 'SP_StuffedSwallowDown')
         end
     elseif SP_VorePossible(pred, prey, swallowType) then
         -- being swallowed by a different predator
@@ -216,7 +216,7 @@ function SP_SwallowFail(pred, prey, superFail)
             SP_RegurgitatePrey(pred, prey, -1, "SwallowFail")
         end
         if removeSwallowDownSpell then
-            Osi.RemoveSpell(pred, 'SP_Zone_SwallowDown')
+            Osi.RemoveStatus(pred, 'SP_StuffedSwallowDown')
         end
     else
         if Osi.IsPlayer(pred) ~= 1 then
