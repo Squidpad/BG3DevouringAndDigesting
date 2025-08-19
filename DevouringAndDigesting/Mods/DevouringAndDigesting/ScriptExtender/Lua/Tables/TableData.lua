@@ -90,6 +90,7 @@ ComplexCustomSpells = false
 ---@field Satiation integer stores satiation that decreases hunger stacks
 ---@field Locus string Locus where this prey is stored "O" == Oral, "A" == Anal, "U" == Unbirth, "C" = pp
 ---@field StuffedStacks integer number of stuffed stacks
+---@field AcidLevel integer increases each turn during digestion up to 5, reduced when no digestion happens (pred only)
 ---@field GradualDigestionTimer integer how close this pred is to doing gradual digestion
 ---@field SpellTargets table<CHARACTER, string> table of prey this character has cast a vore-related spell on. Used for multi-stage spells
 ---@field SwallowedStatus string what swallowed status is appled (prey only)
@@ -111,6 +112,7 @@ VoreDataEntry = {
     Satiation = 0,
     Locus = "",
     StuffedStacks = 0,
+    AcidLevel = 0,
     GradualDigestionTimer = 0,
     SpellTargets = {},
     SwallowedStatus = "",

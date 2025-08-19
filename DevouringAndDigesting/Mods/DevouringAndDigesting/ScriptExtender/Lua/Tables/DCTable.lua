@@ -1,4 +1,5 @@
 -- This is the only way to conveniently get any arbitrary DC
+-- !!!!! Custom difficulty classes do not work for some reason. It just sets the difficulty class to 0.
 DCTable = {
     "7a2b8d93-5a05-4412-9b7f-243059d869af",
     "20b369e5-a720-4bad-87bd-ad1f3b8573f9",

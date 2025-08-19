@@ -86,7 +86,24 @@ function SP_VorePossible(pred, prey, digestionType)
     return true
 end
 
----Set's locus digestion for a pred
+---Updates digestion statuses if they don't match pred's acid level
+---@param pred CHARACTER
+function SP_UpdateAcidLevelDigestionStatus(pred)
+    for prey, loc in pairs(VoreData[pred].Prey) do
+        if VoreData[prey].Digestion == DType.Lethal then
+            local trueStatus = ""
+            local harmful = false
+            trueStatus, harmful = SP_GetDigestionVoreStatus(pred, prey, VoreData[prey].Digestion)
+            -- check if we got a harmful status to avoid switching digestion type (even though this shouldn't happen)
+            if harmful and not SP_HasStatusWithCause(prey, trueStatus, pred) then
+                VoreData[prey].DigestionStatus = trueStatus
+                Osi.ApplyStatus(prey, trueStatus, 1 * SecondsPerTurn, 1, pred)
+            end
+        end
+    end
+end
+
+---Sets locus digestion for a pred
 ---@param pred CHARACTER
 ---@param locus string first letter of locus name or "All" for all loci
 ---@param lethal boolean true == to lethal, false == to endo
@@ -730,15 +747,20 @@ function SP_RegurgitatePrey(pred, preyString, preyState, spell, locus)
 
     --stop digestion if no living prey in locus
     local locpreycount = {["O"] = false, ["A"] = false, ["U"] = false, ["C"] = false}
+    local resetAcid = true
     for py, loc in pairs(VoreData[pred].Prey) do
         if VoreData[py].Digestion == DType.Lethal then
             locpreycount[loc] = true
+            resetAcid = false
         end
     end
     for k, v in pairs(locpreycount) do
         if not v and Osi.HasActiveStatus(pred, "SP_LocusLethal_" .. k) == 1 then
             SP_SetLocusDigestion(pred, k, false)
         end
+    end
+    if resetAcid then
+        VoreData[pred].AcidLevel = 0
     end
 
     -- If pred has no prey inside, remove swallow down enabler status
@@ -814,12 +836,15 @@ function SP_VoreCheck(pred, prey, eventName)
                                           eventName)
     elseif eventName == 'ReleaseMeCheck' then
         _P('Rolling to free me')
-        local checkDC = 15
-        local preyAdvantage = 0
+        -- !!!!! Custom difficulty classes do not work for some reason. It just sets the difficulty class to 0. Using default difficulty classes
+        -- Legacy_15
+        local checkDC = "bddbb9b8-a242-4c3e-a2eb-3fd274c0c539"
+        preyAdvantage = 0
         if VoreData[prey].Digestion == DType.Lethal then
-            checkDC = checkDC + 5
+            -- Legacy_20
+            checkDC = "881bda2f-b08b-4788-b0ec-e410b5bacc57"
         end
-        Osi.RequestPassiveRoll(prey, pred, "SkillCheck", "Persuasion", DCTable[checkDC], preyAdvantage, eventName)
+        Osi.RequestPassiveRoll(prey, pred, "SkillCheck", "Persuasion", checkDC, preyAdvantage, eventName)
         -- Osi.RequestPassiveRollVersusSkill(pred, prey, "SkillCheck", "Wisdom", "Charisma", advantage, preyAdvantage,
         --                                   eventName)
     end
@@ -1290,12 +1315,13 @@ function SP_GetDigestionVoreStatus(pred, prey, digestionType)
         end
     elseif digestionType == DType.Lethal then
         harmful = true
-        mainName = "Lethal"
         if Osi.IsEnemy(pred, prey) ~= 1 and Osi.HasActiveStatus(pred, "SP_AN_Enable_HealingBelly") == 1 then
             harmful = false
             mainName = "HealingSmall"
         elseif Osi.HasPassive(pred, 'SP_BoilingInsides') == 1 then
-            mainName = "LethalDouble"
+            mainName = "StrongLethal_" .. VoreData[pred].AcidLevel // 2
+        else
+            mainName = "Lethal_" .. VoreData[pred].AcidLevel // 2
         end
     end
 
@@ -1311,7 +1337,7 @@ function SP_SwitchToDigestionType(pred, prey, toDig)
 
     -- apply digestion status
     local harmful = false
-    VoreData[prey].DigestionStatus, harmful = SP_GetDigestionVoreStatus(pred, prey, VoreData[prey].Digestion, VoreData[prey].Locus)
+    VoreData[prey].DigestionStatus, harmful = SP_GetDigestionVoreStatus(pred, prey, VoreData[prey].Digestion)
     if not SP_HasStatusWithCause(prey, VoreData[prey].DigestionStatus, pred) then
         Osi.ApplyStatus(prey, VoreData[prey].DigestionStatus, 1 * SecondsPerTurn, 1, pred)
     end

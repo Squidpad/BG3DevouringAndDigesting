@@ -37,6 +37,16 @@ function SP_Digesting(pred)
         end
 
     end
+    if lethalCount > 0 then
+        if VoreData[pred].AcidLevel < 5 then
+            VoreData[pred].AcidLevel = VoreData[pred].AcidLevel + 1
+            if VoreData[pred].AcidLevel % 2 == 0 then
+                SP_UpdateAcidLevelDigestionStatus(pred)
+            end
+        end
+    elseif VoreData[pred].AcidLevel > 0 then
+        VoreData[pred].AcidLevel = VoreData[pred].AcidLevel - 1
+    end
     if lethalRandomSwitch and SP_MCMGet("LethalRandomSwitch") then
         SP_SetLocusDigestion(pred, "All", true)
     end

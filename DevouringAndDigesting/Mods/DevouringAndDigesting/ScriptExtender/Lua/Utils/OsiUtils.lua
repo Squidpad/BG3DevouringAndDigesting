@@ -13,6 +13,7 @@ function SP_CharacterFromGUID(guid)
     return name .. "_" .. guid
 end
 
+-- !!!!! Custom difficulty classes do not work for some reason. It just sets the difficulty class to 0.
 ---@param character CHARACTER guid of character
 ---@param stat number stat to get save DC of 1 == Str, 2 == Dex, 3 == Con, 4 == Wis, 5 == Int, 6 == Cha, 0 = Highest
 ---@return DIFFICULTYCLASS guid that corresponds to that DC
