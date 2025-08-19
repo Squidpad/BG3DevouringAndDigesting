@@ -1,5 +1,3 @@
-
-
 function SP_DebugStatus()
     local v = Osi.GetHostCharacter()
     Osi.ApplyStatus(v, "SP_DebugActionStatus", -1)
@@ -8,7 +6,6 @@ function SP_DebugStatus()
     Osi.ApplyStatus(v, "FEATHER_FALL", -1)
 end
 
-
 function SP_DebugTestFunc()
     SP_TeleportToPred("ALL")
 end
@@ -16,11 +13,7 @@ end
 --- Removes spells from Host
 function SP_RemoveBrokenSpells()
     local brokenSpells = {
-        "SP_SwitchToLethal",
-        "SP_SwitchToLethal_O",
-        "SP_SwitchToLethal_A",
-        "SP_SwitchToLethal_U",
-        "SP_SwitchToLethal_C",
+        "SP_SwitchToLethal", "SP_SwitchToLethal_O", "SP_SwitchToLethal_A", "SP_SwitchToLethal_U", "SP_SwitchToLethal_C",
         "SP_SwitchToLethal_All",
 
     }
@@ -61,21 +54,20 @@ function SP_RemoveBrokenSpells()
     end
 end
 
-
 function SP_ResetVore()
     for k, v in pairs(VoreData or {}) do
         if next(v.Prey) ~= nil or v.Items ~= "" then
             SP_RegurgitatePrey(k, "All", -1, "ResetVore")
         end
     end
-    SP_DelayCallTicks(15, function ()
+    SP_DelayCallTicks(15, function()
         for k, v in pairs(VoreData or {}) do
             v.AddWeight = 0
             v.Fat = 0
             v.Satiation = 0
             SP_UpdateWeight(k)
         end
-        SP_DelayCallTicks(30, function ()
+        SP_DelayCallTicks(30, function()
             VoreData = {}
             PersistentVars['VoreData'] = {}
             SP_MCMSet("ResetVore", "Ready")
@@ -102,22 +94,38 @@ function SP_GiveDebugItems()
 end
 
 function SP_DebugVore()
-    local party = Ext.Entity.Get(Osi.GetHostCharacter()).PartyMember.Party.PartyView.Characters
-    for k, v in pairs(party) do
-        local predData = v:GetAllComponents()
-        local pred = predData.ServerCharacter.Template.Name .. "_" .. predData.Uuid.EntityUuid
-        Osi.SetLevel(pred, 6)
-    end
+    -- local party = Ext.Entity.Get(Osi.GetHostCharacter()).PartyMember.Party.PartyView.Characters
+    -- for k, v in pairs(party) do
+    --     local predData = v:GetAllComponents()
+    --     local pred = predData.ServerCharacter.Template.Name .. "_" .. predData.Uuid.EntityUuid
+    --     Osi.SetLevel(pred, 6)
+    -- end
+    local entity = Ext.Entity.Get(Osi.GetHostCharacter())
+    _D(entity:GetAllComponentNames())
 end
 
+function SP_DebugVore1()
+    -- Dumping all components crashes my game, so I wrote this
+    local entity = Ext.Entity.Get(Osi.GetHostCharacter())
+    local atable = entity:GetAllComponents()
+    local dumpString = ""
+    for k, v in pairs(atable) do
+        if k ~= "Physics" then
+            dumpString = dumpString .. k .. "\n"
+            Ext.IO.SaveFile("outputC.json", dumpString)
+            dumpString = dumpString .. Ext.DumpExport(v) .. "\n"
+            Ext.IO.SaveFile("outputC.json", dumpString)
+        end
+    end
+end
 
 Ext.RegisterConsoleCommand('DebugStatus', SP_DebugStatus)
 
 Ext.RegisterConsoleCommand('FixSpell', SP_RemoveBrokenSpells)
 
-
 Ext.RegisterConsoleCommand("ResetVore", SP_ResetVore)
 Ext.RegisterConsoleCommand("KillVore", SP_KillVore)
 Ext.RegisterConsoleCommand("GiveDebugItems", SP_GiveDebugItems)
 Ext.RegisterConsoleCommand("DebugVore", SP_DebugVore)
+Ext.RegisterConsoleCommand("DebugVore1", SP_DebugVore1)
 Ext.RegisterConsoleCommand("DebugFunc", SP_DebugTestFunc)

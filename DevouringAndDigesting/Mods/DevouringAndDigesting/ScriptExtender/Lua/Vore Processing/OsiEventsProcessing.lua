@@ -64,6 +64,13 @@ function SP_Digesting(pred)
             end
         end
     end
+    if VoreData[pred].Pred == "" then
+        local predScale = Ext.Entity.Get(pred).GameObjectVisual.Scale * 100
+        if VoreData[pred].Scale ~= predScale then
+            VoreData[pred].Scale = predScale
+            SP_UpdateWeight(pred)
+        end
+    end
     SP_PlayGurgle(pred, lethalCount, gradualCount)
 end
 
@@ -213,14 +220,14 @@ function SP_SwallowFail(pred, prey, superFail)
         if superFail then
             VoreData[prey].SwallowProcess = maxSwallowProcess + 1
         end
-        
+
         local removeSwallowDownSpell = true
         for k, v in pairs(VoreData[pred].Prey) do
             if VoreData[k].SwallowProcess > 0 then
                 removeSwallowDownSpell = false
             end
         end
-        
+
         -- if the prey managed to struggle out
         if VoreData[prey].SwallowProcess > maxSwallowProcess then
             SP_RegurgitatePrey(pred, prey, -1, "SwallowFail")

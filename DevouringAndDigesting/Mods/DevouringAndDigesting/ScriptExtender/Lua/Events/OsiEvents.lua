@@ -384,7 +384,6 @@ function SP_OnStatusApplied(object, status, causee, storyActionID)
         SP_DelayCall(60, function ()
             
             local pred = SP_CharacterFromGUID(causee)
-            local locus = "O"
             if Osi.IsEnemy(object, pred) == 1 then
                 Osi.ApplyStatus(object, "SP_TrySwallow_Lethal_O", 0, 1, pred)
             else

@@ -73,19 +73,8 @@ function SP_UpdateBelly(pred, weight)
     local baseVolume = 150
     local baseWeight = 80
     local offset = 10
-    local volume = (weight * baseVolume / baseWeight - offset) * (SP_MCMGet("BellyScale") / 100)
-
-
-    -- for size change
-    local predSizeCategory = predData.ObjectSize.Size
-
-    if predSizeCategory ~= nil then
-        if predSizeCategory > raceSettings.DefaultSize then
-            volume = volume / (predSizeCategory - raceSettings.DefaultSize + 1)
-        elseif predSizeCategory < raceSettings.DefaultSize then
-            volume = volume * (raceSettings.DefaultSize - predSizeCategory + 1)
-        end
-    end
+    local sizeMulti = predData.GameObjectVisual.Scale ^ 3
+    local volume = (weight * baseVolume / baseWeight - offset) * (SP_MCMGet("BellyScale") / 100) / sizeMulti
 
     local bellySize = 0
     local bellyShape = ""

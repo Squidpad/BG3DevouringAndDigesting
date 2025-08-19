@@ -109,7 +109,7 @@ type "StatusData"
 data "StatusType" "BOOST"
 using "SP_Digestion_Lethal_0"
 data "DescriptionParams" "DealDamage(Cause.LevelMapValue(D12Cantrip) + Cause.ConstitutionModifier + Cause.ConstitutionModifier,Acid);"
-data "TooltipDamage" "DealDamage(Cause.LevelMapValue(D12Cantrip) + Cause.ConstitutionModifier + Cause.ConstitutionModifier ,Acid);"
+data "TooltipDamage" "DealDamage(Cause.LevelMapValue(D12Cantrip) + Cause.ConstitutionModifier + Cause.ConstitutionModifier,Acid);"
 data "TickFunctors" "DealDamage(Cause.LevelMapValue(D12Cantrip) + Cause.ConstitutionModifier + Cause.ConstitutionModifier,Acid)"
 
 new entry "SP_Digestion_Dead"
