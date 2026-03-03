@@ -128,12 +128,29 @@ function SP_DoStruggle(prey)
             SP_VoreCheck(VoreData[prey].Pred, prey, "StruggleCheck")
         end
         if VoreData[prey].Digestion == DType.Lethal then
-            if Osi.HasActiveStatus(VoreData[prey].Pred, "SP_LeechingAcidStatus") == 1 then
-                Osi.ApplyStatus(VoreData[prey].Pred, "SP_LeechingAcidHeal", 0, 1, VoreData[prey].Pred)
-            end
-            if Osi.HasPassive(VoreData[prey].Pred, "SP_NourishingDigestion") == 1 then
-                Osi.ApplyStatus(VoreData[prey].Pred, "SP_NourishingDigestionHeal", 0, 1, VoreData[prey].Pred)
-                Osi.ApplyStatus(VoreData[prey].Pred, "SP_NourishingDigestionTempHP", 0, 1, VoreData[prey].Pred)
+            local healPercent = SP_MCMGet("DigestionHealPercent")
+            if healPercent > 0 then
+                local applyHeal = healPercent >= 100 or (Osi.Random(100) + 1) <= healPercent
+                local applyDouble = healPercent > 100 and (healPercent >= 200 or (Osi.Random(100) + 1) <= (healPercent - 100))
+
+                if Osi.HasActiveStatus(VoreData[prey].Pred, "SP_LeechingAcidStatus") == 1 then
+                    if applyHeal then
+                        Osi.ApplyStatus(VoreData[prey].Pred, "SP_LeechingAcidHeal", 0, 1, VoreData[prey].Pred)
+                    end
+                    if applyDouble then
+                        Osi.ApplyStatus(VoreData[prey].Pred, "SP_LeechingAcidHeal", 0, 1, VoreData[prey].Pred)
+                    end
+                end
+                if Osi.HasPassive(VoreData[prey].Pred, "SP_NourishingDigestion") == 1 then
+                    if applyHeal then
+                        Osi.ApplyStatus(VoreData[prey].Pred, "SP_NourishingDigestionHeal", 0, 1, VoreData[prey].Pred)
+                        Osi.ApplyStatus(VoreData[prey].Pred, "SP_NourishingDigestionTempHP", 0, 1, VoreData[prey].Pred)
+                    end
+                    if applyDouble then
+                        Osi.ApplyStatus(VoreData[prey].Pred, "SP_NourishingDigestionHeal", 0, 1, VoreData[prey].Pred)
+                        Osi.ApplyStatus(VoreData[prey].Pred, "SP_NourishingDigestionTempHP", 0, 1, VoreData[prey].Pred)
+                    end
+                end
             end
         end
     end

@@ -535,6 +535,9 @@
 	<content contentuid="h28d75044g9810g476egad69g5765d4664965" version="1">Instant Digestion</content>
 	<content contentuid="he064dd60g18f4g45e6ga6edg27180c74d21b" version="1">If true, you lose weight immediately upon finishing digestion, and you will be immediately able to absorb / dispose of prey</content>
 
+	<content contentuid="h6f8a2d1eg3b7cg4e5fg9a1dg2c4b8e6f0a3" version="1">Digestion Damage to HP Conversion</content>
+	<content contentuid="h3e1d9c7bg5a2fg48e6gb4d0g7f3a1c5e8b2" version="1">Adjusts how much health predators recover from digestion. Affects Nourishing Digestion healing and Leeching Acid healing. At 100% healing is applied every turn as normal. At 50% healing is applied roughly half as often. At 200% healing is applied twice per turn. Set to 0 to disable all digestion healing.</content>
+
 	<!-- Hunger System -->
 	<content contentuid="hb280ef2fg894cg4c0ag8c3ega0f971190cb7" version="1">Hunger</content>
 	<content contentuid="h1560bc4dge61eg48d8gb6d2g72e1a9071ccd" version="1">Enables hunger system for party member preds. If a pred does not digest prey for a long time, they will receive debuffs.&#10;Setting this to false disables hunger completely.</content>
