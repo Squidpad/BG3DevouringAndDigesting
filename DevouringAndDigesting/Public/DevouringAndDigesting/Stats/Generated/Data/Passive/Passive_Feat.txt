@@ -78,6 +78,12 @@ data "DisplayName" "h26dea810g635cg4374g9ea5g8581be0dafef;1"
 data "Description" "hc2117ed5g08e3g4d36g90begf39608de3b23;1"
 data "Properties" "Highlighted"
 
+new entry "SP_NourishingDigestion"
+type "PassiveData"
+data "DisplayName" "ha3f7c102g8b41g4d29gb7e3g1a5e93f0c812;1"
+data "Description" "h9d2e4f58gc732g4a81g8e19g6b3f21d7a940;1"
+data "Properties" "Highlighted"
+
 new entry "SP_SecondhandPred"
 type "PassiveData"
 data "DisplayName" "h26dea810g635cg4374g9ea5g8581be0dafef;1"

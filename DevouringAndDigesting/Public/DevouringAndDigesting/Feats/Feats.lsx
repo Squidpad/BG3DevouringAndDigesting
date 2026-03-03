@@ -100,6 +100,14 @@
           <attribute id="Requirements" type="LSString" value=""/>
           <attribute id="UUID" type="guid" value="6e5634f6-4d45-402d-bbec-144e17992174"/>
         </node>
+        <node id="Feat">
+          <attribute id="CanBeTakenMultipleTimes" type="bool" value="false"/>
+          <attribute id="Name" type="FixedString" value="Nourishing Digestion"/>
+          <attribute id="PassivesAdded" type="LSString" value="SP_NourishingDigestion"/>
+          <attribute id="PassivesRemoved" type="LSString" value=""/>
+          <attribute id="Requirements" type="LSString" value=""/>
+          <attribute id="UUID" type="guid" value="6433a0db-179e-4f70-b85b-4c00088e95d4"/>
+        </node>
       </children>
     </node>
   </region>

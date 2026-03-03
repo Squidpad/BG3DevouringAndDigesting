@@ -131,6 +131,10 @@ function SP_DoStruggle(prey)
             if Osi.HasActiveStatus(VoreData[prey].Pred, "SP_LeechingAcidStatus") == 1 then
                 Osi.ApplyStatus(VoreData[prey].Pred, "SP_LeechingAcidHeal", 0, 1, VoreData[prey].Pred)
             end
+            if Osi.HasPassive(VoreData[prey].Pred, "SP_NourishingDigestion") == 1 then
+                Osi.ApplyStatus(VoreData[prey].Pred, "SP_NourishingDigestionHeal", 0, 1, VoreData[prey].Pred)
+                Osi.ApplyStatus(VoreData[prey].Pred, "SP_NourishingDigestionTempHP", 0, 1, VoreData[prey].Pred)
+            end
         end
     end
 end

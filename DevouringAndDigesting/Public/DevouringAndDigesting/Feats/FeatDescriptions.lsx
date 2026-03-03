@@ -88,6 +88,13 @@
           <attribute id="FeatId" type="guid" value="6e5634f6-4d45-402d-bbec-144e17992174"/>
           <attribute id="UUID" type="guid" value="d29d4185-e991-45fa-89a8-aefaf62bfdce"/>
         </node>
+        <node id="FeatDescription">
+          <attribute id="DisplayName" type="TranslatedString" handle="ha3f7c102g8b41g4d29gb7e3g1a5e93f0c812" version="1"/>
+          <attribute id="Description" type="TranslatedString" handle="h9d2e4f58gc732g4a81g8e19g6b3f21d7a940" version="1"/>
+          <attribute id="ExactMatch" type="FixedString" value="Nourishing Digestion"/>
+          <attribute id="FeatId" type="guid" value="6433a0db-179e-4f70-b85b-4c00088e95d4"/>
+          <attribute id="UUID" type="guid" value="8ae8005b-28c1-442a-b776-ae01a4c9dbac"/>
+        </node>
       </children>
     </node>
   </region>
